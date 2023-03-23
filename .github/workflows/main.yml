@@ -1,0 +1,63 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+# Set environment variables
+env:
+  MONGODB_URI: ${{ secrets.MONGODB_URI }}
+  TOKEN_KEY: ${{ secrets.TOKEN_KEY }}
+  EMAIL: ${{ secrets.EMAIL }}
+  PASSWORD: ${{ secrets.PASSWORD }}
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Install and Test Frontend
+        working-directory: ./frontend
+        run: |
+          npm install
+          npm run test
+
+      - name: Install and Test Backend
+        working-directory: ./backend
+        run: |
+          npm install
+          export MONGODB_URI=$MONGODB_URI
+          export TOKEN_KEY=$TOKEN_KEY
+          export EMAIL=$EMAIL
+          export PASSWORD=$PASSWORD
+          npm run test
+
+      # Build a Docker image for the frontend application
+      - name: Build frontend Docker Image
+        working-directory: ./frontend
+        # Build image with tag UOA-CS732-SE750-Students-2023/project-group-silver-sharks:frontend
+        run: |
+          docker build -t UOA-CS732-SE750-Students-2023/project-group-silver-sharks:frontend-${{github.run_number}} .
+
+      # Build a Docker image for the backend application
+      - name: Build backend Docker Image
+        working-directory:
+          ./backend
+        # Build image with tag UOA-CS732-SE750-Students-2023/project-group-silver-sharks:backend
+        run: |
+          docker build -t UOA-CS732-SE750-Students-2023/project-group-silver-sharks:backend-${{github.run_number}} .
+
+      # Login to Docker Hub using credentials from repository secrets
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # Push the Docker images to Docker Hub
+      - name: Push Docker Images to Docker Hub
+        run: |
+          docker push UOA-CS732-SE750-Students-2023/project-group-silver-sharks:frontend-${{github.run_number}}
+          docker push UOA-CS732-SE750-Students-2023/project-group-silver-sharks:backend-${{github.run_number}}
