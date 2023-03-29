@@ -21,7 +21,7 @@ const StoreNavBar = (props) => {
                         <h2>SharketPlace</h2>
                     </li>
                     <li>
-                        <NavLink to="">Sell asset</NavLink>
+                        <NavLink to="/store/sell-asset">Sell asset</NavLink>
                     </li>
                 </ul>
                 <div>
