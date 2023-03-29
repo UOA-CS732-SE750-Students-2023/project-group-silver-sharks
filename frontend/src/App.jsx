@@ -15,6 +15,7 @@ import MessagesPage from './pages/profile/MessagesPage';
 import SellingPage from './pages/profile/SellingPage';
 import DashBoardPage from './pages/profile/DashboardPage';
 import ProfileRoot from './pages/profile/ProfileRoot';
+import SellAssetPage from './pages/SellAssetPage';
 
 const router = createBrowserRouter([
   {path:'/', element: <RootPage />, errorElement: <ErrorPage />, children: [
@@ -31,6 +32,7 @@ const router = createBrowserRouter([
         {path: 'purchase', element: <PurchasePage />},
         {path: 'selling', element: <SellingPage />},
       ]},
+      {path: 'sell-asset', element: <SellAssetPage />}
     ]}, 
   ]},
 ]);
