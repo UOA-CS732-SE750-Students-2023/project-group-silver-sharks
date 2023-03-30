@@ -1,8 +1,11 @@
 import React from 'react'; 
+import { Button } from 'react-bootstrap';
 import { Form, redirect } from 'react-router-dom';
 
 const AuthForm = ({ operation }) => { 
     
+    // testing that bootstrap is configured correctly
+
     return (
         <Form method="POST">
             <p>
@@ -14,8 +17,9 @@ const AuthForm = ({ operation }) => {
                 <input id="password" type="password" name="password" required />
             </p>
             <div>
-                <button>Submit</button>
-                <button type="button">Cancel</button>
+                
+                <Button variant="dark" type="submit">Submit</Button>
+                <Button variant="dark">Cancel</Button>
             </div>
         </Form>
     );
