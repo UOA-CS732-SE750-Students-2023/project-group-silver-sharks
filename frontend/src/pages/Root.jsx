@@ -1,20 +1,20 @@
 import React from 'react'; 
 import { Outlet } from 'react-router-dom'; 
-import NavigationBar from '../components/NavigationBar';
+import Footer from '../components/Footer';
 
 
-const MainPage = () => { 
+const RootPage = () => { 
 
     return (
         <>
-            <NavigationBar></NavigationBar>
             <main> 
                 <Outlet />
             </main>
+            <Footer />
         </>
 
     );
 }
 
-export default MainPage;
+export default RootPage;
 
