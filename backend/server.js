@@ -1,12 +1,37 @@
 import express from "express";
-import mongoose from "./db/mongoose.js";
+import swaggerJSDoc from "swagger-jsdoc";
+import swaggerUI from "swagger-ui-express";
+import connectDB from "./db/mongoose.js";
+
 const app = express();
 
-// routes
-app.get("/", (req, res) => {
-  res.send("Hello from server");
+// Connect to database
+connectDB();
+
+// Swagger config options
+const swaggerOptions = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "Test API",
+      version: "1.0.0",
+      description: "Test API with Swagger",
+    },
+  },
+  apis: ["./routes/*.js"],
+};
+
+// Init Swagger-jsdoc
+const swaggerSpec = swaggerJSDoc(swaggerOptions);
+
+// Serve API documentation
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerSpec));
+
+app.get("/hello", (req, res) => {
+  res.send("Hello World");
 });
 
-app.listen(3000, () => {
-  console.log("Server is running on port 3000");
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server has started listening on port ${PORT}`);
 });

@@ -2,16 +2,21 @@ import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
 
-const imageSchema = new Schema({
+const productReviewSchema = new Schema({
   id: {
     type: String,
     unique: true,
   },
-  imgHash: String,
+  message: String,
   productId: {
     type: Schema.Types.ObjectId,
     ref: "Product",
   },
+  rating: Number,
+  timestamp: Date,
 });
 
-export const Image = mongoose.model("Image", imageSchema);
+export const ProductReview = mongoose.model(
+  "ProductReview",
+  productReviewSchema
+);
