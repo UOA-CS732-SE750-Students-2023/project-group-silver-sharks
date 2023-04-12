@@ -7,11 +7,11 @@
  *       200:
  *         description: Returns a hello message
  */
-const express = require("express");
+import express from "express";
 const router = express.Router();
 
 router.get("/hello", (req, res) => {
   res.send("Hello, world!");
 });
 
-module.exports = router;
+export default router;
