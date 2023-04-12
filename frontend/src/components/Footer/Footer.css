@@ -1,0 +1,48 @@
+.footer-wrapper {
+    position: static;
+    width: 100%;
+	height: 20vh;
+	background: linear-gradient(#000000, #002d28);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.footer-line {
+	width: 80%;
+	border: none;
+	border-top: 1.5px solid white;
+	margin: 0;
+	opacity: 100%;
+	color: white;
+}
+
+.footer-brand-name {
+	color: white;
+}
+
+.logo-row-wrapper {
+	display: flex;
+	margin-top: 20px;
+	color: white;
+	width: 80%;
+}
+
+.left-footer {
+	width: 100%;
+	float: left;
+}
+
+.right-footer {
+	display: flex;
+	float: right;	
+}
+
+a {
+	color: #FFF;
+}
+
+a:hover {
+	color: grey;
+}
