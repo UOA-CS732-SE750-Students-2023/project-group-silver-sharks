@@ -17,7 +17,7 @@ const StoreDisplayLayout = (props) => {
                                 </div>
                                 <div>
                                     <Link id="productLink" to={`/store/product/${item.pid}`}><h2>{item.name}</h2></Link>
-                                    <h6><h3>${Math.floor(item.price)}</h3>{(item.price % 1).toFixed(2).split('.')[1]}</h6>
+                                    <h3>${Math.floor(item.price)}</h3>{(item.price % 1).toFixed(2).split('.')[1]}
                                 </div>
                                 {/* <p>author: <Link id="authorLink" to={`/store/author/${item.aid}`}>{item.author}</Link></p> */}
                                 <p>{item.intro}</p>
