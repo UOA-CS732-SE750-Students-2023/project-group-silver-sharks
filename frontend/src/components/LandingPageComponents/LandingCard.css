@@ -1,0 +1,23 @@
+.cards-item {
+    width: 100%;
+    background-color: white;
+    display: flex;
+    flex: 1;
+    margin: 0 1rem;
+}
+.cards-item-info > * {
+    color: black;
+    text-decoration: none;
+    padding: 1rem;
+    margin-bottom: -3px;
+}
+
+.cards-item-link:hover {
+    text-decoration: none;
+}
+
+@media screen and (max-width: 980px) {
+    .cards-item {
+        width: 265px;
+    }
+}
