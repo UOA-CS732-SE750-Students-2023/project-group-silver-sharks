@@ -1,10 +1,34 @@
 .card {
+
     padding: 1rem;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
     border-radius: 14px;
     background-color:white;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     gap: 1rem;
-    margin: 1rem;
+    margin: 0.5rem;
 }
+.card img {
+    height: 12rem;
+    object-fit: cover;
+  }
+.card h2 {
+    padding: 0.2rem;
+    text-decoration: underline;
+    color: black;
+    display: inline-block;
+  }
+.card h3{
+    display: inline-block;
+    margin-left: 11rem;
+}
+.card h6{
+    display: inline-block;
+}
+.card p {
+    margin-bottom: 1rem;
+    color:gray;
+  }
