@@ -3,18 +3,16 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const accountSchema = new Schema({
-  id: {
-    type: String,
-    unique: true,
-  },
   username: String,
   passHash: String,
   firstName: String,
   middleNames: String,
   lastName: String,
   dateOfBirth: Date,
-  dateCreated: Date,
-  accountType: String,
+  accountType: {
+    type: String, 
+    enum: ['Admin','Normal']
+  },
   locationBased: String,
   sellerRating: Number,
   sellerReviews: [
@@ -41,6 +39,8 @@ const accountSchema = new Schema({
       encryptedInformation: String,
     },
   ],
+},{
+  timestamps: {}
 });
 
 export const Account = mongoose.model("Account", accountSchema);
