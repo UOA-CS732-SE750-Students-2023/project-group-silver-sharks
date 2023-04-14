@@ -3,17 +3,17 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const sellerReviewSchema = new Schema({
-  id: {
+  message: {
     type: String,
-    unique: true,
+    required: true,
   },
-  message: String,
   sellerId: {
     type: Schema.Types.ObjectId,
     ref: "Account",
   },
   rating: Number,
-  timestamp: Date,
+},{
+  timestamps: {}
 });
 
 export const SellerReview = mongoose.model("SellerReview", sellerReviewSchema);

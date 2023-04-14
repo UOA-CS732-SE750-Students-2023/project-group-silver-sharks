@@ -3,26 +3,35 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const productSchema = new Schema({
-  id: {
-    type: String,
-    unique: true,
+  category: {
+    type: String, 
+    enum: ['Images','Videos','Music','Services']
   },
-  category: String,
-  name: String,
-  description: String,
-  timestamp: Date,
+  name: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
   coverImage: {
     type: Schema.Types.ObjectId,
     ref: "Image",
   },
-  images: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Image",
-    },
-  ],
-  price: Number,
-  amountSold: Number,
+  files: [{
+    fileName: {
+      type: String, 
+    }
+  }],
+  price: {
+    type: Number,
+    required: true,
+  },
+  amountSold: {
+    type: Number,
+    default: 0,
+  },
   averageRating: Number,
   reviews: [
     {
@@ -33,6 +42,8 @@ const productSchema = new Schema({
   downloadLink: {
     encryptedInformation: String,
   },
+},{
+  timestamps: {}
 });
 
 export const Product = mongoose.model("Product", productSchema);
