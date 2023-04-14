@@ -3,15 +3,16 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const imageSchema = new Schema({
-  id: {
+  imgName: {
     type: String,
-    unique: true,
+    required: true,
   },
-  imgHash: String,
   productId: {
     type: Schema.Types.ObjectId,
     ref: "Product",
   },
+},{
+  timestamps: {}
 });
 
 export const Image = mongoose.model("Image", imageSchema);
