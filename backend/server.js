@@ -5,6 +5,7 @@ import connectDB from "./db/mongoose.js";
 import * as url from 'url';
 import path from 'path';
 import productRouter from "./routes/product.js";
+import accountRouter from "./routes/account.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000; 
@@ -44,7 +45,7 @@ app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerSpec));
 // register the routers
 //app.use(router);
 app.use(productRouter);
-
+app.use(accountRouter);
 
 app.use((error, req, res, next) => {
   const status = error.status || 500;
