@@ -12,8 +12,14 @@ const getAllAccounts = async () => {
     return {accounts, count};
 };
 
-
+const addAccount = async (account) => {
+    const newAccount = new Account(account);
+    console.log(newAccount)
+    await newAccount.save();
+    return newAccount;
+};
 
 export {
     getAllAccounts,
+    addAccount
 };
