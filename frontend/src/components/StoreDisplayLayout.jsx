@@ -4,8 +4,13 @@ import Card from '../pages/ui/Card';
 import { StarFill } from 'react-bootstrap-icons';
 const StoreDisplayLayout = (props) => { 
     console.log(props.items)
+
+    const minMaxInputContainerStyle = {
+      marginLeft: '100px', // 可以根据需要调整此值
+    };
+
     return (
-        <div > 
+        <div style={minMaxInputContainerStyle}> 
             <h1>All items in store or filted by category</h1>
             <ul className="row list-unstyled" >
                 {props.items.map((item) => (
