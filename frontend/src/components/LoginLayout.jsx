@@ -52,7 +52,7 @@ return (
               }}
               onClick={handlePasswordVisibility}
             >
-              <i className={showPassword ? 'bi bi-eye' : 'bi bi-eye-slash'}></i>
+              {/* <i className={showPassword ? 'bi bi-eye' : 'bi bi-eye-slash'}></i> */}
             </span>
           </div>
           <Link to="/forgotpassword" className="text-muted" style={{ alignSelf: 'flex-end', marginRight: '10%', marginBottom: '0' }}>
