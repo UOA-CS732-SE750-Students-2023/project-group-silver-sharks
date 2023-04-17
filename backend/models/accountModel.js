@@ -3,11 +3,16 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const accountSchema = new Schema({
+  _id: {
+    type: String,
+    required: true,
+  },
   username: String,
   passHash: String,
   firstName: String,
   middleNames: String,
   lastName: String,
+  email: String,
   dateOfBirth: Date,
   accountType: {
     type: String, 
