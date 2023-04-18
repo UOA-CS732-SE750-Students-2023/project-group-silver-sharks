@@ -32,7 +32,7 @@ authRouter.get(
 );
 
 authRouter.get("/auth/protected", isLoggedIn, (req, res) => {
-  res.send(`Hello ${req.user.email}`);
+  res.send(`Hello ${req.user.firstName}`);
 });
 
 authRouter.get("/auth/google/failure", (req, res) => {

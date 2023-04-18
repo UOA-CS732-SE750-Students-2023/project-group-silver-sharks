@@ -8,6 +8,8 @@ import { Account } from "../models/accountModel.js";
 
 const accountRouter = new express.Router();
 
+//
+
 // Middle-ware function to ensure authentication of endpoints
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
@@ -94,4 +96,42 @@ accountRouter.get("/account/sign-out", function (req, res, next) {
   });
 });
 
+/**
+ * Endpoint 3: PUT /account/{id}
+ * Edit account (e.g. change admin status)
+ */
+accountRouter.put("/account/:id", async (req, res) => {
+  try {
+    const accountId = req.params.id;
+    const updatedFields = req.body;
+    const allowedFields = ["username", "firstName", "lastName", "accountType"];
+    const validFields = Object.keys(updatedFields).filter((field) =>
+      allowedFields.includes(field)
+    );
+
+    if (validFields.length === 0) {
+      return res
+        .status(400)
+        .json({ message: "No valid fields provided for update" });
+    }
+
+    if (
+      updatedFields.accountType &&
+      !["admin", "normal"].includes(updatedFields.accountType)
+    ) {
+      return res.status(400).json({ message: "Invalid value for accountType" });
+    }
+
+    const updatedAccount = await Account.findByIdAndUpdate(
+      accountId,
+      { $set: updatedFields },
+      { new: true }
+    ).select(allowedFields.join(" "));
+
+    res.status(200).json(updatedAccount);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
 export default accountRouter;

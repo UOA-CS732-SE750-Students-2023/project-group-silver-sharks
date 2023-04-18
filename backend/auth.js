@@ -20,6 +20,8 @@ passport.use(
           account = await Account.create({
             _id: profile.id,
             email: profile.email,
+            firstName: profile.name.givenName,
+            lastName: profile.name.familyName
           });
         }
 
