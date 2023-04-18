@@ -6,8 +6,6 @@ import * as url from "url";
 import path from "path";
 import productRouter from "./routes/product.js";
 import accountRouter from "./routes/account.js";
-import session from "express-session";
-import passport from "passport";
 import "./auth.js";
 import authRouter from "./routes/authentication.js";
 
@@ -78,11 +76,6 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.join(dirname, "../frontend/dist/index.html"));
   });
 }
-
-//start
-
-
-//end
 
 app.listen(PORT, () => {
   console.log(`Server has started listening on port ${PORT}`);

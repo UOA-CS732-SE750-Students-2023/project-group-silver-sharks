@@ -7,7 +7,10 @@ const accountSchema = new Schema({
     type: String,
     required: true,
   },
-  username: String,
+  username: {
+    type: String,
+    unique: true
+  },
   passHash: String,
   firstName: String,
   middleNames: String,
