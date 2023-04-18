@@ -1,5 +1,5 @@
 import express from "express";
-import { getAllAccounts, addAccount } from "../dao/account-dao.js";
+import { getAllAccounts, getAccountById } from "../dao/account-dao.js";
 
 import { ReasonPhrases, StatusCodes } from "http-status-codes";
 import passport from "passport";
@@ -8,7 +8,15 @@ import { Account } from "../models/accountModel.js";
 
 const accountRouter = new express.Router();
 
-//
+// Middle-ware function to ensure user is admin
+function isAdmin(req, res, next) {
+  const user = req.user;
+  if (user && user.accountType === "admin") {
+    next();
+  } else {
+    res.status(401).json({ message: "You need to be an admin for this" });
+  }
+}
 
 // Middle-ware function to ensure authentication of endpoints
 function isLoggedIn(req, res, next) {
@@ -70,12 +78,22 @@ accountRouter.post("/account/username", async (req, res) => {
  */
 accountRouter.get("/account", isLoggedIn, async (req, res) => {
   const { accounts, count } = await getAllAccounts();
-  console.log(req.user.email);
   return res.status(StatusCodes.OK).header("Count", count).json(accounts);
 });
 
 /**
- * Endpoint 3: GET /account/sign-in
+ * Endpoint 3: GET /account/{id}
+ * Get account by id.
+ */
+accountRouter.get("/account/:id", isLoggedIn, async (req, res) => {
+  console.log(req.params.id)
+  const account = await getAccountById(req.params.id);
+  return res.status(StatusCodes.OK).json(account);
+  
+});
+
+/**
+ * Endpoint 4: GET /account/sign-in
  * Opens Google sign-in page.
  */
 accountRouter.get(
@@ -84,7 +102,7 @@ accountRouter.get(
 );
 
 /**
- * Endpoint 4: GET /account/sign-out
+ * Endpoint 5: GET /account/sign-out
  * Signs user out.
  */
 accountRouter.get("/account/sign-out", function (req, res, next) {
@@ -97,10 +115,10 @@ accountRouter.get("/account/sign-out", function (req, res, next) {
 });
 
 /**
- * Endpoint 3: PUT /account/{id}
- * Edit account (e.g. change admin status)
+ * Endpoint 6 (admin only): PUT /account/{id}
+ * Edit account info (editable fields are username, fisrtName, lastName and accountType)
  */
-accountRouter.put("/account/:id", async (req, res) => {
+accountRouter.put("/account/:id", isLoggedIn, isAdmin, async (req, res) => {
   try {
     const accountId = req.params.id;
     const updatedFields = req.body;

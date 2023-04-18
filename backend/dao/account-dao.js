@@ -12,14 +12,12 @@ const getAllAccounts = async () => {
     return {accounts, count};
 };
 
-const addAccount = async (account) => {
-    const newAccount = new Account(account);
-    console.log(newAccount)
-    await newAccount.save();
-    return newAccount;
+const getAccountById = async (id) => {
+    const account = await Account.findById(id);
+    return account;
 };
 
 export {
     getAllAccounts,
-    addAccount
+    getAccountById
 };
