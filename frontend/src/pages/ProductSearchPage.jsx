@@ -1,6 +1,7 @@
 import React, { useState } from 'react'; 
 import ProductNavBar from '../components/ProductNavBar';
 import StoreDisplayLayout from '../components/StoreDisplayLayout';
+import PaginationBar from '../components/PaginationBar'; // 引入 PaginationBar 组件
 
 
 const DUMMY_DATA = [
@@ -42,8 +43,7 @@ const DUMMY_DATA = [
     },
 ];
 
-
-const ProductSearchPage = () => { 
+/* const ProductSearchPage = () => { 
 
     const [products, setProducts] = useState(DUMMY_DATA);
 
@@ -53,6 +53,36 @@ const ProductSearchPage = () => {
             <StoreDisplayLayout items={products} />
         </>
     );
+} */
+const grayBackgroundStyle = {
+  backgroundColor: '#F1F1F1',
+};
+
+
+const ITEMS_PER_PAGE = 1;
+const ProductSearchPage = () => { 
+  const [products, setProducts] = useState(DUMMY_DATA);
+  const [displayedProducts, setDisplayedProducts] = useState(products.slice(0, ITEMS_PER_PAGE));
+
+  const handleItemsChange = (items) => {
+      setDisplayedProducts(items);
+  };
+
+  return (
+      <>
+        <div style={grayBackgroundStyle}>
+
+          <ProductNavBar />
+          <StoreDisplayLayout items={displayedProducts} />
+          <PaginationBar
+              items={products}
+              itemsPerPage={ITEMS_PER_PAGE}
+              onItemsChange={handleItemsChange}
+          />
+        </div>  
+      </>
+  );
 }
+
 
 export default ProductSearchPage;

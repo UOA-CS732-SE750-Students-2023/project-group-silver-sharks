@@ -84,6 +84,10 @@ const LoginLayout = () => {
                 marginBottom: "0",
               }}
             >
+              {/* <i className={showPassword ? 'bi bi-eye' : 'bi bi-eye-slash'}></i> */}
+            </span>
+          </div>
+          <Link to="/forgotpassword" className="text-muted" style={{ alignSelf: 'flex-end', marginRight: '10%', marginBottom: '0' }}>
               Forgot password?
             </Link>
             <div className="d-flex justify-content-center">
