@@ -1,20 +1,27 @@
 import React from 'react'; 
+import { useNavigate } from 'react-router-dom';
 import './LandingLayout.css';
 import LandingCard from './LandingCard';
 
 const LandingLayout = () => { 
+    const navigate = useNavigate();
+
+    const navigateSignupHandler = () => {
+        navigate('/signup');
+    }
+
     return (
         <>
             <div className="landing-page-container">
                 <div className="landing-page-main-wrapper">
                     <div className="get-started-wrapper">
-                        <div class="description">
-                            <div class="description-text">
+                        <div className="description">
+                            <div className="description-text">
                                 <b>Start earning for your <br/><span>talent</span> as a creator.</b>
                             </div>
-                            <button className='description-button'>Get Started</button>
+                            <button className='description-button' onClick={navigateSignupHandler}>Get Started</button>
                         </div>
-                        <div class="blue-drop">
+                        <div className="blue-drop">
                             <img src='/LandingPageImages/drop-blue-paint.png'/>
                         </div>
                     </div>
