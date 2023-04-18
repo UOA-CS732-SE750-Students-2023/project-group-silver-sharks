@@ -17,7 +17,12 @@ const getAccountById = async (id) => {
     return account;
 };
 
+const deleteMyAccount = async (id) => {
+    await Account.findByIdAndDelete(id);
+};
+
 export {
     getAllAccounts,
-    getAccountById
+    getAccountById,
+    deleteMyAccount
 };

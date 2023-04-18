@@ -1,5 +1,5 @@
 import express from "express";
-import { getAllAccounts, getAccountById } from "../dao/account-dao.js";
+import { getAllAccounts, getAccountById, deleteMyAccount } from "../dao/account-dao.js";
 
 import { ReasonPhrases, StatusCodes } from "http-status-codes";
 import passport from "passport";
@@ -30,7 +30,7 @@ function isLoggedIn(req, res, next) {
       });
     }
   } else {
-    return res.status(401).send({ message: "Unauthorized" });
+    return res.status(401).send({ message: "Unauthorizedd" });
   }
 }
 
@@ -82,14 +82,12 @@ accountRouter.get("/account", isLoggedIn, async (req, res) => {
 });
 
 /**
- * Endpoint 3: GET /account/{id}
+ * Endpoint 3: GET /account/id/{id}
  * Get account by id.
  */
-accountRouter.get("/account/:id", isLoggedIn, async (req, res) => {
-  console.log(req.params.id)
+accountRouter.get("/account/id/:id", isLoggedIn, async (req, res) => {
   const account = await getAccountById(req.params.id);
   return res.status(StatusCodes.OK).json(account);
-  
 });
 
 /**
@@ -115,10 +113,10 @@ accountRouter.get("/account/sign-out", function (req, res, next) {
 });
 
 /**
- * Endpoint 6 (admin only): PUT /account/{id}
+ * Endpoint 6 (admin only): PUT /account/id/{id}
  * Edit account info (editable fields are username, fisrtName, lastName and accountType)
  */
-accountRouter.put("/account/:id", isLoggedIn, isAdmin, async (req, res) => {
+accountRouter.put("/account/id/:id", isLoggedIn, isAdmin, async (req, res) => {
   try {
     const accountId = req.params.id;
     const updatedFields = req.body;
@@ -152,4 +150,14 @@ accountRouter.put("/account/:id", isLoggedIn, isAdmin, async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 });
+
+/**
+ * Endpoint 7: DELETE /account
+ * Delete your own account
+ */
+accountRouter.delete("/account", isLoggedIn, async (req, res) => {
+  await deleteMyAccount(req.user.id);
+  return res.json({ message: 'Account deleted successfully' });
+});
+
 export default accountRouter;
