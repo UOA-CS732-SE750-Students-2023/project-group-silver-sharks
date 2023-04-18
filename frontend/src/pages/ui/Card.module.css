@@ -16,19 +16,49 @@
     object-fit: cover;
   }
 .card h2 {
-    padding: 0.2rem;
-    text-decoration: underline;
-    color: black;
-    display: inline-block;
+  padding: 0.2rem;
+  text-decoration: underline;
+  color: black;
+  display: inline-block;
+
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: left;
+
   }
 .card h3{
     display: inline-block;
-    margin-left: 11rem;
+    margin-left: 14rem;
+
+    font-family: Poppins;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 36px;
+    letter-spacing: 0em;
+    text-align: right;
+
 }
-.card h6{
-    display: inline-block;
+.card h5{
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: left;
+  
 }
 .card p {
     margin-bottom: 1rem;
-    color:gray;
+    color:#616161;
+    font-family: Poppins;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+
   }
+
