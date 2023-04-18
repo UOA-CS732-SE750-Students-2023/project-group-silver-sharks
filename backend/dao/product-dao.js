@@ -2,71 +2,109 @@ import { Product } from "../models/productModel.js";
 
 // return all products in the database
 const getAllProducts = async () => {
+  const products = await Product.find();
 
-    const products = await Product.find();
+  // determine the number of results being returned
+  const count = await Product.countDocuments({});
 
-    // determine the number of results being returned
-    const count = await Product.countDocuments({})
-
-    return {products, count};
+  return { products, count };
 };
 
 // retrieve products from the database with pagination
 // both page and limit need to be integers
-const getPaginatedProducts = async (page, limit) => {
-    const products = await Product.find().skip(page * limit)
-                                         .limit(limit);
+const getPaginatedProducts = async (page, limit, sortBy) => {
+  let sortCriteria = { createdAt: 1 };
 
-    console.log(products);
+  if (sortBy === "priceLowToHigh") {
+    sortCriteria = { price: 1 };
+  } else if (sortBy === "priceHighToLow") {
+    sortCriteria = { price: -1 };
+  }
 
-    // determine the number of results being returned
-    const count = await Product.countDocuments({})
+  const products = await Product.find()
+    .sort(sortCriteria)
+    .skip((page - 1) * limit)
+    .limit(limit);
 
-    return {products, count};
+  console.log(products);
+
+  // determine the number of results being returned
+  const count = await Product.countDocuments({});
+
+  return { products, count };
 };
 
-const getPaginatedCategories = async (page, limit, userCategory) => {
-    const products = await Product.find({ category: { $eq: userCategory } }).skip(page * limit)
-                                           .limit(limit);
+const getPaginatedCategories = async (page, limit, userCategory, sortBy) => {
+  let sortCriteria = { createdAt: 1 };
 
-    console.log(`filtered products by ${userCategory} : ` + products); 
+  if (sortBy === "priceLowToHigh") {
+    sortCriteria = { price: 1 };
+  } else if (sortBy === "priceHighToLow") {
+    sortCriteria = { price: -1 };
+  }
 
-    // determine the number of results being returned
-    const count = await Product.countDocuments({ category: { $eq: userCategory } });
+  const products = await Product.find({ category: { $eq: userCategory } })
+    .sort(sortCriteria)
+    .skip((page - 1) * limit)
+    .limit(limit);
 
-    return {products, count};
-}
+  console.log(`filtered products by ${userCategory} : ` + products);
+
+  // determine the number of results being returned
+  const count = await Product.countDocuments({
+    category: { $eq: userCategory },
+  });
+
+  return { products, count };
+};
 
 const addProduct = async (product) => {
-    const newProduct = new Product(product);
-    console.log(newProduct)
-    await newProduct.save();
-    return newProduct;
+  const newProduct = new Product(product);
+  console.log(newProduct);
+  await newProduct.save();
+  return newProduct;
 };
 
-const getProductsMatchingSearchTerm = async (searchTerm, page, limit ) => {
-    // { "authors": { "$regex": "Alex", "$options": "i" } }
-    const products = await Product.find({ name: { $regex: searchTerm, $options: "i" } }).skip(page * limit)
-                                                                            .limit(limit);
+const getProductsMatchingSearchTerm = async (
+  searchTerm,
+  page,
+  limit,
+  sortBy
+) => {
+  let sortCriteria = { createdAt: 1 };
 
-    console.log('products match search query' + products);
+  if (sortBy === "priceLowToHigh") {
+    sortCriteria = { price: 1 };
+  } else if (sortBy === "priceHighToLow") {
+    sortCriteria = { price: -1 };
+  }
+  // { "authors": { "$regex": "Alex", "$options": "i" } }
+  const products = await Product.find({
+    name: { $regex: searchTerm, $options: "i" },
+  })
+    .sort(sortCriteria)
+    .skip((page - 1) * limit)
+    .limit(limit);
 
-    // determine the number of results being returned
-    const count = await Product.countDocuments({ name: { $regex: searchTerm, $options: "i" } });
+  console.log("products match search query" + products);
 
-    return {products, count};
-}   
+  // determine the number of results being returned
+  const count = await Product.countDocuments({
+    name: { $regex: searchTerm, $options: "i" },
+  });
+
+  return { products, count };
+};
 
 const getProductById = async (id) => {
-    return await Product.findById(id);
-}
-
+  return await Product.findById(id);
+};
 
 export {
-    getAllProducts,
-    getPaginatedProducts,
-    addProduct,
-    getPaginatedCategories,
-    getProductsMatchingSearchTerm,
-    getProductById
+  getAllProducts,
+  getPaginatedProducts,
+  addProduct,
+  getPaginatedCategories,
+  getProductsMatchingSearchTerm,
+  getProductById,
 };
