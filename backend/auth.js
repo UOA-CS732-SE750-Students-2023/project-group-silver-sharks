@@ -1,12 +1,9 @@
 import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth2";
 import { Account } from "./models/accountModel.js";
-import mongoose from "mongoose";
 
-const GOOGLE_CLIENT_ID =
-  "149590736173-qim8abtnndvu7fs6r7bgph2rqqdf0tf4.apps.googleusercontent.com";
-const GOOGLE_CLIENT_SECRET = "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";
-
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
 
 passport.use(
   new GoogleStrategy(
@@ -20,16 +17,17 @@ passport.use(
       try {
         let account = await Account.findById(profile.id);
         if (!account) {
-          account = await Account.create({ _id: profile.id, username: profile.displayName, email: profile.email });
+          account = await Account.create({
+            _id: profile.id,
+            email: profile.email,
+          });
         }
+
         return done(null, account);
       } catch (err) {
         return done(err, null);
       }
-    }    
-    // function(request, accessToken, refreshToken, profile, done) {
-    //   return done(null, profile);
-    // }));
+    }
   )
 );
 
@@ -37,6 +35,11 @@ passport.serializeUser(function (user, done) {
   done(null, user);
 });
 
-passport.deserializeUser(function (user, done) {
-  done(null, user);
+passport.deserializeUser(async function (id, done) {
+  try {
+    const user = await Account.findById(id);
+    return done(null, user);
+  } catch (err) {
+    return done(err, null);
+  }
 });
