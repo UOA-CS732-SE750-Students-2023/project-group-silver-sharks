@@ -1,5 +1,6 @@
 import React from 'react'; 
-import AuthForm from '../components/AuthForm';
+import AuthForm from './AuthForm';
+import './SignupLayout.css';
 
 import { Form, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
