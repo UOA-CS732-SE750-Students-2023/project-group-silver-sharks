@@ -12,8 +12,17 @@ const getAllAccounts = async () => {
     return {accounts, count};
 };
 
+const getAccountById = async (id) => {
+    const account = await Account.findById(id);
+    return account;
+};
 
+const deleteAccount = async (id) => {
+    await Account.findByIdAndDelete(id);
+};
 
 export {
     getAllAccounts,
+    getAccountById,
+    deleteAccount
 };
