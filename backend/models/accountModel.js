@@ -2,45 +2,54 @@ import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
 
-const accountSchema = new Schema({
-  username: String,
-  passHash: String,
-  firstName: String,
-  middleNames: String,
-  lastName: String,
-  dateOfBirth: Date,
-  accountType: {
-    type: String, 
-    enum: ['Admin','Normal']
+const accountSchema = new Schema(
+  {
+    _id: {
+      type: String,
+      required: true,
+    },
+    username: {
+      type: String,
+      unique: true,
+    },
+    firstName: String,
+    lastName: String,
+    email: String,
+    accountType: {
+      type: String,
+      enum: ['admin', 'normal'],
+      default: 'normal',
+      validateBeforeSave: true
+    },
+    sellerRating: Number,
+    sellerReviews: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "SellerReview",
+      },
+    ],
+    productsPurchased: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Product",
+      },
+    ],
+    sellingProducts: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Product",
+      },
+    ],
+    creditCards: [
+      {
+        lastFourDigits: String,
+        encryptedInformation: String,
+      },
+    ],
   },
-  locationBased: String,
-  sellerRating: Number,
-  sellerReviews: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "SellerReview",
-    },
-  ],
-  productsPurchased: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Product",
-    },
-  ],
-  sellingProducts: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Product",
-    },
-  ],
-  creditCards: [
-    {
-      lastFourDigits: String,
-      encryptedInformation: String,
-    },
-  ],
-},{
-  timestamps: {}
-});
+  {
+    timestamps: {},
+  }
+);
 
 export const Account = mongoose.model("Account", accountSchema);
