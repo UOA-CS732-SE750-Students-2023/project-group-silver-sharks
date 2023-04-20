@@ -1,5 +1,5 @@
 import express from "express";
-import { getAllAccounts, getAccountById, deleteMyAccount } from "../dao/account-dao.js";
+import { getAllAccounts, getAccountById, deleteAccount } from "../dao/account-dao.js";
 
 import { ReasonPhrases, StatusCodes } from "http-status-codes";
 import passport from "passport";
@@ -156,8 +156,17 @@ accountRouter.put("/account/id/:id", isLoggedIn, isAdmin, async (req, res) => {
  * Delete your own account
  */
 accountRouter.delete("/account", isLoggedIn, async (req, res) => {
-  await deleteMyAccount(req.user.id);
+  await deleteAccount(req.user.id);
   return res.json({ message: 'Account deleted successfully' });
+});
+
+/**
+ * Endpoint 8 (admin only): DELETE /account/id/{id}
+ * Delete another account
+ */
+accountRouter.delete("/account/id/:id", isLoggedIn, isAdmin, async (req, res) => {
+  await deleteAccount(req.params.id);
+  return res.json({ message: 'Account of user ' + req.params.id + ' deleted successfully' });
 });
 
 export default accountRouter;
