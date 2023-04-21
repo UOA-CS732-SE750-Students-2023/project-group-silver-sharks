@@ -1,30 +1,9 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Navbar, Nav, Form, InputGroup, DropdownButton, Dropdown } from 'react-bootstrap';
+import { Navbar, Button, Nav, Form, InputGroup, DropdownButton, Dropdown } from 'react-bootstrap';
 
+const ProductNavBar = ({ setCategory }) => {
 
-/* const ProductNavBar = () => { 
-    return (
-        <nav>
-            <ul>
-                <li>
-                    Images 
-                </li>
-                <li>
-                    Videos
-                </li>
-                <li>
-                    Music
-                </li>
-                <li>
-                    Services
-                </li>
-            </ul>
-        </nav>
-    );
-} */
-
-const ProductNavBar = () => {
   const searchInputStyle = {
     borderRadius: '25px',
     border: '2px solid black',
@@ -91,24 +70,24 @@ const ProductNavBar = () => {
           <Navbar.Collapse id="product-navbar-nav">
             <Nav className="mx-auto">
               <Nav.Item className="mx-5">
-                <NavLink to="/images" className="nav-link">
+                <Button to="/images" className="nav-link">
                   Images
-                </NavLink>
+                </Button>
               </Nav.Item>
               <Nav.Item className="mx-5">
-                <NavLink to="/videos" className="nav-link">
+                <Button to="/videos" className="nav-link">
                   Videos
-                </NavLink>
+                </Button>
               </Nav.Item>
               <Nav.Item className="mx-5">
-                <NavLink to="/music" className="nav-link">
+                <Button to="/music" className="nav-link">
                   Music
-                </NavLink>
+                </Button>
               </Nav.Item>
               <Nav.Item className="mx-5">
-                <NavLink to="/services" className="nav-link">
+                <Button to="/services" className="nav-link">
                   Services
-                </NavLink>
+                </Button>
               </Nav.Item>
             </Nav>
           </Navbar.Collapse>
