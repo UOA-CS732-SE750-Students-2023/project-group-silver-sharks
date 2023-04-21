@@ -16,6 +16,7 @@ import SellingPage from './pages/profile/SellingPage';
 import DashBoardPage from './pages/profile/DashboardPage';
 import ProfileRoot from './pages/profile/ProfileRoot';
 import SellAssetPage from './pages/SellAssetPage';
+import { loader as allProductsLoader } from './pages/ProductSearchPage';
 
 const router = createBrowserRouter([
   {path:'/', element: <RootPage />, errorElement: <ErrorPage />, children: [
@@ -23,7 +24,7 @@ const router = createBrowserRouter([
     {path: 'login', element: <LoginPage />, action: loginAction},
     {path: 'signup', element: <SignupPage />, action: signupAction},
     {path:'store', element: <StoreRootPage />, children: [
-      {path:'product-search', element: <ProductSearchPage />},
+      {path:'product-search', element: <ProductSearchPage />, loader: allProductsLoader},
       {path: 'product/:productid', element: <ProductPage />},
       {path: 'author/:aid', element: <AuthorPage />},
       {path: 'profile', element: <ProfileRoot />, children: [
