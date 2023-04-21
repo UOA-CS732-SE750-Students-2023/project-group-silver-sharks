@@ -1,18 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import './PaginationBar.css'; // 引入自定义样式文件
 
-const PaginationBar = ({ items, itemsPerPage, onItemsChange }) => {
+const PaginationBar = ({ itemsLength, itemsPerPage, onItemsChange }) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    const displayedItems = items.slice(startIndex, endIndex);
+    onItemsChange(currentPage);
+  }, [currentPage]);
 
-    onItemsChange(displayedItems);
-  }, [currentPage, items, itemsPerPage, onItemsChange]);
-
-  const totalPages = Math.ceil(items.length / itemsPerPage);
+  console.log(length)
+  const totalPages = Math.ceil(itemsLength / itemsPerPage);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
