@@ -10,12 +10,18 @@ const grayBackgroundStyle = {
   backgroundColor: "#F1F1F1",
 };
 
-const ITEMS_PER_PAGE = 2;
+const ITEMS_PER_PAGE = 3;
 
 const ProductSearchPage = () => {
-  const sourcedProducts = useLoaderData();
+    // fetching all products from the backend
+  const { products, count } = useLoaderData();
 
-  const [displayedProducts, setDisplayedProducts] = useState(sourcedProducts);
+  const [displayedProducts, setDisplayedProducts] = useState(products);
+
+  // images, music, videos, services
+  const [category, setCategoryHandler] = useState('Images'); 
+  //popularity, newest, Price: Low to High, Price: High to Low
+  const [filter, setFilterHandler] = useState('');
 
   const handleItemsChange = async (currentPageNumber) => {
     // using the items per page constant and the current page number make request to backend for the products
@@ -36,22 +42,27 @@ const ProductSearchPage = () => {
 
         console.log(data);
 
-        setDisplayedProducts(data);
+        // 0th index includes -> products
+        // 1st index has the count
+    
+        const products = data[0]; 
+        const count = data[1];
+
+        setDisplayedProducts(products);
       } catch (error) {
         console.log(error)
       }
-
   };
 
   return (
     <>
       <div style={grayBackgroundStyle}>
-        <ProductNavBar />
+        <ProductNavBar setSearchCategory={setCategoryHandler} setFilter={setFilterHandler}/>
         <StoreDisplayLayout items={displayedProducts} />
         <PaginationBar
           itemsPerPage={ITEMS_PER_PAGE}
           onItemsChange={handleItemsChange}
-          itemsLength={sourcedProducts.length}
+          itemsLength={count}
         />
       </div>
     </>
@@ -62,16 +73,36 @@ const ProductSearchPage = () => {
 
 // instead of bloating app.js with loader functions, write it here and then export to app.js
 export const loader = async () => {
-  const response = await fetch("http://localhost:3000" + "/products");
+    const response = await fetch(
+        "http://localhost:3000/products?" +
+          new URLSearchParams({
+            page: 1,
+            limit: ITEMS_PER_PAGE,
+          }, {
+
+          })
+    );
 
   if (!response.ok) {
     // automatically converts to json for us
     return json({ message: "Could not fetch data." }, { status: 500 });
   } else {
     const data = await response.json();
-    // returned data will be made available to the component being rendered as well as any other component
-    // that needs it.
-    return data;
+
+    console.log(data);
+
+    // 0th index includes -> products
+    // 1st index has the count
+
+    const products = data[0]; 
+    const count = data[1];
+
+    console.log("the count is: " + count)
+
+    return {
+        products, 
+        count
+    }
   }
 };
 
