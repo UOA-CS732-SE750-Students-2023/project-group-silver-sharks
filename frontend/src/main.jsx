@@ -6,5 +6,7 @@ import App from './App'
 
 // adding the provider here means that the whole application can make use of the context
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <CartProvider><App /></CartProvider>
+  <React.StrictMode>
+    <CartProvider><App /></CartProvider>
+  </React.StrictMode>
 );
