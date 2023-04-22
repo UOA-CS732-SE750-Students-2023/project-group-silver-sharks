@@ -12,11 +12,14 @@ import { Link } from 'react-router-dom';
         </div>
     );
 } */
+/* const grayBackgroundStyle = {
+  backgroundColor: '#EEEEEE',
+}; */
 
 
 const SignupLayout = () => {
   return (
-    <div className="container">
+    <div className="container" >
       <div className="row justify-content-center">
         <div className="col-md-6">
           <h1 className="text-center mb-4">Sign up</h1>
@@ -66,7 +69,7 @@ const SignupLayout = () => {
             <p className="text-center text-muted mt-3">
               Already have an account?
               <br />
-              <Link to="/signin">Sign in</Link>
+              <Link to="/login">Sign in</Link>
             </p>
           </Form>
         </div>
