@@ -75,15 +75,7 @@ const LoginLayout = () => {
                 ></i>
               </span>
             </div>
-            <Link
-              to="/forgotpassword"
-              className="text-muted"
-              style={{
-                alignSelf: "flex-end",
-                marginRight: "10%",
-                marginBottom: "0",
-              }}
-            >
+            <Link to="/forgotpassword" className="text-muted" style={{ alignSelf: 'flex-end', marginRight: '10%', marginBottom: '0' }}>
               Forgot password?
             </Link>
             <div className="d-flex justify-content-center">
