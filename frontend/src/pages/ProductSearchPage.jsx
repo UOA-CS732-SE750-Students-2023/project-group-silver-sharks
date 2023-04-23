@@ -22,48 +22,77 @@ const ProductSearchPage = () => {
   const [category, setCategory] = useState('Images');
   const [pageNumber, setPageNumber] = useState(1);
 
-
   const categoryHandler = async (category) => {
     setCategory(category);
-
-    // make request to backend with the latest info
-    handleItemsChange.then((error) => {
-      console.log(error);
-    })
+    const response = await handleItemsChange(pageNumber, category, undefined, false, undefined)
   };
 
-  const filterHandler = (filter) => {
+  const filterHandler = async (filter) => {
     setFilter(filter);
-
-    // make request to backend with the latest info
-    handleItemsChange.then((error) => {
-      console.log(error);
-    })
+    const response = await handleItemsChange(pageNumber, undefined, filter, false, undefined)
   };
 
-  const pageNumberHandler = (currentPageNumber) => {
+  const pageNumberHandler = async (currentPageNumber) => {
     setPageNumber(currentPageNumber);
-
-    // make request to backend with the latest info
-    handleItemsChange().catch((error) => {
-      console.log(error);
-    })
+    const response = await handleItemsChange(currentPageNumber, undefined, undefined, false, undefined);
   }
 
-  const handleItemsChange = async () => {
+  const searchByPhraseHandler = async (searchTerm) => {
+    const response = await handleItemsChange(pageNumber, undefined, undefined, true, searchTerm);
+  }
 
-    console.log("page number " + pageNumber)
-    console.log("sortBy " + filter)
-    console.log("category " + category)
+  const handleItemsChange = async (currentPageNumber, specifiedCategory, specifiedFilter, isSearch, searchTerm) => {
 
+    const currentFilter = specifiedFilter || filter; 
+    const currentCategory = specifiedCategory || category;
+
+    console.log("handleItemsChange")
+    console.log("page number " + currentPageNumber)
+    console.log("sortBy " + currentFilter)
+    console.log("category " + currentCategory)
+    console.log("search" + searchTerm)
+
+
+    if (!isSearch){
+      const response = await navigateHandler(currentPageNumber, currentCategory, currentFilter)
+    } else {
+      const response = await searchHandler(currentPageNumber, searchTerm);
+    }
+  };
+
+  const searchHandler = async (currentPageNumber, searchTerm) => {
+    const response = await fetch(
+      "http://localhost:3000/products/search?" +
+        new URLSearchParams({
+          page: currentPageNumber,
+          limit: ITEMS_PER_PAGE,
+          search: searchTerm
+        })
+    );
+
+    if (!response.ok) {
+      throw new Error("Something went wrong!");
+    }
+
+    const data = await response.json();
+    console.log(data);
+    
+    const products = data[0];
+    const count = data[1];
+
+    setDisplayedProducts(products);
+    setDisplayCount(count);
+  }
+
+  const navigateHandler = async (currentPageNumber, currentCategory, currentFilter) => {
     // using the items per page constant and the current page number make request to backend for the products
     const response = await fetch(
       "http://localhost:3000/products/filter?" +
         new URLSearchParams({
-          page: pageNumber,
+          page: currentPageNumber,
           limit: ITEMS_PER_PAGE,
-          sortBy: filter, 
-          category: category
+          sortBy: currentFilter, 
+          category: currentCategory
         })
     );
 
@@ -83,7 +112,7 @@ const ProductSearchPage = () => {
 
     setDisplayedProducts(products);
     setDisplayCount(count);
-  };
+  }
 
   return (
     <>
@@ -91,6 +120,7 @@ const ProductSearchPage = () => {
         <ProductNavBar
           setSearchCategory={categoryHandler}
           setFilter={filterHandler}
+          setSearchTerm={searchByPhraseHandler}
         />
         <StoreDisplayLayout items={displayedProducts} />
         <PaginationBar
@@ -105,11 +135,13 @@ const ProductSearchPage = () => {
 };
 
 // loader function to fetch all the products in the store and display them initially
-
 // instead of bloating app.js with loader functions, write it here and then export to app.js
-
 // by default: the images category will be loaded
 export const loader = async () => {
+
+  console.log("loader")
+
+
   const response = await fetch(
     "http://localhost:3000/products/filter?" +
       new URLSearchParams(

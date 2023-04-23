@@ -106,7 +106,7 @@ productRouter.get("/products/search", async (req, res) => {
       return res.status(StatusCodes.NOT_FOUND).send("No Products Were Found");
     }
 
-    return res.status(StatusCodes.OK).header("Count", count).json(products);
+    return res.status(StatusCodes.OK).json([products,count]);
   } catch (error) {
     console.log(error);
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error");
