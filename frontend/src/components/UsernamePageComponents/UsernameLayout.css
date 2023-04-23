@@ -1,0 +1,49 @@
+.username-container {
+    height: 60vh;
+}
+
+.username-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.username-prompt-wrapper {
+    margin: 1.2em;
+    font-weight: 700;
+    font-size: 24px;
+}
+
+.username-input-wrapper {
+    width: 20em;
+}
+.username-input {
+    background-color: transparent;
+    color: black;
+    border-color: black;
+    border-radius: 28px;
+    padding-left: 1em;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    outline: none;
+    border-style: solid;
+    width: 100%;
+}
+.username-submit-btn-wrapper {
+    margin-top: 1.2em;
+    width: 12em;
+}
+
+.username-submit-btn {
+    margin-top: 10px;
+    border-radius: 40px;
+    background-color: #248B81;
+    font-size: 20px;
+    color: white;
+    border-color: none;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    width: 100%;
+    box-shadow: none;
+    border-style: solid;
+}

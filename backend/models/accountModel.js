@@ -4,10 +4,6 @@ const Schema = mongoose.Schema;
 
 const accountSchema = new Schema(
   {
-    _id: {
-      type: String,
-      required: true,
-    },
     username: {
       type: String,
       unique: true,
@@ -17,17 +13,12 @@ const accountSchema = new Schema(
     email: String,
     accountType: {
       type: String,
-      enum: ['admin', 'normal'],
-      default: 'normal',
-      validateBeforeSave: true
+      enum: ["admin", "normal"],
+      default: "normal",
+      validateBeforeSave: true,
     },
     sellerRating: Number,
-    sellerReviews: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "SellerReview",
-      },
-    ],
+    assetsSold: Number,
     productsPurchased: [
       {
         type: Schema.Types.ObjectId,
@@ -38,12 +29,6 @@ const accountSchema = new Schema(
       {
         type: Schema.Types.ObjectId,
         ref: "Product",
-      },
-    ],
-    creditCards: [
-      {
-        lastFourDigits: String,
-        encryptedInformation: String,
       },
     ],
   },
