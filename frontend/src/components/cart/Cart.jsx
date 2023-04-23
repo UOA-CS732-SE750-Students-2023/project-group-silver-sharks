@@ -1,15 +1,11 @@
 import React, { useContext } from 'react'; 
 import Modal from '../modal/Modal';
-import CartContext from '../../store/cart-context';
 
 // remember when using value from context, useState does not need to be used 
 // because when the cart data values change the component(s) that use them automatically 
 // rerender
 
 const Cart = (props) => { 
-    const cartContext = useContext(CartContext);
-    
-    const totalAmount = cartContext.totalAmount;
 
     const cartContent = 'This is the cart display';
 
