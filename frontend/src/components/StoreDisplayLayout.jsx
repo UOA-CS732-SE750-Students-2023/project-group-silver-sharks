@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Card from '../pages/ui/Card';
 import { StarFill } from 'react-bootstrap-icons';
 const StoreDisplayLayout = (props) => { 
+    console.log(props.items)
 
     const minMaxInputContainerStyle = {
       marginLeft: '100px', // 可以根据需要调整此值
@@ -17,7 +18,7 @@ const StoreDisplayLayout = (props) => {
                         <Card>
                             <div >
                                 <div>
-                                    
+                                    {/*<img src={item.imageURL} /> */}
                                 </div>
                                 <div>
                                     <Link id="productLink" to={`/store/product/${item._id}`}><h2>{item.name}</h2></Link>

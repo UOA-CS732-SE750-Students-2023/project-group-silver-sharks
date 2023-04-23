@@ -19,7 +19,7 @@ import SellAssetPage from './pages/SellAssetPage';
 import { loader as allProductsLoader } from './pages/ProductSearchPage';
 
 const router = createBrowserRouter([
-  {path:'/', element: <RootPage />, errorElement: <ErrorPage />, children: [
+  {path:'/', element: <RootPage />, children: [
     {index: true, element: <LandingPage />},
     {path: 'login', element: <LoginPage />, action: loginAction},
     {path: 'signup', element: <SignupPage />, action: signupAction},

@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import ProductContext from '../store/product-context';
 import { NavLink } from 'react-router-dom';
 import { Navbar, Button, Nav, Form, InputGroup, DropdownButton, Dropdown } from 'react-bootstrap';
 
-const ProductNavBar = ({ setCategory }) => {
-
+const ProductNavBar = ({ setSearchCategory, setFilter, selectedFilter }) => {
+  
   const searchInputStyle = {
     borderRadius: '25px',
     border: '2px solid black',
@@ -48,7 +49,25 @@ const ProductNavBar = ({ setCategory }) => {
   const dropDownContainerStyle = {
     marginRight: '100px',
   }
+
+  // handler methods for the category buttons 
+
+  const categoryHandler = (event) => {
+    console.log(event.target.innerHTML);
+
+  };
   
+  const searchChangeHandler = (event) => {
+    console.log(event.target.value);
+
+  }
+
+  const filterChangeHandler = (event) => { 
+    console.log(event.target.value); 
+
+  }
+
+
 
   return (
     <div style={grayBackgroundStyle}>
@@ -60,6 +79,7 @@ const ProductNavBar = ({ setCategory }) => {
               className="form-control"
               placeholder="Search for a digital asset"
               aria-label="Search"
+              onChange={searchChangeHandler}
               style={searchInputStyle}
             />
             <i className="bi bi-search" style={searchIconStyle}></i>
@@ -70,22 +90,22 @@ const ProductNavBar = ({ setCategory }) => {
           <Navbar.Collapse id="product-navbar-nav">
             <Nav className="mx-auto">
               <Nav.Item className="mx-5">
-                <Button to="/images" className="nav-link">
+                <Button onClick={categoryHandler} className="nav-link">
                   Images
                 </Button>
               </Nav.Item>
               <Nav.Item className="mx-5">
-                <Button to="/videos" className="nav-link">
+                <Button onClick={categoryHandler} className="nav-link">
                   Videos
                 </Button>
               </Nav.Item>
               <Nav.Item className="mx-5">
-                <Button to="/music" className="nav-link">
+                <Button onClick={categoryHandler} className="nav-link">
                   Music
                 </Button>
               </Nav.Item>
               <Nav.Item className="mx-5">
-                <Button to="/services" className="nav-link">
+                <Button onClick={categoryHandler} className="nav-link">
                   Services
                 </Button>
               </Nav.Item>
@@ -138,6 +158,7 @@ const ProductNavBar = ({ setCategory }) => {
                 id="sort-dropdown"
                 align="end"
                 style={customDropdownBtnStyle}
+                onChange={filterChangeHandler}
               >
                 <Dropdown.Item href="#/popularity">Popularity</Dropdown.Item>
                 <Dropdown.Item href="#/newest">Newest</Dropdown.Item>
