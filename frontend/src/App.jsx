@@ -3,6 +3,7 @@ import { RouterProvider,createBrowserRouter } from 'react-router-dom';
 import './App.css';
 import RootPage from './pages/Root';
 import LandingPage from './pages/LandingPage';
+import UsernamePage from './pages/UsernamePage';
 import LoginPage, {action as loginAction } from './pages/LoginPage';
 import SignupPage, {action as signupAction } from './pages/SignupPage';
 import ErrorPage from './pages/misc/ErrorPage';
@@ -22,6 +23,7 @@ import { loader as productLoader } from './pages/ProductPage';
 const router = createBrowserRouter([
   {path:'/', element: <RootPage />, children: [
     {index: true, element: <LandingPage />},
+    {path: 'username', element: <UsernamePage />},
     {path: 'login', element: <LoginPage />, action: loginAction},
     {path: 'signup', element: <SignupPage />, action: signupAction},
     {path:'store', element: <StoreRootPage />, children: [
