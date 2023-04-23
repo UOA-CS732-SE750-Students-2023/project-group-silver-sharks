@@ -1,0 +1,57 @@
+/*Nav bar*/
+.auth-page-bg {
+    position: static;
+    width: 100%;
+    height: 20vh;
+    background: #000000;
+    display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.auth-page-navbar-wrapper {
+    width: 100%;
+    display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+    padding-top: 4vh;
+}
+
+.auth-page-navbar-wrapper > * {
+    color: white;
+}
+
+.auth-page-navbar-line {
+    width: 80%;
+    border: none;
+    border-top: 1.5px solid white;
+    margin: 0;
+    opacity: 100%;
+    color: white;
+}
+
+.auth-page-navbar-row {
+    display: flex;
+    width: 80%;
+    padding-bottom: 20px;
+}
+
+.auth-page-logo {
+    width: 100%;
+    float: left;
+    font-size: 30px;
+}
+
+.sign-in-button {
+    background-color: transparent;
+    color: white;
+    border-radius: 50px;
+    border-style: solid;
+    padding: 6px 0 6px 0;
+    width: 8em;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    
+}
