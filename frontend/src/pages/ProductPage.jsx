@@ -1,53 +1,39 @@
 import React, { useState } from 'react';
+import { useLoaderData,json } from "react-router-dom";
 import { useParams } from 'react-router-dom';
 import ProductLayout from '../components/ProductLayout';
 
-const DUMMY_DATA = [
-    {   
-        pid: 1,
-        aid: 2,
-        name: 'goku',
-        url: 'https://www.cartonionline.com/wordpress/wp-content/uploads/2023/02/goku-814x1024.jpg',
-        author: 'steve',
-        description: 'is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'
-    },
-    {   
-        pid: 3,
-        aid: 4,
-        name: 'naruto',
-        url: 'https://animecorner.me/wp-content/uploads/2022/10/naruto.png',
-        author: 'herobrine',
-        description: 'is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'
-    },
-    {   
-        pid: 5,
-        aid: 6,
-        name: 'sasuke',
-        url: 'https://www.looper.com/img/gallery/every-power-sasuke-has-on-naruto-explained/intro-1663193400.jpg',
-        author: 'bob',
-        description: 'is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'
-    },
-];
-
 const ProductPage = () => { 
-    const [items, setItems] = useState(DUMMY_DATA);
+    const product = useLoaderData();
+
+    console.log(product)
 
     const params = useParams()
     console.log(+params.productid)  
 
-    let productDetails = {};
-
-    items.forEach((item) => {
-        if (+item.pid === +params.productid){
-            productDetails = item;
-        }
-    })
-
-    console.log(productDetails)
     return (
-        <ProductLayout product={productDetails}/>
+        <ProductLayout product={product}/>
     );
 }
 
 export default ProductPage;
+
+export const loader = async ({request,params}) => {
+    const id = params.productid;
+
+    console.log("line 24 " + id)
+
+    const response = await fetch("http://localhost:3000/products/" + id);
+
+    // throwing will send the data to the error page
+    if (!response.ok){
+        throw json({ message: 'Could not fetch details for product.'}, {
+            status: 500,
+        });
+    } else {
+          // react router will extract data from promise
+        console.log(response)
+        return response;
+    }
+};
 

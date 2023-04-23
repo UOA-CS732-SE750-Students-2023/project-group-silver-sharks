@@ -8,7 +8,6 @@ import productRouter from "./routes/product.js";
 import accountRouter from "./routes/account.js";
 import "./auth.js";
 import authRouter from "./routes/authentication.js";
-import imageRouter from "./routes/image.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -50,7 +49,6 @@ app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerSpec));
 app.use(productRouter);
 app.use(accountRouter);
 app.use(authRouter);
-app.use(imageRouter);
 
 app.use((error, req, res, next) => {
   const status = error.status || 500;

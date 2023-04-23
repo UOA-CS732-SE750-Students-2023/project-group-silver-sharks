@@ -1,7 +1,7 @@
 import React from 'react'; 
 import { redirect } from 'react-router-dom';
-import PreLoginBar from '../components/AuthenticationComponents/PreLoginBar';
-import SignupLayout from '../components/AuthenticationComponents/SignupLayout';
+import PreLoginBar from '../components/PreLoginBar';
+import SignupLayout from '../components/SignupLayout';
 
 
 const SignupPage = () => { 
