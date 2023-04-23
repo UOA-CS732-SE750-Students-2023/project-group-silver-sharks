@@ -2,6 +2,7 @@ import express from "express";
 import multer from "multer";
 import path from "path";
 import { StatusCodes } from "http-status-codes";
+import { getAllImages, addImage } from "../dao/image-dao.js";
 
 const imageRouter = new express.Router();
 
@@ -57,6 +58,27 @@ imageRouter.post("/upload", async (req, res) => {
       }
     }
   });
+});
+
+// Endpoint 2: GET - Get image data
+// query param ?id=<id>
+imageRouter.get("/images", async (req, res) => {
+  const id = req.query.id;
+});
+
+// Endpoint 3: POST - Add image data
+imageRouter.post("/images", async (req, res) => {
+  try {
+    const newImage = await addImage(req.body);
+
+    return res
+      .status(StatusCodes.CREATED)
+      .header("Location", `/images/${newImage._id}`)
+      .json(newImage);
+  } catch (err) {
+    console.log(err);
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error");
+  }
 });
 
 export default imageRouter;
