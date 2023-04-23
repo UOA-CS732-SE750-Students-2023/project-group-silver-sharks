@@ -9,10 +9,16 @@ const StoreDisplayLayout = (props) => {
       marginLeft: '100px', // 可以根据需要调整此值
     };
 
+    const noSearchResults = (
+        <div>
+            <h2>No search results found.</h2>
+        </div>
+    );
+
     return (
         <div style={minMaxInputContainerStyle}> 
             <h1>All items in store or filted by category</h1>
-            <ul className="row list-unstyled" >
+            {!props.notFound && <ul className="row list-unstyled" >
                 {props.items.map((item) => (
                     <li key={item._id} className="col-sm-4">
                         <Card>
@@ -33,7 +39,8 @@ const StoreDisplayLayout = (props) => {
                         </Card> 
                     </li>
                 ))}
-            </ul>
+            </ul>}
+            {props.notFound && noSearchResults}
         </div>
     );
 }

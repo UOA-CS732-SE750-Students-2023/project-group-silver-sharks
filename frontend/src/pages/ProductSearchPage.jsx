@@ -21,15 +21,16 @@ const ProductSearchPage = () => {
   const [filter, setFilter] = useState("default"); 
   const [category, setCategory] = useState('Images');
   const [pageNumber, setPageNumber] = useState(1);
+  const [notFound, setNotFound] = useState(false);
 
   const categoryHandler = async (category) => {
     setCategory(category);
-    const response = await handleItemsChange(pageNumber, category, undefined, false, undefined)
+    const response = await handleItemsChange(1, category, undefined, false, undefined)
   };
 
   const filterHandler = async (filter) => {
     setFilter(filter);
-    const response = await handleItemsChange(pageNumber, undefined, filter, false, undefined)
+    const response = await handleItemsChange(1, undefined, filter, false, undefined)
   };
 
   const pageNumberHandler = async (currentPageNumber) => {
@@ -42,6 +43,7 @@ const ProductSearchPage = () => {
   }
 
   const handleItemsChange = async (currentPageNumber, specifiedCategory, specifiedFilter, isSearch, searchTerm) => {
+    setNotFound(false);
 
     const currentFilter = specifiedFilter || filter; 
     const currentCategory = specifiedCategory || category;
@@ -50,7 +52,7 @@ const ProductSearchPage = () => {
     console.log("page number " + currentPageNumber)
     console.log("sortBy " + currentFilter)
     console.log("category " + currentCategory)
-    console.log("search" + searchTerm)
+    console.log("search " + searchTerm)
 
 
     if (!isSearch){
@@ -69,6 +71,11 @@ const ProductSearchPage = () => {
           search: searchTerm
         })
     );
+    
+    if (response.status === 404){
+      setNotFound(true);
+      return;
+    }
 
     if (!response.ok) {
       throw new Error("Something went wrong!");
@@ -122,7 +129,7 @@ const ProductSearchPage = () => {
           setFilter={filterHandler}
           setSearchTerm={searchByPhraseHandler}
         />
-        <StoreDisplayLayout items={displayedProducts} />
+        <StoreDisplayLayout items={displayedProducts} notFound={notFound}/>
         <PaginationBar
           itemsPerPage={ITEMS_PER_PAGE}
           onItemsChange={pageNumberHandler}

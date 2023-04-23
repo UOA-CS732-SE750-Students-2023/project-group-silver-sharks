@@ -17,6 +17,7 @@ import DashBoardPage from './pages/profile/DashboardPage';
 import ProfileRoot from './pages/profile/ProfileRoot';
 import SellAssetPage from './pages/SellAssetPage';
 import { loader as allProductsLoader } from './pages/ProductSearchPage';
+import { loader as productLoader } from './pages/ProductPage';
 
 const router = createBrowserRouter([
   {path:'/', element: <RootPage />, children: [
@@ -25,7 +26,7 @@ const router = createBrowserRouter([
     {path: 'signup', element: <SignupPage />, action: signupAction},
     {path:'store', element: <StoreRootPage />, children: [
       {path:'product-search', element: <ProductSearchPage />, loader: allProductsLoader},
-      {path: 'product/:productid', element: <ProductPage />},
+      {path: 'product/:productid', element: <ProductPage />, loader: productLoader},
       {path: 'author/:aid', element: <AuthorPage />},
       {path: 'profile', element: <ProfileRoot />, children: [
         {index: true, element: <DashBoardPage />},
