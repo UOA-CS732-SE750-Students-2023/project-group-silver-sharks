@@ -22,12 +22,7 @@ const accountSchema = new Schema(
       validateBeforeSave: true
     },
     sellerRating: Number,
-    sellerReviews: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "SellerReview",
-      },
-    ],
+    assetsSold: Number,
     productsPurchased: [
       {
         type: Schema.Types.ObjectId,
@@ -38,12 +33,6 @@ const accountSchema = new Schema(
       {
         type: Schema.Types.ObjectId,
         ref: "Product",
-      },
-    ],
-    creditCards: [
-      {
-        lastFourDigits: String,
-        encryptedInformation: String,
       },
     ],
   },
