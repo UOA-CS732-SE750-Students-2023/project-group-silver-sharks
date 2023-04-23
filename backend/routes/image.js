@@ -1,8 +1,9 @@
 import express from "express";
 import multer from "multer";
 import path from "path";
+import mongoose from "mongoose";
 import { StatusCodes } from "http-status-codes";
-import { getAllImages, addImage } from "../dao/image-dao.js";
+import { addImage, getImages } from "../dao/image-dao.js";
 
 const imageRouter = new express.Router();
 
@@ -60,10 +61,23 @@ imageRouter.post("/upload", async (req, res) => {
   });
 });
 
-// Endpoint 2: GET - Get image data
+// Endpoint 2: GET - Get images for a specific product
 // query param ?id=<id>
 imageRouter.get("/images", async (req, res) => {
   const id = req.query.id;
+
+  const isValid = mongoose.isValidObjectId(id);
+  if (!isValid) {
+    return res.sendStatus(StatusCodes.BAD_REQUEST);
+  }
+
+  try {
+    const images = await getImages(id);
+    return res.status(StatusCodes.OK).json(images);
+  } catch (err) {
+    console.log(err);
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error");
+  }
 });
 
 // Endpoint 3: POST - Add image data
