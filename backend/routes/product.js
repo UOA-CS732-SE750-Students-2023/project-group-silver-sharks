@@ -17,7 +17,7 @@ const productRouter = new express.Router();
 productRouter.get("/products", async (req, res) => {
   // retrieving the query params
   const page = parseInt(req.query.page) || 1;
-  const limit = parseInt(req.query.limit) || 10;
+  const limit = parseInt(req.query.limt) || 10;
   const sortBy = req.query.sortBy || "default";
   try {
     const { products, count } = await getPaginatedProducts(page, limit, sortBy);
