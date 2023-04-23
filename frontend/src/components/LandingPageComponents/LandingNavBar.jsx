@@ -1,21 +1,15 @@
 import React from 'react';
 import SearchIcon from '@mui/icons-material/Search';
-import { useNavigate } from 'react-router-dom';
 import './LandingNavBar.css';
 
 function LandingNavBar() {
-  const navigate = useNavigate();
-
-  const navigateLoginHandler = () => {
-      navigate('/login');
-  }
   return (
     <>
       <div className = 'landing-page-bg'>
         <div className="landing-page-navbar-wrapper">
           <div className="sign-in-row">
             <div className="landing-page-logo"><b>SHARKET</b>PLACE</div>
-            <div className="landing-page-sign-in"><button className="sign-in-button" onClick={navigateLoginHandler}>Sign In</button></div>
+            <div className="landing-page-sign-in"><a href='/login'><button className="sign-in-button">Sign In</button></a></div>
           </div>
           <hr className='landing-page-navbar-line'/>
           <div className='landing-page-desc'>

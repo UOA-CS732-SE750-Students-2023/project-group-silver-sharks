@@ -17,7 +17,7 @@ const productRouter = new express.Router();
 productRouter.get("/products", async (req, res) => {
   // retrieving the query params
   const page = parseInt(req.query.page) || 1;
-  const limit = parseInt(req.query.limt) || 10;
+  const limit = parseInt(req.query.limit) || 10;
   const sortBy = req.query.sortBy || "default";
   try {
     const { products, count } = await getPaginatedProducts(page, limit, sortBy);
@@ -26,13 +26,7 @@ productRouter.get("/products", async (req, res) => {
       return res.status(StatusCodes.NOT_FOUND).send("No Products Were Found");
     }
 
-    let results = {};
-    results.total = count;
-    results.page = page;
-    results.limit = limit;
-    results.results = products;
-
-    return res.status(StatusCodes.OK).json(results);
+    return res.status(StatusCodes.OK).json([products,count]);
   } catch (error) {
     console.error(error.message);
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error");
@@ -82,13 +76,7 @@ productRouter.get("/products/filter", async (req, res) => {
       return res.status(StatusCodes.NOT_FOUND).send("No Products Were Found");
     }
 
-    let results = {};
-    results.total = count;
-    results.page = page;
-    results.limit = limit;
-    results.results = products;
-
-    return res.status(StatusCodes.OK).json(results);
+    return res.status(StatusCodes.OK).json([products,count]);
   } catch (error) {
     console.log(error);
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error");
@@ -118,13 +106,7 @@ productRouter.get("/products/search", async (req, res) => {
       return res.status(StatusCodes.NOT_FOUND).send("No Products Were Found");
     }
 
-    let results = {};
-    results.total = count;
-    results.page = page;
-    results.limit = limit;
-    results.results = products;
-
-    return res.status(StatusCodes.OK).json(results);
+    return res.status(StatusCodes.OK).json([products,count]);
   } catch (error) {
     console.log(error);
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error");

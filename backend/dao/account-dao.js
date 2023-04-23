@@ -21,37 +21,8 @@ const deleteAccount = async (id) => {
     await Account.findByIdAndDelete(id);
 };
 
-const getPurchasedProductsById = async (id) => {
-    try {
-      const account = await Account.findById(id).populate('productsPurchased');
-      if (!account) {
-        throw new Error('Account not found');
-      }
-      return account.productsPurchased;
-    } catch (err) {
-      console.error(err);
-      throw new Error('Account not found');
-    }
-  };
-
-const getSellingProductsById = async (id) => {
-    try {
-      const account = await Account.findById(id).populate('sellingProducts');
-      if (!account) {
-        throw new Error('Account not found');
-      }
-      return account.sellingProducts;
-    } catch (err) {
-      console.error(err);
-      throw new Error('Account not found');
-    }
-  };
-
-
 export {
     getAllAccounts,
     getAccountById,
-    deleteAccount,
-    getSellingProductsById,
-    getPurchasedProductsById
+    deleteAccount
 };
