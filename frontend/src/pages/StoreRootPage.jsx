@@ -1,6 +1,6 @@
 import React, { useState } from 'react'; 
 import { Outlet } from 'react-router-dom'; 
-import StoreNavBar from '../components/StoreComponents/StoreNavBar';
+import StoreNavBar from '../components/StoreNavBar';
 import Cart from '../components/cart/Cart';
 
 const StoreRootPage = () => { 
@@ -18,9 +18,6 @@ const StoreRootPage = () => {
         <>  
             {displayCart && <Cart closeCart={hideCartHandler}/>}
             <StoreNavBar showCart={showCartHandler}/>
-            STORE 
-            STORE
-            STORE
             <Outlet />
         </>
 
