@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './PaginationBar.css'; // 引入自定义样式文件
 
 const PaginationBar = ({ itemsLength, itemsPerPage, onItemsChange, initialPage }) => {
-
-  const [ currentPage, setCurrentPage] = useState(initialPage);
+  console.log("-------PAGINATION BAR RENDER------------------")
+  const [ currentPage, setCurrentPage] = useState(initialPage) 
 
   useEffect(() => {
     onItemsChange(currentPage);

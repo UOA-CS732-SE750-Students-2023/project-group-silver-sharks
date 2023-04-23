@@ -3,7 +3,7 @@ import ProductContext from '../store/product-context';
 import { NavLink } from 'react-router-dom';
 import { Navbar, Button, Nav, Form, InputGroup, DropdownButton, Dropdown } from 'react-bootstrap';
 
-const ProductNavBar = ({ setSearchCategory, setFilter, selectedFilter }) => {
+const ProductNavBar = ({ setSearchCategory, setFilter,setSearchTerm }) => {
   
   const searchInputStyle = {
     borderRadius: '25px',
@@ -54,17 +54,18 @@ const ProductNavBar = ({ setSearchCategory, setFilter, selectedFilter }) => {
 
   const categoryHandler = (event) => {
     console.log(event.target.innerHTML);
+    setSearchCategory(event.target.innerHTML)
 
   };
   
   const searchChangeHandler = (event) => {
     console.log(event.target.value);
-
+    setSearchTerm(event.target.value);
   }
 
   const filterChangeHandler = (event) => { 
-    console.log(event.target.value); 
-
+    console.log(event); 
+    setFilter(event);
   }
 
 
@@ -154,16 +155,14 @@ const ProductNavBar = ({ setSearchCategory, setFilter, selectedFilter }) => {
             <InputGroup>
               <DropdownButton
                 variant="outline-secondary"
-                title="Sort by: Popularity"
+                title="Filter"
                 id="sort-dropdown"
                 align="end"
                 style={customDropdownBtnStyle}
-                onChange={filterChangeHandler}
+                onSelect={filterChangeHandler}
               >
-                <Dropdown.Item href="#/popularity">Popularity</Dropdown.Item>
-                <Dropdown.Item href="#/newest">Newest</Dropdown.Item>
-                <Dropdown.Item href="#/price-asc">Price: Low to High</Dropdown.Item>
-                <Dropdown.Item href="#/price-desc">Price: High to Low</Dropdown.Item>
+                <Dropdown.Item eventKey="priceLowToHigh">Price: Low to High</Dropdown.Item>
+                <Dropdown.Item eventKey="priceHighToLow">Price: High to Low</Dropdown.Item>
               </DropdownButton>
             </InputGroup>
           </div>
