@@ -4,9 +4,11 @@ const AuthorLayout = ({ author }) => {
 
     return (
         <div>
-            <h1>{author.name}</h1>
-            <img src={author.url} alt={author.name} />
-            <p>{author.bio}</p>
+            <h1>{author.username}</h1>
+            <p>{author.email}</p>
+            <p>{author.firstName}</p>
+            <p>{author.lastName}</p>
+            <p>{author.sellerRating}</p>
         </div>
     );
 }

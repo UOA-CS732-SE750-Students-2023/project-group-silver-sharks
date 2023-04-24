@@ -9,6 +9,7 @@ import { Account } from "../models/accountModel.js";
 const accountRouter = new express.Router();
 
 // Middle-ware function to ensure user is admin
+// temporarily removed middleware 
 function isAdmin(req, res, next) {
   const user = req.user;
   if (user && user.accountType === "admin") {
@@ -85,8 +86,11 @@ accountRouter.get("/account", isLoggedIn, async (req, res) => {
  * Endpoint 3: GET /account/id/{id}
  * Get account by id.
  */
-accountRouter.get("/account/id/:id", isLoggedIn, async (req, res) => {
+accountRouter.get("/account/id/:id", async (req, res) => {
   const account = await getAccountById(req.params.id);
+
+  console.log(account)
+
   return res.status(StatusCodes.OK).json(account);
 });
 
@@ -116,7 +120,7 @@ accountRouter.get("/account/sign-out", function (req, res, next) {
  * Endpoint 6 (admin only): PUT /account/id/{id}
  * Edit account info (editable fields are username, fisrtName, lastName and accountType)
  */
-accountRouter.put("/account/id/:id", isLoggedIn, isAdmin, async (req, res) => {
+accountRouter.put("/account/id/:id", async (req, res) => {
   try {
     const accountId = req.params.id;
     const updatedFields = req.body;
@@ -155,7 +159,7 @@ accountRouter.put("/account/id/:id", isLoggedIn, isAdmin, async (req, res) => {
  * Endpoint 7: DELETE /account
  * Delete your own account
  */
-accountRouter.delete("/account", isLoggedIn, async (req, res) => {
+accountRouter.delete("/account", async (req, res) => {
   await deleteAccount(req.user.id);
   return res.json({ message: 'Account deleted successfully' });
 });
@@ -164,7 +168,7 @@ accountRouter.delete("/account", isLoggedIn, async (req, res) => {
  * Endpoint 8 (admin only): DELETE /account/id/{id}
  * Delete another account
  */
-accountRouter.delete("/account/id/:id", isLoggedIn, isAdmin, async (req, res) => {
+accountRouter.delete("/account/id/:id", async (req, res) => {
   await deleteAccount(req.params.id);
   return res.json({ message: 'Account of user ' + req.params.id + ' deleted successfully' });
 });

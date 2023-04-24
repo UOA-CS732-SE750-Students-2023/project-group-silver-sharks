@@ -89,9 +89,12 @@ const getProductsMatchingSearchTerm = async (
   console.log("products match search query" + products);
 
   // determine the number of results being returned
+
   const count = await Product.countDocuments({
     name: { $regex: searchTerm, $options: "i" },
   });
+ 
+  //const count = products.length;
 
   return { products, count };
 };

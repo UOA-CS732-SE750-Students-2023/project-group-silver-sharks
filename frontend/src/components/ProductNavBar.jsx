@@ -53,22 +53,17 @@ const ProductNavBar = ({ setSearchCategory, setFilter,setSearchTerm }) => {
   // handler methods for the category buttons 
 
   const categoryHandler = (event) => {
-    console.log(event.target.innerHTML);
-    setSearchCategory(event.target.innerHTML)
+    setSearchCategory(event.target.innerHTML, false)
 
   };
   
   const searchChangeHandler = (event) => {
-    console.log(event.target.value);
-    setSearchTerm(event.target.value);
+    setSearchTerm(event.target.value, true);
   }
 
   const filterChangeHandler = (event) => { 
-    console.log(event); 
-    setFilter(event);
+    setFilter(event, false);
   }
-
-
 
   return (
     <div style={grayBackgroundStyle}>

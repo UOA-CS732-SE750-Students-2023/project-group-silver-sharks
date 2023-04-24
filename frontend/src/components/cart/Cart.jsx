@@ -18,7 +18,7 @@ const Cart = (props) => {
             <h2>{cartContent}</h2>
             <div>
                 <h3>The total amount from context is: </h3>
-                <p>{totalAmount}</p>
+                
             </div>
             <button onClick={closeCartHandler}>Close</button>
         </Modal>

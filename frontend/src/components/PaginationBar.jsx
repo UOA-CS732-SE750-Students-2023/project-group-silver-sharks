@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import './PaginationBar.css'; // 引入自定义样式文件
 
-const PaginationBar = ({ itemsLength, itemsPerPage, onItemsChange, initialPage }) => {
-  console.log("-------PAGINATION BAR RENDER------------------")
+const PaginationBar = ({ itemsLength, itemsPerPage, onItemsChange, initialPage, isSearch }) => {
+
   const [ currentPage, setCurrentPage] = useState(initialPage) 
 
   useEffect(() => {
-    onItemsChange(currentPage);
+    onItemsChange(currentPage, isSearch);
   }, [currentPage]);
 
   console.log(length)

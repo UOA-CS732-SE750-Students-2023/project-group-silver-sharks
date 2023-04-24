@@ -18,6 +18,8 @@ import ProfileRoot from './pages/profile/ProfileRoot';
 import SellAssetPage from './pages/SellAssetPage';
 import { loader as allProductsLoader } from './pages/ProductSearchPage';
 import { loader as productLoader } from './pages/ProductPage';
+import { loader as authorLoader } from './pages/AuthorPage';
+import { action as sellAssetAction } from './components/SellAssetLayout';
 
 const router = createBrowserRouter([
   {path:'/', element: <RootPage />, children: [
@@ -27,14 +29,14 @@ const router = createBrowserRouter([
     {path:'store', element: <StoreRootPage />, children: [
       {path:'product-search', element: <ProductSearchPage />, loader: allProductsLoader},
       {path: 'product/:productid', element: <ProductPage />, loader: productLoader},
-      {path: 'author/:aid', element: <AuthorPage />},
+      {path: 'author/:aid', element: <AuthorPage />, loader: authorLoader},
       {path: 'profile', element: <ProfileRoot />, children: [
         {index: true, element: <DashBoardPage />},
         {path: 'messages', element: <MessagesPage />},
         {path: 'purchase', element: <PurchasePage />},
         {path: 'selling', element: <SellingPage />},
       ]},
-      {path: 'sell-asset', element: <SellAssetPage />}
+      {path: 'sell-asset', element: <SellAssetPage />, action: sellAssetAction}
     ]}, 
   ]},
 ]);
