@@ -1,6 +1,6 @@
 import React, { useState } from 'react'; 
 import { Outlet } from 'react-router-dom'; 
-import StoreNavBar from '../components/StoreNavBar';
+import StoreNavBar from '../components/StoreComponents/StoreNavBar';
 import Cart from '../components/cart/Cart';
 
 const StoreRootPage = () => { 
