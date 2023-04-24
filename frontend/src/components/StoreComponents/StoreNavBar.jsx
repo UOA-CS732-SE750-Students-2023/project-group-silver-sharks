@@ -11,10 +11,13 @@ const StoreNavBar = (props) => {
         navigate('/store/profile');
     };
 
+    const sellAssetNavigationHandler = () => {
+        navigate('/store/sell-asset');
+    }
+
     const showCartHandler = () => {
         props.showCart();
     }
-
 
     return (
         <header className="store-navbar-container">
@@ -24,7 +27,7 @@ const StoreNavBar = (props) => {
                 </div>
                 <div className="store-navbar-action-row">
                     <div className="brand-name"><b>SHARKET</b>PLACE</div>
-                    <div className="sell-asset-wrapper"><button className="store-page-sell-asset-btn" onClick={profileNavigationHandler}>Sell Assets</button></div>
+                    <div className="sell-asset-wrapper"><button className="store-page-sell-asset-btn" onClick={sellAssetNavigationHandler}>Sell Assets</button></div>
                     <div className="cart-icon-wrapper"><ShoppingCartIcon fontSize='large'  onClick={showCartHandler}/></div>
                     <div className="menu-icon-wrapper"><MenuIcon fontSize='large' onClick={profileNavigationHandler}/></div>
                 </div>

@@ -19,6 +19,7 @@ import ProfileRoot from './pages/profile/ProfileRoot';
 import SellAssetPage from './pages/SellAssetPage';
 import { loader as allProductsLoader } from './pages/ProductSearchPage';
 import { loader as productLoader } from './pages/ProductPage';
+import { action as sellAssetAction } from './components/SellAssetLayout';
 
 const router = createBrowserRouter([
   {path:'/', element: <RootPage />, children: [
@@ -36,7 +37,7 @@ const router = createBrowserRouter([
         {path: 'purchase', element: <PurchasePage />},
         {path: 'selling', element: <SellingPage />},
       ]},
-      {path: 'sell-asset', element: <SellAssetPage />}
+      {path: 'sell-asset', element: <SellAssetPage />, action: sellAssetAction}
     ]}, 
   ]},
 ]);
