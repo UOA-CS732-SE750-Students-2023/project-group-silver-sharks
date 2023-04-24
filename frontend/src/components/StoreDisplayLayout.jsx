@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Card from '../pages/ui/Card';
 import { StarFill } from 'react-bootstrap-icons';
 const StoreDisplayLayout = (props) => { 
-    console.log(props.items)
+    console.log(props.items[0])
 
     const minMaxInputContainerStyle = {
       marginLeft: '100px', // 可以根据需要调整此值
