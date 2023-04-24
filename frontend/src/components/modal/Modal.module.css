@@ -5,26 +5,153 @@
     width: 100%;
     height: 100vh;
     z-index: 20;
-    background-color: rgba(0, 0, 0, 0.75);
 }
-  
+ 
 .modal {
-    position: fixed;
     top: 20vh;
-    left: 5%;
+    position: absolute;
+    color:aliceblue;
     width: 90%;
-    background-color: white;
+    background:linear-gradient(180deg, #000000 0%, #001614 48.96%, #000000 100%, #000000 100%);
     padding: 1rem;
-    border-radius: 14px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    border-radius: 20px;
+    /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25); */
     z-index: 30;
     animation: slide-down 300ms ease-out forwards;
 }
+.modal h2{
+    height: 24px;
+    width: 211px;
+    /* left: 728px; */
+    /* top: 295px; */
+    /* border-radius: nullpx; */
+    font-size: 16px;
 
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+
+}
+.modal h3{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+}
+.modal img {
+    height: auto;
+    max-height: 100%;
+    max-width: 100%;
+    display: block;
+}
+.modal li{
+    padding: 10px;
+}
+.modal h5{
+    font-family: Poppins;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 36px;
+    letter-spacing: 0em;
+    text-align: right;
+
+}
+.modal span{
+
+    /* height: 36px;
+    width: 31px;
+    left: 1161px;
+    top: 356px;
+    border-radius: nullpx; */
+
+    color: white;
+    font-family: Poppins;
+    font-weight: 600;
+    line-height: 36px;
+}
+.modal p{
+    padding: 0px 20px;
+    color:#616161;
+    margin: 0;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+}
+.modal button{
+    margin-top: 20px;
+    color: white;
+    box-sizing: border-box;
+    width: 181px;
+    height: 46px;
+    background: #348B81;
+    border: 2px solid #348B81;
+    border-radius: 50px;
+}
+.modal .cate_color{
+    color: white;
+}
+.modal .pic_d{
+    display: inline-block;
+    width: 100px;
+    height: 59px;
+}
+.modal .intro_d{
+    display: inline-block;
+    width: 159px;
+    height: 48px;
+}
+.modal .icon{
+    background-color:#F48686;
+    border-radius:50%;
+    margin-top:-30px;
+    margin-left: 20px;
+    color:black;
+}
+.modal .icon:hover{
+    cursor: pointer; 
+}
+.modal .price{
+    display: inline-block;
+    margin-top: -40px;
+}
+.modal .number{
+    font-size: 0.7em;
+    color: white;
+    margin-right: 20px;
+}
+.modal .bottom{
+    margin-top: 15px;
+}
+.modal .totalprice{
+    margin-left: 30px;
+} 
+.modal ul{
+    overflow-y: auto;
+    white-space: nowrap;
+    max-height: 300px;
+  }
+.modal ul::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+.modal ul::-webkit-scrollbar-thumb {
+    background-color:rgb(79, 79, 79);
+    border-radius: 5px;
+  }
+  
+.modal ul::-webkit-scrollbar-thumb:hover {
+    background-color: #aaa;
+  }
 @media (min-width: 768px) {
     .modal {
-        width: 40rem;
-        left: calc(50% - 20rem);
+        width: 35%;
+        right: calc(50% - 40rem);
     }
 }
 

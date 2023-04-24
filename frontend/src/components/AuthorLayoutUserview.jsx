@@ -1,23 +1,19 @@
-import React, { useContext } from 'react'; 
-import Modal from '../modal/Modal';
-import { DashCircle  } from 'react-bootstrap-icons';
-import './Cart.module.css';
-import classes from '../modal/Modal.module.css';
+import React, { useState } from 'react';
+import { Link, useNavigate } from "react-router-dom";
+import { InputGroup, DropdownButton, Dropdown } from 'react-bootstrap';
+import Card from '../pages/ui/Card';
+import { StarFill } from 'react-bootstrap-icons';
+import classes from '../pages/ui/Card.module.css'
+import './AuthorLayout.css'
 
-
-// remember when using value from context, useState does not need to be used 
-// because when the cart data values change the component(s) that use them automatically 
-// rerender
-
-const Cart = (props) => { 
-    
-
+const AuthorLayoutUserview = ({ author }) => { 
+    //假设这些商品都是aid=xxx的
     const DUMMY_DATA = [
         {   
             pid: 1,
             aid: 2,
             name: 'goku',
-            price:80.00,
+            price:138912.00,
             sold:414,
             like:4.8,
             category:'Image',
@@ -28,7 +24,7 @@ const Cart = (props) => {
         },
         {   
             pid: 3,
-            aid: 4,
+            aid: 2,
             name: 'naruto',
             price:5.50,
             sold:8545,
@@ -41,7 +37,7 @@ const Cart = (props) => {
         },
         {   
             pid: 5,
-            aid: 6,
+            aid: 2,
             name: 'sasuke',
             price:11.99,
             sold:23,
@@ -54,7 +50,7 @@ const Cart = (props) => {
         },
         {   
             pid: 8,
-            aid: 11,
+            aid: 2,
             name: 'goku',
             price:80.00,
             sold:414,
@@ -67,7 +63,7 @@ const Cart = (props) => {
         },
         {   
             pid: 9,
-            aid: 55,
+            aid: 2,
             name: 'naruto',
             price:5.50,
             sold:8545,
@@ -80,7 +76,7 @@ const Cart = (props) => {
         },
         {   
             pid: 57,
-            aid: 67,
+            aid: 2,
             name: 'sasuke',
             price:11.99,
             sold:23,
@@ -93,86 +89,110 @@ const Cart = (props) => {
         },
         
     ];
+    //统计该用户一共有多少个items
+    const totalItems = DUMMY_DATA.length;
+    const itemText = totalItems > 1 ? 'assets' : 'asset';
 
-    const closeCartHandler = () => {
-        props.closeCart();
-    }
-    // Calculate the price of all items in the shopping cart
-    const totalPrice = DUMMY_DATA.reduce((acc, item) => acc + item.price, 0);
-    
-    //Calculate the number of items in the shopping cart
-    const totalAmount=DUMMY_DATA.length;
-    const itemText = totalAmount > 1 ? 'items' : 'item';
+    const [a_title, setTitle] = useState('Sort by: Popularity');
+    const handleSelect = (eventKey) => {
+        if (eventKey === 'popu') {
+          setTitle('Sort by: Popularity');
+        } else if (eventKey === 'new') {
+          setTitle('Sort by: Most recent');
+        } else if (eventKey === 'plth') {
+          setTitle('Sort by: Price: Low to High');
+        } else if (eventKey === 'phtl') {
+          setTitle('Sort by: Price: High to Low');
+        }
+      };
 
-    const handleClick = ()=>{
-        window.alert("Remove the product from cart.");
-    }
-
-    const checkoutClick = ()=>{
-        window.alert("checkout");
-    }
-    
 
     return (
-        <Modal onClose={props.closeCart}>
-            <div>
-                <h2>Shopping cart</h2>
-                <ul className="list-unstyled">
+        <div>
+            <div className='a_firstdiv'>
+                <h1 className='a_authorname'>{author.name}</h1>
+                <div className='a_forcontainbutton'>
+                    <div className='a_message'>
+                        <Link to="../profile/messages">Message</Link>
+                    </div>
+                </div>
+            </div>
+            <div className='a_tablecontainer'>
+                <table className="table table-borderless">
+                    <tbody>
+                        <tr>
+                            <td>Average rating</td>
+                            <td>{author.average_rating}</td>
+                        </tr>
+                        <tr>
+                            <td>Average response</td>
+                            <td>{author.average_response}</td>
+                        </tr>
+                        <tr>
+                            <td>Assets sold</td>
+                            <td>{author.assets_sold}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div className='a_cardpart d-flex justify-content-between'>
+                <div>
+                    <h2>Showing {totalItems}&nbsp;{itemText} for sale</h2>
+                </div>
+                <div>
+                    <InputGroup>
+                        <DropdownButton
+                            variant="outline-secondary"
+                            title={a_title}
+                            id="sort-dropdown"
+                            align="end"
+                            onSelect={handleSelect}
+                            className='a_dropdownbutton'
+                        >
+                            <Dropdown.Item href="#/popularity" eventKey="popu">Popularity</Dropdown.Item>
+                            <Dropdown.Item href="#/newest" eventKey="new">Most recent</Dropdown.Item>
+                            <Dropdown.Item href="#/price-asc" eventKey="plth">Price: Low to High</Dropdown.Item>
+                            <Dropdown.Item href="#/price-desc" eventKey="phtl">Price: High to Low</Dropdown.Item>
+                        </DropdownButton>
+                    </InputGroup>
+                </div>
+            </div>
+            <div className='a_cardpart2'>
+                <ul className="row list-unstyled" >
                     {DUMMY_DATA.map((item) => (
-                        <li key={item.pid}>
-                            <div className={`${classes.pic_d}`}>
-                                <img src={item.url}/>
-                            </div>
-                            
-                            <div className={`${classes.intro_d}`}>
-                                <p className="text-nowrap text-truncate">{item.intro}</p>
-                                <p className={`${classes.cate_color}`}>{item.category}</p>
-                            </div>
-                            
-                            <DashCircle className={`${classes.icon}`}
-                                size={24} 
-                                onClick={handleClick}/>
+                    <li key={item.pid} className="col-sm-4">
+                        <Card>
+                            <div >
+                                <div className={`${classes.imgcontainer}`}>
+                                    <img src={item.url}/>
+                                </div>
+                                <div>
+                                    <Link id="productLink" to={`/store/product/${item.pid}`}><h2>{item.name}</h2></Link>
+                                    <div className={`d-flex justify-content-end ${classes.price}`}  >
+                                        <span className="fs-4">${Math.floor(item.price)}</span>
+                                        <span className={`${classes.number}`}>{(item.price % 1).toFixed(2).split('.')[1]}</span>
+                                    </div>
+                                </div>
 
-                            
-                            <div className={`d-flex justify-content-end ${classes.price}`}  >
-                                <span className="fs-4 text-white">${Math.floor(item.price)}</span>
-                                <span className={`${classes.number}`}>{(item.price % 1).toFixed(2).split('.')[1]}</span>
+                                <p>{item.intro}</p>
+                                <div className="d-flex justify-content-between">
+                                    <h5>{item.sold} Sold</h5>
+                                    <h5 className="float-right"> <StarFill color="black" size={18} />&nbsp;{item.like.toFixed(1)}</h5>
+                                </div>
                             </div>
-                        </li>
-                    ))}
+                        </Card> 
+                    </li>
+                ))}
                 </ul>
-
-                <div className="border-top border-2"></div>
-
-                <div className={`d-flex justify-content-end ${classes.bottom}`}>
-                    <div className="d-flex flex-column align-items-end">
-                        <h3>Sub-total</h3>
-                        <p>{totalAmount}&nbsp;{itemText}</p>
-                    </div>
-                    
-                    <div className={`${classes.totalprice}`}>
-                        <span className="fs-2 text-white">${Math.floor(totalPrice)}</span>
-                        <span className="fs-7 text-white">{(totalPrice % 1).toFixed(2).split('.')[1]}</span>
-                    </div>
-                </div>
-                <div className="d-flex justify-content-end">
-                    <button onClick={checkoutClick}>Checkout</button>
-                </div>
-                
-                    
-                
-
             </div>
-            {/* <h2>Shopping cart</h2>
-            <h2>{cartContent}</h2>
-            <h2>{DUMMY_DATA.pid}</h2>
-            <div>
-                <h3>The total amount from context is: </h3>
-                <p>{totalAmount}</p>
-            </div>
-            <button onClick={closeCartHandler}>Close</button> */}
-        </Modal>
+
+                    
+
+            
+            
+            
+        </div>
     );
 }
 
-export default Cart;
+export default AuthorLayoutUserview;
