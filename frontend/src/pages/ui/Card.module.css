@@ -11,10 +11,17 @@
     gap: 1rem;
     margin: 0.5rem;
 }
+.card .imgcontainer{
+  height: 160px; /* 设置父容器的高度 */
+  width:auto;
+
+}
 .card img {
-    height: 12rem;
-    object-fit: cover;
-  }
+  height: 100%; /* 图片高度设置为100%以填满父容器 */
+  width: 100%; /* 图片宽度自适应 */
+  object-fit: contain;
+  
+}
 .card h2 {
   padding: 0.2rem;
   text-decoration: underline;
@@ -29,18 +36,6 @@
   text-align: left;
 
   }
-.card h3{
-    display: inline-block;
-    margin-left: 14rem;
-
-    font-family: Poppins;
-    font-size: 24px;
-    font-weight: 600;
-    line-height: 36px;
-    letter-spacing: 0em;
-    text-align: right;
-
-}
 .card h5{
   font-family: Poppins;
   font-size: 16px;
@@ -61,4 +56,19 @@
     text-align: left;
 
   }
+.card span{
+  font-family: Poppins;
+  font-weight: 600;
+  line-height: 36px;
+  color: black;
+}
+.card .price{
+  color: black;
+  display: inline-block;
+  margin-top: -40px;
+    
+}
+.card .number{
+    font-size: 0.7em;
+}
 
