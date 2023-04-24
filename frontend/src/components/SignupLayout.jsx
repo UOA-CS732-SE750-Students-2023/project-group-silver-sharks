@@ -1,19 +1,7 @@
 import React from 'react'; 
 import AuthForm from '../components/AuthForm';
-
 import { Form, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-/* const SignupLayout = () => { 
-    return (
-        <div> 
-           <h1>This is the sign up page</h1>
-           <AuthForm operation='SIGNUP'/>
-        </div>
-    );
-} */
-/* const grayBackgroundStyle = {
-  backgroundColor: '#EEEEEE',
-}; */
 
 
 const SignupLayout = () => {

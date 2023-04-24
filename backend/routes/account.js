@@ -8,6 +8,7 @@ import {
   getCartContents,
 } from "../dao/account-dao.js";
 
+
 import { ReasonPhrases, StatusCodes } from "http-status-codes";
 import passport from "passport";
 import session from "express-session";
@@ -126,16 +127,9 @@ accountRouter.get("/account/sign-out", function (req, res, next) {
  */
 accountRouter.put("/account/id/:id", isLoggedIn, isAdmin, async (req, res) => {
   try {
-    const accountId = req.params.id === "0" ? req.user.id : req.params.id;
+    const accountId = req.params.id;
     const updatedFields = req.body;
-    const allowedFields = [
-      "username",
-      "firstName",
-      "lastName",
-      "accountType",
-      "sellerRating",
-      "assetsSold",
-    ];
+    const allowedFields = ["username", "firstName", "lastName", "accountType"];
     const validFields = Object.keys(updatedFields).filter((field) =>
       allowedFields.includes(field)
     );
@@ -151,16 +145,6 @@ accountRouter.put("/account/id/:id", isLoggedIn, isAdmin, async (req, res) => {
       !["admin", "normal"].includes(updatedFields.accountType)
     ) {
       return res.status(400).json({ message: "Invalid value for accountType" });
-    }
-
-    if (
-      typeof updatedFields.sellerRating !== "undefined" &&
-      updatedFields.sellerRating >= 0 &&
-      updatedFields.sellerRating <= 5
-    ) {
-      return res
-        .status(400)
-        .json({ message: "Invalid value for seller rating" });
     }
 
     const updatedAccount = await Account.findByIdAndUpdate(
@@ -182,7 +166,7 @@ accountRouter.put("/account/id/:id", isLoggedIn, isAdmin, async (req, res) => {
  */
 accountRouter.delete("/account", isLoggedIn, async (req, res) => {
   await deleteAccount(req.user.id);
-  return res.json({ message: "Account deleted successfully" });
+  return res.json({ message: 'Account deleted successfully' });
 });
 
 /**

@@ -1,26 +1,7 @@
 import React from 'react'; 
 import { NavLink, useLocation } from 'react-router-dom';
 import { Navbar, Nav } from 'react-bootstrap';
-/* const ProfileNavBar = () => { 
-    return (
-        <nav>
-            <ul>
-                <li>
-                    <NavLink to="/store/profile">Dashboard</NavLink>
-                </li>
-                <li>
-                    <NavLink to="/store/profile/purchase">Purchase</NavLink>
-                </li>
-                <li>
-                    <NavLink to="/store/profile/selling">Selling</NavLink>
-                </li>
-                <li>
-                    <NavLink to="/store/profile/messages">Messages</NavLink>
-                </li>
-            </ul>
-        </nav>
-    );
-} */
+
 const ProfileNavBar = () => {
   const location = useLocation();
 
