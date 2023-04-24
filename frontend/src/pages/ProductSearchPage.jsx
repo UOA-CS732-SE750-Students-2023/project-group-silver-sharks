@@ -58,7 +58,9 @@ const ProductSearchPage = () => {
     if (!isSearch){
       const response = await navigateHandler(currentPageNumber, currentCategory, currentFilter)
     } else {
-      const response = await searchHandler(currentPageNumber, searchTerm);
+      if (searchTerm.length !== 0){
+        const response = await searchHandler(currentPageNumber, searchTerm);
+      }
     }
   };
 
