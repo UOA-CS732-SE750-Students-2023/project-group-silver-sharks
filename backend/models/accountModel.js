@@ -35,6 +35,12 @@ const accountSchema = new Schema(
         ref: "Product",
       },
     ],
+    cartContents: [{
+      product: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Product'
+      }
+    }],
   },
   {
     timestamps: {},
