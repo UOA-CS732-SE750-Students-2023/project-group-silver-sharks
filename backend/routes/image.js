@@ -67,6 +67,7 @@ imageRouter.get("/images", async (req, res) => {
   const id = req.query.id;
 
   const isValid = mongoose.isValidObjectId(id);
+
   if (!isValid) {
     return res.sendStatus(StatusCodes.BAD_REQUEST);
   }
