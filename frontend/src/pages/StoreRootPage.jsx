@@ -18,9 +18,6 @@ const StoreRootPage = () => {
         <>  
             {displayCart && <Cart closeCart={hideCartHandler}/>}
             <StoreNavBar showCart={showCartHandler}/>
-            STORE 
-            STORE
-            STORE
             <Outlet />
         </>
 

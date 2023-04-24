@@ -28,7 +28,7 @@ const StoreNavBar = (props) => {
                     <div className="cart-icon-wrapper"><ShoppingCartIcon fontSize='large'  onClick={showCartHandler}/></div>
                     <div className="menu-icon-wrapper"><MenuIcon fontSize='large' onClick={profileNavigationHandler}/></div>
                 </div>
-                
+
             </div>
             <hr className='store-page-navbar-line'/>
         </header>

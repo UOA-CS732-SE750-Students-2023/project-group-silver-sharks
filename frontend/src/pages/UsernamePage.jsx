@@ -1,12 +1,12 @@
 import React from 'react'; 
-import PreLoginBar from '../components/PreLoginBar';
+import LandingNavBar from '../components/LandingPageComponents/LandingNavBar';
 import UsernameLayout from '../components/UsernamePageComponents/UsernameLayout';
 
 const UsernamePage = () => { 
 
     return (
         <>
-            <PreLoginBar />
+            <LandingNavBar />
             <UsernameLayout />
         </>
     );

@@ -1,0 +1,117 @@
+.a_firstdiv{
+    margin: 20px 160px;
+}
+.a_authorname{
+    font-family: Poppins;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 36px;
+    letter-spacing: 0em;
+    text-align: left;
+    margin-left: 10px;
+}
+.a_message{
+    font-family: Poppins;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: white;
+
+    box-sizing: border-box;
+    width: 155px;
+    height: 58px;
+    background: #348B81;
+    border: 2px solid #348B81;
+    border-radius: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.a_message a{
+    text-decoration: none;
+}
+.a_message a:hover{
+    color: aliceblue;
+
+}
+.a_forcontainbutton{
+    display: inline-block;
+}
+.a_forcontainlink{
+    vertical-align: top;
+    display: inline-block;
+    margin-top: 5px;
+    
+}
+.a_forcontainlink a {
+    
+    font-family: Poppins;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+
+    display: block;
+    color: black;
+    margin-left: 35px;
+  }
+.a_tablecontainer{
+    margin: 50px 160px;
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    padding: 20px 20px 5px 20px;
+    
+}
+.a_tablecontainer td:first-child {
+    width: 25%;
+    font-family: Poppins;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+.a_tablecontainer td:nth-child(2) {
+    font-family: Poppins;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    color:#616161;
+}
+.a_cardpart{
+    margin: 80px 160px 20px 160px;
+}
+.a_cardpart h2{
+    display: inline-block;
+    font-family: Poppins;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 36px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+.a_cardpart #sort-dropdown{
+    box-sizing: border-box;
+    width: 237px;
+    height: 58px;
+    border: 2px solid #000000;
+    border-radius: 50px;
+
+    font-family: Poppins;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align:center;
+    color: #000000;
+}
+.a_cardpart2{
+    margin: 30px 160px 100px 160px;
+}
