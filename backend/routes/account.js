@@ -230,7 +230,7 @@ accountRouter.get("/account/cart", async (req, res) => {
 });
 
 /**
- * Endpoint 11: GET /account/cart/pid/{pid}
+ * Endpoint 12: GET /account/cart/pid/{pid}
  * Add an item to cart
  */
 accountRouter.post("/account/cart/pid/:pid", async (req, res) => {
@@ -263,6 +263,7 @@ accountRouter.post("/account/cart/pid/:pid", async (req, res) => {
 
     res.status(200).json({ message: 'Product added to cart' });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ message: 'Server error: product id may be invalid' });
   }
 });
