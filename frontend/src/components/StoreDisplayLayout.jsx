@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Card from '../pages/ui/Card';
 import { StarFill } from 'react-bootstrap-icons';
+import classes from '../pages/ui/Card.module.css';
 const StoreDisplayLayout = (props) => { 
     console.log(props.items[0])
 
@@ -23,12 +24,15 @@ const StoreDisplayLayout = (props) => {
                     <li key={item._id} className="col-sm-4">
                         <Card>
                             <div >
-                                <div>
-                                    {/*<img src={item.imageURL} /> */}
+                                <div className={`${classes.imgcontainer}`}>
+                                    {/* <img src={item.imageURL} /> */}
                                 </div>
                                 <div>
                                     <Link id="productLink" to={`/store/product/${item._id}`}><h2>{item.name}</h2></Link>
-                                    <h3>${Math.floor(item.price)}</h3>{(item.price % 1).toFixed(2).split('.')[1]}
+                                    <div className={`d-flex justify-content-end ${classes.price}`}  >
+                                        <span className="fs-4">${Math.floor(item.price)}</span>
+                                        <span className={`${classes.number}`}>{(item.price % 1).toFixed(2).split('.')[1]}</span>
+                                    </div>
                                 </div>
                                 {/* <p>author: <Link id="authorLink" to={`/store/author/${item.aid}`}>{item.author}</Link></p> */}
                                 <p>{item.description}</p>
