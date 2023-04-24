@@ -36,12 +36,12 @@ const accountSchema = new Schema(
         ref: "Product",
       },
     ],
-    creditCards: [
-      {
-        lastFourDigits: String,
-        encryptedInformation: String,
-      },
-    ],
+    cartContents: [{
+      product: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Product'
+      }
+    }],
   },
   {
     timestamps: {},

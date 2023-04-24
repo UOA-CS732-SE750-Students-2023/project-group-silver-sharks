@@ -1,10 +1,19 @@
 import express from "express";
-import { getAllAccounts, getAccountById, deleteAccount } from "../dao/account-dao.js";
+import {
+  getAllAccounts,
+  getAccountById,
+  deleteAccount,
+  getPurchasedProductsById,
+  getSellingProductsById,
+  getCartContents,
+} from "../dao/account-dao.js";
+
 
 import { ReasonPhrases, StatusCodes } from "http-status-codes";
 import passport from "passport";
 import session from "express-session";
 import { Account } from "../models/accountModel.js";
+import { Product } from "../models/productModel.js";
 
 const accountRouter = new express.Router();
 
@@ -164,9 +173,98 @@ accountRouter.delete("/account", isLoggedIn, async (req, res) => {
  * Endpoint 8 (admin only): DELETE /account/id/{id}
  * Delete another account
  */
-accountRouter.delete("/account/id/:id", isLoggedIn, isAdmin, async (req, res) => {
-  await deleteAccount(req.params.id);
-  return res.json({ message: 'Account of user ' + req.params.id + ' deleted successfully' });
+accountRouter.delete(
+  "/account/id/:id",
+  isLoggedIn,
+  isAdmin,
+  async (req, res) => {
+    await deleteAccount(req.params.id);
+    return res.json({
+      message: "Account of user " + req.params.id + " deleted successfully",
+    });
+  }
+);
+
+/**
+ * Endpoint 9: GET /account/id/{id}/purchased
+ * Get user's purchased items
+ */
+accountRouter.get("/account/id/:id/purchased", isLoggedIn, async (req, res) => {
+  try {
+    const id = req.params.id === "0" ? req.user.id : req.params.id;
+    const purchasedProducts = await getPurchasedProductsById(id);
+    return res.json({ purchasedProducts });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "Account not found" });
+  }
+});
+
+/**
+ * Endpoint 10: GET /account/id/{id}/selling
+ * Get user's selling items
+ */
+accountRouter.get("/account/id/:id/selling", isLoggedIn, async (req, res) => {
+  try {
+    const id = req.params.id === "0" ? req.user.id : req.params.id;
+    const sellingProducts = await getSellingProductsById(id);
+    return res.json({ sellingProducts });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "Account not found" });
+  }
+});
+
+/**
+ * Endpoint 11: GET /account/cart
+ * Get user's cart contents
+ */
+accountRouter.get("/account/cart", async (req, res) => {
+  try {
+    const cartContents = await getCartContents(req.user.id);
+    return res.json({ cartContents });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "Account not found" });
+  }
+});
+
+/**
+ * Endpoint 11: GET /account/cart/pid/{pid}
+ * Add an item to cart
+ */
+accountRouter.post("/account/cart/pid/:pid", async (req, res) => {
+  const productId = req.params.pid
+  //const userId = req.user.id;
+  const userId = '118069059652555688591';
+  
+  try {
+    // Check if the product exists
+    const product = await Product.findById(productId);
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    // Check if the user exists
+    const account = await Account.findById(userId);
+    if (!account) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Check if the product is already in the user's cart
+    const productInCart = account.cartContents.find(item => item.product.toString() === productId);
+    if (productInCart) {
+      return res.status(400).json({ message: 'Product is already in cart' });
+    }
+
+    // Add the product to the user's cartContents
+    account.cartContents.push({ product: productId });
+    await account.save();
+
+    res.status(200).json({ message: 'Product added to cart' });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error: product id may be invalid' });
+  }
 });
 
 export default accountRouter;
