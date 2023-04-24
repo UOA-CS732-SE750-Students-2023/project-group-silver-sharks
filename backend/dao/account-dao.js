@@ -47,11 +47,26 @@ const getSellingProductsById = async (id) => {
     }
   };
 
+  const getCartContents = async (id) => {
+    try {
+      const account = await Account.findById(id).populate('cartContents');
+      if (!account) {
+        throw new Error('Account not found');
+      }
+      return account.cartContents;
+    } catch (err) {
+      console.error(err);
+      throw new Error('Account not found');
+    }
+  };
+
 
 export {
     getAllAccounts,
     getAccountById,
     deleteAccount,
     getSellingProductsById,
-    getPurchasedProductsById
+    getPurchasedProductsById,
+    getCartContents
+
 };

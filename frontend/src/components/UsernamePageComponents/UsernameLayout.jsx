@@ -17,8 +17,6 @@ function UsernameLayout() {
                 </div>
             </div>
         </div>
-    
-        
     </>
   );
 }
