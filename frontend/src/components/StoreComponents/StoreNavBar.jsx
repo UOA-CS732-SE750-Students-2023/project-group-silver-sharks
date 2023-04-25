@@ -1,5 +1,5 @@
 import React from 'react'; 
-import { useNavigate,useRouteLoaderData,json } from 'react-router-dom';
+import { useNavigate,useRouteLoaderData,json, redirect } from 'react-router-dom';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import MenuIcon from '@mui/icons-material/Menu';
 import './StoreNavBar.css';
@@ -51,7 +51,18 @@ export const loader = async () => {
     const response = await fetch('http://localhost:3000/account/id/0');
 
     if (!response.ok) {
-        return json({ message: "Could not fetch events."}, { status: 500 });
+       
+        if (response.status === 401){
+            console.log("Not Authorized."); 
+            return redirect("/");
+        } 
+
+        // 428 is returned if username is not set
+        if (response.status === 428){ 
+            return redirect("/username");
+        }
+
+        return json({ message: "Could not fetch data from backend."}, { status: 500 });
     } else {
         return response;
     }
