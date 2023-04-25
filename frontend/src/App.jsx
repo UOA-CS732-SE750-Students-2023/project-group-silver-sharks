@@ -20,6 +20,7 @@ import SellAssetPage from './pages/SellAssetPage';
 import { loader as allProductsLoader } from './pages/ProductSearchPage';
 import { loader as productLoader } from './pages/ProductPage';
 import { action as sellAssetAction } from './components/SellAssetLayout';
+import { loader as usernameLoader } from './components/StoreComponents/StoreNavBar';
 
 const router = createBrowserRouter([
   {path:'/', element: <RootPage />, children: [
@@ -27,7 +28,7 @@ const router = createBrowserRouter([
     {path: 'username', element: <UsernamePage />},
     {path: 'login', element: <LoginPage />, action: loginAction},
     {path: 'signup', element: <SignupPage />, action: signupAction},
-    {path:'store', element: <StoreRootPage />, children: [
+    {path:'store', element: <StoreRootPage />, loader: usernameLoader, id: 'username-loader', children: [
       {path:'product-search', element: <ProductSearchPage />, loader: allProductsLoader},
       {path: 'product/:productid', element: <ProductPage />, loader: productLoader},
       {path: 'author/:aid', element: <AuthorPage />},

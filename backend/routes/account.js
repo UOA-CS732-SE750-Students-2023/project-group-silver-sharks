@@ -93,9 +93,12 @@ accountRouter.get("/account", isLoggedIn, async (req, res) => {
 /**
  * Endpoint 3: GET /account/id/{id}
  * Get account by id.
+ * 
+ * // passing in 0 returns the current user
  */
 accountRouter.get("/account/id/:id", isLoggedIn, async (req, res) => {
-  const account = await getAccountById(req.params.id);
+  const id = req.params.id === "0" ? req.user.id : req.params.id;
+  const account = await getAccountById(id);
   return res.status(StatusCodes.OK).json(account);
 });
 
@@ -203,6 +206,7 @@ accountRouter.get("/account/id/:id/purchased", isLoggedIn, async (req, res) => {
 /**
  * Endpoint 10: GET /account/id/{id}/selling
  * Get user's selling items
+ * path param: user id
  */
 accountRouter.get("/account/id/:id/selling", isLoggedIn, async (req, res) => {
   try {
