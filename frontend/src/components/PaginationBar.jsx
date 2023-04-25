@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import './PaginationBar.css'; // 引入自定义样式文件
 
-const PaginationBar = ({ itemsLength, itemsPerPage, onItemsChange, initialPage, searchTerm, previousIsSearch }) => {
-  const [ currentPage, setCurrentPage] = useState(initialPage) 
+const PaginationBar = ({ itemsLength, itemsPerPage, onItemsChange, initialPage, searchTerm, previousIsSearch, previousPageNumber }) => {
+  const [ currentPage, setCurrentPage] = useState(1) 
+  
 
   useEffect(() => {
+  
     let shouldBeSearching;
     if (searchTerm.length === 0 || !previousIsSearch){ 
       shouldBeSearching = false
@@ -16,6 +18,9 @@ const PaginationBar = ({ itemsLength, itemsPerPage, onItemsChange, initialPage, 
 
   console.log(length)
   const totalPages = Math.ceil(itemsLength / itemsPerPage);
+
+  // if the isSearch boolean changes or the category variable changes or the filter variable changes 
+  // then set the currently selected page to 1.
 
   const handlePageChange = (page) => {
     setCurrentPage(page);

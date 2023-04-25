@@ -48,11 +48,12 @@ const ProductSearchPage = () => {
     const response = await handleItemsChange(pageNumber, undefined, undefined, true, searchTerm);
   }
 
-  const handleItemsChange = async (currentPageNumber, specifiedCategory, specifiedFilter, isSearch, searchTerm) => {
+  const handleItemsChange = async (currentPageNumber, specifiedCategory, specifiedFilter, isSearch, enteredSearchTerm) => {
     setNotFound(false);
 
     const currentFilter = specifiedFilter || filter; 
     const currentCategory = specifiedCategory || category;
+    const searchTerm = enteredSearchTerm || '';
 
     console.log("handleItemsChange")
     console.log("page number " + currentPageNumber)
@@ -148,6 +149,7 @@ const ProductSearchPage = () => {
           initialPage={pageNumber}
           searchTerm={storedSearchTerm}
           previousIsSearch={isSearchStore}
+          previousPageNumber={pageNumber}
         />
       </div>
     </>
