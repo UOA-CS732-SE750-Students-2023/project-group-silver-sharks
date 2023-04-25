@@ -33,12 +33,13 @@ function isLoggedIn(req, res, next) {
     if (req.user.username) {
       return next();
     } else {
-      return res.status(404).send({
+      return res.status(428).send({
         message: `Please select a username ${req.user._id}`,
         id: req.user._id,
       });
     }
   } else {
+
     return res.status(401).send({ message: "Unauthorizedd" });
   }
 }
@@ -54,13 +55,16 @@ accountRouter.use(passport.session());
  * Adds a username to an existing account without a username.
  * Request body: username
  */
+
+// if username already exists 410 
+// if username is invalid then 409
 accountRouter.post("/account/username", async (req, res) => {
   try {
     const { username } = req.body;
     const alreadyExists = await Account.findOne({ username });
     console.log(req.body.username);
     if (alreadyExists) {
-      res.status(409).send("Username already exists");
+      res.status(410).send("Username already exists");
     } else if (!/^[a-zA-Z0-9_]+$/.test(req.body.username)) {
       res
         .status(409)
@@ -93,9 +97,12 @@ accountRouter.get("/account", isLoggedIn, async (req, res) => {
 /**
  * Endpoint 3: GET /account/id/{id}
  * Get account by id.
+ * 
+ * // passing in 0 returns the current user
  */
 accountRouter.get("/account/id/:id", isLoggedIn, async (req, res) => {
-  const account = await getAccountById(req.params.id);
+  const id = req.params.id === "0" ? req.user.id : req.params.id;
+  const account = await getAccountById(id);
   return res.status(StatusCodes.OK).json(account);
 });
 
@@ -203,6 +210,7 @@ accountRouter.get("/account/id/:id/purchased", isLoggedIn, async (req, res) => {
 /**
  * Endpoint 10: GET /account/id/{id}/selling
  * Get user's selling items
+ * path param: user id
  */
 accountRouter.get("/account/id/:id/selling", isLoggedIn, async (req, res) => {
   try {
