@@ -149,7 +149,6 @@ const ProductSearchPage = () => {
           initialPage={pageNumber}
           searchTerm={storedSearchTerm}
           previousIsSearch={isSearchStore}
-          previousPageNumber={pageNumber}
         />
       </div>
     </>
