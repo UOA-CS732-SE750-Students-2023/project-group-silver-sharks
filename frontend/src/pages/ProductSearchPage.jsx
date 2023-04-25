@@ -22,23 +22,29 @@ const ProductSearchPage = () => {
   const [category, setCategory] = useState('Images');
   const [pageNumber, setPageNumber] = useState(1);
   const [notFound, setNotFound] = useState(false);
+  const [storedSearchTerm, setStoredSearchTerm] = useState('');
+  const [isSearchStore, setIsSearchStore] = useState(false);
 
   const categoryHandler = async (category) => {
+    setIsSearchStore(false);
     setCategory(category);
     const response = await handleItemsChange(1, category, undefined, false, undefined)
   };
 
   const filterHandler = async (filter) => {
+    setIsSearchStore(false);
     setFilter(filter);
     const response = await handleItemsChange(1, undefined, filter, false, undefined)
   };
 
-  const pageNumberHandler = async (currentPageNumber) => {
+  const pageNumberHandler = async (currentPageNumber, searchTerm, isSearch) => {
     setPageNumber(currentPageNumber);
-    const response = await handleItemsChange(currentPageNumber, undefined, undefined, false, undefined);
+    const response = await handleItemsChange(currentPageNumber, undefined, undefined, isSearch, searchTerm);
   }
 
   const searchByPhraseHandler = async (searchTerm) => {
+    setStoredSearchTerm(searchTerm)
+    setIsSearchStore(true);
     const response = await handleItemsChange(pageNumber, undefined, undefined, true, searchTerm);
   }
 
@@ -53,6 +59,7 @@ const ProductSearchPage = () => {
     console.log("sortBy " + currentFilter)
     console.log("category " + currentCategory)
     console.log("search " + searchTerm)
+    console.log("is search" + isSearch)
 
 
     if (!isSearch){
@@ -61,6 +68,8 @@ const ProductSearchPage = () => {
       if (searchTerm.length !== 0){
         const response = await searchHandler(currentPageNumber, searchTerm);
       }
+
+      // could return all the products in the store if the nav bar is empty
     }
   };
 
@@ -137,6 +146,8 @@ const ProductSearchPage = () => {
           onItemsChange={pageNumberHandler}
           itemsLength={displayCount}
           initialPage={pageNumber}
+          searchTerm={storedSearchTerm}
+          previousIsSearch={isSearchStore}
         />
       </div>
     </>
