@@ -26,7 +26,8 @@ authRouter.use(passport.session());
 authRouter.get(
   "/auth/google/callback",
   passport.authenticate("google", {
-    successRedirect: "/auth/protected",
+    //successRedirect: process.env.NODE_ENV === "production" ? "/store/product-search" : "http://localhost:5173/store/product-search",
+    successRedirect: "/store/product-search",
     failureRedirect: "/auth/google/failure",
   })
 );

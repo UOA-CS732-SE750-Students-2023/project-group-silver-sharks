@@ -1,13 +1,10 @@
 import React from 'react'; 
-import { useNavigate } from 'react-router-dom';
 import './LandingLayout.css';
 import LandingCard from './LandingCard';
 
 const LandingLayout = () => { 
-    const navigate = useNavigate();
-
     const navigateSignupHandler = () => {
-        navigate('/signup');
+        window.location.href = "http://localhost:3000/account/sign-in";
     }
 
     return (
