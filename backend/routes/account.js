@@ -233,10 +233,9 @@ accountRouter.get("/account/cart", async (req, res) => {
  * Endpoint 12: GET /account/cart/pid/{pid}
  * Add an item to cart
  */
-accountRouter.post("/account/cart/pid/:pid", async (req, res) => {
+accountRouter.post("/account/cart/pid/:pid", isLoggedIn, async (req, res) => {
   const productId = req.params.pid
-  //const userId = req.user.id;
-  const userId = '118069059652555688591';
+  const userId = req.user.id;
   
   try {
     // Check if the product exists
@@ -262,6 +261,39 @@ accountRouter.post("/account/cart/pid/:pid", async (req, res) => {
     await account.save();
 
     res.status(200).json({ message: 'Product added to cart' });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: 'Server error: product id may be invalid' });
+  }
+});
+
+/**
+ * Endpoint 13: DELETE /account/cart/pid/{pid}
+ * Remove an item from cart
+ */
+accountRouter.delete("/account/cart/pid/:pid", async (req, res) => {
+  const productId = req.params.pid;
+  //const userId = req.user.id;
+  const userId = "118069059652555688591";
+
+  try {
+    // Check if the user exists
+    const account = await Account.findById(userId);
+    if (!account) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Check if the product is in the user's cart
+    const productIndex = account.cartContents.findIndex(item => item.product.toString() === productId);
+    if (productIndex === -1) {
+      return res.status(404).json({ message: 'Product not found in cart' });
+    }
+
+    // Remove the product from the user's cartContents
+    account.cartContents.splice(productIndex, 1);
+    await account.save();
+
+    res.status(200).json({ message: 'Product removed from cart' });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: 'Server error: product id may be invalid' });
