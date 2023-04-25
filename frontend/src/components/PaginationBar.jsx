@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './PaginationBar.css'; // 引入自定义样式文件
 
-const PaginationBar = ({ itemsLength, itemsPerPage, onItemsChange, initialPage, searchTerm, previousIsSearch }) => {
+const PaginationBar = ({ itemsLength, itemsPerPage, onItemsChange, initialPage, searchTerm, previousIsSearch, changeState }) => {
   const [ currentPage, setCurrentPage] = useState(initialPage) 
   
 
@@ -15,6 +15,13 @@ const PaginationBar = ({ itemsLength, itemsPerPage, onItemsChange, initialPage, 
     }
     onItemsChange(currentPage, searchTerm, shouldBeSearching);
   }, [currentPage]);
+
+  useEffect(() => {
+
+    console.log("INSIDE THE SECOND USE EFFECT !!!!")
+
+    setCurrentPage(1);
+  }, [changeState])
 
   console.log(length)
   const totalPages = Math.ceil(itemsLength / itemsPerPage);

@@ -24,17 +24,22 @@ const ProductSearchPage = () => {
   const [notFound, setNotFound] = useState(false);
   const [storedSearchTerm, setStoredSearchTerm] = useState('');
   const [isSearchStore, setIsSearchStore] = useState(false);
+  const [changeState, setChangeState] = useState(false);
 
   const categoryHandler = async (category) => {
     setIsSearchStore(false);
     setCategory(category);
-    const response = await handleItemsChange(1, category, undefined, false, undefined)
+    const response = await handleItemsChange(1, category, undefined, false, undefined);
+    
+    setChangeState((previous => !previous));
   };
 
   const filterHandler = async (filter) => {
     setIsSearchStore(false);
     setFilter(filter);
     const response = await handleItemsChange(1, undefined, filter, false, undefined)
+
+    setChangeState((previous => !previous));
   };
 
   const pageNumberHandler = async (currentPageNumber, searchTerm, isSearch) => {
@@ -46,6 +51,8 @@ const ProductSearchPage = () => {
     setStoredSearchTerm(searchTerm)
     setIsSearchStore(true);
     const response = await handleItemsChange(pageNumber, undefined, undefined, true, searchTerm);
+
+    setChangeState((previous => !previous));
   }
 
   const handleItemsChange = async (currentPageNumber, specifiedCategory, specifiedFilter, isSearch, enteredSearchTerm) => {
@@ -149,6 +156,7 @@ const ProductSearchPage = () => {
           initialPage={pageNumber}
           searchTerm={storedSearchTerm}
           previousIsSearch={isSearchStore}
+          changeState={changeState}
         />
       </div>
     </>
