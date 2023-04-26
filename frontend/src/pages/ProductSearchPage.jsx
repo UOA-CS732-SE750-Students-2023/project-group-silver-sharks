@@ -75,6 +75,10 @@ const ProductSearchPage = () => {
     } else {
       if (searchTerm.length !== 0){
         const response = await searchHandler(currentPageNumber, searchTerm);
+      } else {
+        // when the search bar is empty then go back to displaying the first page of images
+        setIsSearchStore(false);
+        const response = await navigateHandler(1, "Images", currentFilter)
       }
 
       // could return all the products in the store if the nav bar is empty
@@ -111,6 +115,13 @@ const ProductSearchPage = () => {
   }
 
   const navigateHandler = async (currentPageNumber, currentCategory, currentFilter) => {
+
+    console.log("------------------------------------")
+    console.log("currentPageNumber: " + currentPageNumber)
+    console.log("category: " + currentCategory)
+    console.log("currentFilter: " + currentFilter)
+    console.log("------------------------------------")
+
     // using the items per page constant and the current page number make request to backend for the products
     const response = await fetch(
       "http://localhost:3000/products/filter?" +
@@ -138,6 +149,12 @@ const ProductSearchPage = () => {
 
     setDisplayedProducts(products);
     setDisplayCount(count);
+    /*
+    if (searchFieldEmpty){
+      console.log("search field is empty");
+      setChangeState((prev) => !prev);
+    }
+    */
   }
 
   return (
