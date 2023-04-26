@@ -22,37 +22,52 @@ const ProductSearchPage = () => {
   const [category, setCategory] = useState('Images');
   const [pageNumber, setPageNumber] = useState(1);
   const [notFound, setNotFound] = useState(false);
+  const [storedSearchTerm, setStoredSearchTerm] = useState('');
+  const [isSearchStore, setIsSearchStore] = useState(false);
+  const [changeState, setChangeState] = useState(false);
 
   const categoryHandler = async (category) => {
+    setIsSearchStore(false);
     setCategory(category);
-    const response = await handleItemsChange(1, category, undefined, false, undefined)
+    const response = await handleItemsChange(1, category, undefined, false, undefined);
+    
+    setChangeState((previous => !previous));
   };
 
   const filterHandler = async (filter) => {
+    setIsSearchStore(false);
     setFilter(filter);
     const response = await handleItemsChange(1, undefined, filter, false, undefined)
+
+    setChangeState((previous => !previous));
   };
 
-  const pageNumberHandler = async (currentPageNumber) => {
+  const pageNumberHandler = async (currentPageNumber, searchTerm, isSearch) => {
     setPageNumber(currentPageNumber);
-    const response = await handleItemsChange(currentPageNumber, undefined, undefined, false, undefined);
+    const response = await handleItemsChange(currentPageNumber, undefined, undefined, isSearch, searchTerm);
   }
 
   const searchByPhraseHandler = async (searchTerm) => {
+    setStoredSearchTerm(searchTerm)
+    setIsSearchStore(true);
     const response = await handleItemsChange(pageNumber, undefined, undefined, true, searchTerm);
+
+    setChangeState((previous => !previous));
   }
 
-  const handleItemsChange = async (currentPageNumber, specifiedCategory, specifiedFilter, isSearch, searchTerm) => {
+  const handleItemsChange = async (currentPageNumber, specifiedCategory, specifiedFilter, isSearch, enteredSearchTerm) => {
     setNotFound(false);
 
     const currentFilter = specifiedFilter || filter; 
     const currentCategory = specifiedCategory || category;
+    const searchTerm = enteredSearchTerm || '';
 
     console.log("handleItemsChange")
     console.log("page number " + currentPageNumber)
     console.log("sortBy " + currentFilter)
     console.log("category " + currentCategory)
     console.log("search " + searchTerm)
+    console.log("is search" + isSearch)
 
 
     if (!isSearch){
@@ -60,6 +75,10 @@ const ProductSearchPage = () => {
     } else {
       if (searchTerm.length !== 0){
         const response = await searchHandler(currentPageNumber, searchTerm);
+      } else {
+        // when the search bar is empty then go back to displaying the first page of images
+        setIsSearchStore(false);
+        const response = await navigateHandler(1, "Images", currentFilter)
       }
     }
   };
@@ -94,6 +113,13 @@ const ProductSearchPage = () => {
   }
 
   const navigateHandler = async (currentPageNumber, currentCategory, currentFilter) => {
+
+    console.log("------------------------------------")
+    console.log("currentPageNumber: " + currentPageNumber)
+    console.log("category: " + currentCategory)
+    console.log("currentFilter: " + currentFilter)
+    console.log("------------------------------------")
+
     // using the items per page constant and the current page number make request to backend for the products
     const response = await fetch(
       "http://localhost:3000/products/filter?" +
@@ -121,6 +147,12 @@ const ProductSearchPage = () => {
 
     setDisplayedProducts(products);
     setDisplayCount(count);
+    /*
+    if (searchFieldEmpty){
+      console.log("search field is empty");
+      setChangeState((prev) => !prev);
+    }
+    */
   }
 
   return (
@@ -137,6 +169,9 @@ const ProductSearchPage = () => {
           onItemsChange={pageNumberHandler}
           itemsLength={displayCount}
           initialPage={pageNumber}
+          searchTerm={storedSearchTerm}
+          previousIsSearch={isSearchStore}
+          changeState={changeState}
         />
       </div>
     </>
