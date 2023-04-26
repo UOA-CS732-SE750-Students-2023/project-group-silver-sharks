@@ -7,7 +7,7 @@ const StoreDisplayLayout = (props) => {
     console.log(props.items[0])
 
     const minMaxInputContainerStyle = {
-      marginLeft: '100px', // 可以根据需要调整此值
+      marginLeft: '100px', 
     };
 
     const noSearchResults = (

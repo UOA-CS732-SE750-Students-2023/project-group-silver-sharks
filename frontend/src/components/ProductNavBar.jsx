@@ -43,7 +43,7 @@ const ProductNavBar = ({ setSearchCategory, setFilter,setSearchTerm }) => {
   };
 
   const minMaxInputContainerStyle = {
-    marginLeft: '100px', // 可以根据需要调整此值
+    marginLeft: '100px', 
   };
 
   const dropDownContainerStyle = {
