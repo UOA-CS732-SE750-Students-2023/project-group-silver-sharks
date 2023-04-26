@@ -5,6 +5,7 @@ import './Cart.module.css';
 import classes from '../modal/Modal.module.css';
 
 
+
 // remember when using value from context, useState does not need to be used 
 // because when the cart data values change the component(s) that use them automatically 
 // rerender
@@ -115,7 +116,7 @@ const Cart = (props) => {
 
     return (
         <Modal onClose={props.closeCart}>
-            <div>
+            <div className={`${classes.cartcontainer}`}>
                 <h2>Shopping cart</h2>
                 <ul className="list-unstyled">
                     {DUMMY_DATA.map((item) => (
@@ -156,7 +157,7 @@ const Cart = (props) => {
                     </div>
                 </div>
                 <div className="d-flex justify-content-end">
-                    <button onClick={checkoutClick}>Checkout</button>
+                    <button onClick={checkoutClick} className={`${classes.btt}`}>Checkout</button>
                 </div>
                 
                     
