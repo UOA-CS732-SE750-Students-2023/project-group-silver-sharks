@@ -1,8 +1,9 @@
-import React from 'react';
-import { json,useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { json,useNavigate ,useRouteLoaderData} from "react-router-dom";
 import Modal from '../modal/Modal';
-
+import classes from '../modal/Modal.module.css';
 import styles from './ProfileNavBar.module.css';
+import { BoxArrowRight,ChatDots,PersonFillGear } from 'react-bootstrap-icons';
 
 const ProfileNavBar = (props) => { 
 
@@ -29,13 +30,42 @@ const ProfileNavBar = (props) => {
     const navigateMessagesHandler = () => {
         navigate('/store/profile/messages');
     }
+    const user = useRouteLoaderData('username-loader');
+
+
+    //the number of unread messages
+    const [unreadCount, setUnreadCount] = useState(717);
+    //More than 99 unread messages displayed as 99+
+    const unreadnumber = unreadCount > 99 ? '99+' : unreadCount;
+
 
     return (
         <Modal onClose={props.closeProfileNav}>
-            <div className={styles.cart}>
-                <button onClick={navigateDashboardHandler}>My Account</button>
-                <button onClick={navigateMessagesHandler}>Messages</button>
-                <button onClick={signoutHandler}>Sign out</button>
+            <div className={`${classes.profilecontainer}`}>
+                <div className={styles.p_firstcontainer}>
+                    <h2>{user.username}</h2>
+                    <div className='p_firstline'>
+                        <PersonFillGear size={24} className={styles.iconsty}/>
+                        <button onClick={navigateDashboardHandler}>My Account</button>
+                    </div>
+                    <div className="border-top border-2"></div>
+                    <div className='p_firstline'>
+                        <ChatDots size={24} className={styles.iconsty}/>
+                        <button onClick={navigateMessagesHandler}>Messages</button>
+                        <div className={styles.p_circle}>
+                            {unreadCount > 0 && <div className={styles.p_unread}>{unreadnumber}</div>}
+                        </div>
+                        
+                    </div>
+                    <div className="border-top border-2"></div>
+                    <div className='p_firstline'>
+                        <BoxArrowRight size={24} className={styles.iconsty}/>
+                        <button onClick={signoutHandler}>Sign out</button>
+                    </div>
+                    
+                    
+                </div>
+                
             </div>
         </Modal>
     );

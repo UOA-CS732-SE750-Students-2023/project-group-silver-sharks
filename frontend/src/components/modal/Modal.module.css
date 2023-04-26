@@ -6,16 +6,35 @@
     height: 100vh;
     z-index: 20;
 }
- 
-.modal {
+/* .modal{
     top: 20vh;
     position: absolute;
     color:aliceblue;
-    width: 90%;
     background:linear-gradient(180deg, #000000 0%, #001614 48.96%, #000000 100%, #000000 100%);
     padding: 1rem;
     border-radius: 20px;
-    /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25); */
+    z-index: 30;
+    animation: slide-down 300ms ease-out forwards;
+}  */
+.modal .cartcontainer{
+    width:30%;
+    top: 20vh;
+    position: absolute;
+    color:aliceblue;
+    background:linear-gradient(180deg, #000000 0%, #001614 48.96%, #000000 100%, #000000 100%);
+    padding: 1rem;
+    border-radius: 20px;
+    z-index: 30;
+    animation: slide-down 300ms ease-out forwards;
+}
+.modal .profilecontainer{
+    width:30%;
+    top: 20vh;
+    position: absolute;
+    color:aliceblue;
+    background:linear-gradient(180deg, #000000 0%, #001614 48.96%, #000000 100%, #000000 100%);
+    padding: 1rem;
+    border-radius: 20px;
     z-index: 30;
     animation: slide-down 300ms ease-out forwards;
 }
@@ -83,7 +102,7 @@
     font-size: 16px;
     line-height: 24px;
 }
-.modal button{
+.modal .btt{
     margin-top: 20px;
     color: white;
     box-sizing: border-box;
@@ -149,9 +168,13 @@
     background-color: #aaa;
   }
 @media (min-width: 768px) {
-    .modal {
-        width: 35%;
-        right: calc(50% - 40rem);
+    .modal .cartcontainer{
+        width: 485px;
+        right: 2%;
+    }
+    .modal .profilecontainer{
+        width: 275px;
+        right: 2%;
     }
 }
 
