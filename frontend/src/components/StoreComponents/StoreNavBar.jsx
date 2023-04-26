@@ -14,7 +14,7 @@ const StoreNavBar = (props) => {
     const navigate = useNavigate();
 
     const profileNavigationHandler = () => { 
-        navigate('/store/profile');
+        props.showProfileNavBar();
     };
 
     const sellAssetNavigationHandler = () => {
