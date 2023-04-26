@@ -1,5 +1,5 @@
 import React from 'react'; 
-import PurchaseLayout from '../../components/PurchaseLayout';
+import PurchaseLayout from '../../components/ProfileComponents/PurchaseLayout';
 
 const PurchasePage = () => {
     return (

@@ -1,5 +1,5 @@
 import React from 'react'; 
-import SellingLayout from '../../components/SellingLayout';
+import SellingLayout from '../../components/ProfileComponents/SellingLayout';
 
 const SellingPage = () => {
     return (
