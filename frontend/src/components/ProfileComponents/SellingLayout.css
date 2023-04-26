@@ -1,0 +1,99 @@
+.selling-layout {
+  background-color: #F1F1F1;
+  padding: 20px;
+}
+
+.selling-layout h2 {
+  color: #333;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.selling-assets {
+  margin: 0 90px;
+}
+
+.total-earnings {
+  margin: 0 90px 100px;
+}
+
+.assets-container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 4px;
+}
+
+.assets-container p {
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+
+.asset-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.asset-image {
+  flex: 0 0 150px;
+  margin-right: 20px;
+}
+
+.asset-image img {
+  max-width: 100%;
+  height: auto;
+}
+
+.asset-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.asset-details h3 {
+  margin: 0;
+}
+
+.asset-details p {
+  margin: 1px 0;
+}
+
+.asset-details .asset-links a,
+.asset-details .asset-links button {
+  margin-top: 1px;
+  color: black;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.total-earnings {
+  margin-top: 40px;
+}
+
+.asset-name-category {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.asset-price-sold {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.asset-price-sold p {
+  margin: 1px 0;
+}
+
+.asset-total {
+  flex: 1;
+  text-align: right;
+}
+
+.total-earnings-sum {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+  font-weight: bold;
+}

@@ -9,8 +9,8 @@
 .pagination-wrapper {
   background-color: white;
   padding: 0.5rem, 1rem;
-  border-radius: 20px; /* 添加圆角 */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 添加阴影 */
+  border-radius: 20px; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
 }
 
 .pagination {
