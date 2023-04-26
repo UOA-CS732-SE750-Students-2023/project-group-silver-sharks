@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './PaginationBar.css'; // 引入自定义样式文件
+import './PaginationBar.css'; 
 
 const PaginationBar = ({ itemsLength, itemsPerPage, onItemsChange, initialPage, searchTerm, previousIsSearch, changeState }) => {
   const [ currentPage, setCurrentPage] = useState(initialPage) 
