@@ -8,6 +8,7 @@ import {
   getProductsMatchingSearchTerm,
   getProductById,
 } from "../dao/product-dao.js";
+import { Product } from "../models/productModel.js";
 
 import { ReasonPhrases, StatusCodes } from "http-status-codes";
 
@@ -26,7 +27,7 @@ productRouter.get("/products", async (req, res) => {
       return res.status(StatusCodes.NOT_FOUND).send("No Products Were Found");
     }
 
-    return res.status(StatusCodes.OK).json([products,count]);
+    return res.status(StatusCodes.OK).json([products, count]);
   } catch (error) {
     console.error(error.message);
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error");
@@ -76,7 +77,7 @@ productRouter.get("/products/filter", async (req, res) => {
       return res.status(StatusCodes.NOT_FOUND).send("No Products Were Found");
     }
 
-    return res.status(StatusCodes.OK).json([products,count]);
+    return res.status(StatusCodes.OK).json([products, count]);
   } catch (error) {
     console.log(error);
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error");
@@ -106,7 +107,7 @@ productRouter.get("/products/search", async (req, res) => {
       return res.status(StatusCodes.NOT_FOUND).send("No Products Were Found");
     }
 
-    return res.status(StatusCodes.OK).json([products,count]);
+    return res.status(StatusCodes.OK).json([products, count]);
   } catch (error) {
     console.log(error);
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error");
@@ -125,6 +126,8 @@ productRouter.get("/products/:id", async (req, res) => {
     return res.sendStatus(StatusCodes.BAD_REQUEST);
   }
 
+  console.log(id);
+
   try {
     const product = await getProductById(id);
 
@@ -132,6 +135,24 @@ productRouter.get("/products/:id", async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error");
+  }
+});
+
+// ENDPOINT: Get Reviews for a specific product
+productRouter.get("/products/pid/:pid/reviews", async (req, res) => {
+  try {
+    const productId = req.params.pid;
+    const product = await Product.findById(productId).populate('reviews');
+
+    if (!product) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+
+    const reviews = product.reviews;
+    return res.json(reviews);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "Server Error" });
   }
 });
 
