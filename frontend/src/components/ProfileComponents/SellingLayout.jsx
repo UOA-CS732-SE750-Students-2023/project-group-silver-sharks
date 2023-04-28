@@ -73,6 +73,7 @@ const SellingLayout = () => {
               </div>
             </div>
           ))}
+          <hr></hr>
           <div className="total-earnings-sum">
             <p>Total: ${totalEarnings.toFixed(2)}</p>
           </div>
