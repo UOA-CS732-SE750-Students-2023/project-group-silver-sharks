@@ -1,0 +1,68 @@
+.container-fluid {
+  background-color: #F1F1F1;
+  padding: 2px 20px 200px; 
+}
+
+
+.sell-assets {
+  margin: 0 90px 200px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 4px;
+  position: relative;
+}
+
+.sell-asset-title {
+  margin-left: 150px;
+  margin-right: 150px;
+}
+
+.form-container {
+  background-color: #fff;
+  margin-top: 40px;
+  padding: 35px;
+}
+
+.form-group {
+  position: relative;
+}
+
+.form-group label {
+  display: none;
+}
+
+.form-group {
+  position: relative;
+}
+
+.form-group {
+  position: relative;
+}
+
+/* .form-group::before {
+  content: "*";
+  position: absolute;
+  top: 0;
+  right: -200px;
+  color: red;
+  font-size: 20px;
+} */
+
+
+
+
+
+.upload-container {
+  height: 150px;
+  border: 2px dashed #cccccc;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-control,
+.form-select {
+  width: 25%;
+}
