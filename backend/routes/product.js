@@ -10,8 +10,34 @@ import {
 } from "../dao/product-dao.js";
 
 import { ReasonPhrases, StatusCodes } from "http-status-codes";
+import { Product } from "../models/productModel.js";
+import { ProductReview } from "../models/productReviewModel.js";
+import passport from "passport";
+import session from "express-session";
 
 const productRouter = new express.Router();
+
+// Middle-ware function to ensure authentication of endpoints
+function isLoggedIn(req, res, next) {
+  if (req.isAuthenticated()) {
+    if (req.user.username) {
+      return next();
+    } else {
+      return res.status(428).send({
+        message: `Please select a username ${req.user._id}`,
+        id: req.user._id,
+      });
+    }
+  } else {
+    return res.status(401).send({ message: "Unauthorizedd" });
+  }
+}
+
+productRouter.use(
+  session({ secret: "cats", resave: false, saveUninitialized: true })
+);
+productRouter.use(passport.initialize());
+productRouter.use(passport.session());
 
 // endpoint 1: GET - paginated products
 productRouter.get("/products", async (req, res) => {
@@ -26,7 +52,7 @@ productRouter.get("/products", async (req, res) => {
       return res.status(StatusCodes.NOT_FOUND).send("No Products Were Found");
     }
 
-    return res.status(StatusCodes.OK).json([products,count]);
+    return res.status(StatusCodes.OK).json([products, count]);
   } catch (error) {
     console.error(error.message);
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error");
@@ -76,7 +102,7 @@ productRouter.get("/products/filter", async (req, res) => {
       return res.status(StatusCodes.NOT_FOUND).send("No Products Were Found");
     }
 
-    return res.status(StatusCodes.OK).json([products,count]);
+    return res.status(StatusCodes.OK).json([products, count]);
   } catch (error) {
     console.log(error);
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error");
@@ -106,7 +132,7 @@ productRouter.get("/products/search", async (req, res) => {
       return res.status(StatusCodes.NOT_FOUND).send("No Products Were Found");
     }
 
-    return res.status(StatusCodes.OK).json([products,count]);
+    return res.status(StatusCodes.OK).json([products, count]);
   } catch (error) {
     console.log(error);
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error");
@@ -134,5 +160,130 @@ productRouter.get("/products/:id", async (req, res) => {
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error");
   }
 });
+
+// ENDPOINT: Get Reviews for a specific product
+productRouter.get("/products/pid/:pid/reviews", async (req, res) => {
+  try {
+    const productId = req.params.pid;
+    const product = await Product.findById(productId);
+
+    if (!product) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+
+    const reviews = product.reviews;
+    return res.json(reviews);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "Server Error" });
+  }
+});
+
+// ENDPOINT: Add review for a specific product
+productRouter.post(
+  "/products/pid/:pid/review",
+  isLoggedIn,
+  async (req, res) => {
+    try {
+      const productId = req.params.pid;
+      const { text, rating } = req.body;
+
+      if (!Number.isInteger(rating) || rating < 1 || rating > 5) {
+        return res.status(400).json({ error: "Invalid rating value" });
+      }
+
+      const product = await Product.findById(productId).populate("reviews");
+      if (!product) {
+        return res.status(404).json({ error: "Product not found" });
+      }
+
+      const existingReview = product.reviews.find(
+        (review) => String(review.account) === String(req.user.id)
+      );
+
+      if (existingReview) {
+        return res
+          .status(400)
+          .json({ error: "You already reviewed this product" });
+      }
+
+      const review = new ProductReview({
+        text,
+        rating,
+        product: productId,
+        account: req.user.id,
+      });
+
+      await review.save();
+
+      product.reviews.push(review);
+
+      if (product.averageRating) {
+        product.averageRating =
+          (product.averageRating * product.reviews.length + rating) /
+          (product.reviews.length + 1);
+      } else {
+        product.averageRating = rating;
+      }
+
+      await product.save();
+
+      return res.json(review);
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json({ error: "Server Error" });
+    }
+  }
+);
+
+// ENDPOINT: Delete review for a specific product
+productRouter.delete("/products/pid/:pid/review", isLoggedIn, async (req, res) => {
+  try {
+    const productId = req.params.pid;
+    const reviewId = req.body.reviewId;
+
+    const product = await Product.findById(productId).populate("reviews");
+    if (!product) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+
+    const review = await ProductReview.findById(reviewId);
+    if (!review) {
+      return res.status(404).json({ error: "Review not found" });
+    }
+
+    if (String(review.account) !== String(req.user.id)) {
+      return res
+        .status(401)
+        .json({ error: "You are not authorized to delete this review" });
+    }
+
+    const index = product.reviews.findIndex(
+      (r) => String(r._id) === String(reviewId)
+    );
+    if (index >= 0) {
+      product.reviews.splice(index, 1);
+
+      if (product.reviews.length > 0) {
+        product.averageRating =
+          product.reviews.reduce((sum, r) => sum + r.rating, 0) /
+          product.reviews.length;
+      } else {
+        product.averageRating = null;
+      }
+
+      await product.save();
+    }
+
+    console.log(review);
+    await ProductReview.findOneAndDelete({_id: reviewId});
+
+    return res.json({ success: true });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: "Server Error" });
+  }
+});
+
 
 export default productRouter;
