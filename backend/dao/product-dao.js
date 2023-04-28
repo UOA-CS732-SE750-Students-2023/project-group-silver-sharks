@@ -117,6 +117,16 @@ const updateProduct = async (productId, updatedProductData) => {
   return existingProduct;
 };
 
+const deleteProduct = async (productId) => {
+  const deletedProduct = await Product.findByIdAndRemove(productId);
+
+  if (!deletedProduct) {
+    return null;
+  }
+
+  return deletedProduct;
+};
+
 export {
   getAllProducts,
   getPaginatedProducts,
@@ -125,4 +135,5 @@ export {
   getProductsMatchingSearchTerm,
   getProductById,
   updateProduct,
+  deleteProduct,
 };

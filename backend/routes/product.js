@@ -8,6 +8,7 @@ import {
   getProductsMatchingSearchTerm,
   getProductById,
   updateProduct,
+  deleteProduct,
 } from "../dao/product-dao.js";
 
 import { ReasonPhrases, StatusCodes } from "http-status-codes";
@@ -171,6 +172,26 @@ productRouter.get("/products/:id", async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error");
+  }
+});
+
+// endpoint 7: DELETE - removing a product
+productRouter.delete("/products/:productId", async (req, res) => {
+  try {
+    const productId = req.params.productId;
+
+    const deletedProduct = await deleteProduct(productId);
+
+    if (deletedProduct) {
+      return res
+        .status(StatusCodes.OK)
+        .json({ message: "Product deleted successfully" });
+    } else {
+      return res.status(StatusCodes.NOT_FOUND).send("Product not found");
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error");
   }
 });
 
