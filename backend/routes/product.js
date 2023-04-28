@@ -252,7 +252,7 @@ productRouter.delete("/products/pid/:pid/review", isLoggedIn, async (req, res) =
       return res.status(404).json({ error: "Review not found" });
     }
 
-    if (String(review.account) !== String(req.user.id)) {
+    if (String(review.account) !== String(req.user.id) && req.user.accountType !== 'admin') {
       return res
         .status(401)
         .json({ error: "You are not authorized to delete this review" });
