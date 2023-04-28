@@ -7,6 +7,8 @@ import {
   getPaginatedCategories,
   getProductsMatchingSearchTerm,
   getProductById,
+  updateProduct,
+  deleteProduct,
 } from "../dao/product-dao.js";
 
 import { ReasonPhrases, StatusCodes } from "http-status-codes";
@@ -60,7 +62,7 @@ productRouter.get("/products", async (req, res) => {
 });
 
 // endpoint 2: POST - adding product
-productRouter.post("/products", async (req, res) => {
+productRouter.post("/products/sell", async (req, res) => {
   try {
     const newProduct = await addProduct(req.body);
 
@@ -74,12 +76,24 @@ productRouter.post("/products", async (req, res) => {
   }
 });
 
-// // endpoint 3: GET all products without worrying about pagination
-// productRouter.get("/products", async (req, res) => {
-//   const { products, count } = await getAllProducts();
+// endpoint 3: PUT - editing product
+productRouter.put("/products/:productId", async (req, res) => {
+  try {
+    const productId = req.params.productId;
+    const updatedProductData = req.body;
 
-//   return res.status(StatusCodes.OK).header("Count", count).json(products);
-// });
+    const updatedProduct = await updateProduct(productId, updatedProductData);
+
+    if (updatedProduct) {
+      return res.status(StatusCodes.OK).json(updatedProduct);
+    } else {
+      return res.status(StatusCodes.NOT_FOUND).send("Product not found");
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error");
+  }
+});
 
 // endpoint 4: GET filter by category
 // query param ?category=<category>&page=<page>&limit=<limit>
@@ -158,6 +172,26 @@ productRouter.get("/products/:id", async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error");
+  }
+});
+
+// endpoint 7: DELETE - removing a product
+productRouter.delete("/products/:productId", async (req, res) => {
+  try {
+    const productId = req.params.productId;
+
+    const deletedProduct = await deleteProduct(productId);
+
+    if (deletedProduct) {
+      return res
+        .status(StatusCodes.OK)
+        .json({ message: "Product deleted successfully" });
+    } else {
+      return res.status(StatusCodes.NOT_FOUND).send("Product not found");
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error");
   }
 });
 
@@ -295,6 +329,7 @@ productRouter.delete(
       if (!review) {
         return res.status(404).json({ error: "Review not found" });
       }
+
 
       if (
         String(review.account) !== String(req.user.id) &&
