@@ -48,6 +48,10 @@ const productSchema = new Schema(
     downloadLink: {
       encryptedInformation: String,
     },
+    author:{
+      type: Schema.Types.ObjectId,
+      ref: "Account",
+    },
   },
   {
     timestamps: {},

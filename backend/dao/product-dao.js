@@ -76,6 +76,9 @@ const registerProductWithAccount = async (productId, accountId) => {
   console.log(account);
 
   await account.save();
+
+  // return the account id so that the product can register it
+  return account._id;
 };
 
 const getProductsMatchingSearchTerm = async (

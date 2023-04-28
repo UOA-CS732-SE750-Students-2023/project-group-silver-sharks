@@ -12,6 +12,10 @@ import {
   registerProductWithAccount
 } from "../dao/product-dao.js";
 
+import {
+  registerAccountWithProduct
+} from "../dao/account-dao.js";
+
 import { ReasonPhrases, StatusCodes } from "http-status-codes";
 import { Product } from "../models/productModel.js";
 import { ProductReview } from "../models/productReviewModel.js";
@@ -75,7 +79,11 @@ productRouter.post("/products/sell/:userId", async (req, res) => {
     const newProduct = await addProduct(product);
 
     // register the product with the account 
-    await registerProductWithAccount(newProduct._id, userId);
+    const accountId = await registerProductWithAccount(newProduct._id, userId);
+
+    // register the account with the product 
+    await registerAccountWithProduct(accountId,newProduct._id);
+
 
     return res
       .status(StatusCodes.CREATED)
