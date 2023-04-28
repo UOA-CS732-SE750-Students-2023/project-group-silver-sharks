@@ -100,6 +100,22 @@ const getProductById = async (id) => {
   return await Product.findById(id);
 };
 
+const updateProduct = async (productId, updatedProductData) => {
+  const existingProduct = await Product.findById(productId);
+
+  if (!existingProduct) {
+    return null;
+  }
+
+  for (const key in updatedProductData) {
+    if (updatedProductData.hasOwnProperty(key)) {
+      existingProduct[key] = updatedProductData[key];
+    }
+  }
+
+  await existingProduct.save();
+  return existingProduct;
+};
 
 export {
   getAllProducts,
@@ -108,4 +124,5 @@ export {
   getPaginatedCategories,
   getProductsMatchingSearchTerm,
   getProductById,
+  updateProduct,
 };

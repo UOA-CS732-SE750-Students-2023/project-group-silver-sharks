@@ -7,6 +7,7 @@ import {
   getPaginatedCategories,
   getProductsMatchingSearchTerm,
   getProductById,
+  updateProduct,
 } from "../dao/product-dao.js";
 
 import { ReasonPhrases, StatusCodes } from "http-status-codes";
@@ -74,12 +75,24 @@ productRouter.post("/products/sell", async (req, res) => {
   }
 });
 
-// // endpoint 3: GET all products without worrying about pagination
-// productRouter.get("/products", async (req, res) => {
-//   const { products, count } = await getAllProducts();
+// endpoint 3: PUT - editing product
+productRouter.put("/products/:productId", async (req, res) => {
+  try {
+    const productId = req.params.productId;
+    const updatedProductData = req.body;
 
-//   return res.status(StatusCodes.OK).header("Count", count).json(products);
-// });
+    const updatedProduct = await updateProduct(productId, updatedProductData);
+
+    if (updatedProduct) {
+      return res.status(StatusCodes.OK).json(updatedProduct);
+    } else {
+      return res.status(StatusCodes.NOT_FOUND).send("Product not found");
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error");
+  }
+});
 
 // endpoint 4: GET filter by category
 // query param ?category=<category>&page=<page>&limit=<limit>
