@@ -1,5 +1,7 @@
 import React from 'react'; 
-import { useActionData,useNavigation,useNavigate,Form,redirect,json } from 'react-router-dom';
+import { useNavigate, useActionData, Form as RouterForm } from 'react-router-dom';
+import { Container, Row, Col, Button, FormGroup, FormControl, Form, InputGroup, Dropdown, DropdownButton } from 'react-bootstrap';
+import './SellAssetLayout.css';
 
 const SellAssetLayout = () => { 
 
@@ -14,46 +16,57 @@ const SellAssetLayout = () => {
     }
     
     return (
-        <div> 
-           <Form method='POST' id='text-data'>
-                <div>
-                    <label htmlFor="title">Title</label>
-                    <input id="title" type="text" name="title" required />
+      <Container fluid className="container-fluid">
+        <Row className="mt-5"></Row> 
+        <Row>
+          <Col className="sell-asset-title">
+            <div>
+              <h4 className="mt-4">Sell an asset</h4>
+            </div>
+            <RouterForm>
+            <Form className="form-container">
+              <FormGroup>
+                <FormControl id="title" type="text" name="title" placeholder="Title" required />
+              </FormGroup>
+  
+              <FormGroup className="mt-3">
+                <FormControl as="textarea" id="description" name="description" placeholder="Description" rows={4} required />
+              </FormGroup>
+  
+              <FormGroup className="mt-3">
+                <div className="upload-container">
+                  <p>Drag and drop file</p>
+                  <p>or</p>
+                  <Button variant="outline-primary">Browse</Button>
                 </div>
-                <div>
-                    <label htmlFor="description">Description</label>
-                    <textarea id="description" name="description" rows="5" required />
-                </div>
-                <div>
-                    <div>
-                        <label htmlFor="category">Category</label>
-                        <select id="category">
-                            <option value='Images'>Images</option>
-                            <option value='Videos'>Videos</option>
-                            <option value='Services'>Services</option>
-                            <option value='Music'>Music</option>
-                        </select>
-                    </div>
-                </div>
-                <div>
-                    <label htmlFor="price">Price</label>
-                    <input id="price" type="number" name="title" required />
-                </div>
-                
-                <div>
-                    <button type="button" onClick={cancelHandler}>
-                        Cancel
-                    </button>
-                    <button type="submit">Submit</button>
-                </div>
+              </FormGroup>
+  
+              <FormGroup className="mt-3">
+                <FormControl id="price" type="number" name="price" placeholder="Price" required style={{ width: '10%' }} />
+              </FormGroup>
+  
+              <FormGroup className="mt-3">
+                <Form.Select id="category" style={{ width: '25%' }}>
+                  <option value="Images">Category: Images</option>
+                  <option value="Videos">Category: Videos</option>
+                  <option value="Music">Category: Music</option>
+                  <option value="Services">Category: Services</option>
+                </Form.Select>
+              </FormGroup>
+  
+              <div className="d-flex justify-content-center">
+                <Button variant="secondary" type="button" className="mt-4 me-2" onClick={cancelHandler}>
+                  Cancel
+                </Button>
+                <Button variant="primary" type="submit" className="mt-4" style={{ backgroundColor: '#348B81' }}>
+                  Submit
+                </Button>
+              </div>
             </Form>
-
-            <Form method='POST' id='file-data'>
-                <input type="file" id="file" accept=".jpg, .png, .mp3, .mp4, .gif" multiple></input>
-                <button type="submit">Upload File</button>
-            </Form>
-           
-        </div>
+            </RouterForm>
+          </Col>
+        </Row>
+      </Container>
     );
 }
 
