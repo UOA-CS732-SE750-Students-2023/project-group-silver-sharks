@@ -196,22 +196,55 @@ productRouter.delete("/products/:productId", async (req, res) => {
 });
 
 // ENDPOINT: Get Reviews for a specific product
-productRouter.get("/products/pid/:pid/reviews", async (req, res) => {
-  try {
-    const productId = req.params.pid;
-    const product = await Product.findById(productId);
+productRouter.get(
+  "/products/pid/:pid/reviews",
+  isLoggedIn,
+  async (req, res) => {
+    try {
+      const productId = req.params.pid;
+      const product = await Product.findById(productId);
 
-    if (!product) {
-      return res.status(404).json({ error: "Product not found" });
+      if (!product) {
+        return res.status(404).json({ error: "Product not found" });
+      }
+
+      let sortBy = req.query.sortBy || "most_recent";
+
+      const sortOptions = {
+        most_recent: { createdAt: -1 },
+        highest_rating: { rating: -1 },
+        lowest_rating: { rating: 1 },
+      };
+
+      const userId = req.user.id;
+
+      let userReview = null;
+      let otherReviews = null;
+
+      const allReviews = await ProductReview.find({ product: productId }).sort(
+        sortOptions[sortBy]
+      );
+
+      if (allReviews && allReviews.length > 0) {
+        userReview = allReviews.find((review) => review.account === userId);
+        if (userReview) {
+          otherReviews = allReviews.filter(
+            (review) => review._id !== userReview._id
+          );
+        } else {
+          otherReviews = allReviews;
+        }
+      }
+
+      const reviews = userReview ? [userReview, ...otherReviews] : allReviews;
+
+      return res.json(reviews);
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json({ error: "Server Error" });
     }
-
-    const reviews = product.reviews;
-    return res.json(reviews);
-  } catch (err) {
-    console.error(err);
-    return res.status(500).json({ error: "Server Error" });
   }
-});
+);
 
 // ENDPOINT: Add review for a specific product
 productRouter.post(
@@ -229,6 +262,15 @@ productRouter.post(
       const product = await Product.findById(productId).populate("reviews");
       if (!product) {
         return res.status(404).json({ error: "Product not found" });
+      }
+
+      const purchasedProductIds = req.user.productsPurchased.map((p) =>
+        String(p._id)
+      );
+      if (!purchasedProductIds.includes(String(productId))) {
+        return res.status(401).json({
+          error: "You can only review products that you have purchased",
+        });
       }
 
       const existingReview = product.reviews.find(
@@ -264,8 +306,7 @@ productRouter.post(
 
       return res.json(review);
     } catch (err) {
-      console.error(err);
-      return res.status(500).json({ error: "Server Error" });
+      return res.status(500).json({ error: "Invalid ID" });
     }
   }
 );
@@ -289,7 +330,11 @@ productRouter.delete(
         return res.status(404).json({ error: "Review not found" });
       }
 
-      if (String(review.account) !== String(req.user.id)) {
+
+      if (
+        String(review.account) !== String(req.user.id) &&
+        req.user.accountType !== "admin"
+      ) {
         return res
           .status(401)
           .json({ error: "You are not authorized to delete this review" });
