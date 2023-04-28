@@ -197,6 +197,11 @@ productRouter.post(
         return res.status(404).json({ error: "Product not found" });
       }
 
+      const purchasedProductIds = req.user.productsPurchased.map(p => String(p._id));
+      if (!purchasedProductIds.includes(String(productId))) {
+        return res.status(401).json({ error: "You can only review products that you have purchased" });
+      }
+
       const existingReview = product.reviews.find(
         (review) => String(review.account) === String(req.user.id)
       );
@@ -230,8 +235,7 @@ productRouter.post(
 
       return res.json(review);
     } catch (err) {
-      console.error(err);
-      return res.status(500).json({ error: "Server Error" });
+      return res.status(500).json({ error: "Invalid ID" });
     }
   }
 );
