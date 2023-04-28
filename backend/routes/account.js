@@ -227,7 +227,7 @@ accountRouter.get("/account/id/:id/selling", isLoggedIn, async (req, res) => {
  * Endpoint 11: GET /account/cart
  * Get user's cart contents
  */
-accountRouter.get("/account/cart", async (req, res) => {
+accountRouter.get("/account/cart", isLoggedIn, async (req, res) => {
   try {
     const cartContents = await getCartContents(req.user.id);
     return res.json({ cartContents });
@@ -279,10 +279,9 @@ accountRouter.post("/account/cart/pid/:pid", isLoggedIn, async (req, res) => {
  * Endpoint 13: DELETE /account/cart/pid/{pid}
  * Remove an item from cart
  */
-accountRouter.delete("/account/cart/pid/:pid", async (req, res) => {
+accountRouter.delete("/account/cart/pid/:pid", isLoggedIn, async (req, res) => {
   const productId = req.params.pid;
-  //const userId = req.user.id;
-  const userId = "118069059652555688591";
+  const userId = req.user.id;
 
   try {
     // Check if the user exists
