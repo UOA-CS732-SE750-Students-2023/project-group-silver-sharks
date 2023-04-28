@@ -1,4 +1,5 @@
 import { Account } from "../models/accountModel.js";
+import { getProductById } from "./product-dao.js";
 
 
 // return all accounts in the database
@@ -60,6 +61,14 @@ const getSellingProductsById = async (id) => {
     }
   };
 
+  const registerAccountWithProduct = async (accountId, productId) => {
+    const product = getProductById(productId);
+
+    product.author = accountId;
+
+    await product.save();
+  }
+
 
 export {
     getAllAccounts,
@@ -67,6 +76,6 @@ export {
     deleteAccount,
     getSellingProductsById,
     getPurchasedProductsById,
-    getCartContents
-
+    getCartContents,
+    registerAccountWithProduct
 };
