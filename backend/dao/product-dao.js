@@ -1,4 +1,5 @@
 import { Product } from "../models/productModel.js";
+import { getAccountById } from "./account-dao.js";
 
 // return all products in the database
 const getAllProducts = async () => {
@@ -63,6 +64,18 @@ const addProduct = async (product) => {
   console.log(newProduct);
   await newProduct.save();
   return newProduct;
+};
+
+const registerProductWithAccount = async (productId, accountId) => {
+  // get the account instance
+  const account = await getAccountById(accountId);
+  
+  // register the product with the account
+  account.sellingProducts.push(productId);
+
+  console.log(account);
+
+  await account.save();
 };
 
 const getProductsMatchingSearchTerm = async (
@@ -136,4 +149,5 @@ export {
   getProductById,
   updateProduct,
   deleteProduct,
+  registerProductWithAccount
 };
