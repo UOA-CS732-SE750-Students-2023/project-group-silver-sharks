@@ -4,6 +4,8 @@ import path from "path";
 import mongoose from "mongoose";
 import { StatusCodes } from "http-status-codes";
 import { addImage, getImages } from "../dao/image-dao.js";
+import { Product } from "../models/productModel.js";
+import { Account } from "../models/accountModel.js";
 
 const imageRouter = new express.Router();
 
@@ -40,11 +42,13 @@ function checkFileType(file, cb) {
 }
 
 // Endpoint 1: POST - Upload image
-imageRouter.post("/upload", async (req, res) => {
-  upload(req, res, (err) => {
-    console.log("filename is " + req.query.filename);
+imageRouter.post("/upload", (req, res) => {
+  upload(req, res, async (err) => {
     if (err) {
       console.log("Error uploading image", err);
+      res
+        .status(StatusCodes.BAD_REQUEST)
+        .json({ message: "Error: Upload Failed!" });
     } else {
       if (req.file == undefined) {
         res
@@ -52,6 +56,22 @@ imageRouter.post("/upload", async (req, res) => {
           .json({ message: "Error: No File Selected!" });
       } else {
         const imagePath = "/uploads/" + req.file.filename;
+
+        // Update req.body with the image path
+        req.body.imagePath = imagePath;
+
+        const newImage = await addImage(req.body);
+        const productId = newImage.productId;
+
+        const product = await Product.findById(productId).populate("files");
+        if (!product) {
+          return res.status(404).json({ error: "Product not found" });
+        }
+
+        product.files.push(newImage);
+
+        await product.save();
+
         res.status(StatusCodes.OK).json({
           message: "File Uploaded Successfully",
           imagePath: imagePath,
