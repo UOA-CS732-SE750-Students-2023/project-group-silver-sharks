@@ -100,6 +100,7 @@ const getProductById = async (id) => {
   return await Product.findById(id);
 };
 
+
 export {
   getAllProducts,
   getPaginatedProducts,

@@ -8,6 +8,7 @@ import {
   getProductsMatchingSearchTerm,
   getProductById,
 } from "../dao/product-dao.js";
+import { Product } from "../models/productModel.js";
 
 import { ReasonPhrases, StatusCodes } from "http-status-codes";
 import { Product } from "../models/productModel.js";
@@ -151,6 +152,8 @@ productRouter.get("/products/:id", async (req, res) => {
     return res.sendStatus(StatusCodes.BAD_REQUEST);
   }
 
+  console.log(id);
+
   try {
     const product = await getProductById(id);
 
@@ -166,6 +169,7 @@ productRouter.get("/products/pid/:pid/reviews", async (req, res) => {
   try {
     const productId = req.params.pid;
     const product = await Product.findById(productId);
+
 
     if (!product) {
       return res.status(404).json({ error: "Product not found" });
@@ -284,6 +288,7 @@ productRouter.delete("/products/pid/:pid/review", isLoggedIn, async (req, res) =
     return res.status(500).json({ error: "Server Error" });
   }
 });
+
 
 
 export default productRouter;
