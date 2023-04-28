@@ -62,7 +62,8 @@
   justify-content: center;
 }
 
-.form-control,
-.form-select {
+.form-control .form-select {
   width: 25%;
 }
+
+
