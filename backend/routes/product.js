@@ -79,11 +79,12 @@ productRouter.post("/products/sell/:userId", async (req, res) => {
     const newProduct = await addProduct(product);
 
     // register the product with the account 
-    const accountId = await registerProductWithAccount(newProduct._id, userId);
+    await registerProductWithAccount(newProduct, userId);
+
+    console.log(userId);
 
     // register the account with the product 
-    await registerAccountWithProduct(accountId,newProduct._id);
-
+    await registerAccountWithProduct(userId,newProduct._id);
 
     return res
       .status(StatusCodes.CREATED)
