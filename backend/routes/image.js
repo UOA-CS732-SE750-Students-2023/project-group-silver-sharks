@@ -3,9 +3,8 @@ import multer from "multer";
 import path from "path";
 import mongoose from "mongoose";
 import { StatusCodes } from "http-status-codes";
-import { addImage, getImages } from "../dao/image-dao.js";
+import { addCoverImage, getImages } from "../dao/image-dao.js";
 import { Product } from "../models/productModel.js";
-import { Account } from "../models/accountModel.js";
 
 const imageRouter = new express.Router();
 
@@ -43,6 +42,11 @@ function checkFileType(file, cb) {
 
 // Endpoint 1: POST - Upload image
 imageRouter.post("/upload", (req, res) => {
+  const coverImage = req.query.coverImage;
+  console.log("coverImage is", coverImage);
+  const productId = req.query.productId;
+  // const fileName = req.query.fileName;
+
   upload(req, res, async (err) => {
     if (err) {
       console.log("Error uploading image", err);
@@ -56,26 +60,34 @@ imageRouter.post("/upload", (req, res) => {
           .json({ message: "Error: No File Selected!" });
       } else {
         const imagePath = "/uploads/" + req.file.filename;
+        if (coverImage) {
+          await addCoverImage(req.query.filename, productId);
 
-        // Update req.body with the image path
-        req.body.imagePath = imagePath;
+          res.status(StatusCodes.OK).json({
+            message: "Cover Image Uploaded Successfully",
+            imagePath: imagePath,
+          });
+        } else {
+          // Update req.body with the image path
+          req.body.imagePath = imagePath;
 
-        const newImage = await addImage(req.body);
-        const productId = newImage.productId;
+          const newImage = await addImage(req.body);
+          const productId = newImage.productId;
 
-        const product = await Product.findById(productId).populate("files");
-        if (!product) {
-          return res.status(404).json({ error: "Product not found" });
+          const product = await Product.findById(productId).populate("files");
+          if (!product) {
+            return res.status(404).json({ error: "Product not found" });
+          }
+
+          product.files.push(newImage);
+
+          await product.save();
+
+          res.status(StatusCodes.OK).json({
+            message: "File Uploaded Successfully",
+            imagePath: imagePath,
+          });
         }
-
-        product.files.push(newImage);
-
-        await product.save();
-
-        res.status(StatusCodes.OK).json({
-          message: "File Uploaded Successfully",
-          imagePath: imagePath,
-        });
       }
     }
   });
