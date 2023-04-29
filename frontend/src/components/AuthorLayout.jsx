@@ -21,6 +21,10 @@ const AuthorLayout = ({ author }) => {
       };
 
 
+    console.log(author.assetsSold);
+    console.log(author.sellerRating);
+
+
     return (
         <div>
             <div className='a_firstdiv'>
@@ -85,7 +89,7 @@ const AuthorLayout = ({ author }) => {
                         <Card>
                             <div >
                                 <div className={`${classes.imgcontainer}`}>
-                                    <img src={'http://localhost:3000/public/' + item.coverImage}/>
+                                    <img src={'http://localhost:3000/uploads/' + item.coverImage + '.jpg'}/>
                                 </div>
                                 <div>
                                     <Link id="productLink" to={`/store/product/${item._id}`}><h2>{item.name}</h2></Link>
