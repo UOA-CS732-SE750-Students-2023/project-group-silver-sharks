@@ -1,16 +1,32 @@
-import React, { useState } from 'react';
-import { useLoaderData,json } from "react-router-dom";
+import React, { useState, useContext } from 'react';
+import { useLoaderData,json,redirect } from "react-router-dom";
 import { useParams } from 'react-router-dom';
 import ProductLayout from '../components/ProductLayout';
+import ProductContext from '../store/product-context';
+import AddReview from '../components/AuthorPageComponents/AddReview';
+
 
 const ProductPage = () => { 
+    const productCtx = useContext(ProductContext);
+
     const data = useLoaderData();
+    const params = useParams();
+
+    const productId = params.productid;
 
     const product = data[0];
     const author = data[1]; 
 
+    // close the modal window for adding reviews
+    const closeReviewWindowHandler = () => {
+        productCtx.hideReview()
+    };
+
     return (
-        <ProductLayout product={product} author={author}/>
+        <>
+            {productCtx.isShow && <AddReview closeReviewWindow={closeReviewWindowHandler} />}
+            <ProductLayout product={product} author={author}/>
+        </>
     );
 }
 
@@ -63,21 +79,29 @@ export const action = async ({request,params}) => {
 
     // get the id of the product 
     const productId = params.productid;
+
+    console.log("----------------------------------------------------")
+    console.log("The product id is: ");
+    console.log(productId)
+    console.log("----------------------------------------------------")
   
     // getting the http method from the request argument
     const method = request.method;
     
     const reviewData = {
         text: formData.get('review'), 
-        rating: formData.get('rating')
+        rating: +formData.get('rating')
     };
 
     console.log("----------------------------------------------------")
     console.log("this is the review object being posted to backend");
     console.log(reviewData);
     console.log("----------------------------------------------------")
-  
-    const response = await fetch("http://localhost:3000/products/pid/" + productId + "/review", {
+    
+    const url = "http://localhost:3000/products/pid/" + productId + "/review";
+    console.log(url)
+
+    const response = await fetch(url, {
         method: method,
         headers: {
             'Content-Type': 'application/json'

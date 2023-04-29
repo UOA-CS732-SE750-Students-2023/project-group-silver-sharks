@@ -2,7 +2,7 @@ import React , { useReducer } from 'react';
 import ProductContext from './product-context';
 
 const defaultState = {
-    isShow: false
+    isShow: false,
 };
 
 // remember the previous state should not be changed 
@@ -46,7 +46,7 @@ const ProductProvider = (props) => {
     const productContext = {
         isShow: productState.isShow, 
         showReview: showReviewHandler,
-        hideReview: hideReviewHandler
+        hideReview: hideReviewHandler,
     };
 
     // basically this component decides who can use the context and sets the values for it
