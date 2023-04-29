@@ -212,7 +212,7 @@ accountRouter.get("/account/id/:id/purchased", isLoggedIn, async (req, res) => {
  * Get user's selling items
  * path param: user id
  */
-accountRouter.get("/account/id/:id/selling", isLoggedIn, async (req, res) => {
+accountRouter.get("/account/id/:id/selling", async (req, res) => {
   try {
     const id = req.params.id === "0" ? req.user.id : req.params.id;
     const sellingProducts = await getSellingProductsById(id);

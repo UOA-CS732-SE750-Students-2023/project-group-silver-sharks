@@ -1,4 +1,5 @@
 import { Product } from "../models/productModel.js";
+import { Account } from "../models/accountModel.js";
 
 // return all products in the database
 const getAllProducts = async () => {
@@ -63,6 +64,20 @@ const addProduct = async (product) => {
   console.log(newProduct);
   await newProduct.save();
   return newProduct;
+};
+
+const registerProductWithAccount = async (product, accountId) => {
+  // get the account instance
+  const account = await Account.findById(accountId).populate("sellingProducts");
+
+  console.log(account.sellingProducts)
+
+  // register the product with the account
+  account.sellingProducts.push(product);
+
+  console.log(account);
+
+  await account.save();
 };
 
 const getProductsMatchingSearchTerm = async (
@@ -136,4 +151,5 @@ export {
   getProductById,
   updateProduct,
   deleteProduct,
+  registerProductWithAccount
 };

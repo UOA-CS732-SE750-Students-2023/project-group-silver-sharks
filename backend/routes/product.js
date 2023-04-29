@@ -9,7 +9,12 @@ import {
   getProductById,
   updateProduct,
   deleteProduct,
+  registerProductWithAccount
 } from "../dao/product-dao.js";
+
+import {
+  registerAccountWithProduct
+} from "../dao/account-dao.js";
 
 import { ReasonPhrases, StatusCodes } from "http-status-codes";
 import { Product } from "../models/productModel.js";
@@ -62,9 +67,24 @@ productRouter.get("/products", async (req, res) => {
 });
 
 // endpoint 2: POST - adding product
-productRouter.post("/products/sell", async (req, res) => {
+// NOTE: the product needs to be registered with a user
+// path param userId
+productRouter.post("/products/sell/:userId", async (req, res) => {
+
+  const userId = req.params.userId;
+  const product = req.body;
+
   try {
-    const newProduct = await addProduct(req.body);
+    // create the account
+    const newProduct = await addProduct(product);
+
+    // register the product with the account 
+    await registerProductWithAccount(newProduct, userId);
+
+    console.log(userId);
+
+    // register the account with the product 
+    await registerAccountWithProduct(userId,newProduct._id);
 
     return res
       .status(StatusCodes.CREATED)
