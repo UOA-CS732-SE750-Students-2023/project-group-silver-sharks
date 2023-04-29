@@ -7,7 +7,17 @@ import classes from '../pages/ui/Card.module.css'
 import './AuthorLayout.css'
 
 const AuthorLayout = ({ author }) => { 
-    
+
+
+    // calculating assets sold and the average rating 
+    let averageRatingTemp = 0;
+
+    author.sellingProducts.forEach((item) => {
+        averageRatingTemp += item.averageRating;
+    }); 
+
+    const averageRating = averageRatingTemp / author.sellingProducts.length;
+
     const totalItems = author.sellingProducts.length;
     const itemText = totalItems > 1 ? 'assets' : 'asset';
 
@@ -19,11 +29,6 @@ const AuthorLayout = ({ author }) => {
           setTitle('Sort by: Price: High to Low');
         }
       };
-
-
-    console.log(author.assetsSold);
-    console.log(author.sellerRating);
-
 
     return (
         <div>
@@ -47,12 +52,12 @@ const AuthorLayout = ({ author }) => {
                     <tbody>
                         <tr>
                             <td>Average Rating</td>
-                            <td>{author.sellerRating}</td>
+                            <td>{averageRating}</td>
                         </tr>
                         {/* 另外一个页面删除 */}
                         <tr>
                             <td>Assets Sold</td>
-                            <td>{author.assetsSold}</td>
+                            <td>{totalItems}</td>
                         </tr>
                         <tr>
                             <td>Email</td>

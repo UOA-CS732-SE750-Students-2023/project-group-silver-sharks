@@ -214,7 +214,7 @@ export const loader = async () => {
     const products = data[0];
     const count = data[1];
 
-    console.log("the count is: " + count);
+    console.log(products)
 
     return {
       products,

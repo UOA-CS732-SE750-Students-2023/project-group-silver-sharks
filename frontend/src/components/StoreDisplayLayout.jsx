@@ -4,7 +4,10 @@ import Card from '../pages/ui/Card';
 import { StarFill } from 'react-bootstrap-icons';
 import classes from '../pages/ui/Card.module.css';
 const StoreDisplayLayout = (props) => { 
-    console.log(props.items[0])
+    
+    console.log("------------------------------------")
+    console.log("author cover image: " + props.items[0].coverImage);
+    console.log("------------------------------------")
 
     const minMaxInputContainerStyle = {
       marginLeft: '100px', 
