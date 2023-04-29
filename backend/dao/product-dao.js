@@ -112,7 +112,7 @@ const getProductsMatchingSearchTerm = async (
 };
 
 const getProductById = async (id) => {
-  return await Product.findById(id);
+  return await Product.findById(id).populate("author");
 };
 
 const updateProduct = async (productId, updatedProductData) => {

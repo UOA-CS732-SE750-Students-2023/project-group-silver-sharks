@@ -8,9 +8,6 @@ const StoreNavBar = (props) => {
 
     const user = useRouteLoaderData('username-loader');
 
-    console.log("from inside the component")
-    console.log(user);
-
     const navigate = useNavigate();
 
     const profileNavigationHandler = () => { 

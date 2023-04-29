@@ -188,6 +188,8 @@ productRouter.get("/products/:id", async (req, res) => {
   try {
     const product = await getProductById(id);
 
+    console.log(product)
+
     return res.status(StatusCodes.OK).json(product);
   } catch (error) {
     console.log(error);

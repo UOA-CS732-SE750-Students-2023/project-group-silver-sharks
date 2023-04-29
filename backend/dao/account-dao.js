@@ -14,7 +14,10 @@ const getAllAccounts = async () => {
 };
 
 const getAccountById = async (id) => {
-    const account = await Account.findById(id);
+    const account = await Account.findById(id)
+                          .populate("sellingProducts")
+                          .populate("productsPurchased")
+                          .populate("cartContents");
     return account;
 };
 
