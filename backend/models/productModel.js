@@ -17,8 +17,7 @@ const productSchema = new Schema(
       required: true,
     },
     coverImage: {
-      type: Schema.Types.ObjectId,
-      ref: "Image",
+      type: String,
     },
     files: [
       {
@@ -49,8 +48,7 @@ const productSchema = new Schema(
       encryptedInformation: String,
     },
     author:{
-      type: Schema.Types.ObjectId,
-      ref: "Account",
+      type: String
     },
   },
   {
