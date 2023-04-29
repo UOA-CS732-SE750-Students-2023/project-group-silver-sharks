@@ -14,7 +14,7 @@ const SellAssetLayout = () => {
     function cancelHandler() {
         navigate('..');
     }
-    
+
     return (
       <Container fluid className="container-fluid">
         <Row className="mt-5"></Row> 
@@ -23,7 +23,7 @@ const SellAssetLayout = () => {
             <div>
               <h4 className="mt-4">Sell an asset</h4>
             </div>
-            <RouterForm>
+            <RouterForm method="POST" action="/store/sell-asset" >
             <Form className="form-container">
               <FormGroup>
                 <FormControl id="title" type="text" name="title" placeholder="Title" required />
@@ -35,9 +35,15 @@ const SellAssetLayout = () => {
   
               <FormGroup className="mt-3">
                 <div className="upload-container">
-                  <p>Drag and drop file</p>
-                  <p>or</p>
-                  <Button variant="outline-primary">Browse</Button>
+                  <p>Add Cover image</p>
+                  <input type="file" name="cover-image" id="cover-image" />
+                </div>
+              </FormGroup>
+
+              <FormGroup className="mt-3">
+                <div className="upload-container">
+                  <p>Add product files</p>
+                  <input type="file" name="files" id="files" multiple/>
                 </div>
               </FormGroup>
   
@@ -46,7 +52,7 @@ const SellAssetLayout = () => {
               </FormGroup>
   
               <FormGroup className="mt-3">
-                <Form.Select id="category" style={{ width: '25%' }}>
+                <Form.Select id="category" name="category" style={{ width: '25%' }}>
                   <option value="Images">Category: Images</option>
                   <option value="Videos">Category: Videos</option>
                   <option value="Music">Category: Music</option>
@@ -72,46 +78,3 @@ const SellAssetLayout = () => {
 
 export default SellAssetLayout;
 
-export const action = async ({request,params}) => {
-    
-    console.log(request.id);
-
-    /*
-    // NEED THE USER ID HERE
-    
-    // getting the form data from request argument 
-    const formData = await request.formData();
-    const sellingProductData = {
-        title: formData.get('title'),
-        image: formData.get('image'),
-        date: formData.get('date'),
-        description: formData.get('description'),
-    };
-  
-    // getting the http method from the request argument
-    const method = request.method;
-  
-    let url = 'http://localhost:8080/events';
-  
-    const response = await fetch(url, {
-        method: method,
-        body: JSON.stringify(eventData)
-    });
-  
-    if (!response.ok){
-        // backend throws 422 when data entered in form is invalid
-        if (response.status === 422){
-            return response;
-        }
-  
-        throw json({ message: "Could not save product."}, { status: 500 });
-    }
-  
-    // redirect the user after submitting
-    // this is another function provided by react router, heavy lifting done behind the scenes 
-    // all you need to do is supply the url of the page you want to redirect to. 
-    return redirect('/events');
-    */
-
-    return true;
-};

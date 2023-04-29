@@ -25,18 +25,21 @@ const ProductLayout = ({ product, author, reviews }) => {
             <img src={'http://localhost:3000/uploads/' + product.coverImage} width="100px" height="100px"/>
             {reviews.map((review) => (
             <li key={review._id} >
-                    <div>
+                    <span>
                         <h3>Review:</h3>
                         <p>{review.text}</p>
-                    </div>
-                    <div>
+                    </span>
+                    <br />
+                    <span>
                         <h3>Rating:</h3>
                         <p>{review.rating}</p>
-                    </div>
-                    <div>
+                    </span>
+                    <br />
+                    <span>
                         <h3>Review By</h3>
                         <Link to={"/store/author/" + review.account._id}><p style={{ color: '#000000' }}>{review.account.username}</p></Link>
-                    </div>
+                    </span>
+                    <hr />
             </li>
             ))}
 

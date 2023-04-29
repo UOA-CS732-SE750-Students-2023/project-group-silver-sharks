@@ -19,7 +19,7 @@ import ProfileRoot from './pages/profile/ProfileRoot';
 import SellAssetPage from './pages/SellAssetPage';
 import { loader as allProductsLoader } from './pages/ProductSearchPage';
 import { loader as productLoader } from './pages/ProductPage';
-import { action as sellAssetAction } from './components/SellAssetLayout';
+import { action as sellAssetAction } from './pages/SellAssetPage';
 import { loader as usernameLoader } from './components/StoreComponents/StoreNavBar';
 import { loader as authorLoader } from './pages/AuthorPage';
 import { action as productAction } from './pages/ProductPage';
