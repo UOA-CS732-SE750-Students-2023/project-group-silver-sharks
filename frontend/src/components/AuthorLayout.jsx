@@ -94,7 +94,7 @@ const AuthorLayout = ({ author }) => {
                         <Card>
                             <div >
                                 <div className={`${classes.imgcontainer}`}>
-                                    <img src={'http://localhost:3000/uploads/' + item.coverImage + '.jpg'}/>
+                                    <img src={'http://localhost:3000/uploads/' + item.coverImage}/>
                                 </div>
                                 <div>
                                     <Link id="productLink" to={`/store/product/${item._id}`}><h2>{item.name}</h2></Link>
