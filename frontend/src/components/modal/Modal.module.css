@@ -16,17 +16,7 @@
     z-index: 30;
     animation: slide-down 300ms ease-out forwards;
 }  */
-.modal .cartcontainer{
-    width:30%;
-    top: 20vh;
-    position: absolute;
-    color:aliceblue;
-    background:linear-gradient(180deg, #000000 0%, #001614 48.96%, #000000 100%, #000000 100%);
-    padding: 1rem;
-    border-radius: 20px;
-    z-index: 30;
-    animation: slide-down 300ms ease-out forwards;
-}
+
 .modal .profilecontainer{
     width:30%;
     top: 20vh;

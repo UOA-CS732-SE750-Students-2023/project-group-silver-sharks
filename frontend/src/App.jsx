@@ -9,7 +9,7 @@ import SignupPage, {action as signupAction } from './pages/SignupPage';
 import ErrorPage from './pages/misc/ErrorPage';
 import StoreRootPage from './pages/StoreRootPage';
 import ProductSearchPage from './pages/ProductSearchPage';
-import ProductPage from './pages/ProductPage';
+import ProductPage, { action } from './pages/ProductPage';
 import AuthorPage from './pages/AuthorPage';
 import PurchasePage from './pages/profile/PurchasePage';
 import MessagesPage from './pages/profile/MessagesPage';
@@ -22,6 +22,7 @@ import { loader as productLoader } from './pages/ProductPage';
 import { action as sellAssetAction } from './components/SellAssetLayout';
 import { loader as usernameLoader } from './components/StoreComponents/StoreNavBar';
 import { loader as authorLoader } from './pages/AuthorPage';
+import { action as productAction } from './pages/ProductPage';
 
 const router = createBrowserRouter([
   {path:'/', element: <RootPage />, children: [
@@ -31,7 +32,7 @@ const router = createBrowserRouter([
     {path: 'signup', element: <SignupPage />, action: signupAction},
     {path:'store', element: <StoreRootPage />, loader: usernameLoader, id: 'username-loader', children: [
       {path:'product-search', element: <ProductSearchPage />, loader: allProductsLoader},
-      {path: 'product/:productid', element: <ProductPage />, loader: productLoader},
+      {path: 'product/:productid', element: <ProductPage />, loader: productLoader, action: productAction},
       {path: 'author/:aid', element: <AuthorPage />, loader: authorLoader},
       {path: 'profile', element: <ProfileRoot />, children: [
         {index: true, element: <DashBoardPage />},
