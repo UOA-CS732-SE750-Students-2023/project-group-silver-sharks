@@ -7,6 +7,8 @@ const ProductLayout = ({ product, author }) => {
 
     const addReviewWindowHandler = () => {
         productCtx.showReview();
+
+        // give the add review window the product id
     }
 
     return (

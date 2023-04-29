@@ -17,7 +17,7 @@ const AddReview = (props) => {
     return (
         <ModalAddReview onClose={props.closeReviewWindow}>
             <div>
-                <Form method={"POST"}>
+                <Form method='POST'>
                     <div>
                         <label htmlFor="review">Review:</label>
                         <textarea id="review" name="review" rows="5" required /> 
