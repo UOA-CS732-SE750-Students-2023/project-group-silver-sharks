@@ -262,7 +262,7 @@ productRouter.get(
       let userReview = null;
       let otherReviews = null;
 
-      const allReviews = await ProductReview.find({ product: productId }).sort(
+      const allReviews = await ProductReview.find({ product: productId }).populate("account").sort(
         sortOptions[sortBy]
       );
 

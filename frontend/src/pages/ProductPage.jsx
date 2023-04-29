@@ -16,6 +16,7 @@ const ProductPage = () => {
 
     const product = data[0];
     const author = data[1]; 
+    const reviews = data[2]
 
     // close the modal window for adding reviews
     const closeReviewWindowHandler = () => {
@@ -25,7 +26,7 @@ const ProductPage = () => {
     return (
         <>
             {productCtx.isShow && <AddReview closeReviewWindow={closeReviewWindowHandler} />}
-            <ProductLayout product={product} author={author}/>
+            <ProductLayout product={product} author={author} reviews={reviews}/>
         </>
     );
 }
@@ -68,8 +69,27 @@ export const loader = async ({request,params}) => {
 
         }
 
-        return returnData;
+        // endpoint to fetch the 
+        // /products/pid/:pid/reviews
 
+        const reviewsData = await fetch("http://localhost:3000/products/pid/" + id + "/reviews");
+
+        if (!reviewsData.ok){
+            throw json({ message: 'Could not fetch reviews for product.'}, {
+                status: 500,
+            });
+        } else {
+
+            const reviews = await reviewsData.json();
+
+            console.log("----------------------------------------------------");
+            console.log(reviews);
+            console.log("----------------------------------------------------");
+
+            returnData.push(reviews);
+        }
+
+        return returnData;
     }
 };
 
