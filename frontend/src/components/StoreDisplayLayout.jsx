@@ -25,7 +25,7 @@ const StoreDisplayLayout = (props) => {
                         <Card>
                             <div >
                                 <div className={`${classes.imgcontainer}`}>
-                                    {/* <img src={item.imageURL} /> */}
+                                    {<img src={'http://localhost:3000/uploads/' + item.coverImage + '.jpg'}/>}
                                 </div>
                                 <div>
                                     <Link id="productLink" to={`/store/product/${item._id}`}><h2>{item.name}</h2></Link>

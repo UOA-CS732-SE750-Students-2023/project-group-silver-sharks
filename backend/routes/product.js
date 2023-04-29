@@ -234,6 +234,9 @@ productRouter.post("/products/buy/:productId", async (req, res) => {
 });
 
 // ENDPOINT: Get Reviews for a specific product
+// sorting query param -> ?sortBy=<>
+// ur review for the product is always on top
+// can only review if it has been purchased by user and can only review once
 productRouter.get(
   "/products/pid/:pid/reviews",
   isLoggedIn,

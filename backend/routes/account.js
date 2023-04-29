@@ -308,4 +308,27 @@ accountRouter.delete("/account/cart/pid/:pid", isLoggedIn, async (req, res) => {
   }
 });
 
+// TEST ENDPOINT FOR ADDING PURCHASED PRODUCTS
+accountRouter.put("/account/:id/products", async (req, res) => {
+  try {
+    const accountId = req.params.id;
+    const products = req.body.products;
+
+    // check if account exists
+    const account = await Account.findById(accountId);
+    if (!account) {
+      return res.status(404).json({ message: "Account not found" });
+    }
+
+    // add products to the productsPurchased field
+    account.productsPurchased.push(...products);
+    await account.save();
+
+    res.status(200).json({ message: "Products added to account successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 export default accountRouter;
