@@ -9,12 +9,10 @@ import {
   getProductById,
   updateProduct,
   deleteProduct,
-  registerProductWithAccount
+  registerProductWithAccount,
 } from "../dao/product-dao.js";
 
-import {
-  registerAccountWithProduct
-} from "../dao/account-dao.js";
+import { registerAccountWithProduct } from "../dao/account-dao.js";
 
 import { ReasonPhrases, StatusCodes } from "http-status-codes";
 import { Product } from "../models/productModel.js";
@@ -70,7 +68,6 @@ productRouter.get("/products", async (req, res) => {
 // NOTE: the product needs to be registered with a user
 // path param userId
 productRouter.post("/products/sell/:userId", async (req, res) => {
-
   const userId = req.params.userId;
   const product = req.body;
 
@@ -78,13 +75,13 @@ productRouter.post("/products/sell/:userId", async (req, res) => {
     // create the account
     const newProduct = await addProduct(product);
 
-    // register the product with the account 
+    // register the product with the account
     await registerProductWithAccount(newProduct, userId);
 
     console.log(userId);
 
-    // register the account with the product 
-    await registerAccountWithProduct(userId,newProduct._id);
+    // register the account with the product
+    await registerAccountWithProduct(userId, newProduct._id);
 
     return res
       .status(StatusCodes.CREATED)
@@ -350,7 +347,6 @@ productRouter.delete(
         return res.status(404).json({ error: "Review not found" });
       }
 
-
       if (
         String(review.account) !== String(req.user.id) &&
         req.user.accountType !== "admin"
@@ -384,6 +380,39 @@ productRouter.delete(
     } catch (err) {
       console.error(err);
       return res.status(500).json({ error: "Server Error" });
+    }
+  }
+);
+
+// ENDPOINT: Can add review - true or false
+productRouter.get(
+  "/products/pid/:pid/can-review",
+  isLoggedIn,
+  async (req, res) => {
+    try {
+      const productId = req.params.pid;
+
+      const product = await Product.findById(productId).populate("reviews");
+      if (!product) {
+        return res.status(404).json({ error: "Product not found" });
+      }
+
+      const purchasedProductIds = req.user.productsPurchased.map((p) =>
+        String(p._id)
+      );
+      const existingReview = product.reviews.find(
+        (review) => String(review.account) === String(req.user.id)
+      );
+      if (!purchasedProductIds.includes(String(productId))) {
+        res.send(false);
+      } else if (existingReview) {
+        res.send(false);
+      } else {
+        res.send(true);
+      }
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json({ error: "Server Error: Product id is likely invalid" });
     }
   }
 );
