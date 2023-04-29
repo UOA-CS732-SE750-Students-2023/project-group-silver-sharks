@@ -5,8 +5,8 @@ const Schema = mongoose.Schema;
 const accountSchema = new Schema(
   {
     _id: {
-      type: String,
-      required: true,
+      type: String, 
+      required: true
     },
     username: {
       type: String,

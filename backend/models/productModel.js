@@ -35,7 +35,10 @@ const productSchema = new Schema(
       type: Number,
       default: 0,
     },
-    averageRating: Number,
+    averageRating: {
+      type: Number,
+      default: 0,
+    },
     reviews: [
       {
         type: Schema.Types.ObjectId,
@@ -44,6 +47,10 @@ const productSchema = new Schema(
     ],
     downloadLink: {
       encryptedInformation: String,
+    },
+    author:{
+      type: Schema.Types.ObjectId,
+      ref: "Account",
     },
   },
   {
