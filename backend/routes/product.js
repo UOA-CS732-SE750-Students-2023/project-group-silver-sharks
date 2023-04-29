@@ -9,12 +9,11 @@ import {
   getProductById,
   updateProduct,
   deleteProduct,
-  registerProductWithAccount
+  registerProductWithAccount,
+  registerBuyingProductWithAccount,
 } from "../dao/product-dao.js";
 
-import {
-  registerAccountWithProduct
-} from "../dao/account-dao.js";
+import { registerAccountWithProduct } from "../dao/account-dao.js";
 
 import { ReasonPhrases, StatusCodes } from "http-status-codes";
 import { Product } from "../models/productModel.js";
@@ -70,7 +69,6 @@ productRouter.get("/products", async (req, res) => {
 // NOTE: the product needs to be registered with a user
 // path param userId
 productRouter.post("/products/sell/:userId", async (req, res) => {
-
   const userId = req.params.userId;
   const product = req.body;
 
@@ -78,13 +76,13 @@ productRouter.post("/products/sell/:userId", async (req, res) => {
     // create the account
     const newProduct = await addProduct(product);
 
-    // register the product with the account 
+    // register the product with the account
     await registerProductWithAccount(newProduct, userId);
 
     console.log(userId);
 
-    // register the account with the product 
-    await registerAccountWithProduct(userId,newProduct._id);
+    // register the account with the product
+    await registerAccountWithProduct(userId, newProduct._id);
 
     return res
       .status(StatusCodes.CREATED)
@@ -188,7 +186,7 @@ productRouter.get("/products/:id", async (req, res) => {
   try {
     const product = await getProductById(id);
 
-    console.log(product)
+    console.log(product);
 
     return res.status(StatusCodes.OK).json(product);
   } catch (error) {
@@ -213,6 +211,24 @@ productRouter.delete("/products/:productId", async (req, res) => {
     }
   } catch (error) {
     console.log(error);
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error");
+  }
+});
+
+// endpoint 8: POST - buy product
+productRouter.post("/products/buy/:productId", async (req, res) => {
+  try {
+    const productId = req.params.productId;
+    // const accountId = req.user._id;
+    const accountId = req.query.accountId;
+
+    await registerBuyingProductWithAccount(productId, accountId);
+
+    return res
+      .status(StatusCodes.OK)
+      .json({ message: "Successfully bought product" });
+  } catch (err) {
+    console.error(err);
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error");
   }
 });
@@ -351,7 +367,6 @@ productRouter.delete(
       if (!review) {
         return res.status(404).json({ error: "Review not found" });
       }
-
 
       if (
         String(review.account) !== String(req.user.id) &&

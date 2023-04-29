@@ -70,12 +70,36 @@ const registerProductWithAccount = async (product, accountId) => {
   // get the account instance
   const account = await Account.findById(accountId).populate("sellingProducts");
 
-  console.log(account.sellingProducts)
+  console.log(account.sellingProducts);
 
   // register the product with the account
   account.sellingProducts.push(product);
 
   console.log(account);
+
+  await account.save();
+};
+
+const registerBuyingProductWithAccount = async (productId, accountId) => {
+  // get account instance
+  const account = await Account.findById(accountId).populate(
+    "productsPurchased"
+  );
+
+  // get product instance and increment amount sold
+  const product = await Product.findById(productId);
+  console.log(product);
+  const oldAmountSold = product.amountSold;
+  console.log(oldAmountSold);
+  const newAmountSold = oldAmountSold + 1;
+  console.log(newAmountSold);
+  product.amountSold = newAmountSold;
+  console.log(product);
+  await product.save();
+
+  console.log(account.productsPurchased);
+
+  account.productsPurchased.push(product);
 
   await account.save();
 };
@@ -151,5 +175,6 @@ export {
   getProductById,
   updateProduct,
   deleteProduct,
-  registerProductWithAccount
+  registerProductWithAccount,
+  registerBuyingProductWithAccount,
 };
