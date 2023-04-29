@@ -2,14 +2,19 @@ import React, { useState, useContext } from 'react';
 import { Link } from "react-router-dom";
 import ProductContext from '../store/product-context';
 
-const ProductLayout = ({ product, author }) => { 
+const ProductLayout = ({ product, author, reviews }) => { 
     const productCtx = useContext(ProductContext);
 
-    const addReviewWindowHandler = () => {
-        productCtx.showReview();
-
+    const addReviewWindowHandler = () => {    
         // give the add review window the product id
+        productCtx.showReview();
     }
+
+    console.log("-----------------------------------------")
+    console.log(reviews)
+    console.log("-----------------------------------------")
+
+
 
     return (
         <div>
@@ -17,7 +22,24 @@ const ProductLayout = ({ product, author }) => {
             <p>{product.description}</p>
             <p>{`Price: ${product.price}`}</p>
             <Link to={`/store/author/${author._id}`}><p style={{ color: '#000000' }}>{author.username}</p></Link>
-            <img src={'http://localhost:3000/uploads/' + product.coverImage}/>
+            <img src={'http://localhost:3000/uploads/' + product.coverImage} width="100px" height="100px"/>
+            {reviews.map((review) => (
+            <li key={review._id} >
+                    <div>
+                        <h3>Review:</h3>
+                        <p>{review.text}</p>
+                    </div>
+                    <div>
+                        <h3>Rating:</h3>
+                        <p>{review.rating}</p>
+                    </div>
+                    <div>
+                        <h3>Review By</h3>
+                        <Link to={"/store/author/" + review.account._id}><p style={{ color: '#000000' }}>{review.account.username}</p></Link>
+                    </div>
+            </li>
+            ))}
+
             <button onClick={addReviewWindowHandler}>Add Review</button>
         </div>
     );
