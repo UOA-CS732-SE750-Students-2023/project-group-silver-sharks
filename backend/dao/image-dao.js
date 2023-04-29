@@ -1,21 +1,37 @@
 import { ObjectId } from "mongodb";
 // import { Image } from "../models/imageModel.js";
 import { Product } from "../models/productModel.js";
+import path from "path";
 
 // Add an image for a product
-const addCoverImage = async (imageName, productId) => {
+const addCoverImage = async (file, productId) => {
   const product = await Product.findById(productId);
   console.log(product);
-  console.log(imageName);
   console.log(productId);
-  product.coverImage = imageName;
+  product.coverImage =
+    productId + "-coverimage" + path.extname(file.originalname);
+  console.log(product);
   await product.save();
 
   return { message: "Successsfully saved cover image" };
-  // const newImage = new Image(image);
-  // console.log(newImage);
-  // await newImage.save();
-  // return newImage;
+};
+
+const addImages = async (files, productId) => {
+  const product = await Product.findById(productId);
+  console.log(product);
+  console.log(productId);
+  let images = [];
+  let counter = 1;
+  // console.log(files);
+  for (const file of files) {
+    images.push(productId + "-" + counter + path.extname(file.originalname));
+    counter++;
+  }
+
+  product.files = images;
+  await product.save();
+
+  return { message: "Successsfully saved images" };
 };
 
 // Get all images for a specific product.
@@ -30,4 +46,4 @@ const getImages = async (id) => {
   return { total, images };
 };
 
-export { addCoverImage, getImages };
+export { addCoverImage, getImages, addImages };
