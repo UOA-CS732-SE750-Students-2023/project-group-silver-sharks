@@ -49,7 +49,7 @@ const downloadFileStorage = multer.diskStorage({
     return function (req, file, callback) {
       const productId = req.params.productId;
       const extension = path.extname(file.originalname);
-      const newFilename = `${productId}-${fileCount}${extension}`;
+      const newFilename = `${productId}-${fileCount}-downloadFile${extension}`;
       fileCount++;
       callback(null, newFilename);
     };
