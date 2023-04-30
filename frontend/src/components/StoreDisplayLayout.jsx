@@ -4,7 +4,6 @@ import Card from '../pages/ui/Card';
 import { StarFill } from 'react-bootstrap-icons';
 import classes from '../pages/ui/Card.module.css';
 const StoreDisplayLayout = (props) => { 
-    console.log(props.items[0])
 
     const minMaxInputContainerStyle = {
       marginLeft: '100px', 
@@ -25,7 +24,7 @@ const StoreDisplayLayout = (props) => {
                         <Card>
                             <div >
                                 <div className={`${classes.imgcontainer}`}>
-                                    {/* <img src={item.imageURL} /> */}
+                                    {<img src={'http://localhost:3000/uploads/' + item.coverImage}/>}
                                 </div>
                                 <div>
                                     <Link id="productLink" to={`/store/product/${item._id}`}><h2>{item.name}</h2></Link>
