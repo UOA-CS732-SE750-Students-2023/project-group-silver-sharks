@@ -104,12 +104,13 @@ const SellAssetLayout = ({ userId }) => {
               <span className="required-star-des">*</span>
             </div>
             <div className="upload-container">
-              <p>Add Cover image</p>
+              <p>Drag and drop file</p>
+              <p>or</p>
               <input
                 type="file"
-                name="cover-image"
-                id="cover-image"
-                onChange={coverImageChangeHandler}
+                name="files"
+                id="files"
+                onChange={filesChangeHandler}
                 multiple
                 style={{ display: "none" }}
               />
