@@ -3,13 +3,13 @@ import { useNavigate, useActionData, Form } from "react-router-dom";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import "./SellAssetLayout.css";
 
-const SellAssetLayout = () => {
+const SellAssetLayout = ({ userId }) => {
   
   const [enteredTitle, setEnteredTitle] = useState("");
   const [enteredDescription, setEnteredDescription] = useState('');
   const [coverImage, setCoverImage] = useState('');
   const [files, setFiles] = useState([]);
-  const [category, setCategory] = useState(''); 
+  const [category, setCategory] = useState('Images'); 
   const [price, setPrice] = useState(0);
 
   // data returned from the post request -> if there are any errors or a response it will be in here
@@ -45,6 +45,7 @@ const SellAssetLayout = () => {
   };
 
   const categoryChangeHandler = (event) => {
+    console.log(event.target.value, 48)
     setCategory(event.target.value);
   };
 
@@ -54,12 +55,15 @@ const SellAssetLayout = () => {
     // print all the data returned from the form 
     console.log("after form submission !!!"); 
     console.log(enteredTitle, 56);
-    console.log(enteredDescription, 56);
-    console.log(price, 56);
-    console.log(category, 56);
-    console.log(coverImage, 56);
-    console.log(files, 56);
-    console.log("END")
+    console.log(enteredDescription, 57);
+    console.log(price, 58);
+    console.log(category, 59);
+    console.log(coverImage, 60);
+    console.log(files, 61);
+    console.log("END");
+
+    // print the user id that will be needed to create the product in the backend
+    console.log(userId, 65);
 
   };
 
@@ -128,8 +132,6 @@ const SellAssetLayout = () => {
             <div>
               <label htmlFor="category">Filter by year</label>
               <select
-                id="category"
-                name="category"
                 value={category}
                 onChange={categoryChangeHandler}
               >
