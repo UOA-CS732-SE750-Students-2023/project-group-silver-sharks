@@ -20,7 +20,6 @@ import { Product } from "../models/productModel.js";
 import { ProductReview } from "../models/productReviewModel.js";
 import passport from "passport";
 import session from "express-session";
-import { Account } from "../models/accountModel.js";
 
 const productRouter = new express.Router();
 
@@ -203,37 +202,6 @@ productRouter.delete("/products/:productId", async (req, res) => {
 
     const deletedProduct = await deleteProduct(productId);
 
-    // delete all reviews for product
-    ProductReview.deleteMany({ product: productId });
-
-    // delete product from account's purchased products
-    try {
-      const result = await Account.updateMany(
-        { productsPurchased: { $in: [productId] } },
-        { $pull: { productsPurchased: productId } }
-      );
-      console.log(`Removed product ${productId} from all accounts.`);
-    } catch (error) {
-      console.error(
-        "Error while removing product from purchased products:",
-        error
-      );
-    }
-
-    // delete products from account's selling products
-    try {
-      const result = await Account.updateMany(
-        { sellingProducts: { $in: [productId] } },
-        { $pull: { sellingProducts: productId } }
-      );
-      console.log(`Removed product ${productId} from all accounts.`);
-    } catch (error) {
-      console.error(
-        "Error while removing product from selling products:",
-        error
-      );
-    }
-
     if (deletedProduct) {
       return res
         .status(StatusCodes.OK)
@@ -294,9 +262,9 @@ productRouter.get(
       let userReview = null;
       let otherReviews = null;
 
-      const allReviews = await ProductReview.find({ product: productId })
-        .populate("account")
-        .sort(sortOptions[sortBy]);
+      const allReviews = await ProductReview.find({ product: productId }).populate("account").sort(
+        sortOptions[sortBy]
+      );
 
       if (allReviews && allReviews.length > 0) {
         userReview = allReviews.find((review) => review.account === userId);
@@ -437,41 +405,6 @@ productRouter.delete(
     } catch (err) {
       console.error(err);
       return res.status(500).json({ error: "Server Error" });
-    }
-  }
-);
-
-// ENDPOINT: Can add review - true or false
-productRouter.get(
-  "/products/pid/:pid/can-review",
-  isLoggedIn,
-  async (req, res) => {
-    try {
-      const productId = req.params.pid;
-
-      const product = await Product.findById(productId).populate("reviews");
-      if (!product) {
-        return res.status(404).json({ error: "Product not found" });
-      }
-
-      const purchasedProductIds = req.user.productsPurchased.map((p) =>
-        String(p._id)
-      );
-      const existingReview = product.reviews.find(
-        (review) => String(review.account) === String(req.user.id)
-      );
-      if (!purchasedProductIds.includes(String(productId))) {
-        res.send(false);
-      } else if (existingReview) {
-        res.send(false);
-      } else {
-        res.send(true);
-      }
-    } catch (err) {
-      console.error(err);
-      return res
-        .status(500)
-        .json({ error: "Server Error: Product id is likely invalid" });
     }
   }
 );
