@@ -100,9 +100,10 @@ accountRouter.get("/account", isLoggedIn, async (req, res) => {
  * 
  * // passing in 0 returns the current user
  */
-accountRouter.get("/account/id/:id", isLoggedIn, async (req, res) => {
+accountRouter.get("/account/id/:id", async (req, res) => {
   const id = req.params.id === "0" ? req.user.id : req.params.id;
   const account = await getAccountById(id);
+  console.log(account)
   return res.status(StatusCodes.OK).json(account);
 });
 
@@ -304,6 +305,29 @@ accountRouter.delete("/account/cart/pid/:pid", isLoggedIn, async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: 'Server error: product id may be invalid' });
+  }
+});
+
+// TEST ENDPOINT FOR ADDING PURCHASED PRODUCTS
+accountRouter.put("/account/:id/products", async (req, res) => {
+  try {
+    const accountId = req.params.id;
+    const products = req.body.products;
+
+    // check if account exists
+    const account = await Account.findById(accountId);
+    if (!account) {
+      return res.status(404).json({ message: "Account not found" });
+    }
+
+    // add products to the productsPurchased field
+    account.productsPurchased.push(...products);
+    await account.save();
+
+    res.status(200).json({ message: "Products added to account successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
   }
 });
 
