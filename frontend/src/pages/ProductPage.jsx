@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useLoaderData,json } from "react-router-dom";
 import { useParams } from 'react-router-dom';
-import ProductLayout from '../components/ProductLayout';
+import ProductLayout from '../components/ProductDetailComponents/ProductLayout';
 
 const ProductPage = () => { 
     const product = useLoaderData();
