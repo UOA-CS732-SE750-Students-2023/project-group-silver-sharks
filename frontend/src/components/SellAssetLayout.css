@@ -3,7 +3,9 @@
   padding: 2px 20px 200px; 
 }
 
-
+/* .sell-container {
+  margin: 100px;
+} */
 .sell-assets {
   margin: 0 90px 200px;
   background-color: #fff;
@@ -17,28 +19,36 @@
   margin-right: 150px;
 }
 
-.form-container {
+/* .form-container {
   background-color: #fff;
   margin-top: 40px;
   padding: 35px;
+} */
+.sell-asset-title h4 {
+  margin-left: 40px; 
+  margin-top: 20px;
 }
 
 .form-group {
   position: relative;
+  margin-bottom: 15px;
 }
 
 .form-group label {
   display: none;
 }
 
-.form-group {
-  position: relative;
+.styled-input {
+  width: 60%;
+  padding: 5px 10px;
+  border: 2px solid black;
+  border-radius: 5px;
 }
 
-.form-group {
-  position: relative;
+.styled-input:focus {
+  outline: none;
+  border-color: #348B81;
 }
-
 /* .form-group::before {
   content: "*";
   position: absolute;
@@ -48,22 +58,73 @@
   font-size: 20px;
 } */
 
+.required-star {
+  position: absolute;
+  top: 50%;
+  right: 38%;
+  color: red;
+  font-size: 20px;
+  transform: translateY(-50%);
+}
 
+.required-star-des {
+  position: absolute;
+  top: 35%;
+  right: 38%;
+  color: red;
+  font-size: 20px;
+  transform: translateY(-50%);
+}
 
-
+.required-star-price {
+  position: absolute;
+  top: 50%;
+  left: 11%;
+  color: red;
+  font-size: 20px;
+  transform: translateY(-50%);
+}
 
 .upload-container {
   height: 150px;
-  border: 2px dashed #cccccc;
+  border: 2px dashed black;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-bottom: 15px;
+  border-style: dashed;
+  border-width: 2px;
 }
 
-.form-control .form-select {
+/* .form-control .form-select {
   width: 25%;
+} */
+
+.styled-select {
+  width: 15%;
+  padding: 5px 10px;
+  border: 2px solid black;
+  border-radius: 5px;
+  appearance: none;
+  background-color: #fff;
 }
 
+.styled-select:focus {
+  outline: none;
+  border-color: #348B81;
+}
 
+.browse-button {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 15px;
+  cursor: pointer;
+  text-decoration: none;
+  border: 2px solid #000;
+}
+
+.btn {
+  border-radius: 15px;
+}
