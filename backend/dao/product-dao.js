@@ -1,4 +1,5 @@
 import { Product } from "../models/productModel.js";
+import { Account } from "../models/accountModel.js";
 
 // return all products in the database
 const getAllProducts = async () => {
@@ -65,6 +66,44 @@ const addProduct = async (product) => {
   return newProduct;
 };
 
+const registerProductWithAccount = async (product, accountId) => {
+  // get the account instance
+  const account = await Account.findById(accountId).populate("sellingProducts");
+
+  console.log(account.sellingProducts);
+
+  // register the product with the account
+  account.sellingProducts.push(product);
+
+  console.log(account);
+
+  await account.save();
+};
+
+const registerBuyingProductWithAccount = async (productId, accountId) => {
+  // get account instance
+  const account = await Account.findById(accountId).populate(
+    "productsPurchased"
+  );
+
+  // get product instance and increment amount sold
+  const product = await Product.findById(productId);
+  console.log(product);
+  const oldAmountSold = product.amountSold;
+  console.log(oldAmountSold);
+  const newAmountSold = oldAmountSold + 1;
+  console.log(newAmountSold);
+  product.amountSold = newAmountSold;
+  console.log(product);
+  await product.save();
+
+  console.log(account.productsPurchased);
+
+  account.productsPurchased.push(product);
+
+  await account.save();
+};
+
 const getProductsMatchingSearchTerm = async (
   searchTerm,
   page,
@@ -97,7 +136,34 @@ const getProductsMatchingSearchTerm = async (
 };
 
 const getProductById = async (id) => {
-  return await Product.findById(id);
+  return await Product.findById(id).populate("author");
+};
+
+const updateProduct = async (productId, updatedProductData) => {
+  const existingProduct = await Product.findById(productId);
+
+  if (!existingProduct) {
+    return null;
+  }
+
+  for (const key in updatedProductData) {
+    if (updatedProductData.hasOwnProperty(key)) {
+      existingProduct[key] = updatedProductData[key];
+    }
+  }
+
+  await existingProduct.save();
+  return existingProduct;
+};
+
+const deleteProduct = async (productId) => {
+  const deletedProduct = await Product.findByIdAndRemove(productId);
+
+  if (!deletedProduct) {
+    return null;
+  }
+
+  return deletedProduct;
 };
 
 export {
@@ -107,4 +173,8 @@ export {
   getPaginatedCategories,
   getProductsMatchingSearchTerm,
   getProductById,
+  updateProduct,
+  deleteProduct,
+  registerProductWithAccount,
+  registerBuyingProductWithAccount,
 };

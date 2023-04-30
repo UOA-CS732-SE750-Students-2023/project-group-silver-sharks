@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, json } from "react-router-dom";
 import ProductNavBar from "../components/ProductNavBar";
 import StoreDisplayLayout from "../components/StoreDisplayLayout";
 import PaginationBar from "../components/PaginationBar";
@@ -214,7 +214,7 @@ export const loader = async () => {
     const products = data[0];
     const count = data[1];
 
-    console.log("the count is: " + count);
+    console.log(products)
 
     return {
       products,

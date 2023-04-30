@@ -1,4 +1,5 @@
 import { Account } from "../models/accountModel.js";
+import { Product } from "../models/productModel.js";
 
 
 // return all accounts in the database
@@ -13,7 +14,10 @@ const getAllAccounts = async () => {
 };
 
 const getAccountById = async (id) => {
-    const account = await Account.findById(id);
+    const account = await Account.findById(id)
+                          .populate("sellingProducts")
+                          .populate("productsPurchased")
+                          .populate("cartContents");
     return account;
 };
 
@@ -60,6 +64,21 @@ const getSellingProductsById = async (id) => {
     }
   };
 
+  const registerAccountWithProduct = async (accountId, productId) => {
+    const product = await Product.findById(productId);
+    const account = await Account.findById(accountId);
+
+    console.log("the account id is: " + accountId)
+
+    product.author = account;
+
+    console.log("----------------------------------------")
+    console.log(product);
+    console.log("----------------------------------------")
+
+    await product.save();
+  }
+
 
 export {
     getAllAccounts,
@@ -67,6 +86,6 @@ export {
     deleteAccount,
     getSellingProductsById,
     getPurchasedProductsById,
-    getCartContents
-
+    getCartContents,
+    registerAccountWithProduct
 };

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'; 
+import React from 'react'; 
 import Modal from '../modal/Modal';
 import { DashCircle  } from 'react-bootstrap-icons';
 import './Cart.module.css';

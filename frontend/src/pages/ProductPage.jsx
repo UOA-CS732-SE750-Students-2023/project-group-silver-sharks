@@ -1,24 +1,41 @@
-import React, { useState } from 'react';
-import { useLoaderData,json } from "react-router-dom";
+import React, { useState, useContext } from 'react';
+import { useLoaderData,json,redirect } from "react-router-dom";
 import { useParams } from 'react-router-dom';
 import ProductLayout from '../components/ProductLayout';
+import ProductContext from '../store/product-context';
+import AddReview from '../components/AuthorPageComponents/AddReview';
+
 
 const ProductPage = () => { 
-    const product = useLoaderData();
+    const productCtx = useContext(ProductContext);
 
-    console.log(product)
+    const data = useLoaderData();
+    const params = useParams();
 
-    const params = useParams()
-    console.log(+params.productid)  
+    const productId = params.productid;
+
+    const product = data[0];
+    const author = data[1]; 
+    const reviews = data[2]
+
+    // close the modal window for adding reviews
+    const closeReviewWindowHandler = () => {
+        productCtx.hideReview()
+    };
 
     return (
-        <ProductLayout product={product}/>
+        <>
+            {productCtx.isShow && <AddReview closeReviewWindow={closeReviewWindowHandler} />}
+            <ProductLayout product={product} author={author} reviews={reviews}/>
+        </>
     );
 }
 
 export default ProductPage;
 
 export const loader = async ({request,params}) => {
+    let returnData = [];
+    
     const id = params.productid;
 
     console.log("line 24 " + id)
@@ -32,8 +49,96 @@ export const loader = async ({request,params}) => {
         });
     } else {
           // react router will extract data from promise
-        console.log(response)
-        return response;
+        const product = await response.json()
+
+        returnData.push(product);
+
+        // using the author id also fetch the author
+
+        const data = await fetch("http://localhost:3000/account/id/" + product.author);
+
+        if (!data.ok){
+            throw json({ message: 'Could not fetch details for author of product.'}, {
+                status: 500,
+            });
+        } else {
+
+            const author = await data.json();
+
+            returnData.push(author);
+
+        }
+
+        // endpoint to fetch the 
+        // /products/pid/:pid/reviews
+
+        const reviewsData = await fetch("http://localhost:3000/products/pid/" + id + "/reviews");
+
+        if (!reviewsData.ok){
+            throw json({ message: 'Could not fetch reviews for product.'}, {
+                status: 500,
+            });
+        } else {
+
+            const reviews = await reviewsData.json();
+
+            console.log("----------------------------------------------------");
+            console.log(reviews);
+            console.log("----------------------------------------------------");
+
+            returnData.push(reviews);
+        }
+
+        return returnData;
     }
+};
+
+export const action = async ({request,params}) => {
+    // getting the form data from request argument 
+    const formData = await request.formData();
+
+    // get the id of the product 
+    const productId = params.productid;
+
+    console.log("----------------------------------------------------")
+    console.log("The product id is: ");
+    console.log(productId)
+    console.log("----------------------------------------------------")
+  
+    // getting the http method from the request argument
+    const method = request.method;
+    
+    const reviewData = {
+        text: formData.get('review'), 
+        rating: +formData.get('rating')
+    };
+
+    console.log("----------------------------------------------------")
+    console.log("this is the review object being posted to backend");
+    console.log(reviewData);
+    console.log("----------------------------------------------------")
+    
+    const url = "http://localhost:3000/products/pid/" + productId + "/review";
+    console.log(url)
+
+    const response = await fetch(url, {
+        method: method,
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(reviewData)
+    });
+  
+    if (!response.ok){
+        // backend throws 422 when data entered in form is invalid
+        if (response.status === 422){
+            return response;
+        }
+  
+        throw json({ message: "Could not save review."}, { status: 500 });
+    }
+  
+    // redirect the user after submitting 
+    return redirect('/store/product/' + productId);
 };
 

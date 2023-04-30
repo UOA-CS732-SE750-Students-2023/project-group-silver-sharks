@@ -8,18 +8,9 @@ import React from 'react';
 */
 
 const ProductContext = React.createContext({
-    count: 0,
-    currentPage: 1,
-    limit: 3,
-    search: '',
-    sortBy: '',
-    category: '',
-    updateCurrentPage: (currentPage) => {},
-    updateCount: (count) => {}, 
-    updateSearch: (search) => {}, 
-    updateLimit: (limit) => {}, 
-    updateCategory: (category) => {}, 
-    updateSortBy: (sortBy) => {},
+    isShow: false,
+    showReview: () => {},
+    hideReview: () => {},
 });
 
 export default ProductContext;

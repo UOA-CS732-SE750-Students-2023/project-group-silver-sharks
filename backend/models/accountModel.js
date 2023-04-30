@@ -5,8 +5,8 @@ const Schema = mongoose.Schema;
 const accountSchema = new Schema(
   {
     _id: {
-      type: String,
-      required: true,
+      type: String, 
+      required: true
     },
     username: {
       type: String,
@@ -17,9 +17,9 @@ const accountSchema = new Schema(
     email: String,
     accountType: {
       type: String,
-      enum: ['admin', 'normal'],
-      default: 'normal',
-      validateBeforeSave: true
+      enum: ["admin", "normal"],
+      default: "normal",
+      validateBeforeSave: true,
     },
     sellerRating: Number,
     assetsSold: Number,
@@ -35,12 +35,14 @@ const accountSchema = new Schema(
         ref: "Product",
       },
     ],
-    cartContents: [{
-      product: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Product'
-      }
-    }],
+    cartContents: [
+      {
+        product: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Product",
+        },
+      },
+    ],
   },
   {
     timestamps: {},
