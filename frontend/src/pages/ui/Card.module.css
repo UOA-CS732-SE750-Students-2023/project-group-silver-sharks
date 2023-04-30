@@ -8,10 +8,13 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
+
     gap: 1rem;
     margin: 0.5rem;
 }
 .card .imgcontainer{
+  justify-content: center;
+  align-items: center;
   height: 160px; /* 设置父容器的高度 */
   width:auto;
 
@@ -65,7 +68,7 @@
 .card .price{
   color: black;
   display: inline-block;
-  margin-top: -40px;
+  /* margin-top: -40px; */
     
 }
 .card .number{
