@@ -32,4 +32,27 @@ const addImages = async (files, productId) => {
   return { message: "Successsfully saved images" };
 };
 
-export { addCoverImage, addImages };
+const addDownloadFiles = async (files, productId) => {
+  const product = await Product.findById(productId);
+  console.log(product);
+  console.log(productId);
+  let downloadFiles = [];
+  let counter = 1;
+  for (const file of files) {
+    downloadFiles.push(
+      productId +
+        "-" +
+        counter +
+        "-downloadFile" +
+        path.extname(file.originalname)
+    );
+    counter++;
+  }
+
+  product.downloadFiles = downloadFiles;
+  await product.save();
+
+  return { message: "Successsfully saved download files" };
+};
+
+export { addCoverImage, addImages, addDownloadFiles };
