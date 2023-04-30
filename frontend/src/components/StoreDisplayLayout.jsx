@@ -26,9 +26,9 @@ const StoreDisplayLayout = (props) => {
                                 <div className={`${classes.imgcontainer}`}>
                                     {<img src={'http://localhost:3000/uploads/' + item.coverImage}/>}
                                 </div>
-                                <div>
-                                    <Link id="productLink" to={`/store/product/${item._id}`}><h2>{item.name}</h2></Link>
-                                    <div className={`d-flex justify-content-end ${classes.price}`}  >
+                                <div className="d-flex justify-content-between">
+                                    <div><Link id="productLink" to={`/store/product/${item._id}`}><h2>{item.name}</h2></Link></div>
+                                    <div className={`${classes.price}`}  >
                                         <span className="fs-4">${Math.floor(item.price)}</span>
                                         <span className={`${classes.number}`}>{(item.price % 1).toFixed(2).split('.')[1]}</span>
                                     </div>
