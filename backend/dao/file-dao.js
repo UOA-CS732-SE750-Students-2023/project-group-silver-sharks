@@ -1,5 +1,3 @@
-import { ObjectId } from "mongodb";
-// import { Image } from "../models/imageModel.js";
 import { Product } from "../models/productModel.js";
 import path from "path";
 
@@ -34,16 +32,4 @@ const addImages = async (files, productId) => {
   return { message: "Successsfully saved images" };
 };
 
-// Get all images for a specific product.
-const getImages = async (id) => {
-  const images = await Image.find({
-    productId: new ObjectId(`${id}`),
-  });
-
-  const total = await Image.countDocuments({
-    productId: new ObjectId(`${id}`),
-  });
-  return { total, images };
-};
-
-export { addCoverImage, getImages, addImages };
+export { addCoverImage, addImages };
