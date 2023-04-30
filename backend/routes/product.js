@@ -409,4 +409,37 @@ productRouter.delete(
   }
 );
 
+// ENDPOINT: Can add review - true or false
+productRouter.get(
+  "/products/pid/:pid/can-review",
+  isLoggedIn,
+  async (req, res) => {
+    try {
+      const productId = req.params.pid;
+
+      const product = await Product.findById(productId).populate("reviews");
+      if (!product) {
+        return res.status(404).json({ error: "Product not found" });
+      }
+
+      const purchasedProductIds = req.user.productsPurchased.map((p) =>
+        String(p._id)
+      );
+      const existingReview = product.reviews.find(
+        (review) => String(review.account) === String(req.user.id)
+      );
+      if (!purchasedProductIds.includes(String(productId))) {
+        res.send(false);
+      } else if (existingReview) {
+        res.send(false);
+      } else {
+        res.send(true);
+      }
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json({ error: "Server Error: Product id is likely invalid" });
+    }
+  }
+);
+
 export default productRouter;
