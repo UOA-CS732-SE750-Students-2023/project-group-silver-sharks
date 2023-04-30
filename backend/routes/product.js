@@ -20,6 +20,7 @@ import { Product } from "../models/productModel.js";
 import { ProductReview } from "../models/productReviewModel.js";
 import passport from "passport";
 import session from "express-session";
+import { Account } from "../models/accountModel.js";
 
 const productRouter = new express.Router();
 
@@ -202,6 +203,37 @@ productRouter.delete("/products/:productId", async (req, res) => {
 
     const deletedProduct = await deleteProduct(productId);
 
+    // delete all reviews for product
+    ProductReview.deleteMany({ product: productId });
+
+    // delete product from account's purchased products
+    try {
+      const result = await Account.updateMany(
+        { productsPurchased: { $in: [productId] } },
+        { $pull: { productsPurchased: productId } }
+      );
+      console.log(`Removed product ${productId} from all accounts.`);
+    } catch (error) {
+      console.error(
+        "Error while removing product from purchased products:",
+        error
+      );
+    }
+
+    // delete products from account's selling products
+    try {
+      const result = await Account.updateMany(
+        { sellingProducts: { $in: [productId] } },
+        { $pull: { sellingProducts: productId } }
+      );
+      console.log(`Removed product ${productId} from all accounts.`);
+    } catch (error) {
+      console.error(
+        "Error while removing product from selling products:",
+        error
+      );
+    }
+
     if (deletedProduct) {
       return res
         .status(StatusCodes.OK)
@@ -262,9 +294,9 @@ productRouter.get(
       let userReview = null;
       let otherReviews = null;
 
-      const allReviews = await ProductReview.find({ product: productId }).populate("account").sort(
-        sortOptions[sortBy]
-      );
+      const allReviews = await ProductReview.find({ product: productId })
+        .populate("account")
+        .sort(sortOptions[sortBy]);
 
       if (allReviews && allReviews.length > 0) {
         userReview = allReviews.find((review) => review.account === userId);
@@ -437,7 +469,8 @@ productRouter.get(
       }
     } catch (err) {
       console.error(err);
-      return res.status(500).json({ error: "Server Error: Product id is likely invalid" });
+        .status(500)
+        .json({ error: "Server Error: Product id is likely invalid" });
     }
   }
 );
