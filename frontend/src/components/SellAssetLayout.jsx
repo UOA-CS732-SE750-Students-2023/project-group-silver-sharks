@@ -73,41 +73,50 @@ const SellAssetLayout = ({ userId }) => {
       <Row>
         <Col className="sell-asset-title">
           <div>
-            <h4 className="mt-4">Sell an asset</h4>
+            {/* <h4 className="mt-4">Sell an asset</h4> */}
+            <h4>Sell an asset</h4>
           </div>
-          <form enctype='multipart/form-data' onSubmit={submitHandler}>
-            <div>
+          <form  className="sell-assets" enctype='multipart/form-data' onSubmit={submitHandler}>
+            <div className="form-group">
               <input
                 id="title"
                 type="text"
                 name="title"
+                className="styled-input"
                 placeholder="title"
                 value={enteredTitle}
                 onChange={titleChangeHandler}
                 required
               />
+              <span className="required-star">*</span>
             </div>
-            <div>
+            <div className="form-group">
               <textarea
                 id="description"
                 name="description"
                 rows="5"
+                className="styled-input"
                 placeholder="description"
                 value={enteredDescription}
                 onChange={descriptionChangeHandler}
                 required
               />
+              <span className="required-star-des">*</span>
             </div>
             <div className="upload-container">
-              <p>Add Cover image</p>
+              <p>Drag and drop file</p>
+              <p>or</p>
               <input
                 type="file"
-                name="cover-image"
-                id="cover-image"
-                onChange={coverImageChangeHandler}
+                name="files"
+                id="files"
+                onChange={filesChangeHandler}
+                multiple
+                style={{ display: "none" }}
               />
+              <label htmlFor="files" className="browse-button">Browse</label> {/* 添加“Browse”按钮 */}
             </div>
-            <div className="upload-container">
+            {/* <div className="upload-container">
               <p>Add product files</p>
               <input
                 type="file"
@@ -116,22 +125,25 @@ const SellAssetLayout = ({ userId }) => {
                 onChange={filesChangeHandler}
                 multiple
               />
-            </div>
-            <div>
+            </div> */}
+            <div className="form-group">
               <input
                 id="price"
                 type="number"
                 name="price"
+                className="styled-input"
                 placeholder="Price"
                 value={price}
                 onChange={priceChangeHandler}
                 required
                 style={{ width: "10%" }}
               />
+              <span className="required-star-price">*</span>
             </div>
             <div>
-              <label htmlFor="category">Filter by year</label>
+              {/* <label htmlFor="category">Filter by year</label> */}
               <select
+                className="styled-select"
                 value={category}
                 onChange={categoryChangeHandler}
               >
@@ -142,25 +154,25 @@ const SellAssetLayout = ({ userId }) => {
               </select>
             </div>
             <div className="d-flex justify-content-center">
-              <Button
+              {/* <Button
                 variant="secondary"
                 type="button"
                 className="mt-4 me-2"
                 onClick={cancelHandler}
               >
                 Cancel
-              </Button>
+              </Button> */}
               <Button
                 variant="primary"
                 type="submit"
                 className="mt-4"
                 style={{ backgroundColor: "#348B81" }}
               >
-                Submit
+                List asset
               </Button>
             </div>
           </form>
-        </Col>
+        </Col>        
       </Row>
     </Container>
   );
