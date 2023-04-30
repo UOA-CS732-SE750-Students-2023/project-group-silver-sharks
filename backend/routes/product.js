@@ -469,6 +469,7 @@ productRouter.get(
       }
     } catch (err) {
       console.error(err);
+      return res
         .status(500)
         .json({ error: "Server Error: Product id is likely invalid" });
     }
