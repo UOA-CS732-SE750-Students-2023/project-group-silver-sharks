@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useLoaderData,json,redirect } from "react-router-dom";
 import { useParams } from 'react-router-dom';
-import ProductLayout from '../components/ProductLayout';
+import ProductLayout from '../components/ProductDetailComponents/ProductLayout';
 import ProductContext from '../store/product-context';
 import AddReview from '../components/AuthorPageComponents/AddReview';
 
