@@ -158,8 +158,8 @@ const ProductLayout = ({ product, author, reviews }) => {
                             onSelect={handleSelect}
                             className='p_dropdownbutton'
                         >
-                            <Dropdown.Item href="#/price-asc" eventKey="plth">Price: Low to High</Dropdown.Item>
-                            <Dropdown.Item href="#/price-desc" eventKey="phtl">Price: High to Low</Dropdown.Item>
+                            <Dropdown.Item href="#/price-asc" eventKey="plth">Sort by: Most recent</Dropdown.Item>
+                            <Dropdown.Item href="#/price-desc" eventKey="phtl">Sort by: Highest rate</Dropdown.Item>
                         </DropdownButton>
                     </InputGroup>
                 </div>
