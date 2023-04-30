@@ -4,6 +4,7 @@
   background-color: #F1F1F1;
   padding: 20px;
 }
+
 .p_btnstyling button{
   display: block;
   padding: 10px 10px 5px 0px;
@@ -18,6 +19,7 @@
   cursor: pointer;
   text-decoration: underline;
 }
+
 .product-details,
 .product-reviews {
   width: 80%;
@@ -62,6 +64,7 @@
 .cardcontent_container{
   padding:15px 30px 30px 30px;
 }
+
 .cardcontent_container p{
   font-family: Poppins;
   font-size: 16px;
@@ -71,6 +74,7 @@
   text-align: left;
   margin-bottom: 8px;
 }
+
 .product-left img {
   max-width: 100%;
   height: auto;
@@ -103,6 +107,7 @@
   letter-spacing: 0em;
   text-align: center;
 }
+
 .product-left h2 {
   margin-bottom: 5px;
   font-family: Poppins;
@@ -144,22 +149,17 @@
   color: #616161;
 }
 
-
-
-
-
-
-
-
 .product-reviews {
   background-color: #fff;
   padding: 25px;
   border-radius: 4px;
   margin-top: 40px;
 }
+
 .p_headofreview{
   margin: 5px 0px 40px 0px;
 }
+
 .p_headofreview p{
   display: inline;
   font-family: Poppins;
@@ -170,6 +170,7 @@
   text-align: left;
   margin-bottom: 5px;
 }
+
 .p_headofreview h1{
   margin-left: 45px;
   display: inline;
@@ -180,6 +181,7 @@
   letter-spacing: 0em;
   text-align: left;
 }
+
 .p_headofreview .p_inline{
   display: flex;
   align-items: center;
@@ -189,6 +191,7 @@
   line-height: 24px;
   letter-spacing: 0em;
 }
+
 .p_headofreview .add-review-button{
   border-radius: 50px;
   border: 2px solid #000000;
@@ -198,6 +201,7 @@
   height: 58px;
   text-align: center;
 }
+
 .p_headofreview #sort-dropdown{
   border-radius: 50px;
   border: 2px solid #000000;
@@ -247,7 +251,8 @@
   margin-top: 5px;
   margin-bottom: 8px;
   margin-top: 12px;
-}
+} 
+
 .review-info-top a p{
   color: #000000;
   text-decoration: underline;
