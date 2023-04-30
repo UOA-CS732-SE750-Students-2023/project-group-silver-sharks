@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, useActionData, Form } from "react-router-dom";
+import { useNavigate, useActionData, Form, json } from "react-router-dom";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import "./SellAssetLayout.css";
 
@@ -49,7 +49,7 @@ const SellAssetLayout = ({ userId }) => {
     setCategory(event.target.value);
   };
 
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
 
     // print all the data returned from the form 
@@ -62,9 +62,60 @@ const SellAssetLayout = ({ userId }) => {
     console.log(files, 61);
     console.log("END");
 
+    const productData = {
+      name: enteredTitle, 
+      description: enteredDescription, 
+      category: category, 
+      price: price
+    }
+
     // print the user id that will be needed to create the product in the backend
     console.log(userId, 65);
 
+    const textResponse = await fetch('http://localhost:3000/products/sell/' + userId, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',   // */*
+        },
+        body: JSON.stringify(productData)
+    });
+  
+    if (!textResponse.ok){
+        throw json({ message: "Could not successfully submit the text data for the sell assets action."}, { status: 500 });
+    }
+
+    const newProduct = await textResponse.json()
+
+    console.log("***************************************************")
+    console.log(newProduct._id);
+    console.log(newProduct.name);
+    console.log("***************************************************")
+
+    // 
+
+    // second post request to submit the cover image
+    const coverImageFormData = new FormData();
+
+    // get the references 
+    const coverImage = document.getElementById("cover-image");
+    const files = document.getElementById("files");
+
+    console.log(files)
+
+
+    for (let i=0; i < coverImage.files.length; i++){
+        coverImageFormData.append("cover-image", coverImage.files(i));
+    }
+
+    const fileResponse = await fetch('http://localhost:3000/upload-coverimage' + newProduct._id, {
+        method: method,
+        body: coverImageFormData
+    });
+
+    if (!fileResponse.ok){
+        throw json({ message: "Could not successfully submit the cover image for the sell assets action."}, { status: 500 });
+    }
+ 
   };
 
   return (

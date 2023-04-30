@@ -14,8 +14,6 @@ const ProductLayout = ({ product, author, reviews }) => {
     console.log(reviews)
     console.log("-----------------------------------------")
 
-
-
     return (
         <div>
             <h1>{product.name}</h1>
