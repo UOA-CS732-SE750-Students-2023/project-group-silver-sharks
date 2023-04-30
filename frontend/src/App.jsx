@@ -17,6 +17,7 @@ import SellingPage from './pages/profile/SellingPage';
 import DashBoardPage from './pages/profile/DashboardPage';
 import ProfileRoot from './pages/profile/ProfileRoot';
 import SellAssetPage from './pages/SellAssetPage';
+import StripePage from './pages/StripePage';
 import { loader as allProductsLoader } from './pages/ProductSearchPage';
 import { loader as productLoader } from './pages/ProductPage';
 import { action as sellAssetAction } from './components/SellAssetLayout';
@@ -32,6 +33,7 @@ const router = createBrowserRouter([
       {path:'product-search', element: <ProductSearchPage />, loader: allProductsLoader},
       {path: 'product/:productid', element: <ProductPage />, loader: productLoader},
       {path: 'author/:aid', element: <AuthorPage />},
+      {path: 'payment', element: <StripePage />},
       {path: 'profile', element: <ProfileRoot />, children: [
         {index: true, element: <DashBoardPage />},
         {path: 'messages', element: <MessagesPage />},

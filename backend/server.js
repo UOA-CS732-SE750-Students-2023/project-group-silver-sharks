@@ -9,6 +9,7 @@ import accountRouter from "./routes/account.js";
 import "./auth.js";
 import authRouter from "./routes/authentication.js";
 import imageRouter from "./routes/image.js";
+import stripeRouter from "./routes/stripe.js";
 import cors from 'cors';
 
 const app = express();
@@ -60,6 +61,7 @@ app.use(productRouter);
 app.use(accountRouter);
 app.use(authRouter);
 app.use(imageRouter);
+app.use('/stripe', stripeRouter);
 
 app.use((error, req, res, next) => {
   const status = error.status || 500;
