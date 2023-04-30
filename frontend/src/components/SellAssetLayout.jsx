@@ -31,16 +31,8 @@ const SellAssetLayout = ({ userId }) => {
   };
 
   const filesChangeHandler = (event) => {
-    const files = event.target.files;
-    const newFiles = [];
-  
-    for (let i = 0; i < files.length; i++) {
-      newFiles.push(files[i]);
-    }
-  
-    setFiles(newFiles);
+    setFiles(event.target.files);
   };
-  
 
   const priceChangeHandler = (event) => {
     setPrice(event.target.value);
@@ -52,9 +44,9 @@ const SellAssetLayout = ({ userId }) => {
 
   const submitHandler = async (event) => {
     event.preventDefault();
-  
-    // print all the data returned from the form
-    console.log("after form submission !!!");
+
+    // print all the data returned from the form 
+    console.log("after form submission !!!"); 
     console.log(enteredTitle, 56);
     console.log(enteredDescription, 57);
     console.log(price, 58);
@@ -62,100 +54,81 @@ const SellAssetLayout = ({ userId }) => {
     console.log(coverImage, 60);
     console.log(files, 61);
     console.log("END");
-  
+
     // print the user id that will be needed to create the product in the backend
     console.log(userId, 65);
-  
+
     const productData = {
-      name: enteredTitle,
-      description: enteredDescription,
-      category: category,
-      price: price,
-    };
-  
+      name: enteredTitle, 
+      description: enteredDescription, 
+      category: category, 
+      price: price
+    }
+
     // print the user id that will be needed to create the product in the backend
     console.log(userId, 65);
-  
-    const textResponse = await fetch(
-      "http://localhost:3000/products/sell/" + userId,
-      {
+
+    const textResponse = await fetch('http://localhost:3000/products/sell/' + userId, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json", // */*
+            'Content-Type': 'application/json',   // */*
         },
-        body: JSON.stringify(productData),
-      }
-    );
+        body: JSON.stringify(productData)
+    });
   
-    if (!textResponse.ok) {
-      throw json(
-        {
-          message:
-            "Could not successfully submit the text data for the sell assets action.",
-        },
-        { status: 500 }
-      );
+    if (!textResponse.ok){
+        throw json({ message: "Could not successfully submit the text data for the sell assets action."}, { status: 500 });
     }
-  
-    const newProduct = await textResponse.json();
-  
-    console.log("***************************************************");
+
+    const newProduct = await textResponse.json()
+
+    console.log("***************************************************")
     console.log(newProduct._id);
     console.log(newProduct.name);
-    console.log("***************************************************");
-  
+    console.log("***************************************************")
+
+    // 
+
     // second post request to submit the cover image
     const coverImageFormData = new FormData();
     coverImageFormData.append("files", coverImage);
-  
-    const coverImageResponse = await fetch(
-      "http://localhost:3000/upload-coverimage/" + newProduct._id,
-      {
+
+    const coverImageResponse = await fetch('http://localhost:3000/upload-coverimage/' + newProduct._id, {
         method: "POST",
-        body: coverImageFormData,
-      }
-    );
-  
-    if (!coverImageResponse.ok) {
-      throw json(
-        {
-          message:
-            "Could not successfully submit the cover image for the sell assets action.",
-        },
-        { status: 500 }
-      );
+        body: coverImageFormData
+    });
+
+    if (!coverImageResponse.ok){
+        throw json({ message: "Could not successfully submit the cover image for the sell assets action."}, { status: 500 });
     }
-  
+    
+
+
     // third post request to upload the actual art files
+    const productFiles = document.getElementById("files");
+
     const productFilesFormData = new FormData();
-  
-    for (let i = 0; i < files.length; i++) {
-      productFilesFormData.append("files", files[i]);
+    
+    for (let i=0; i<productFiles.files.length; i++){
+      productFilesFormData.append("files", productFiles.files[i]);
     }
-  
-    console.log(productFilesFormData, 112);
-  
-    const fileResponse = await fetch(
-      "http://localhost:3000/upload-downloadfiles/" + newProduct._id,
-      {
+
+
+    console.log(productFiles.files[0], 117);
+
+    console.log(productFilesFormData, 112)
+    
+    const fileResponse = await fetch('http://localhost:3000/upload-downloadfiles/' + newProduct._id, {
         method: "POST",
-        body: productFilesFormData,
-      }
-    );
-  
-    if (!fileResponse.ok) {
-      throw json(
-        {
-          message:
-            "Could not successfully submit the product files for the sell assets action.",
-        },
-        { status: 500 }
-      );
-    }
-  
+        body: productFilesFormData
+    });
+
+    if (!fileResponse.ok){
+        throw json({ message: "Could not successfully submit the product files for the sell assets action."}, { status: 500 });
+    } 
+
     redirect("/store/profile/selling");
   };
-  
 
   return (
     <Container fluid className="container-fluid">
