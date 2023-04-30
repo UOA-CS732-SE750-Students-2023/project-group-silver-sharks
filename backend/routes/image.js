@@ -42,12 +42,12 @@ const imageUpload = multer({ storage: imageStorage });
 
 // Endpoint 1: POST - Cover Image
 imageRouter.post(
-  "/upload-coverimage",
+  "/upload-coverimage/:productId",
   coverImageUpload.array("files"),
   async (req, res) => {
-    console.log(req.query.productId);
+    console.log(req.params.productId);
     console.log(req.files);
-    await addCoverImage(Object.values(req.files)[0], req.query.productId);
+    await addCoverImage(Object.values(req.files)[0], req.params.productId);
     return res
       .status(StatusCodes.OK)
       .json({ message: "file uploaded successfully" });
@@ -56,12 +56,12 @@ imageRouter.post(
 
 // Endpoint 2: POST - Images
 imageRouter.post(
-  "/upload-images",
+  "/upload-images/:productId",
   imageUpload.array("files"),
   async (req, res) => {
-    console.log(req.query.productId);
+    console.log(req.params.productId);
     console.log(req.files);
-    await addImages(req.files, req.query.productId);
+    await addImages(req.files, req.params.productId);
 
     return res
       .status(StatusCodes.OK)
