@@ -2,7 +2,7 @@ import express from "express";
 import multer from "multer";
 import path from "path";
 import { StatusCodes } from "http-status-codes";
-import { addCoverImage, addImages } from "../dao/file-dao.js";
+import { addCoverImage, addImages, addDownloadFiles } from "../dao/file-dao.js";
 
 const fileRouter = new express.Router();
 
@@ -11,7 +11,7 @@ const coverImageStorage = multer.diskStorage({
     callback(null, "./public/uploads");
   },
   filename: function (req, file, callback) {
-    const productId = req.query.productId;
+    const productId = req.params.productId;
     const extension = path.extname(file.originalname);
     const newFilename = productId + "-coverimage" + extension;
     callback(null, newFilename);
@@ -28,7 +28,7 @@ const imageStorage = multer.diskStorage({
     let fileCount = 1;
 
     return function (req, file, callback) {
-      const productId = req.query.productId;
+      const productId = req.params.productId;
       const extension = path.extname(file.originalname);
       const newFilename = `${productId}-${fileCount}${extension}`;
       fileCount++;
@@ -38,6 +38,25 @@ const imageStorage = multer.diskStorage({
 });
 
 const imageUpload = multer({ storage: imageStorage });
+
+const downloadFileStorage = multer.diskStorage({
+  destination: function (req, file, callback) {
+    callback(null, "./public/downloadFiles");
+  },
+  filename: (function () {
+    let fileCount = 1;
+
+    return function (req, file, callback) {
+      const productId = req.params.productId;
+      const extension = path.extname(file.originalname);
+      const newFilename = `${productId}-${fileCount}-downloadFile${extension}`;
+      fileCount++;
+      callback(null, newFilename);
+    };
+  })(),
+});
+
+const downloadFileUpload = multer({ storage: downloadFileStorage });
 
 // Endpoint 1: POST - Cover Image
 fileRouter.post(
@@ -53,14 +72,14 @@ fileRouter.post(
   }
 );
 
-// Endpoint 2: POST - Images
+// Endpoint 3: POST - Upload files for Videos, Music, or Images
 fileRouter.post(
-  "/upload-images/:productId",
-  imageUpload.array("files"),
+  "/upload-downloadfiles/:productId",
+  downloadFileUpload.array("files"),
   async (req, res) => {
     console.log(req.params.productId);
     console.log(req.files);
-    await addImages(req.files, req.params.productId);
+    await addDownloadFiles(req.files, req.params.productId);
 
     return res
       .status(StatusCodes.OK)
