@@ -23,6 +23,7 @@ import { action as sellAssetAction } from './pages/SellAssetPage';
 import { loader as usernameLoader } from './components/StoreComponents/StoreNavBar';
 import { loader as authorLoader } from './pages/AuthorPage';
 import { action as productAction } from './pages/ProductPage';
+import { loader as sellAssetLoader } from './pages/SellAssetPage';
 
 const router = createBrowserRouter([
   {path:'/', element: <RootPage />, children: [
@@ -40,7 +41,7 @@ const router = createBrowserRouter([
         {path: 'purchase', element: <PurchasePage />},
         {path: 'selling', element: <SellingPage />},
       ]},
-      {path: 'sell-asset', element: <SellAssetPage />, action: sellAssetAction}
+      {path: 'sell-asset', element: <SellAssetPage />, loader: sellAssetLoader, action: sellAssetAction}
     ]}, 
   ]},
 ]);

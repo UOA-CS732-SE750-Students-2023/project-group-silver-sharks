@@ -1,15 +1,40 @@
 import React from 'react'; 
-import { json, redirect } from 'react-router-dom';
+import { json, redirect, useLoaderData } from 'react-router-dom';
 import SellAssetLayout from '../components/SellAssetLayout';
 
 const SellAssetPage = () => { 
 
+    const userId = useLoaderData(); 
+
     return (
-        <SellAssetLayout />
+        <SellAssetLayout userId={userId}/>
     );
 }
 
 export default SellAssetPage;
+
+export const loader = async ({request,params}) => {
+
+    // get the user id 
+    // /account/id/:id
+    const response = await fetch('http://localhost:3000/account/id/0');
+
+    // throwing will send the data to the error page
+    if (!response.ok){
+        throw json({ message: 'Could not fetch details for the users account.'}, {
+            status: 500,
+        });
+    }
+    // react router will extract data from promise
+    const user = await response.json();
+
+    console.log("################################################")
+    console.log("this is the username and userid fetched from the backend")
+    console.log(user.username + " " + user._id);
+    console.log("################################################")
+
+    return user._id;
+};
 
 export const action = async ({request,params}) => {
     
