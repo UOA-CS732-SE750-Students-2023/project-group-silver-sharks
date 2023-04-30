@@ -114,9 +114,9 @@ const SellAssetLayout = ({ userId }) => {
                 multiple
                 style={{ display: "none" }}
               />
-              <label htmlFor="files" className="browse-button">Browse</label> {/* 添加“Browse”按钮 */}
+              <label htmlFor="files" className="browse-button">Browse</label>
             </div>
-            {/* <div className="upload-container">
+            <div className="upload-container">
               <p>Add product files</p>
               <input
                 type="file"
@@ -124,8 +124,10 @@ const SellAssetLayout = ({ userId }) => {
                 id="files"
                 onChange={filesChangeHandler}
                 multiple
+                style={{ display: "none" }}
               />
-            </div> */}
+              <label htmlFor="files" className="browse-button">Browse</label>
+            </div>
             <div className="form-group">
               <input
                 id="price"
