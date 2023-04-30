@@ -64,6 +64,8 @@ const SellAssetLayout = ({ userId }) => {
 
     // print the user id that will be needed to create the product in the backend
     console.log(userId, 65);
+    
+    
 
   };
 
