@@ -41,6 +41,7 @@ const productSchema = new Schema(
     downloadLink: {
       encryptedInformation: String,
     },
+    downloadFiles: [{ type: String }],
     author: {
       type: String,
     },
