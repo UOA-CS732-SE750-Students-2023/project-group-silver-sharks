@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, useActionData, Form } from "react-router-dom";
+import { useNavigate, useActionData, Form, json } from "react-router-dom";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import "./SellAssetLayout.css";
 
@@ -8,7 +8,7 @@ const SellAssetLayout = ({ userId }) => {
   const [enteredTitle, setEnteredTitle] = useState("");
   const [enteredDescription, setEnteredDescription] = useState('');
   const [coverImage, setCoverImage] = useState('');
-  const [files, setFiles] = useState([]);
+  const [files, setFiles] = useState('');
   const [category, setCategory] = useState('Images'); 
   const [price, setPrice] = useState(0);
 
@@ -36,8 +36,8 @@ const SellAssetLayout = ({ userId }) => {
   };
 
   const filesChangeHandler = (event) => {
-    const enteredFiles = Array.prototype.slice.call(event.target.files)
-    setFiles(enteredFiles);
+    //const enteredFiles = Array.prototype.slice.call(event.target.files)
+    setFiles(event.target.files);
   };
 
   const priceChangeHandler = (event) => {
@@ -49,7 +49,7 @@ const SellAssetLayout = ({ userId }) => {
     setCategory(event.target.value);
   };
 
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
 
     // print all the data returned from the form 
@@ -64,8 +64,52 @@ const SellAssetLayout = ({ userId }) => {
 
     // print the user id that will be needed to create the product in the backend
     console.log(userId, 65);
+
+    const productData = {
+      name: enteredTitle, 
+      description: enteredDescription, 
+      category: category, 
+      price: price
+    }
+
+    // print the user id that will be needed to create the product in the backend
+    console.log(userId, 65);
+
+    const textResponse = await fetch('http://localhost:3000/products/sell/' + userId, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',   // */*
+        },
+        body: JSON.stringify(productData)
+    });
+  
+    if (!textResponse.ok){
+        throw json({ message: "Could not successfully submit the text data for the sell assets action."}, { status: 500 });
+    }
+
+    const newProduct = await textResponse.json()
+
+    console.log("***************************************************")
+    console.log(newProduct._id);
+    console.log(newProduct.name);
+    console.log("***************************************************")
+
+    // 
+
+    // second post request to submit the cover image
+    const coverImageFormData = new FormData();
+    coverImageFormData.append("files", coverImage);
+
+    const fileResponse = await fetch('http://localhost:3000/upload-coverimage/' + newProduct._id, {
+        method: "POST",
+        body: coverImageFormData
+    });
+
+    if (!fileResponse.ok){
+        throw json({ message: "Could not successfully submit the cover image for the sell assets action."}, { status: 500 });
+    }
     
-    
+    console.log("done")
 
   };
 
@@ -112,11 +156,8 @@ const SellAssetLayout = ({ userId }) => {
                 type="file"
                 name="files"
                 id="files"
-                onChange={filesChangeHandler}
-                multiple
-                style={{ display: "none" }}
+                onChange={coverImageChangeHandler}
               />
-              <label htmlFor="files" className="browse-button">Browse</label>
             </div>
             <div className="upload-container">
               <p>Add product files</p>
@@ -126,9 +167,7 @@ const SellAssetLayout = ({ userId }) => {
                 id="files"
                 onChange={filesChangeHandler}
                 multiple
-                style={{ display: "none" }}
               />
-              <label htmlFor="files" className="browse-button">Browse</label>
             </div>
             <div className="form-group">
               <input
