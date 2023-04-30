@@ -17,16 +17,9 @@ const productSchema = new Schema(
       required: true,
     },
     coverImage: {
-      type: Schema.Types.ObjectId,
-      ref: "Image",
+      type: String,
     },
-    files: [
-      {
-        fileName: {
-          type: String,
-        },
-      },
-    ],
+    files: [{ type: String }],
     price: {
       type: Number,
       required: true,
@@ -48,9 +41,9 @@ const productSchema = new Schema(
     downloadLink: {
       encryptedInformation: String,
     },
-    author:{
-      type: Schema.Types.ObjectId,
-      ref: "Account",
+    downloadFiles: [{ type: String }],
+    author: {
+      type: String,
     },
   },
   {

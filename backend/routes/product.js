@@ -10,6 +10,7 @@ import {
   updateProduct,
   deleteProduct,
   registerProductWithAccount,
+  registerBuyingProductWithAccount,
 } from "../dao/product-dao.js";
 
 import { registerAccountWithProduct } from "../dao/account-dao.js";
@@ -185,6 +186,8 @@ productRouter.get("/products/:id", async (req, res) => {
   try {
     const product = await getProductById(id);
 
+    console.log(product);
+
     return res.status(StatusCodes.OK).json(product);
   } catch (error) {
     console.log(error);
@@ -212,7 +215,28 @@ productRouter.delete("/products/:productId", async (req, res) => {
   }
 });
 
+// endpoint 8: POST - buy product
+productRouter.post("/products/buy/:productId", async (req, res) => {
+  try {
+    const productId = req.params.productId;
+    // const accountId = req.user._id;
+    const accountId = req.query.accountId;
+
+    await registerBuyingProductWithAccount(productId, accountId);
+
+    return res
+      .status(StatusCodes.OK)
+      .json({ message: "Successfully bought product" });
+  } catch (err) {
+    console.error(err);
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error");
+  }
+});
+
 // ENDPOINT: Get Reviews for a specific product
+// sorting query param -> ?sortBy=<>
+// ur review for the product is always on top
+// can only review if it has been purchased by user and can only review once
 productRouter.get(
   "/products/pid/:pid/reviews",
   isLoggedIn,
@@ -238,7 +262,7 @@ productRouter.get(
       let userReview = null;
       let otherReviews = null;
 
-      const allReviews = await ProductReview.find({ product: productId }).sort(
+      const allReviews = await ProductReview.find({ product: productId }).populate("account").sort(
         sortOptions[sortBy]
       );
 
@@ -323,6 +347,7 @@ productRouter.post(
 
       return res.json(review);
     } catch (err) {
+      console.log(err);
       return res.status(500).json({ error: "Invalid ID" });
     }
   }
