@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, useSubmit } from "react-router-dom";
 import ProductContext from "../../store/product-context";
 import { InputGroup, DropdownButton, Dropdown } from 'react-bootstrap';
@@ -6,12 +6,35 @@ import "./ProductLayout.css";
 
 const ProductLayout = ({ product, author, reviews, userType }) => {
   
-  console.log("review: " + reviews , 9)
-
-
   // trigger an action programmatically
   const submit = useSubmit();
   const productCtx = useContext(ProductContext);
+  const [ showReview, setShowReview ] = useState(false);
+
+  // check that the user can actually post a review
+  useEffect(() => {
+
+    const checkCanReview = async () => {
+
+      const response = await fetch('http://localhost:3000/products/pid/' + product._id  + '/can-review');
+      
+      // if this if statement triggers then the lines thereafter wont execute.
+      if (!response.ok){
+        throw new Error("Something went wrong!");
+      }
+      
+      const canReview = await response.json();
+
+      setShowReview(canReview);
+
+    };
+
+    checkCanReview().catch((error) => {
+      console.log(error);
+    });
+     
+  },[]);
+
 
   //Calculate the number of reviews
   const totalAmount=reviews.length;
@@ -22,9 +45,12 @@ const ProductLayout = ({ product, author, reviews, userType }) => {
   const avg_rating=totalLike/totalAmount;
 
   const addReviewWindowHandler = () => {
+
     // give the add review window the product id
     productCtx.showReview();
+
   };
+
   const [a_title, setTitle] = useState('Sort by: Price: Low to High');
   const handleSelect = (eventKey) => {
       if (eventKey === 'plth') {
@@ -74,7 +100,7 @@ const ProductLayout = ({ product, author, reviews, userType }) => {
                 <div><p><Link to={`/store/author/${author._id}`} style={{ color: "#000000" }}>{author.username}</Link></p></div>
               </div>
               <p>
-                &#x2605; {product.averageRating}
+                &#x2605; {avg_rating}
               </p>
               <div className="product-buttons">
                 <div className="d-flex justify-content-end align-items-center">
@@ -104,7 +130,7 @@ const ProductLayout = ({ product, author, reviews, userType }) => {
             </div>
             <div className="p_inline">
               {ifpurchased === 'purchased' && 
-              <div><button onClick={addReviewWindowHandler} className="add-review-button">Add Review</button></div>}
+              <div><button onClick={addReviewWindowHandler} disabled={!showReview} className="add-review-button">Add Review</button></div>}
               <div>
                 <InputGroup>
                         <DropdownButton

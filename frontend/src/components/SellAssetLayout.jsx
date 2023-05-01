@@ -202,11 +202,8 @@ const SellAssetLayout = ({ userId }) => {
                 type="file"
                 name="cover-image"
                 id="cover-image"
-                onChange={coverImageChangeHandler}
-                multiple
-          
+                onChange={coverImageChangeHandler}          
               />
-              <label htmlFor="files" className="browse-button">Browse</label>
             </div>
             <div className="upload-container">
               <p>Add product files</p>
@@ -217,7 +214,6 @@ const SellAssetLayout = ({ userId }) => {
                 onChange={filesChangeHandler}
                 multiple
               />
-              <label htmlFor="files" className="browse-button">Browse</label>
             </div>
             <div className="form-group">
               <input

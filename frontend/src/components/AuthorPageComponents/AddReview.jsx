@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate, useNavigation, Form, useActionData } from "react-router-dom";
 import ModalAddReview from '../modal/ModalAddReview';
-import styles from './AddReview.module.css';
-
 
 const AddReview = (props) => { 
     // for data returned from our action 

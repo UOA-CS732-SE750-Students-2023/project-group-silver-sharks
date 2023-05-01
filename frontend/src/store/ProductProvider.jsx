@@ -3,6 +3,7 @@ import ProductContext from './product-context';
 
 const defaultState = {
     isShow: false,
+    reviewButton: true,
 };
 
 // remember the previous state should not be changed 
@@ -14,7 +15,8 @@ const productReducer = (state,action) => {
         let newValue = true;
 
         return {
-            isShow: newValue
+            isShow: newValue, 
+            closeReview: state.closeReview
         };
     }
 
@@ -23,8 +25,28 @@ const productReducer = (state,action) => {
         let newValue = false;
 
         return {
-            isShow: newValue
+            isShow: newValue, 
+            closeReview: state.closeReview
         };
+    }
+
+    if (action.type === 'CLOSE_REVIEW_BUTTON'){ 
+        let newValue = false; 
+
+        return { 
+            isShow: state.isShow, 
+            closeReview: newValue
+        }
+    }
+
+    if (action.type === 'OPEN_REVIEW_BUTTON'){ 
+
+        let newValue = true;
+        
+        return { 
+            isShow: state.isShow, 
+            closeReview: newValue
+        }
     }
 
     // if none of the conditions trigger
@@ -42,11 +64,22 @@ const ProductProvider = (props) => {
     const hideReviewHandler = () => {
         dispatchProductAction({ type: 'CLOSE_REVIEW' });
     }
+
+    const closeReviewButtonHandler = () => {
+        dispatchProductAction({ type: 'CLOSE_REVIEW_BUTTON' });
+    }
+
+    const openReviewButtonHandler = () => {
+        dispatchProductAction({ type: 'OPEN_REVIEW_BUTTON' });
+    }
     
     const productContext = {
         isShow: productState.isShow, 
+        reviewButton: productState.reviewButton,
         showReview: showReviewHandler,
         hideReview: hideReviewHandler,
+        closeReviewButton: closeReviewButtonHandler, 
+        openReviewButton: openReviewButtonHandler
     };
 
     // basically this component decides who can use the context and sets the values for it

@@ -24,7 +24,7 @@ const ProductPage = () => {
     console.log(author, 24)
 
     console.log(reviews, 26)
-    
+
     let userType = "normal";
 
     // determine whether the user is admin or normal and whether the user is the author for the product
@@ -196,6 +196,9 @@ export const action = async ({request,params}) => {
     }
   
     // redirect the user after submitting 
-    return redirect('/store/product/' + productId);
+    return { 
+        outcome: "success", 
+        message: "review added successfully"
+    };
 };
 

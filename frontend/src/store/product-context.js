@@ -9,8 +9,11 @@ import React from 'react';
 
 const ProductContext = React.createContext({
     isShow: false,
+    reviewButton: true,
     showReview: () => {},
     hideReview: () => {},
+    closeReviewButton: () => {},
+    openReviewButton: () => {}
 });
 
 export default ProductContext;
