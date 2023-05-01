@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams, useLoaderData } from 'react-router-dom';
+import { useParams, useLoaderData, json, redirect } from 'react-router-dom';
 import AuthorLayout from '../components/AuthorLayout';
 import AuthorLayoutUserview from '../components/AuthorLayoutUserview';
 
@@ -7,8 +7,8 @@ const AuthorPage = () => {
 
     const data = useLoaderData();
 
-    const authorData = data[0]; 
-    const userAccountType = data[1].accountType;
+    const authorData = data[1]; 
+    const userAccountType = data[0].accountType;
 
     /*
     const whovisit=()=>{
@@ -48,13 +48,11 @@ export const loader = async ({request,params}) => {
         return json({ message: "Could not fetch user data from backend."}, { status: 500 });
     } 
 
-    accountsData.push(userResponse);
+    const user = await userResponse.json();
+
+    accountsData.push(user);
 
     const authorId = params.aid;
-
-    console.log("################################################")
-    console.log("From inside the Author Page loader - the id from url: ")
-    console.log(authorId);
 
     const response = await fetch('http://localhost:3000/account/id/' + authorId);
 
@@ -78,3 +76,22 @@ export const loader = async ({request,params}) => {
     return accountsData;
     
 };
+
+export const action = async ({ params, request }) => {
+
+    const authorId = params.aid;
+
+    // deleting other accounts as a admin from the author page
+
+    const response = await fetch('http://localhost:3000/account/id/' + authorId, {
+        method: request.method,
+    });
+
+    if (!response.ok){
+        throw json({ message: 'Could not delete this account.'}, { status: 500 });
+    }
+
+    console.log("account successfully deleted", 100);
+
+    return redirect('/');
+}
