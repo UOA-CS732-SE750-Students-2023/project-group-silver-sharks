@@ -1,15 +1,20 @@
 import React, { useState } from "react";
-import { useNavigate, useActionData, Form, json, redirect } from "react-router-dom";
+import {
+  useNavigate,
+  useActionData,
+  Form,
+  json,
+  redirect,
+} from "react-router-dom";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import "./SellAssetLayout.css";
 
 const SellAssetLayout = ({ userId }) => {
-  
   const [enteredTitle, setEnteredTitle] = useState("");
-  const [enteredDescription, setEnteredDescription] = useState('');
-  const [coverImage, setCoverImage] = useState('');
+  const [enteredDescription, setEnteredDescription] = useState("");
+  const [coverImage, setCoverImage] = useState("");
   const [files, setFiles] = useState([]);
-  const [category, setCategory] = useState('Images'); 
+  const [category, setCategory] = useState("Images");
   const [price, setPrice] = useState(0);
 
   // data returned from the post request -> if there are any errors or a response it will be in here
@@ -26,7 +31,7 @@ const SellAssetLayout = ({ userId }) => {
   };
 
   const coverImageChangeHandler = (event) => {
-    const coverImageFile = event.target.files[0]; 
+    const coverImageFile = event.target.files[0];
     setCoverImage(coverImageFile);
   };
 
@@ -45,8 +50,8 @@ const SellAssetLayout = ({ userId }) => {
   const submitHandler = async (event) => {
     event.preventDefault();
 
-    // print all the data returned from the form 
-    console.log("after form submission !!!"); 
+    // print all the data returned from the form
+    console.log("after form submission !!!");
     console.log(enteredTitle, 56);
     console.log(enteredDescription, 57);
     console.log(price, 58);
@@ -59,73 +64,98 @@ const SellAssetLayout = ({ userId }) => {
     console.log(userId, 65);
 
     const productData = {
-      name: enteredTitle, 
-      description: enteredDescription, 
-      category: category, 
-      price: price
-    }
+      name: enteredTitle,
+      description: enteredDescription,
+      category: category,
+      price: price,
+    };
 
     // print the user id that will be needed to create the product in the backend
     console.log(userId, 65);
 
-    const textResponse = await fetch('http://localhost:3000/products/sell/' + userId, {
+    const textResponse = await fetch(
+      "http://localhost:3000/products/sell/" + userId,
+      {
         method: "POST",
         headers: {
-            'Content-Type': 'application/json',   // */*
+          "Content-Type": "application/json", // */*
         },
-        body: JSON.stringify(productData)
-    });
-  
-    if (!textResponse.ok){
-        throw json({ message: "Could not successfully submit the text data for the sell assets action."}, { status: 500 });
+        body: JSON.stringify(productData),
+      }
+    );
+
+    if (!textResponse.ok) {
+      throw json(
+        {
+          message:
+            "Could not successfully submit the text data for the sell assets action.",
+        },
+        { status: 500 }
+      );
     }
 
-    const newProduct = await textResponse.json()
+    const newProduct = await textResponse.json();
 
-    console.log("***************************************************")
+    console.log("***************************************************");
     console.log(newProduct._id);
     console.log(newProduct.name);
-    console.log("***************************************************")
+    console.log("***************************************************");
 
-    // 
+    //
 
     // second post request to submit the cover image
     const coverImageFormData = new FormData();
     coverImageFormData.append("files", coverImage);
 
-    const coverImageResponse = await fetch('http://localhost:3000/upload-coverimage/' + newProduct._id, {
+    const coverImageResponse = await fetch(
+      "http://localhost:3000/upload-coverimage/" + newProduct._id,
+      {
         method: "POST",
-        body: coverImageFormData
-    });
+        body: coverImageFormData,
+      }
+    );
 
-    if (!coverImageResponse.ok){
-        throw json({ message: "Could not successfully submit the cover image for the sell assets action."}, { status: 500 });
+    if (!coverImageResponse.ok) {
+      throw json(
+        {
+          message:
+            "Could not successfully submit the cover image for the sell assets action.",
+        },
+        { status: 500 }
+      );
     }
-    
-
 
     // third post request to upload the actual art files
-    const productFiles = document.getElementById("files");
-
+    const productFiles = document.getElementById("multiple-files");
+    console.log("line 130", productFiles.files.length);
+    console.log("line 131", productFiles.files);
     const productFilesFormData = new FormData();
-    
-    for (let i=0; i<productFiles.files.length; i++){
+
+    for (let i = 0; i < productFiles.files.length; i++) {
       productFilesFormData.append("files", productFiles.files[i]);
     }
 
-
     console.log(productFiles.files[0], 117);
 
-    console.log(productFilesFormData, 112)
-    
-    const fileResponse = await fetch('http://localhost:3000/upload-downloadfiles/' + newProduct._id, {
-        method: "POST",
-        body: productFilesFormData
-    });
+    console.log(productFilesFormData, 112);
 
-    if (!fileResponse.ok){
-        throw json({ message: "Could not successfully submit the product files for the sell assets action."}, { status: 500 });
-    } 
+    const fileResponse = await fetch(
+      "http://localhost:3000/upload-downloadfiles/" + newProduct._id,
+      {
+        method: "POST",
+        body: productFilesFormData,
+      }
+    );
+
+    if (!fileResponse.ok) {
+      throw json(
+        {
+          message:
+            "Could not successfully submit the product files for the sell assets action.",
+        },
+        { status: 500 }
+      );
+    }
 
     redirect("/store/profile/selling");
   };
@@ -139,7 +169,11 @@ const SellAssetLayout = ({ userId }) => {
             {/* <h4 className="mt-4">Sell an asset</h4> */}
             <h4>Sell an asset</h4>
           </div>
-          <form  className="sell-assets" enctype='multipart/form-data' onSubmit={submitHandler}>
+          <form
+            className="sell-assets"
+            enctype="multipart/form-data"
+            onSubmit={submitHandler}
+          >
             <div className="form-group">
               <input
                 id="title"
@@ -180,8 +214,8 @@ const SellAssetLayout = ({ userId }) => {
               <p>Add product files</p>
               <input
                 type="file"
-                name="files"
-                id="files"
+                name="multiple-files"
+                id="multiple-files"
                 onChange={filesChangeHandler}
                 multiple
               />
@@ -232,7 +266,7 @@ const SellAssetLayout = ({ userId }) => {
               </Button>
             </div>
           </form>
-        </Col>        
+        </Col>
       </Row>
     </Container>
   );
