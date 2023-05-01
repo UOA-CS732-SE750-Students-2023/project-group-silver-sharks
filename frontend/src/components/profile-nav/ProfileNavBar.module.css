@@ -6,6 +6,7 @@
 }
 .p_firstcontainer .p_firstline{
     width: 100%;
+    margin: 10px 0px;
 }
 .p_firstcontainer button{
     background-color: transparent;
@@ -18,7 +19,7 @@
     letter-spacing: 0em;
     text-align: left;
     color: white;
-    margin: 8px 0px 8px 25px;
+    margin: 20px 0px 20px 25px;
 }
 .p_firstcontainer .iconsty{
     display: inline-block;
@@ -30,8 +31,8 @@
     color: white;
 }
 .p_firstcontainer .p_circle{
-    width: 26px;
-    height: 26px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     background-color:#C53D3D;
     margin-bottom: 3px;
@@ -45,7 +46,7 @@
     display: inline-block;
     color: white;
     font-family: Poppins;
-    font-size: 13px;
+    font-size: 10px;
     font-weight: 600;
     line-height: 21px;
     letter-spacing: 0em;

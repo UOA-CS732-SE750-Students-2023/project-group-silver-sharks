@@ -1,7 +1,7 @@
 .store-navbar-container {
     width: 100%;
     height: 20vh;
-    background: linear-gradient(#000000, #00251e, #00231d, #000000, #000000);
+    background: linear-gradient(180deg, #000000 0%, #001614 50.52%, #000000 100%);
     flex-direction: column;
 	justify-content: center;
 	align-items: center;
@@ -52,7 +52,33 @@
 .cart-icon-wrapper {
     margin: 0 0.6em;
     padding-top: 6px;
-}
+    display: inline-block;
+    position: relative;
+  }
+  
+.cart-items-number {
+    position: absolute;
+    top: -1px;
+    right: -5px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: #C53D3D;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+.cart-items-number .items-number {
+    color: white;
+    font-family: Poppins;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 21px;
+    letter-spacing: 0em;
+    text-align: center;
+  }
+  
 .menu-icon-wrapper {
     margin: 0 0 0.6em 0;
     padding-top: 6px;
