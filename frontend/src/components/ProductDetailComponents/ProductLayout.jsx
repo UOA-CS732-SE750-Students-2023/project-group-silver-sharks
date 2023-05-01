@@ -4,8 +4,11 @@ import ProductContext from "../../store/product-context";
 import { InputGroup, DropdownButton, Dropdown } from 'react-bootstrap';
 import "./ProductLayout.css";
 
-const ProductLayout = ({ product, author, reviews }) => {
+const ProductLayout = ({ product, author, reviews, userType }) => {
   
+  console.log("review: " + reviews , 9)
+
+
   // trigger an action programmatically
   const submit = useSubmit();
   const productCtx = useContext(ProductContext);
@@ -32,7 +35,7 @@ const ProductLayout = ({ product, author, reviews }) => {
     };
   const sold = 100; // Replace this variable with the actual number of sales
 
-  const [role,setRole] = useState('admin');
+  const [role,setRole] = useState(userType);
   const [ifpurchased,setPurchased] = useState('purchased');
   
   const navigateEditListing = () => {
