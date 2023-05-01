@@ -15,8 +15,24 @@ const ProductPage = () => {
     const productId = params.productid;
 
     const product = data[0];
-    const author = data[1]; 
-    const reviews = data[2]
+    const author = data[1];
+    const reviews = data[2]; 
+    const loggedInUser = data[3];
+
+    console.log(loggedInUser, 22)
+
+    console.log(author, 24)
+
+    console.log(reviews, 26)
+    
+    let userType = "normal";
+
+    // determine whether the user is admin or normal and whether the user is the author for the product
+    if (author._id === loggedInUser._id || loggedInUser.accountType === "admin"){
+        userType = "admin";
+    }
+
+    console.log("user type: " + userType)
 
     // close the modal window for adding reviews
     const closeReviewWindowHandler = () => {
@@ -26,7 +42,7 @@ const ProductPage = () => {
     return (
         <>
             {productCtx.isShow && <AddReview closeReviewWindow={closeReviewWindowHandler} />}
-            <ProductLayout product={product} author={author} reviews={reviews}/>
+            <ProductLayout product={product} author={author} reviews={reviews} userType={userType}/>
         </>
     );
 }
@@ -69,8 +85,9 @@ export const loader = async ({request,params}) => {
 
         }
 
-        // endpoint to fetch the 
-        // /products/pid/:pid/reviews
+        console.log("line 80", 80)
+
+        // fetching the reviews for the product
 
         const reviewsData = await fetch("http://localhost:3000/products/pid/" + id + "/reviews");
 
@@ -83,14 +100,34 @@ export const loader = async ({request,params}) => {
             const reviews = await reviewsData.json();
 
             console.log("----------------------------------------------------");
+            console.log("reviews inside loader", 103)
             console.log(reviews);
             console.log("----------------------------------------------------");
 
             returnData.push(reviews);
         }
 
-        return returnData;
+        console.log("line 101", 101)
+
+
+        // fetching the current logged in users details
+
+        // using the user id also fetch the user
+        const userData = await fetch("http://localhost:3000/account/id/0");
+
+        if (!userData.ok){
+            throw json({ message: 'Could not fetch details for user.'}, {
+                status: 500,
+            });
+        } else {
+            const user = await userData.json();
+            returnData.push(user);
+        }
+
+        console.log("line 101", 101)
     }
+
+    return returnData;
 };
 
 export const action = async ({request,params}) => {
