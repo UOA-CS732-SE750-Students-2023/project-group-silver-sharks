@@ -3,7 +3,6 @@ import { Outlet } from "react-router-dom";
 import StoreNavBar from "../components/StoreComponents/StoreNavBar";
 import Cart from "../components/cart/Cart";
 import ProfileNavBar from "../components/profile-nav/ProfileNavBar";
-import AddReview from "../components/AuthorPageComponents/AddReview";
 
 const StoreRootPage = () => {
   const [displayCart, setDisplayCart] = useState(false);

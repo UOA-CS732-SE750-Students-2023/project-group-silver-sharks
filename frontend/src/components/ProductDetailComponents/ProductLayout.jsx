@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, useSubmit } from "react-router-dom";
 import ProductContext from "../../store/product-context";
 import { InputGroup, DropdownButton, Dropdown } from 'react-bootstrap';
@@ -13,6 +13,33 @@ const ProductLayout = ({ product, author, reviews, userType }) => {
   // trigger an action programmatically
   const submit = useSubmit();
   const productCtx = useContext(ProductContext);
+  const [ showReview, setShowReview ] = useState(false);
+
+  // check that the user can actually post a review
+  useEffect(() => {
+
+    const checkCanReview = async () => {
+
+      const response = await fetch('http://localhost:3000/products/pid/' + product._id  + '/can-review');
+      
+      // if this if statement triggers then the lines thereafter wont execute.
+      if (!response.ok){
+        throw new Error("Something went wrong!");
+      }
+      
+      const canReview = await response.json();
+
+      console.log(canReview)
+
+      setShowReview(canReview);
+
+    };
+
+    checkCanReview().catch((error) => {
+      console.log(error);
+    });
+     
+  },[]);
 
   //Calculate the number of reviews
   const totalAmount=reviews.length;
@@ -132,7 +159,7 @@ const ProductLayout = ({ product, author, reviews, userType }) => {
             </div>
             <div className="p_inline">
               {ifpurchased === 'purchased' && 
-              <div><button onClick={addReviewWindowHandler} className="add-review-button">Add Review</button></div>}
+              <div><button onClick={addReviewWindowHandler} disabled={!showReview} className="add-review-button">Add Review</button></div>}
               <div>
                 <InputGroup>
                         <DropdownButton
