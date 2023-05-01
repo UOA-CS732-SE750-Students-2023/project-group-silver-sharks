@@ -25,32 +25,9 @@ const DashboardLayout = () => {
         //return author page 
         navigate(`../author/${user._id}`);
     }
-
-    const navigateChangePassword = () => {
-        navigate('../author/2');
-    }
-
-    const navigateResetAnotherPassword = () => {
-        navigate('../author/2');
-    }
-    
-    const navigateDeleteAnotherAccount = () => {
-        navigate('../author/2');
-    }
-    
-    const navigateEditaListing = () => {
-        navigate('../author/2');
-    }
-    
     const navigateDeleteAccount = () => {
         navigate('../author/2');
     }
-    
-    const navigateRemoveaListing = () => {
-        navigate('../author/2');
-    }
-    let roleview=user.accountType==="Administrator"? 'admin' : 'user';
-    roleview='admin';
 
     return (
         <div className='d_background'>
@@ -79,16 +56,8 @@ const DashboardLayout = () => {
                 <h1 className='d_accde'>Actions</h1>
                 <div className='d_linkcontainer'>
                     <div>
-                        <button onClick={navigateChangePassword}>Change password</button>
                         <button onClick={navigateDeleteAccount}>Delete account</button>
-                    </div>    
-                    { roleview === 'admin' && 
-                    <div>
-                        <button onClick={navigateResetAnotherPassword}>Reset another password</button>
-                        <button onClick={navigateDeleteAnotherAccount}>Delete another account</button>
-                        <button onClick={navigateEditaListing}>Edit a listing</button>
-                        <button onClick={navigateRemoveaListing}>Remove a listing</button>
-                    </div>}
+                    </div>
 
                     
                 </div>
