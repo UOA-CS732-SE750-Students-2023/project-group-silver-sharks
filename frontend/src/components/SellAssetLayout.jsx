@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import "./SellAssetLayout.css";
+import Chat from "./Chat";
 
 const SellAssetLayout = ({ userId }) => {
   const [enteredTitle, setEnteredTitle] = useState("");
@@ -161,6 +162,7 @@ const SellAssetLayout = ({ userId }) => {
   };
 
    return (
+    <>
     <Container fluid className="container-fluid">
       <Row className="mt-5"></Row>
       <Row>
@@ -268,6 +270,8 @@ const SellAssetLayout = ({ userId }) => {
         </Col>        
       </Row>
     </Container>
+    <Chat />
+    </>
   );
 };
 
