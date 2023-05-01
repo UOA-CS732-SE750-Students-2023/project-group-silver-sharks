@@ -136,8 +136,10 @@ const Cart = (props) => {
 
                             
                             <div className={`d-flex justify-content-end ${classes.price}`}  >
-                                <span className="fs-4 text-white">${Math.floor(item.price)}</span>
-                                <span className={`${classes.number}`}>{(item.price % 1).toFixed(2).split('.')[1]}</span>
+                                <h1>${Math.floor(item.price)}
+                                    <span>{(item.price % 1).toFixed(2).split('.')[1]}</span>
+                                </h1>
+                                
                             </div>
                         </li>
                     ))}
@@ -146,14 +148,16 @@ const Cart = (props) => {
                 <div className="border-top border-2"></div>
 
                 <div className={`d-flex justify-content-end ${classes.bottom}`}>
-                    <div className="d-flex flex-column align-items-end">
+                    <div className={`d-flex flex-column align-items-end ${classes.c_con}`}>
                         <h3>Sub-total</h3>
                         <p>{totalAmount}&nbsp;{itemText}</p>
                     </div>
                     
                     <div className={`${classes.totalprice}`}>
-                        <span className="fs-2 text-white">${Math.floor(totalPrice)}</span>
-                        <span className="fs-7 text-white">{(totalPrice % 1).toFixed(2).split('.')[1]}</span>
+                        <h1>${Math.floor(totalPrice)}
+                            <span>{(totalPrice % 1).toFixed(2).split('.')[1]}</span>
+                        </h1>
+                        
                     </div>
                 </div>
                 <div className="d-flex justify-content-end">
