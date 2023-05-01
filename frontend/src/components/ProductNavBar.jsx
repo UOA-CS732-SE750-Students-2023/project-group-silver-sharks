@@ -1,10 +1,9 @@
-import React, { useContext } from 'react';
-import ProductContext from '../store/product-context';
-import { NavLink } from 'react-router-dom';
+import React, { useState } from 'react';
 import { Navbar, Button, Nav, Form, InputGroup, DropdownButton, Dropdown } from 'react-bootstrap';
 
 const ProductNavBar = ({ setSearchCategory, setFilter,setSearchTerm }) => {
-  
+  const [selectedCategory, setSelectedCategory] = useState('');
+
   const searchInputStyle = {
     borderRadius: '25px',
     border: '2px solid black',
@@ -49,15 +48,39 @@ const ProductNavBar = ({ setSearchCategory, setFilter,setSearchTerm }) => {
   const dropDownContainerStyle = {
     marginRight: '100px',
   }
+  // Newly Added
+  const navButtonStyle = {
+    borderRadius: '20px',
+    backgroundColor: 'transparent',
+    borderColor: 'transparent',
+    padding: '10px 40px',
+    transition: '0.2s',
+  };
 
+  const navButtonSelectedStyle = {
+    ...navButtonStyle,
+    fontWeight: 'bold',
+  };
+
+  const navButtonHoverStyle = {
+    ...navButtonStyle,
+    backgroundColor: '#348B81',
+    color: 'white',
+  };
   // handler methods for the category buttons 
 
-  const categoryHandler = (event) => {
+  /* const categoryHandler = (event) => {
     console.log(event.target.innerHTML);
     setSearchCategory(event.target.innerHTML)
+  }; */
+  const categoryHandler = (event) => {
+    const buttonText = event.target.innerHTML;
+    const formattedCategory = buttonText.charAt(0) + buttonText.slice(1).toLowerCase();
+    console.log(formattedCategory);
+    setSearchCategory(formattedCategory);
+    setSelectedCategory(formattedCategory);
+  };  
 
-  };
-  
   const searchChangeHandler = (event) => {
     console.log(event.target.value);
     setSearchTerm(event.target.value);
@@ -89,25 +112,65 @@ const ProductNavBar = ({ setSearchCategory, setFilter,setSearchTerm }) => {
         <Navbar expand="lg" style={grayBackgroundStyle}>
           <Navbar.Toggle aria-controls="product-navbar-nav" />
           <Navbar.Collapse id="product-navbar-nav">
-            <Nav className="mx-auto">
+          <Nav className="mx-auto">
               <Nav.Item className="mx-5">
-                <Button onClick={categoryHandler} className="nav-link">
-                  Images
+                <Button
+                  onClick={categoryHandler}
+                  className="nav-link"
+                  style={
+                    selectedCategory === 'Images'
+                      ? navButtonSelectedStyle
+                      : navButtonStyle
+                  }
+                  onMouseEnter={(e) => e.target.style.backgroundColor = '#348B81'}
+                  onMouseLeave={(e) => e.target.style.backgroundColor = selectedCategory === 'Images' ? 'transparent' : 'transparent'}
+                  >
+                  IMAGES
                 </Button>
               </Nav.Item>
               <Nav.Item className="mx-5">
-                <Button onClick={categoryHandler} className="nav-link">
-                  Videos
+                <Button
+                  onClick={categoryHandler}
+                  className="nav-link"
+                  style={
+                    selectedCategory === 'Videos'
+                      ? navButtonSelectedStyle
+                      : navButtonStyle
+                  }
+                  onMouseEnter={(e) => e.target.style.backgroundColor = '#348B81'}
+                  onMouseLeave={(e) => e.target.style.backgroundColor = selectedCategory === 'Videos' ? 'transparent' : 'transparent'}
+                  >
+                  VIDEOS
                 </Button>
               </Nav.Item>
               <Nav.Item className="mx-5">
-                <Button onClick={categoryHandler} className="nav-link">
-                  Music
+                <Button
+                  onClick={categoryHandler}
+                  className="nav-link"
+                  style={
+                    selectedCategory === 'Music'
+                      ? navButtonSelectedStyle
+                      : navButtonStyle
+                  }
+                  onMouseEnter={(e) => e.target.style.backgroundColor = '#348B81'}
+                  onMouseLeave={(e) => e.target.style.backgroundColor = selectedCategory === 'Music' ? 'transparent' : 'transparent'}
+                  >
+                  MUSIC
                 </Button>
               </Nav.Item>
               <Nav.Item className="mx-5">
-                <Button onClick={categoryHandler} className="nav-link">
-                  Services
+                <Button
+                  onClick={categoryHandler}
+                  className="nav-link"
+                  style={
+                    selectedCategory === 'Services'
+                      ? navButtonSelectedStyle
+                      : navButtonStyle
+                  }
+                  onMouseEnter={(e) => e.target.style.backgroundColor = '#348B81'}
+                  onMouseLeave={(e) => e.target.style.backgroundColor = selectedCategory === 'Services' ? 'transparent' : 'transparent'}
+                  >
+                  SERVICES
                 </Button>
               </Nav.Item>
             </Nav>

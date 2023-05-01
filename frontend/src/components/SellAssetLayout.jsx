@@ -206,7 +206,7 @@ const SellAssetLayout = ({ userId }) => {
                 multiple
           
               />
-              <label htmlFor="files" className="browse-button">Browse</label>
+              {/* <label htmlFor="files" className="browse-button">Browse</label> */}
             </div>
             <div className="upload-container">
               <p>Add product files</p>
@@ -217,7 +217,7 @@ const SellAssetLayout = ({ userId }) => {
                 onChange={filesChangeHandler}
                 multiple
               />
-              <label htmlFor="files" className="browse-button">Browse</label>
+              {/* <label htmlFor="files" className="browse-button">Browse</label> */}
             </div>
             <div className="form-group">
               <input

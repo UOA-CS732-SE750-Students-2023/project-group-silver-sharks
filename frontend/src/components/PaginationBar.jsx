@@ -1,39 +1,78 @@
 import React, { useState, useEffect } from 'react';
-import './PaginationBar.css'; 
+import './PaginationBar.css';
 
-const PaginationBar = ({ itemsLength, itemsPerPage, onItemsChange, initialPage, searchTerm, previousIsSearch, changeState }) => {
-  const [ currentPage, setCurrentPage] = useState(initialPage) 
-  
+const PaginationBar = ({
+  itemsLength,
+  itemsPerPage,
+  onItemsChange,
+  initialPage,
+  searchTerm,
+  previousIsSearch,
+  changeState,
+}) => {
+  const [currentPage, setCurrentPage] = useState(initialPage);
 
   useEffect(() => {
-  
     let shouldBeSearching;
-    if (searchTerm.length === 0 || !previousIsSearch){ 
-      shouldBeSearching = false
-    } else { 
-      shouldBeSearching = true
+    if (searchTerm.length === 0 || !previousIsSearch) {
+      shouldBeSearching = false;
+    } else {
+      shouldBeSearching = true;
     }
     onItemsChange(currentPage, searchTerm, shouldBeSearching);
   }, [currentPage]);
 
   useEffect(() => {
-
-    console.log("INSIDE THE SECOND USE EFFECT !!!!")
+    console.log('INSIDE THE SECOND USE EFFECT !!!!');
 
     setCurrentPage(1);
-  }, [changeState])
+  }, [changeState]);
 
-  console.log(length)
+  console.log(length);
   const totalPages = Math.ceil(itemsLength / itemsPerPage);
-
-  // if the isSearch boolean changes or the category variable changes or the filter variable changes 
-  // then set the currently selected page to 1.
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
 
-  const pages = [...Array(totalPages).keys()].map(i => i + 1);
+  const generatePageNumbers = () => {
+    const visiblePages = 5;
+    let pages = [];
+
+    if (totalPages <= visiblePages) {
+      pages = [...Array(totalPages).keys()].map((i) => i + 1);
+    } else {
+      const middle = Math.floor(visiblePages / 2);
+      let start = currentPage - middle;
+      let end = currentPage + middle;
+
+      if (start < 1) {
+        start = 1;
+        end = visiblePages;
+      }
+
+      if (end >= totalPages) {
+        start = totalPages - visiblePages + 1;
+        end = totalPages;
+      }
+
+      pages = [...Array(end - start + 1).keys()].map((i) => start + i);
+      if (start > 2) {
+        pages.unshift(1, '...');
+      } else if (start === 2) {
+        pages.unshift(1);
+      }
+      if (end < totalPages - 1) {
+        pages.push('...', totalPages);
+      } else if (end === totalPages - 1) {
+        pages.push(totalPages);
+      }
+    }
+
+    return pages;
+  };
+
+  const pages = generatePageNumbers();
 
   const grayBackgroundStyle = {
     backgroundColor: '#F1F1F1',
@@ -49,9 +88,13 @@ const PaginationBar = ({ itemsLength, itemsPerPage, onItemsChange, initialPage, 
                 &lt;
               </button>
             </li>
-            {pages.map(page => (
+            {pages.map((page, index) => (
               <li key={page} className={`page-item ${currentPage === page ? 'active' : ''}`}>
-                <button className="page-link" onClick={() => handlePageChange(page)}>
+                <button
+                  className="page-link"
+                  onClick={() => typeof page === 'number' && handlePageChange(page)}
+                  disabled={typeof page !== 'number'}
+                >
                   {page}
                 </button>
               </li>
