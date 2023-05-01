@@ -61,6 +61,11 @@
   background-color: #ccc;
   color: #333;
   margin-left: 10px;
+  border-radius: 25px;
+}
+
+.add-review-container .add-button {
+  border-radius: 25px;
 }
 
 .add-review-container .cancel-button:hover {

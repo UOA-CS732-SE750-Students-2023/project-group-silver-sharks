@@ -21,9 +21,9 @@ const ProductLayout = ({ product, author, reviews }) => {
     productCtx.showReview();
   }; */
 
-  // Newly added
+  // Add Review Button - Newly added
   const [showAddReviewWindow, setShowAddReviewWindow] = useState(false);
-  
+
   const addReviewWindowHandler = () => {
     setShowAddReviewWindow(true);
   };
@@ -64,7 +64,7 @@ const ProductLayout = ({ product, author, reviews }) => {
           <h2>Add Review</h2>
           <input type="text" placeholder="Review Title" />
           <textarea rows="4" placeholder="Your review"></textarea>
-          <button>Add Review</button>
+          <button className="add-button">Add Review</button>
           <button className="cancel-button" onClick={closeAddReviewWindowHandler}>
             Cancel
           </button>
