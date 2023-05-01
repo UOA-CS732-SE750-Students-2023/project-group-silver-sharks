@@ -108,7 +108,7 @@ const AuthorLayoutUserview = ({ author }) => {
 
 
     return (
-        <div>
+        <div className='a_allcontainer'>
             <div className='a_firstdiv'>
                 <h1 className='a_authorname'>{author.name}</h1>
                 <div className='a_forcontainbutton'>
@@ -162,22 +162,25 @@ const AuthorLayoutUserview = ({ author }) => {
                     {DUMMY_DATA.map((item) => (
                     <li key={item.pid} className="col-sm-4">
                         <Card>
-                            <div >
-                                <div className={`${classes.imgcontainer}`}>
+                            <div className={`${classes.authorpagecard}`}>
+                                <div className={`${classes.authorimgcontainer}`}>
                                     <img src={item.url}/>
                                 </div>
-                                <div className="d-flex justify-content-between">
-                                    <div><Link id="productLink" to={`/store/product/${item._id}`}><h2>{item.name}</h2></Link></div>
-                                    <div className={`${classes.price}`}  >
-                                        <span className="fs-4">${Math.floor(item.price)}</span>
-                                        <span className={`${classes.number}`}>{(item.price % 1).toFixed(2).split('.')[1]}</span>
+                                <div className={`${classes.contentcontainer}`}>
+                                    <div className="d-flex justify-content-between">
+                                        <div><Link id="productLink" to={`/store/product/${item._id}`}><h2>{item.name}</h2></Link></div>
+                                        <div className={`${classes.price}`}  >
+                                            <h1>${Math.floor(item.price)}
+                                            <span>{(item.price % 1).toFixed(2).split('.')[1]}</span>
+                                            </h1>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <p>{item.intro}</p>
-                                <div className="d-flex justify-content-between">
-                                    <h5>{item.sold} Sold</h5>
-                                    <h5 className="float-right"> <StarFill color="black" size={18} />&nbsp;{item.like.toFixed(1)}</h5>
+                                    <p>{item.description}</p>
+                                    <div className="d-flex justify-content-between">
+                                        <h5>{item.amountSold} Sold</h5>
+                                        <h5 className="float-right"> <StarFill color="black" size={18} />&nbsp;{item.averageRating.toFixed(1)}</h5>
+                                    </div>
                                 </div>
                             </div>
                         </Card> 
