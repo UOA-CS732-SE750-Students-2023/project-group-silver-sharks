@@ -100,7 +100,7 @@ accountRouter.get("/account", isLoggedIn, async (req, res) => {
  * 
  * // passing in 0 returns the current user
  */
-accountRouter.get("/account/id/:id", async (req, res) => {
+accountRouter.get("/account/id/:id", isLoggedIn, async (req, res) => {
   const id = req.params.id === "0" ? req.user.id : req.params.id;
   const account = await getAccountById(id);
   console.log(account)
