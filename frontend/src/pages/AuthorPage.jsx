@@ -5,10 +5,11 @@ import AuthorLayoutUserview from '../components/AuthorLayoutUserview';
 
 const AuthorPage = () => {
 
-    const authorData = useLoaderData();
-    
-    const [role,setRole] = useState('user');
-    
+    const data = useLoaderData();
+
+    const authorData = data[0]; 
+    const userAccountType = data[1].accountType;
+
     /*
     const whovisit=()=>{
         if(current_aid===authorpage_aid){
@@ -28,7 +29,7 @@ const AuthorPage = () => {
     
     return (
         <div>
-            <AuthorLayout author={authorData}/>
+            <AuthorLayout author={authorData} userAccountType={userAccountType}/>
         </div>
     );
 }
@@ -36,6 +37,19 @@ const AuthorPage = () => {
 export default AuthorPage;
 
 export const loader = async ({request,params}) => {
+
+    let accountsData = []
+
+    // get the account type of the currently logged in user
+    const userResponse = await fetch('http://localhost:3000/account/id/0');
+
+    if (!userResponse.ok) {
+
+        return json({ message: "Could not fetch user data from backend."}, { status: 500 });
+    } 
+
+    accountsData.push(userResponse);
+
     const authorId = params.aid;
 
     console.log("################################################")
@@ -49,14 +63,18 @@ export const loader = async ({request,params}) => {
         throw json({ message: 'Could not fetch details for this account.'}, {
             status: 500,
         });
-    } else {
-          // react router will extract data from promise
-        const author = await response.json();
+    } 
 
-        console.log("################################################")
-        console.log("from inside the author page loader: ")
-        console.log(author)
-        console.log("################################################")
-        return author;
-    }
+        // react router will extract data from promise
+    const author = await response.json();
+
+    console.log("################################################")
+    console.log("from inside the author page loader: ")
+    console.log(author)
+    console.log("################################################")
+
+    accountsData.push(author);
+
+    return accountsData;
+    
 };

@@ -6,8 +6,12 @@ import { StarFill } from 'react-bootstrap-icons';
 import classes from '../pages/ui/Card.module.css'
 import './AuthorLayout.css'
 
-const AuthorLayout = ({ author }) => { 
+const AuthorLayout = ({ author, userAccountType }) => { 
 
+    // checking the account type of the author 
+    const isAdmin = userAccountType === "admin";
+
+    console.log(isAdmin, 14);
 
     // calculating assets sold and the average rating 
     let averageRatingTemp = 0;
@@ -42,9 +46,9 @@ const AuthorLayout = ({ author }) => {
                     {/* <button className='a_message'>Message</button> */}
                 </div>
                 {/* 此处在另外一个页面删掉 */}
-                <div className='a_forcontainlink'>
+                {isAdmin && <div className='a_forcontainlink'>
                     <Link to="/Delete_account">Delete account</Link>
-                </div>
+                </div>}
                 {/* 结束删除 */}
             </div>
             <div className='a_tablecontainer'>
