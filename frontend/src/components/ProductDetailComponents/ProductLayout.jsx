@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link, useSubmit, useNavigation, Form } from "react-router-dom";
+import { Link, useSubmit, useNavigation, Form, useActionData } from "react-router-dom";
 import ProductContext from "../../store/product-context";
 import { InputGroup, DropdownButton, Dropdown } from 'react-bootstrap';
 import "./ProductLayout.css";
@@ -14,31 +14,34 @@ const ProductLayout = ({ product, author, reviews, userType }) => {
   const productCtx = useContext(ProductContext);
   const [ showReview, setShowReview ] = useState(false);
 
+  // show the review window or hide it
+  const [showAddReviewWindow, setShowAddReviewWindow] = useState(false);
+
+
+  const checkCanReview = async () => {
+
+    console.log("can check review !!!");
+    const response = await fetch('http://localhost:3000/products/pid/' + product._id  + '/can-review');
+    
+    // if this if statement triggers then the lines thereafter wont execute.
+    if (!response.ok){
+      throw new Error("Something went wrong!");
+    }
+    
+    const canReview = await response.json();
+    console.log(canReview)
+    setShowReview(canReview);
+  };
+
   // check that the user can actually post a review
   useEffect(() => {
-
-    const checkCanReview = async () => {
-
-      const response = await fetch('http://localhost:3000/products/pid/' + product._id  + '/can-review');
-      
-      // if this if statement triggers then the lines thereafter wont execute.
-      if (!response.ok){
-        throw new Error("Something went wrong!");
-      }
-      
-      const canReview = await response.json();
-
-      console.log(canReview)
-
-      setShowReview(canReview);
-
-    };
 
     checkCanReview().catch((error) => {
       console.log(error);
     });
      
   },[]);
+
 
   //Calculate the number of reviews
   const totalAmount=reviews.length;
@@ -48,15 +51,22 @@ const ProductLayout = ({ product, author, reviews, userType }) => {
   const totalLike = reviews.reduce((acc, item) => acc + item.rating, 0);
   const avg_rating=totalLike/totalAmount;
 
-  /* const addReviewWindowHandler = () => {
-    // give the add review window the product id
-    productCtx.showReview();
-  }; */
+  const addReviewWindowHandler = async () => {
+    
+    const response = await fetch('http://localhost:3000/products/pid/' + product._id  + '/can-review');
+    
+    // if this if statement triggers then the lines thereafter wont execute.
+    if (!response.ok){
+      throw new Error("Something went wrong!");
+    }
+    
+    const canReview = await response.json();
 
-  // Add Review Button - Newly added
-  const [showAddReviewWindow, setShowAddReviewWindow] = useState(false);
+    if (!canReview){
+      setShowReview(canReview);
+      return;
+    }
 
-  const addReviewWindowHandler = () => {
     setShowAddReviewWindow(true);
   };
   
