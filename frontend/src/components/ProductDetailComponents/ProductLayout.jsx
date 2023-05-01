@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Link, useSubmit, useNavigation, Form, useActionData } from "react-router-dom";
+import React, { useState, useEffect, useContext, useRef } from "react";
+import { Link, useSubmit, useNavigation, useNavigate, Form, useActionData, json } from "react-router-dom";
 import ProductContext from "../../store/product-context";
 import { InputGroup, DropdownButton, Dropdown } from 'react-bootstrap';
 import "./ProductLayout.css";
@@ -7,6 +7,7 @@ import "./AddReviewForm.css"
 
 const ProductLayout = ({ product, author, reviews, userType }) => {
   const navigation = useNavigation();
+  const navigate = useNavigate();
   const isSubmitting = navigation.state === 'submitting';
 
   // trigger an action programmatically
@@ -14,9 +15,15 @@ const ProductLayout = ({ product, author, reviews, userType }) => {
   const productCtx = useContext(ProductContext);
   const [ showReview, setShowReview ] = useState(false);
 
+  const nameInputRef = useRef();
+  const descriptionInputRef = useRef();
+  const priceInputRef = useRef();
+
   // show the review window or hide it
   const [showAddReviewWindow, setShowAddReviewWindow] = useState(false);
 
+  // edit product details window
+  const [editProductWindow, setEditProductWindow] = useState(false);
 
   const checkCanReview = async () => {
 
@@ -69,7 +76,50 @@ const ProductLayout = ({ product, author, reviews, userType }) => {
 
     setShowAddReviewWindow(true);
   };
-  
+
+  const openEditWindowHandler = () => {
+    setEditProductWindow(true);
+  }
+
+  const closeEditWindowHandler = () => {
+    setEditProductWindow(false);
+  }
+
+  const editProductSubmitHandler = async (event) => {
+    event.preventDefault(); 
+
+    const name = nameInputRef.current.value; 
+    const description = descriptionInputRef.current.value;
+    const price = priceInputRef.current.value;
+
+    console.log(name, 92)
+    console.log(description, 93)
+    console.log(price, 97)
+
+    const formData = {
+      name: name, 
+      description: description, 
+      price: price
+    }
+
+    const response = await fetch("http://localhost:3000/products/" + product._id, {
+      method: "PUT",
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    });
+
+    if (!response.ok){
+      throw json({ message: "Could not edit product"}, { status: 500 });
+    }
+
+    console.log("edit event is successful");
+
+    navigate("/store/product-search");
+  }
+
+
   const closeAddReviewWindowHandler = () => {
     setShowAddReviewWindow(false);
   };
@@ -82,15 +132,11 @@ const ProductLayout = ({ product, author, reviews, userType }) => {
         setTitle('Sort by: Price: High to Low');
       }
     };
-  const sold = 100; // Replace this variable with the actual number of sales
+  const sold = product.amountSold; // Replace this variable with the actual number of sales
 
   const [role,setRole] = useState(userType);
   const [ifpurchased,setPurchased] = useState('purchased');
   
-  const navigateEditListing = () => {
-    navigate('../author/2');
-  }
-
   const navigateRemoveListing = () => {
     
     // call the delete product endpoint 
@@ -139,10 +185,31 @@ const ProductLayout = ({ product, author, reviews, userType }) => {
         </div>
       </div>
       )}
+      {editProductWindow && (
+      <div className="add-review-window" onClick={closeEditWindowHandler}>
+        <div
+          className="add-review-container"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <form method='POST' onSubmit={editProductSubmitHandler}>
+            <h2>Edit Details</h2>
+            <input type="text" placeholder="Edit name" id="name" name="name" ref={nameInputRef}/>
+            <textarea rows="4" placeholder="Description..." id="description" name="description" ref={descriptionInputRef}></textarea>
+            <input id="price" placeholder="Price" type="number" ref={priceInputRef}/>
+            <div>
+              <button className="add-button" type="submit" disabled={isSubmitting}>Submit Changes</button>
+              <button className="cancel-button" onClick={closeEditWindowHandler}>
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      )}
       <div className="product-details">
         {role === 'admin' && 
                       <div className="p_btnstyling">
-                          <button onClick={navigateEditListing}>Edit listing</button>
+                          <button onClick={openEditWindowHandler}>Edit listing</button>
                           <button onClick={navigateRemoveListing}>Remove listing</button>
                       </div>}
         <h1>{product.name}</h1>
@@ -158,7 +225,7 @@ const ProductLayout = ({ product, author, reviews, userType }) => {
                 <div><p><Link to={`/store/author/${author._id}`} style={{ color: "#000000" }}>{author.username}</Link></p></div>
               </div>
               <p>
-                &#x2605; {product.averageRating}
+                &#x2605; {avg_rating}
               </p>
               <div className="product-buttons">
                 <div className="d-flex justify-content-end align-items-center">
