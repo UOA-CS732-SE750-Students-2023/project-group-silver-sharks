@@ -3,7 +3,6 @@ import { useLoaderData,json,redirect } from "react-router-dom";
 import { useParams } from 'react-router-dom';
 import ProductLayout from '../components/ProductDetailComponents/ProductLayout';
 import ProductContext from '../store/product-context';
-import AddReview from '../components/AuthorPageComponents/AddReview';
 
 
 const ProductPage = () => { 
@@ -34,14 +33,8 @@ const ProductPage = () => {
 
     console.log("user type: " + userType)
 
-    // close the modal window for adding reviews
-    const closeReviewWindowHandler = () => {
-        productCtx.hideReview()
-    };
-
     return (
         <>
-            {productCtx.isShow && <AddReview closeReviewWindow={closeReviewWindowHandler} />}
             <ProductLayout product={product} author={author} reviews={reviews} userType={userType}/>
         </>
     );
@@ -196,6 +189,9 @@ export const action = async ({request,params}) => {
     }
   
     // redirect the user after submitting 
-    return redirect('/store/product/' + productId);
+    return { 
+        outcome: "success", 
+        message: "review added successfully"
+    };
 };
 
