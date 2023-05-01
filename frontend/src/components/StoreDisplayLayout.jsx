@@ -17,7 +17,6 @@ const StoreDisplayLayout = (props) => {
 
     return (
         <div style={minMaxInputContainerStyle}> 
-            <h1>All items in store or filted by category</h1>
             {!props.notFound && <ul className="row list-unstyled" >
                 {props.items.map((item) => (
                     <li key={item._id} className="col-sm-4">
