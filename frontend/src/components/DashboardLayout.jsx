@@ -1,5 +1,5 @@
 import React from 'react'; 
-import { json,useNavigate ,useRouteLoaderData} from "react-router-dom";
+import { json,useNavigate ,useRouteLoaderData, useSubmit} from "react-router-dom";
 import './DashboardLayout.css'
 
 const DashboardLayout = () => { 
@@ -7,6 +7,8 @@ const DashboardLayout = () => {
     const user = useRouteLoaderData('username-loader');
 
     const navigate = useNavigate();
+    const submit = useSubmit();
+
 
     const navigateViewMyProfile = () => {
         //return author page 
@@ -14,6 +16,11 @@ const DashboardLayout = () => {
     }
     const navigateDeleteAccount = () => {
         // call the delete account endpoint from the backend
+        const proceed = window.confirm('Are you sure?');
+
+        if (proceed){
+            submit(null, { method: 'DELETE' });
+        }
         
     }
 
