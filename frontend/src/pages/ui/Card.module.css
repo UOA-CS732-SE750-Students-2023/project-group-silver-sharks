@@ -1,28 +1,50 @@
-.card {
+/* .card{
 
-    padding: 1rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-    border-radius: 14px;
-    background-color:white;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-
-    gap: 1rem;
-    margin: 0.5rem;
+} */
+.card .storepagecard{
+  /* justify-content: center; */
+  background-color:white;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 0.5rem;
+  width: 29vw;
+  height: 445px;
 }
-.card .imgcontainer{
-  justify-content: center;
-  align-items: center;
-  height: 160px; /* 设置父容器的高度 */
-  width:auto;
+
+.card .authorpagecard{
+  /* justify-content: center; */
+  background-color:white;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 0.5rem;
+  width: 23vw;
+  height: 415px;
+}
+
+.card .storeimgcontainer{
+  /* justify-content: center;
+  align-items: center; */
+  height:280px;
+  width:29vw;
+  overflow: hidden;
+  background-color: #616161;
+
+}
+.card .authorimgcontainer{
+  /* justify-content: center;
+  align-items: center; */
+  height:260px;
+  width:23vw;
+  overflow: hidden;
+  background-color: #616161;
 
 }
 .card img {
   height: 100%; /* 图片高度设置为100%以填满父容器 */
   width: 100%; /* 图片宽度自适应 */
-  object-fit: contain;
+  object-fit: cover;
   
 }
 .card h2 {
@@ -59,19 +81,27 @@
     text-align: left;
 
   }
-.card span{
+.card .price span{
+  vertical-align: super;
+  color: black;
   font-family: Poppins;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+  letter-spacing: 0em;
+  text-align: center;
+}
+.card .price h1{
+  color: black;
+  font-family: Poppins;
+  font-size: 24px;
   font-weight: 600;
   line-height: 36px;
-  color: black;
+  letter-spacing: 0em;
+  text-align: right;
+
 }
-.card .price{
-  color: black;
-  display: inline-block;
-  /* margin-top: -40px; */
-    
-}
-.card .number{
-    font-size: 0.7em;
+.card .contentcontainer{
+  margin:20px;
 }
 
