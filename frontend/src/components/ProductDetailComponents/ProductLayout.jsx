@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import ProductContext from "../../store/product-context";
 import { InputGroup, DropdownButton, Dropdown } from 'react-bootstrap';
 import "./ProductLayout.css";
+import "./AddReviewForm.css"
 
 const ProductLayout = ({ product, author, reviews }) => {
   const productCtx = useContext(ProductContext);
@@ -15,10 +16,22 @@ const ProductLayout = ({ product, author, reviews }) => {
   const totalLike = reviews.reduce((acc, item) => acc + item.rating, 0);
   const avg_rating=totalLike/totalAmount;
 
-  const addReviewWindowHandler = () => {
+  /* const addReviewWindowHandler = () => {
     // give the add review window the product id
     productCtx.showReview();
+  }; */
+
+  // Newly added
+  const [showAddReviewWindow, setShowAddReviewWindow] = useState(false);
+  
+  const addReviewWindowHandler = () => {
+    setShowAddReviewWindow(true);
   };
+  
+  const closeAddReviewWindowHandler = () => {
+    setShowAddReviewWindow(false);
+  };
+
   const [a_title, setTitle] = useState('Sort by: Price: Low to High');
   const handleSelect = (eventKey) => {
       if (eventKey === 'plth') {
@@ -42,7 +55,22 @@ const ProductLayout = ({ product, author, reviews }) => {
 
   return (
     <div className="product-layout">
-      
+      {showAddReviewWindow && (
+      <div className="add-review-window" onClick={closeAddReviewWindowHandler}>
+        <div
+          className="add-review-container"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <h2>Add Review</h2>
+          <input type="text" placeholder="Review Title" />
+          <textarea rows="4" placeholder="Your review"></textarea>
+          <button>Add Review</button>
+          <button className="cancel-button" onClick={closeAddReviewWindowHandler}>
+            Cancel
+          </button>
+        </div>
+      </div>
+      )}
       <div className="product-details">
         {role === 'admin' && 
                       <div className="p_btnstyling">

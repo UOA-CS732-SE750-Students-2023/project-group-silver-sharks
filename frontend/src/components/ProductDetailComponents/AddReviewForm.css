@@ -1,0 +1,68 @@
+/* Add Review Window CSS */
+.add-review-window {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.add-review-container {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 600px;
+}
+
+.add-review-container h2 {
+  font-family: Poppins;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 36px;
+  letter-spacing: 0em;
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.add-review-container input[type="text"],
+.add-review-container textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  font-family: Poppins;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  resize: none;
+}
+
+.add-review-container button {
+  background-color: #348b81;
+  color: #ffffff;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.add-review-container button:hover {
+  background-color: #2b716a;
+}
+
+.add-review-container .cancel-button {
+  background-color: #ccc;
+  color: #333;
+  margin-left: 10px;
+}
+
+.add-review-container .cancel-button:hover {
+  background-color: #b3b3b3;
+}
