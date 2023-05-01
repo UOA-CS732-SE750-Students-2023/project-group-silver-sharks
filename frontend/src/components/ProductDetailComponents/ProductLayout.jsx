@@ -1,10 +1,13 @@
 import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSubmit } from "react-router-dom";
 import ProductContext from "../../store/product-context";
 import { InputGroup, DropdownButton, Dropdown } from 'react-bootstrap';
 import "./ProductLayout.css";
 
 const ProductLayout = ({ product, author, reviews }) => {
+  
+  // trigger an action programmatically
+  const submit = useSubmit();
   const productCtx = useContext(ProductContext);
 
   //Calculate the number of reviews
@@ -37,7 +40,13 @@ const ProductLayout = ({ product, author, reviews }) => {
   }
 
   const navigateRemoveListing = () => {
-      navigate('../author/2');
+    
+    // call the delete product endpoint 
+    const proceed = window.confirm('Are you sure?');
+
+    if (proceed){
+        submit(null, { method: 'DELETE' });
+    }
   }
 
   return (

@@ -100,13 +100,33 @@ export const action = async ({request,params}) => {
     // get the id of the product 
     const productId = params.productid;
 
+    // getting the http method from the request argument
+    const method = request.method;
+
+    // check whether the request is a delete or a post
+
+    if (method === 'DELETE'){ 
+
+        console.log("inside the delete part of the action", 110)
+
+        const response = await fetch("http://localhost:3000/products/" + productId, {
+            method: method,
+        });
+
+        if (!response.ok){ 
+            throw json({ message: 'Could not delete product.'}, { status: 500 });
+        }
+
+        console.log("product deleted action", 118)
+
+        // redirect to the product search page
+        return redirect('/store/product-search');
+    }
+
     console.log("----------------------------------------------------")
     console.log("The product id is: ");
     console.log(productId)
     console.log("----------------------------------------------------")
-  
-    // getting the http method from the request argument
-    const method = request.method;
     
     const reviewData = {
         text: formData.get('review'), 
