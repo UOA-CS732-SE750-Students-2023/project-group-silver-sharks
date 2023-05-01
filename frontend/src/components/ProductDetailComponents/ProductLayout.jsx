@@ -1,14 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link, useSubmit } from "react-router-dom";
+import { Link, useSubmit, useNavigation, Form } from "react-router-dom";
 import ProductContext from "../../store/product-context";
 import { InputGroup, DropdownButton, Dropdown } from 'react-bootstrap';
 import "./ProductLayout.css";
 import "./AddReviewForm.css"
 
 const ProductLayout = ({ product, author, reviews, userType }) => {
-  
-  console.log("review: " + reviews , 9)
-
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === 'submitting';
 
   // trigger an action programmatically
   const submit = useSubmit();
@@ -100,13 +99,33 @@ const ProductLayout = ({ product, author, reviews, userType }) => {
           className="add-review-container"
           onClick={(e) => e.stopPropagation()}
         >
-          <h2>Add Review</h2>
-          <input type="text" placeholder="Review Title" />
-          <textarea rows="4" placeholder="Your review"></textarea>
-          <button className="add-button">Add Review</button>
-          <button className="cancel-button" onClick={closeAddReviewWindowHandler}>
-            Cancel
-          </button>
+          <Form method='POST'>
+            <h2>Add Review</h2>
+            <textarea rows="4" placeholder="Your review" id="review" name="review"></textarea>
+            <fieldset class="rating-fieldset">
+              <legend class="rating-legend">Rating</legend>
+              <div class="rating-options">
+                <label class="rating-label" htmlFor="rating1">1</label>
+                <input class="rating-input" type="radio" id="rating1" name="rating" value="1" />
+                
+                <label class="rating-label" htmlFor="rating2">2</label>
+                <input class="rating-input" type="radio" id="rating2" name="rating" value="2" />
+                
+                <label class="rating-label" htmlFor="rating3">3</label>
+                <input class="rating-input" type="radio" id="rating3" name="rating" value="3" />
+                
+                <label class="rating-label" htmlFor="rating4">4</label>
+                <input class="rating-input" type="radio" id="rating4" name="rating" value="4" />
+                
+                <label class="rating-label" htmlFor="rating5">5</label>
+                <input class="rating-input" type="radio" id="rating5" name="rating" value="5" />
+              </div>
+            </fieldset>
+            <button className="add-button" type="submit" disabled={isSubmitting}>{isSubmitting ? 'Submitting...' : 'Add Review'}</button>
+            <button className="cancel-button" onClick={closeAddReviewWindowHandler}>
+              Cancel
+            </button>
+          </Form>
         </div>
       </div>
       )}

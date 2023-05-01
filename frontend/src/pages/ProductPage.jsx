@@ -196,6 +196,9 @@ export const action = async ({request,params}) => {
     }
   
     // redirect the user after submitting 
-    return redirect('/store/product/' + productId);
+    return { 
+        outcome: "success", 
+        message: "review added successfully"
+    };
 };
 
