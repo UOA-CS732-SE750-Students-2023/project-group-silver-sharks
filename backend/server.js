@@ -7,11 +7,9 @@ import accountRouter from "./routes/account.js";
 import "./auth.js";
 import authRouter from "./routes/authentication.js";
 import fileRouter from "./routes/file.js";
-import http from 'http';
+import http from "http";
 import { Server } from "socket.io";
-
-
-
+import { Message } from "./models/messageModel.js";
 
 // 1. INITIAL SETUP
 
@@ -62,7 +60,21 @@ io.on("connection", (socket) => {
     console.log(`User with ID: ${socket.id} joined room: ${data}`);
   });
 
-  socket.on("send_message", (data) => {
+  socket.on("send_message", async (data) => {
+    // Save the message to the database
+    try {
+      const newMessage = new Message({
+        content: data.content,
+        senderId: data.senderId,
+        receiverId: data.receiverId,
+      });
+
+      await newMessage.save();
+    } catch (error) {
+      console.log("Error saving message:", error);
+    }
+
+    // Emit the message to the room
     socket.to(data.room).emit("receive_message", data);
   });
 
@@ -70,7 +82,6 @@ io.on("connection", (socket) => {
     console.log("User Disconnected", socket.id);
   });
 });
-
 
 server.listen(PORT, () => {
   console.log(`Server has started listening on port ${PORT}`);

@@ -7,6 +7,7 @@ const socket = io.connect("http://localhost:3000");
 
 function ChatHolder() {
   const [username, setUsername] = useState("");
+  const [recepient, setRecepient] = useState("");
   const [room, setRoom] = useState("");
   const [showChat, setShowChat] = useState(false);
 
@@ -24,9 +25,16 @@ function ChatHolder() {
           <h3>Join A Chat</h3>
           <input
             type="text"
-            placeholder="John..."
+            placeholder="Enter your ID..."
             onChange={(event) => {
               setUsername(event.target.value);
+            }}
+          />
+          <input
+            type="text"
+            placeholder="Enter the other guy's ID..."
+            onChange={(event) => {
+              setRecepient(event.target.value);
             }}
           />
           <input
@@ -39,7 +47,12 @@ function ChatHolder() {
           <button onClick={joinRoom}>Join A Room</button>
         </div>
       ) : (
-        <Chat socket={socket} username={username} room={room} />
+        <Chat
+          socket={socket}
+          room={room}
+          senderId={username}
+          receiverId={recepient}
+        />
       )}
     </div>
   );
