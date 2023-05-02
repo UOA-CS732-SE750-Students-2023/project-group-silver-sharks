@@ -51,6 +51,7 @@
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
+  margin-top: 20px;
 }
 
 .add-review-container button:hover {
@@ -70,4 +71,50 @@
 
 .add-review-container .cancel-button:hover {
   background-color: #b3b3b3;
+}
+
+/* Rating CSS */
+.rating-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 15px;
+}
+
+.rating-container label {
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: left;
+  margin-right: 10px;
+}
+
+.star-rating {
+  display: inline-block;
+  font-size: 0;
+  position: relative;
+}
+
+.star-rating input[type="radio"] {
+  display: none;
+}
+
+.star-rating label {
+  display: inline-block;
+  font-size: 24px;
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.star-rating label:before {
+  content: "★";
+}
+
+.star-rating input[type="radio"]:checked ~ label,
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+  color: #f0c14b;
 }
