@@ -167,8 +167,8 @@ const AuthorLayoutUserview = ({ author }) => {
                                     <img src={item.url}/>
                                 </div>
                                 <div className={`${classes.contentcontainer}`}>
-                                    <div className="d-flex justify-content-between">
-                                        <div><Link id="productLink" to={`/store/product/${item._id}`}><h2>{item.name}</h2></Link></div>
+                                    <div className="d-flex justify-content-between flex-wrap">
+                                    <div className={`${classes.productcontainer}`}><Link id="productLink" to={`/store/product/${item._id}`}><p className="text-nowrap text-truncate">{item.name}</p></Link></div>
                                         <div className={`${classes.price}`}  >
                                             <h1>${Math.floor(item.price)}
                                             <span>{(item.price % 1).toFixed(2).split('.')[1]}</span>
@@ -176,8 +176,8 @@ const AuthorLayoutUserview = ({ author }) => {
                                         </div>
                                     </div>
 
-                                    <p>{item.description}</p>
-                                    <div className="d-flex justify-content-between">
+                                    <div className={`${classes.cardtextcon}`}><p className="text-nowrap text-truncate">{item.description}</p></div>
+                                    <div className="d-flex justify-content-between flex-wrap">
                                         <h5>{item.amountSold} Sold</h5>
                                         <h5 className="float-right"> <StarFill color="black" size={18} />&nbsp;{item.averageRating.toFixed(1)}</h5>
                                     </div>
