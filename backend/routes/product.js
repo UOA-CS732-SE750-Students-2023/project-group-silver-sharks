@@ -197,7 +197,7 @@ productRouter.get("/products/:id", isLoggedIn, async (req, res) => {
 });
 
 // endpoint 7: DELETE - removing a product
-productRouter.delete("/products/:productId", async (req, res) => {
+productRouter.delete("/products/:productId", isLoggedIn, async (req, res) => {
   try {
     const productId = req.params.productId;
 
