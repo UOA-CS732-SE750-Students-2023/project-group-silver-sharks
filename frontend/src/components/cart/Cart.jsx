@@ -3,6 +3,7 @@ import Modal from '../modal/Modal';
 import { DashCircle  } from 'react-bootstrap-icons';
 import './Cart.module.css';
 import classes from '../modal/Modal.module.css';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -12,7 +13,7 @@ import classes from '../modal/Modal.module.css';
 
 const Cart = (props) => { 
     
-
+    const navigate = useNavigate();
     const DUMMY_DATA = [
         {   
             pid: 1,
@@ -110,7 +111,7 @@ const Cart = (props) => {
     }
 
     const checkoutClick = ()=>{
-        window.alert("checkout");
+        navigate('/store/payment');
     }
     
 
