@@ -65,7 +65,7 @@ const Chat = () => {
       <div>
         {messages.map((message, index) => (
           <div key={index}>
-            <h4>{message.senderId === "118069059652555688591" ? "You" : message.senderId}</h4>
+            <h4>{message.senderId}</h4>
             <p>{message.content}</p>
           </div>
         ))}
