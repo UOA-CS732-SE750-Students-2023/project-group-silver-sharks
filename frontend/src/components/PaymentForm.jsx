@@ -14,12 +14,13 @@ const PaymentForm = async () => {
     const fetchCartContents = async () => {
         try {
             const response = await fetch('http://localhost:3000/account/cart');
-      
+            
             // Check if the response status is ok
             if (!response.ok) {
                 throw new Error(`HTTP error! cannot get cart: ${response.status}`);
             }
             const data = await response.json();
+            console.log("The data:" + data);
             setCartContents(data);
         } catch (err) {
             console.error(err);

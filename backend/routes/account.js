@@ -231,6 +231,7 @@ accountRouter.get("/account/id/:id/selling", async (req, res) => {
 accountRouter.get("/account/cart", isLoggedIn, async (req, res) => {
   try {
     const cartContents = await getCartContents(req.user.id);
+    console.log("This is cart contents" + cartContents);
     return res.json({ cartContents });
   } catch (err) {
     console.error(err);
