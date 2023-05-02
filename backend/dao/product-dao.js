@@ -1,5 +1,7 @@
 import { Product } from "../models/productModel.js";
 import { Account } from "../models/accountModel.js";
+import fs from "fs";
+import path from "path";
 
 // return all products in the database
 const getAllProducts = async () => {
@@ -159,9 +161,37 @@ const updateProduct = async (productId, updatedProductData) => {
 const deleteProduct = async (productId) => {
   const deletedProduct = await Product.findByIdAndRemove(productId);
 
-  if (!deletedProduct) {
-    return null;
-  }
+  // if (!deletedProduct) {
+  //   return null;
+  // }
+
+  // delete product image files
+  const uploadFiles = fs.readdirSync("./public/uploads");
+
+  const uploadFilesToRemove = uploadFiles.filter((file) =>
+    file.includes(productId)
+  );
+
+  await Promise.all(
+    uploadFilesToRemove.map((file) =>
+      fs.unlinkSync(path.join("./public/uploads", file))
+    )
+  );
+
+  // delete product files
+  const productFiles = fs.readdirSync("./public/downloadFiles");
+
+  const downloadFilesToRemove = productFiles.filter((file) =>
+    file.includes(productId)
+  );
+
+  await Promise.all(
+    downloadFilesToRemove.map((file) =>
+      fs.unlinkSync(path.join("./public/uploads", file))
+    )
+  );
+
+  console.log("Files removed successfully");
 
   return deletedProduct;
 };
