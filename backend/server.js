@@ -64,9 +64,23 @@ io.on("connection", (socket) => {
     socket.join(userId);
   });
 
-  socket.on("private message", async ({ content, senderId, receiverId }) => {
-    const newMessage = await Message.create({ content, senderId, receiverId });
-    socket.to(receiverId).emit("new private message", newMessage);
+  socket.on("private message", ({ content, senderId, receiverId }) => {
+    // Wrap async operation in a try/catch block
+    try {
+      // Save the message in the database
+      Message.create({ content, senderId, receiverId })
+        .then(newMessage => {
+          // Emit the message to the receiver
+          socket.to(receiverId).emit("new private message", newMessage);
+        })
+        .catch(err => {
+          console.error(err);
+          // Handle error, e.g. by emitting an error event
+          socket.emit("error", { message: "Error saving message" });
+        });
+    } catch (err) {
+      console.error(err);
+    }
   });
 
   socket.on("disconnect", () => {

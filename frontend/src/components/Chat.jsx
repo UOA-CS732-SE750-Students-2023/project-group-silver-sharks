@@ -38,7 +38,7 @@ const Chat = () => {
       socket.emit("private message", {
         content: message,
         senderId: "118069059652555688591",
-        receiverId: "100953959910033868204",
+        receiverId: "115597168327745249591",
       });
       setMessage("");
     }
