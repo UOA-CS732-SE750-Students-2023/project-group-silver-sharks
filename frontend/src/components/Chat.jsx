@@ -10,9 +10,7 @@ const Chat = () => {
   useEffect(() => {
     const newSocket = io("http://localhost:3000");
     setSocket(newSocket);
-    newSocket.on('connect', () => {
-        console.log('Connected to the server');
-      });
+
     return () => newSocket.close();
   }, [setSocket]);
 
