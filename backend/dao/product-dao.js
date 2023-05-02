@@ -161,9 +161,9 @@ const updateProduct = async (productId, updatedProductData) => {
 const deleteProduct = async (productId) => {
   const deletedProduct = await Product.findByIdAndRemove(productId);
 
-  // if (!deletedProduct) {
-  //   return null;
-  // }
+  if (!deletedProduct) {
+    return null;
+  }
 
   // delete product image files
   const uploadFiles = fs.readdirSync("./public/uploads");
