@@ -92,20 +92,13 @@ beforeAll(async () => {
 });
 
 beforeEach(async () => {
-  // await mongoose.connection.db.dropDatabase();
-
-  // const coll = await mongoose.connection.db.createCollection("products");
-  // await coll.insertMany(products);
-
-  // const coll1 = await mongoose.connection.db.createCollection("Account");
-  // await coll1.insertMany(accounts);
   for (const element of products) {
     const prod = new Product(element);
     await prod.save();
   }
 
   for (const element of accounts) {
-    const acc = new Account(acc);
+    const acc = new Account(element);
     await acc.save();
   }
 });
@@ -180,34 +173,39 @@ describe("GET /products", () => {
   });
 });
 
-// describe("POST /products/sell/000000000000000000000010", () => {
-//   it("adds product to server", (done) => {
-//     request(app)
-//       .post("/products/sell/000000000000000000000010")
-//       .send(newProduct)
-//       .set("Content-Type", "application/json")
-//       .set("Accept", "application/json")
-//       .expect(201)
-//       .end((err, res) => {
-//         if (err) {
-//           return done(err);
-//         }
+it("adds product to server", (done) => {
+  request(app)
+    .post("/products/sell/000000000000000000000010")
+    .send(newProduct)
+    .set("Content-Type", "application/json")
+    .set("Accept", "application/json")
+    .expect(201)
+    .end(async (err, res) => {
+      if (err) {
+        return done(err);
+      }
 
-//         const newProductFromApi = res.body;
-//         console.log(newProductFromApi);
+      const newProductFromApi = res.body;
+      console.log(newProductFromApi);
 
-//         expect(newProductFromApi.category).toBe("Images");
-//         expect(newProductFromApi.name).toBe("Pizza Margherita");
-//         expect(newProductFromApi.description).toBe(
-//           "Delicious pizza with mozzarella, tomatoes, and basil"
-//         );
-//         expect(newProductFromApi.price).toBe(10);
-//         expect(newProductFromApi.amountSold).toBe(0);
-//         expect(newProductFromApi.averageRating).toBe(0);
+      expect(newProductFromApi.category).toBe("Images");
+      expect(newProductFromApi.name).toBe("Pizza Margherita");
+      expect(newProductFromApi.description).toBe(
+        "Delicious pizza with mozzarella, tomatoes, and basil"
+      );
+      expect(newProductFromApi.price).toBe(10);
+      expect(newProductFromApi.amountSold).toBe(0);
+      expect(newProductFromApi.averageRating).toBe(0);
 
-//         expect();
+      const allProducts = await Product.find();
+      expect(allProducts.length).toBe(5);
 
-//         return done();
-//       });
-//   });
-// });
+      const newProd = allProducts[4];
+      expect(newProd._id.toString()).toBe(newProductFromApi._id);
+
+      // delete newly added product
+      await Product.findByIdAndDelete(newProductFromApi._id);
+
+      return done();
+    });
+});
