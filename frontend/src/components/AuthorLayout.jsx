@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSubmit } from "react-router-dom";
 import { InputGroup, DropdownButton, Dropdown } from 'react-bootstrap';
 import Card from '../pages/ui/Card';
 import { StarFill } from 'react-bootstrap-icons';
 import classes from '../pages/ui/Card.module.css'
 import './AuthorLayout.css'
 
-const AuthorLayout = ({ author }) => { 
+const AuthorLayout = ({ author, userAccountType }) => { 
+    const submit = useSubmit();
+    // checking the account type of the author 
+    const isAdmin = (userAccountType === "admin");
 
+    console.log("++++++++++++++++++++++++++++++++++++++++++")
+    console.log(isAdmin, 14);
+    console.log("++++++++++++++++++++++++++++++++++++++++++")
 
     // calculating assets sold and the average rating 
     let averageRatingTemp = 0;
@@ -28,7 +34,15 @@ const AuthorLayout = ({ author }) => {
         } else {
           setTitle('Sort by: Price: High to Low');
         }
-      };
+    };
+
+    const deleteAccountHandler = () => {
+        const proceed = window.confirm('Are you sure?');
+
+        if (proceed){
+            submit(null, { method: 'DELETE' });
+        }
+    }
 
     return (
         <div className='a_allcontainer'>
@@ -42,9 +56,9 @@ const AuthorLayout = ({ author }) => {
                     {/* <button className='a_message'>Message</button> */}
                 </div>
                 {/* 此处在另外一个页面删掉 */}
-                <div className='a_forcontainlink'>
-                    <Link to="/Delete_account">Delete account</Link>
-                </div>
+                {isAdmin && <div className='a_forcontainlink'>
+                    <button onClick={deleteAccountHandler}>Delete Account</button>
+                </div>}
                 {/* 结束删除 */}
             </div>
             <div className='a_tablecontainer'>

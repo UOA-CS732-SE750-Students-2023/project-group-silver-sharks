@@ -24,6 +24,8 @@ import { loader as usernameLoader } from './components/StoreComponents/StoreNavB
 import { loader as authorLoader } from './pages/AuthorPage';
 import { action as productAction } from './pages/ProductPage';
 import { loader as sellAssetLoader } from './pages/SellAssetPage';
+import { action as deleteAccountAction } from './pages/profile/DashboardPage';
+import { action as deleteOtherAccountAction } from './pages/AuthorPage';
 
 const router = createBrowserRouter([
   {path:'/', element: <RootPage />, children: [
@@ -34,9 +36,9 @@ const router = createBrowserRouter([
     {path:'store', element: <StoreRootPage />, loader: usernameLoader, id: 'username-loader', children: [
       {path:'product-search', element: <ProductSearchPage />, loader: allProductsLoader},
       {path: 'product/:productid', element: <ProductPage />, loader: productLoader, action: productAction},
-      {path: 'author/:aid', element: <AuthorPage />, loader: authorLoader},
+      {path: 'author/:aid', element: <AuthorPage />, loader: authorLoader, action: deleteOtherAccountAction},
       {path: 'profile', element: <ProfileRoot />, children: [
-        {index: true, element: <DashBoardPage />},
+        {index: true, element: <DashBoardPage />, action: deleteAccountAction},
         {path: 'messages', element: <MessagesPage />},
         {path: 'purchase', element: <PurchasePage />},
         {path: 'selling', element: <SellingPage />},

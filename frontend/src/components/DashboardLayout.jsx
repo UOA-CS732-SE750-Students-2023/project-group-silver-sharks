@@ -1,5 +1,5 @@
 import React from 'react'; 
-import { json,useNavigate ,useRouteLoaderData} from "react-router-dom";
+import { json,useNavigate ,useRouteLoaderData, useSubmit} from "react-router-dom";
 import './DashboardLayout.css'
 
 const DashboardLayout = () => { 
@@ -7,26 +7,21 @@ const DashboardLayout = () => {
     const user = useRouteLoaderData('username-loader');
 
     const navigate = useNavigate();
+    const submit = useSubmit();
 
-    const clickHandler = async () => {
-        const response = await fetch('http://localhost:3000/account/sign-out');
 
-        // throwing will send the data to the error page
-        if (!response.ok){
-            throw json({ message: 'Could not sign out'}, {
-                status: 500,
-            });
-        } else {
-            console.log(response)
-            return navigate("/");
-        }
-    }
     const navigateViewMyProfile = () => {
         //return author page 
         navigate(`../author/${user._id}`);
     }
     const navigateDeleteAccount = () => {
-        navigate('../author/2');
+        // call the delete account endpoint from the backend
+        const proceed = window.confirm('Are you sure?');
+
+        if (proceed){
+            submit(null, { method: 'DELETE' });
+        }
+        
     }
 
     return (
@@ -62,7 +57,6 @@ const DashboardLayout = () => {
                     
                 </div>
            
-                {/* <button onClick={clickHandler}>Logout</button> */}
             </div>
 
         </div>
