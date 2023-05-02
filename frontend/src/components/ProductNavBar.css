@@ -1,0 +1,62 @@
+/* ProductNavBar.css */
+/* .search-input-style {
+  border-radius: 25px;
+  border: 2px solid black;
+  padding-right: 40px;
+  padding-left: 20px;
+}
+
+.search-icon-style {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  z-index: 100;
+} */
+
+.min-max-input-style {
+  border-radius: 20px;
+  border: 3px solid black;
+  padding-right: 5px;
+  padding-left: 5px;
+  max-width: 100px;
+  width: 80px;
+}
+
+.custom-dropdown-btn-style {
+  border-radius: 30px;
+}
+
+.black-text-style {
+  color: black;
+}
+
+.gray-background-style {
+  background-color: #F1F1F1;
+}
+
+.min-max-input-container-style {
+  margin-left: 100px;
+}
+
+.drop-down-container-style {
+  margin-right: 100px;
+}
+
+.nav-button-style {
+  border-radius: 20px;
+  background-color: transparent;
+  border-color: transparent;
+  padding: 10px 40px;
+  transition: 0.2s;
+}
+
+.nav-button-selected-style {
+  font-weight: bold;
+}
+
+.nav-button-hover-style {
+  background-color: #348B81;
+  color: white;
+}
