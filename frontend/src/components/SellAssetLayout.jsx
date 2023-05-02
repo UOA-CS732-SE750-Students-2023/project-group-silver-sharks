@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import "./SellAssetLayout.css";
+import Chat from "./Chat";
 
 const SellAssetLayout = ({ userId }) => {
   const [enteredTitle, setEnteredTitle] = useState("");
@@ -267,6 +268,7 @@ const SellAssetLayout = ({ userId }) => {
           </form>
         </Col>        
       </Row>
+      <Chat/>
     </Container>
   );
 };
