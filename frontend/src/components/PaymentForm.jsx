@@ -1,39 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './PaymentForm.css';
 
-const PaymentForm = async () => {
+const PaymentForm = ({ cartContentsData }) => {
     const [loading, setLoading] = useState(false);
     const stripe = useStripe();
     const elements = useElements();
     const navigate = useNavigate();
-    const [cartContents, setCartContents] = useState([]);
 
-    const fetchCartContents = async () => {
-        try {
-            const response = await fetch('http://localhost:3000/account/cart');
-            
-            // Check if the response status is ok
-            if (!response.ok) {
-                throw new Error(`HTTP error! cannot get cart: ${response.status}`);
-            }
-            const data = await response.json();
-            console.log("The data:" + data);
-            setCartContents(data);
-        } catch (err) {
-            console.error(err);
-        }
-    };
-
-    // Get cart contents upon page load
-    useEffect(() => {
-        fetchCartContents();
-    }, []);
+    console.log("++++++++++++++++++++++++++++++++++++++++++")
+    console.log(cartContentsData, 15);
+    console.log("++++++++++++++++++++++++++++++++++++++++++")
 
     const calculateTotalPrice = () => {
-        return cartContents.reduce((total, product) => total + product.price, 0);
+        return cartContentsData.reduce((total, product) => total + product.price, 0);
     };
     //const price = 1000; // Add the price here, in cents
 
@@ -89,7 +71,7 @@ const PaymentForm = async () => {
                 <div className="cart-container">
                     <h2 className="form-title">Cart Contents</h2>
                     <ul className="cart-list">
-                    {cartContents.map((product, index) => (
+                    {cartContentsData.map((product, index) => (
                         <li key={index}>
                         {product.name} - ${(product.price / 100).toFixed(2)}
                         </li>

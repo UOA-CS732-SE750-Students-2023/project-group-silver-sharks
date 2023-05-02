@@ -25,6 +25,7 @@ import { loader as usernameLoader } from './components/StoreComponents/StoreNavB
 import { loader as authorLoader } from './pages/AuthorPage';
 import { action as productAction } from './pages/ProductPage';
 import { loader as sellAssetLoader } from './pages/SellAssetPage';
+import { loader as StripeCartLoader } from './pages/StripePage';
 
 const router = createBrowserRouter([
   {path:'/', element: <RootPage />, children: [
@@ -37,7 +38,7 @@ const router = createBrowserRouter([
       {path:'product-search', element: <ProductSearchPage />, loader: allProductsLoader},
       {path: 'product/:productid', element: <ProductPage />, loader: productLoader, action: productAction},
       {path: 'author/:aid', element: <AuthorPage />, loader: authorLoader},
-      {path: 'payment', element: <StripePage />},
+      {path: 'payment', element: <StripePage />, loader: StripeCartLoader},
       {path: 'profile', element: <ProfileRoot />, children: [
         {index: true, element: <DashBoardPage />},
         {path: 'messages', element: <MessagesPage />},
