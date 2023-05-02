@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './PaymentForm.css';
 
-const PaymentForm = async () => {
+const PaymentForm = () => {
     const [loading, setLoading] = useState(false);
     const stripe = useStripe();
     const elements = useElements();
@@ -60,7 +60,7 @@ const PaymentForm = async () => {
         }
 
         try {
-            const response = await axios.post('/create-payment-intent', { amount: price });
+            const response = await axios.post('/create-payment-intent', { amount: calculateTotalPrice });
 
             const clientSecret = response.data;
 
