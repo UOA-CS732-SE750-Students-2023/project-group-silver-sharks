@@ -16,13 +16,24 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-	align-items: center;
+	  align-items: center;
     padding-top: 4vh;
 }
 .store-navbar-user-info {
-    display: flex;
-    align-self: end;
-    margin-right: 10vw;
+  display: flex;
+  align-self: end;
+  margin-right: 10vw;
+  font-family: 'Poppins', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  color: #FFFFFF;
+}
+
+.store-navbar-user-info b {
+  font-weight: 600;
 }
 .store-navbar-action-row {
     display: flex;
@@ -32,6 +43,8 @@
     width: 80vw;
     font-size: 30px;
 }
+
+/* Modified for frontend fixes */
 .store-page-sell-asset-btn{
     width: 8em;
     height: 3em;
@@ -39,8 +52,24 @@
     color: white;
     border-radius: 50px;
     border-style: solid;
+    border-color: white; /* Make the border color white */
     margin: 0 0.6em;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s; /* Add transition for hover effect */
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    color: #FFFFFF;
 }
+
+.store-page-sell-asset-btn:hover {
+  background-color: #348B81;
+  border-color: #348B81;
+  color: white; /* Change the text color to white when hovering */
+}
+
 .cart-icon-wrapper:hover {
     cursor: pointer;
     color: grey;   

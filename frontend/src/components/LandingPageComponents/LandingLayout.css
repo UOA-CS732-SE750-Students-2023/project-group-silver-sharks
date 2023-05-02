@@ -34,6 +34,16 @@
     width: 50%;
     box-shadow: none;
     border-style: solid;
+    /* Add of frontend fixes */
+    color: black; /* Change the text color to black */
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s; /* Add transition for hover effect */
+
+}
+
+.description-button:hover {
+  background-color: #348B81;
+  border-color: #348B81;
+  color: white; /* Change the text color to white when hovering */
 }
 
 .landing-page-card-container {
