@@ -160,7 +160,7 @@ const SellAssetLayout = ({ userId }) => {
     redirect("/store/profile/selling");
   };
 
-  return (
+   return (
     <Container fluid className="container-fluid">
       <Row className="mt-5"></Row>
       <Row>
@@ -169,11 +169,7 @@ const SellAssetLayout = ({ userId }) => {
             {/* <h4 className="mt-4">Sell an asset</h4> */}
             <h4>Sell an asset</h4>
           </div>
-          <form
-            className="sell-assets"
-            enctype="multipart/form-data"
-            onSubmit={submitHandler}
-          >
+          <form  className="sell-assets" enctype='multipart/form-data' onSubmit={submitHandler}>
             <div className="form-group">
               <input
                 id="title"
@@ -201,24 +197,27 @@ const SellAssetLayout = ({ userId }) => {
               <span className="required-star-des">*</span>
             </div>
             <div className="upload-container">
-              <p>Drag and drop file</p>
-              <p>or</p>
+              <p>Add Cover image</p>
               <input
                 type="file"
-                name="files"
-                id="files"
+                name="cover-image"
+                id="cover-image"
                 onChange={coverImageChangeHandler}
+                multiple
+          
               />
+              {/* <label htmlFor="files" className="browse-button">Browse</label> */}
             </div>
             <div className="upload-container">
               <p>Add product files</p>
               <input
                 type="file"
-                name="multiple-files"
+                name="files"
                 id="multiple-files"
                 onChange={filesChangeHandler}
                 multiple
               />
+              {/* <label htmlFor="files" className="browse-button">Browse</label> */}
             </div>
             <div className="form-group">
               <input
@@ -266,10 +265,11 @@ const SellAssetLayout = ({ userId }) => {
               </Button>
             </div>
           </form>
-        </Col>
+        </Col>        
       </Row>
     </Container>
   );
 };
+
 
 export default SellAssetLayout;

@@ -1,5 +1,6 @@
 .username-container {
     height: 60vh;
+    margin-top: 25px;
 }
 
 .username-wrapper {
@@ -45,5 +46,5 @@
     padding-bottom: 12px;
     width: 100%;
     box-shadow: none;
-    border-style: solid;
+    border-style: none;
 }

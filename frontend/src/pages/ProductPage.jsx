@@ -3,7 +3,6 @@ import { useLoaderData,json,redirect } from "react-router-dom";
 import { useParams } from 'react-router-dom';
 import ProductLayout from '../components/ProductDetailComponents/ProductLayout';
 import ProductContext from '../store/product-context';
-import AddReview from '../components/AuthorPageComponents/AddReview';
 
 
 const ProductPage = () => { 
@@ -15,18 +14,28 @@ const ProductPage = () => {
     const productId = params.productid;
 
     const product = data[0];
-    const author = data[1]; 
-    const reviews = data[2]
+    const author = data[1];
+    const reviews = data[2]; 
+    const loggedInUser = data[3];
 
-    // close the modal window for adding reviews
-    const closeReviewWindowHandler = () => {
-        productCtx.hideReview()
-    };
+    console.log(loggedInUser, 22)
+
+    console.log(author, 24)
+
+    console.log(reviews, 26)
+    
+    let userType = "normal";
+
+    // determine whether the user is admin or normal and whether the user is the author for the product
+    if (author._id === loggedInUser._id || loggedInUser.accountType === "admin"){
+        userType = "admin";
+    }
+
+    console.log("user type: " + userType)
 
     return (
         <>
-            {productCtx.isShow && <AddReview closeReviewWindow={closeReviewWindowHandler} />}
-            <ProductLayout product={product} author={author} reviews={reviews}/>
+            <ProductLayout product={product} author={author} reviews={reviews} userType={userType}/>
         </>
     );
 }
@@ -69,8 +78,9 @@ export const loader = async ({request,params}) => {
 
         }
 
-        // endpoint to fetch the 
-        // /products/pid/:pid/reviews
+        console.log("line 80", 80)
+
+        // fetching the reviews for the product
 
         const reviewsData = await fetch("http://localhost:3000/products/pid/" + id + "/reviews");
 
@@ -83,14 +93,34 @@ export const loader = async ({request,params}) => {
             const reviews = await reviewsData.json();
 
             console.log("----------------------------------------------------");
+            console.log("reviews inside loader", 103)
             console.log(reviews);
             console.log("----------------------------------------------------");
 
             returnData.push(reviews);
         }
 
-        return returnData;
+        console.log("line 101", 101)
+
+
+        // fetching the current logged in users details
+
+        // using the user id also fetch the user
+        const userData = await fetch("http://localhost:3000/account/id/0");
+
+        if (!userData.ok){
+            throw json({ message: 'Could not fetch details for user.'}, {
+                status: 500,
+            });
+        } else {
+            const user = await userData.json();
+            returnData.push(user);
+        }
+
+        console.log("line 101", 101)
     }
+
+    return returnData;
 };
 
 export const action = async ({request,params}) => {
@@ -100,13 +130,33 @@ export const action = async ({request,params}) => {
     // get the id of the product 
     const productId = params.productid;
 
+    // getting the http method from the request argument
+    const method = request.method;
+
+    // check whether the request is a delete or a post
+
+    if (method === 'DELETE'){ 
+
+        console.log("inside the delete part of the action", 110)
+
+        const response = await fetch("http://localhost:3000/products/" + productId, {
+            method: method,
+        });
+
+        if (!response.ok){ 
+            throw json({ message: 'Could not delete product.'}, { status: 500 });
+        }
+
+        console.log("product deleted action", 118)
+
+        // redirect to the product search page
+        return redirect('/store/product-search');
+    }
+
     console.log("----------------------------------------------------")
     console.log("The product id is: ");
     console.log(productId)
     console.log("----------------------------------------------------")
-  
-    // getting the http method from the request argument
-    const method = request.method;
     
     const reviewData = {
         text: formData.get('review'), 
@@ -139,6 +189,9 @@ export const action = async ({request,params}) => {
     }
   
     // redirect the user after submitting 
-    return redirect('/store/product/' + productId);
+    return { 
+        outcome: "success", 
+        message: "review added successfully"
+    };
 };
 

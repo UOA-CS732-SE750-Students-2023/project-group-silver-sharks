@@ -1,10 +1,11 @@
-import React, { useContext } from 'react';
-import ProductContext from '../store/product-context';
-import { NavLink } from 'react-router-dom';
+// frontend/src/components/ProductNavBar.jsx
+import React, { useState } from 'react';
 import { Navbar, Button, Nav, Form, InputGroup, DropdownButton, Dropdown } from 'react-bootstrap';
+import './ProductNavBar.css'; // 引入新的 CSS 文件
 
-const ProductNavBar = ({ setSearchCategory, setFilter,setSearchTerm }) => {
-  
+const ProductNavBar = ({ setSearchCategory, setFilter, setSearchTerm }) => {
+  const [selectedCategory, setSelectedCategory] = useState('');
+
   const searchInputStyle = {
     borderRadius: '25px',
     border: '2px solid black',
@@ -21,57 +22,23 @@ const ProductNavBar = ({ setSearchCategory, setFilter,setSearchTerm }) => {
     zIndex: 100,
   };
 
-  const minMaxInputStyle = {
-    borderRadius: '20px',
-    border: '3px solid black',
-    paddingRight: '5px',
-    paddingLeft: '5px',
-    maxWidth: '100px',
-    width: '80px',
-  };
-
-  const customDropdownBtnStyle = {
-    borderRadius: '30px',
-  };
-  
-  const blackTextStyle = {
-    color: 'black',
-  };
-
-  const grayBackgroundStyle = {
-    backgroundColor: '#F1F1F1',
-  };
-
-  const minMaxInputContainerStyle = {
-    marginLeft: '100px', 
-  };
-
-  const dropDownContainerStyle = {
-    marginRight: '100px',
-  }
-
-  // handler methods for the category buttons 
-
   const categoryHandler = (event) => {
-    console.log(event.target.innerHTML);
-    setSearchCategory(event.target.innerHTML)
-
+    const buttonText = event.target.innerHTML;
+    const formattedCategory = buttonText.charAt(0) + buttonText.slice(1).toLowerCase();
+    setSearchCategory(formattedCategory);
+    setSelectedCategory(formattedCategory);
   };
-  
+
   const searchChangeHandler = (event) => {
-    console.log(event.target.value);
     setSearchTerm(event.target.value);
   }
 
-  const filterChangeHandler = (event) => { 
-    console.log(event); 
+  const filterChangeHandler = (event) => {
     setFilter(event);
   }
 
-
-
   return (
-    <div style={grayBackgroundStyle}>
+    <div className="gray-background-style">
       <>
         <Form className="d-flex justify-content-center mb-3" style={{ position: 'relative' }}>
           <div className="input-group" style={{ width: '25%', margin: '35px', }}>
@@ -86,46 +53,84 @@ const ProductNavBar = ({ setSearchCategory, setFilter,setSearchTerm }) => {
             <i className="bi bi-search" style={searchIconStyle}></i>
           </div>
         </Form>
-        <Navbar expand="lg" style={grayBackgroundStyle}>
+        <Navbar expand="lg" className="gray-background-style">
           <Navbar.Toggle aria-controls="product-navbar-nav" />
           <Navbar.Collapse id="product-navbar-nav">
             <Nav className="mx-auto">
               <Nav.Item className="mx-5">
-                <Button onClick={categoryHandler} className="nav-link">
-                  Images
+                <Button
+                  onClick={categoryHandler}
+                  className={`nav-link nav-button-style ${
+                    selectedCategory === 'Images' ? 'nav-button-selected-style' : ''
+                  }`}
+                  onMouseEnter={(e) => (e.target.style.backgroundColor = '#348B81')}
+                  onMouseLeave={(e) =>
+                    (e.target.style.backgroundColor =
+                      selectedCategory === 'Images' ? 'transparent' : 'transparent')
+                  }
+                >
+                  IMAGES
                 </Button>
               </Nav.Item>
               <Nav.Item className="mx-5">
-                <Button onClick={categoryHandler} className="nav-link">
-                  Videos
+                <Button
+                  onClick={categoryHandler}
+                  className={`nav-link nav-button-style ${
+                    selectedCategory === 'Videos' ? 'nav-button-selected-style' : ''
+                  }`}
+                  onMouseEnter={(e) => (e.target.style.backgroundColor = '#348B81')}
+                  onMouseLeave={(e) =>
+                    (e.target.style.backgroundColor =
+                      selectedCategory === 'Videos' ? 'transparent' : 'transparent')
+                  }
+                >
+                  VIDEOS
                 </Button>
               </Nav.Item>
               <Nav.Item className="mx-5">
-                <Button onClick={categoryHandler} className="nav-link">
-                  Music
+                <Button
+                  onClick={categoryHandler}
+                  className={`nav-link nav-button-style ${
+                    selectedCategory === 'Music' ? 'nav-button-selected-style' : ''
+                  }`}
+                  onMouseEnter={(e) => (e.target.style.backgroundColor = '#348B81')}
+                  onMouseLeave={(e) =>
+                    (e.target.style.backgroundColor =
+                      selectedCategory === 'Music' ? 'transparent' : 'transparent')
+                  }
+                >
+                  MUSIC
                 </Button>
               </Nav.Item>
               <Nav.Item className="mx-5">
-                <Button onClick={categoryHandler} className="nav-link">
-                  Services
+                <Button
+                  onClick={categoryHandler}
+                  className={`nav-link nav-button-style ${
+                    selectedCategory === 'Services' ? 'nav-button-selected-style' : ''
+                  }`}
+                  onMouseEnter={(e) => (e.target.style.backgroundColor = '#348B81')}
+                  onMouseLeave={(e) =>
+                    (e.target.style.backgroundColor =
+                      selectedCategory === 'Services' ? 'transparent' : 'transparent')
+                  }
+                >
+                  SERVICES
                 </Button>
               </Nav.Item>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
         
-        
-        <div className="d-flex justify-content-start my-2" style={minMaxInputContainerStyle}>
+        <div className="d-flex justify-content-start my-2 min-max-input-container-style">
           <div className="d-flex flex-column me-1">
             <label htmlFor="min-price" className="form-label">
               Min price
             </label>
             <input
               type="number"
-              className="form-control"
+              className="form-control min-max-input-style"
               id="min-price"
               aria-label="Min price"
-              style={minMaxInputStyle}
             />
           </div>
           <div className="d-flex flex-column">
@@ -134,10 +139,9 @@ const ProductNavBar = ({ setSearchCategory, setFilter,setSearchTerm }) => {
             </label>
             <input
               type="number"
-              className="form-control"
+              className="form-control min-max-input-style"
               id="max-price"
               aria-label="Max price"
-              style={minMaxInputStyle}
             />
           </div>
           <div className="d-flex align-items-end">
@@ -145,20 +149,20 @@ const ProductNavBar = ({ setSearchCategory, setFilter,setSearchTerm }) => {
           </div>
         </div>
 
-        <div className="d-flex justify-content-between align-items-center my-2" style={minMaxInputContainerStyle}>
+        <div className="d-flex justify-content-between align-items-center my-2 min-max-input-container-style">
           <div>
             <span>
-              <h4 style={blackTextStyle}>Showing 1,405 results</h4>
+              <h4 className="black-text-style">Showing 1,405 results</h4>
             </span>
           </div>
-          <div style={dropDownContainerStyle}>
+          <div className="drop-down-container-style">
             <InputGroup>
               <DropdownButton
                 variant="outline-secondary"
                 title="Filter"
                 id="sort-dropdown"
                 align="end"
-                style={customDropdownBtnStyle}
+                className="custom-dropdown-btn-style"
                 onSelect={filterChangeHandler}
               >
                 <Dropdown.Item eventKey="priceLowToHigh">Price: Low to High</Dropdown.Item>
@@ -173,3 +177,4 @@ const ProductNavBar = ({ setSearchCategory, setFilter,setSearchTerm }) => {
 };
 
 export default ProductNavBar;
+

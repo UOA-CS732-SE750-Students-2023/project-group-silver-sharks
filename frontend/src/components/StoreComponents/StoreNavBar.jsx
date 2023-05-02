@@ -21,6 +21,7 @@ const StoreNavBar = (props) => {
     const showCartHandler = () => {
         props.showCart();
     }
+    const itemsincart=16;
 
     return (
         <header className="store-navbar-container">
@@ -30,8 +31,12 @@ const StoreNavBar = (props) => {
                 </div>
                 <div className="store-navbar-action-row">
                     <div className="brand-name"><b>SHARKET</b>PLACE</div>
-                    <div className="sell-asset-wrapper"><button className="store-page-sell-asset-btn" onClick={sellAssetNavigationHandler}>Sell Assets</button></div>
-                    <div className="cart-icon-wrapper"><ShoppingCartIcon fontSize='large'  onClick={showCartHandler}/></div>
+                    <div className="sell-asset-wrapper"><button className="store-page-sell-asset-btn" onClick={sellAssetNavigationHandler}>Sell asset</button></div>
+                    <div className="cart-icon-wrapper"><ShoppingCartIcon fontSize='large'  onClick={showCartHandler}/>
+                        <div className="cart-items-number">
+                                {itemsincart > 0 && <div className="items-number">{itemsincart}</div>}
+                            </div>
+                    </div>
                     <div className="menu-icon-wrapper"><MenuIcon fontSize='large' onClick={profileNavigationHandler}/></div>
                 </div>
 

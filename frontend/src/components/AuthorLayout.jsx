@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSubmit } from "react-router-dom";
 import { InputGroup, DropdownButton, Dropdown } from 'react-bootstrap';
 import Card from '../pages/ui/Card';
 import { StarFill } from 'react-bootstrap-icons';
 import classes from '../pages/ui/Card.module.css'
 import './AuthorLayout.css'
 
-const AuthorLayout = ({ author }) => { 
+const AuthorLayout = ({ author, userAccountType }) => { 
+    const submit = useSubmit();
+    // checking the account type of the author 
+    const isAdmin = (userAccountType === "admin");
 
+    console.log("++++++++++++++++++++++++++++++++++++++++++")
+    console.log(isAdmin, 14);
+    console.log("++++++++++++++++++++++++++++++++++++++++++")
 
     // calculating assets sold and the average rating 
     let averageRatingTemp = 0;
@@ -28,10 +34,18 @@ const AuthorLayout = ({ author }) => {
         } else {
           setTitle('Sort by: Price: High to Low');
         }
-      };
+    };
+
+    const deleteAccountHandler = () => {
+        const proceed = window.confirm('Are you sure?');
+
+        if (proceed){
+            submit(null, { method: 'DELETE' });
+        }
+    }
 
     return (
-        <div>
+        <div className='a_allcontainer'>
             <div className='a_firstdiv'>
                 <h1 className='a_authorname'>{author.username}</h1>
                 <div className='a_forcontainbutton'>
@@ -42,9 +56,9 @@ const AuthorLayout = ({ author }) => {
                     {/* <button className='a_message'>Message</button> */}
                 </div>
                 {/* 此处在另外一个页面删掉 */}
-                <div className='a_forcontainlink'>
-                    <Link to="/Delete_account">Delete account</Link>
-                </div>
+                {isAdmin && <div className='a_forcontainlink'>
+                    <button onClick={deleteAccountHandler}>Delete Account</button>
+                </div>}
                 {/* 结束删除 */}
             </div>
             <div className='a_tablecontainer'>
@@ -92,22 +106,25 @@ const AuthorLayout = ({ author }) => {
                     {author.sellingProducts.map((item) => (
                     <li key={item._id} className="col-sm-4">
                         <Card>
-                            <div >
-                                <div className={`${classes.imgcontainer}`}>
+                            <div className={`${classes.authorpagecard}`}>
+                                <div className={`${classes.authorimgcontainer}`}>
                                     <img src={'http://localhost:3000/uploads/' + item.coverImage}/>
                                 </div>
-                                <div className="d-flex justify-content-between">
-                                    <div><Link id="productLink" to={`/store/product/${item._id}`}><h2>{item.name}</h2></Link></div>
-                                    <div className={`${classes.price}`}  >
-                                        <span className="fs-4">${Math.floor(item.price)}</span>
-                                        <span className={`${classes.number}`}>{(item.price % 1).toFixed(2).split('.')[1]}</span>
+                                <div className={`${classes.contentcontainer}`}>
+                                    <div className="d-flex justify-content-between">
+                                        <div><Link id="productLink" to={`/store/product/${item._id}`}><h2>{item.name}</h2></Link></div>
+                                        <div className={`${classes.price}`}  >
+                                            <h1>${Math.floor(item.price)}
+                                            <span>{(item.price % 1).toFixed(2).split('.')[1]}</span>
+                                            </h1>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <p>{item.description}</p>
-                                <div className="d-flex justify-content-between">
-                                    <h5>{item.amountSold} Sold</h5>
-                                    <h5 className="float-right"> <StarFill color="black" size={18} />&nbsp;{item.averageRating.toFixed(1)}</h5>
+                                    <p>{item.description}</p>
+                                    <div className="d-flex justify-content-between">
+                                        <h5>{item.amountSold} Sold</h5>
+                                        <h5 className="float-right"> <StarFill color="black" size={18} />&nbsp;{item.averageRating.toFixed(1)}</h5>
+                                    </div>
                                 </div>
                             </div>
                         </Card> 

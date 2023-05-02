@@ -278,3 +278,41 @@
   border-top: 2px solid #EAEAEA;
 } */
 
+.rating-fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.rating-legend {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.rating-options {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.rating-label {
+  margin-right: 10px;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+.rating-input {
+  appearance: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  outline: none;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.rating-input:checked {
+  background-color: #ffc107;
+  border-color: #ffc107;
+}

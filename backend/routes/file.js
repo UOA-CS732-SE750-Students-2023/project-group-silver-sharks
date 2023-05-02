@@ -1,6 +1,8 @@
 import express from "express";
 import multer from "multer";
 import path from "path";
+import fs from "fs";
+import archiver from "archiver";
 import { StatusCodes } from "http-status-codes";
 import { addCoverImage, addImages, addDownloadFiles } from "../dao/file-dao.js";
 
@@ -72,7 +74,7 @@ fileRouter.post(
   }
 );
 
-// Endpoint 3: POST - Upload files for Videos, Music, or Images
+// Endpoint 2: POST - Upload files for Videos, Music, or Images
 fileRouter.post(
   "/upload-downloadfiles/:productId",
   downloadFileUpload.array("files"),
@@ -86,5 +88,41 @@ fileRouter.post(
       .json({ message: "file uploaded successfully" });
   }
 );
+
+// Endpoint 3: GET - Download product files on client side
+fileRouter.get("/download/:productId", async (req, res) => {
+  console.log(req.params.productId);
+  const productId = req.params.productId;
+  const directoryPath = "./public/downloadFiles";
+
+  fs.readdir(directoryPath, (err, files) => {
+    if (err) {
+      return res
+        .status(StatusCodes.INTERNAL_SERVER_ERROR)
+        .json({ message: "Unable to scan directory" });
+    }
+
+    const filteredFiles = files.filter((file) => file.includes(productId));
+
+    // Create a zip archive
+    const archive = archiver("zip");
+    res.setHeader("Content-Type", "application/zip");
+    res.setHeader(
+      "Content-Disposition",
+      `attachment; filename=product_files.zip`
+    );
+
+    archive.pipe(res);
+
+    // Add the filtered files to the archive
+    for (const file of filteredFiles) {
+      const filePath = path.join(directoryPath, file);
+      archive.append(fs.createReadStream(filePath), { name: file });
+    }
+
+    // Finalize the archive
+    archive.finalize();
+  });
+});
 
 export default fileRouter;

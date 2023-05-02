@@ -1,3 +1,7 @@
+.a_allcontainer{
+    background-color: #F1F1F1;
+    padding: 20px;
+}
 .a_firstdiv{
     margin: 20px 160px;
 }
@@ -114,4 +118,8 @@
 }
 .a_cardpart2{
     margin: 30px 160px 100px 160px;
+}
+.a_cardpart2 li{
+    margin-bottom: 20px;
+
 }

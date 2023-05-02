@@ -47,7 +47,7 @@ productRouter.use(passport.initialize());
 productRouter.use(passport.session());
 
 // endpoint 1: GET - paginated products
-productRouter.get("/products", async (req, res) => {
+productRouter.get("/products", isLoggedIn, async (req, res) => {
   // retrieving the query params
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 10;
@@ -69,7 +69,7 @@ productRouter.get("/products", async (req, res) => {
 // endpoint 2: POST - adding product
 // NOTE: the product needs to be registered with a user
 // path param userId
-productRouter.post("/products/sell/:userId", async (req, res) => {
+productRouter.post("/products/sell/:userId", isLoggedIn, async (req, res) => {
   const userId = req.params.userId;
   const product = req.body;
 
@@ -96,7 +96,7 @@ productRouter.post("/products/sell/:userId", async (req, res) => {
 });
 
 // endpoint 3: PUT - editing product
-productRouter.put("/products/:productId", async (req, res) => {
+productRouter.put("/products/:productId", isLoggedIn, async (req, res) => {
   try {
     const productId = req.params.productId;
     const updatedProductData = req.body;
@@ -116,7 +116,7 @@ productRouter.put("/products/:productId", async (req, res) => {
 
 // endpoint 4: GET filter by category
 // query param ?category=<category>&page=<page>&limit=<limit>
-productRouter.get("/products/filter", async (req, res) => {
+productRouter.get("/products/filter", isLoggedIn, async (req, res) => {
   // retrieving query params
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 10;
@@ -145,7 +145,7 @@ productRouter.get("/products/filter", async (req, res) => {
 // endpoint 5: GET product by
 // query param ?search=<search>&page=<page>&limit=<limit>
 // search only works for product.name
-productRouter.get("/products/search", async (req, res) => {
+productRouter.get("/products/search", isLoggedIn, async (req, res) => {
   // retrieving the query params
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 10;
@@ -173,7 +173,7 @@ productRouter.get("/products/search", async (req, res) => {
 });
 
 // endpoint 6: GET single product by id
-productRouter.get("/products/:id", async (req, res) => {
+productRouter.get("/products/:id", isLoggedIn, async (req, res) => {
   // retrieving the path params
   const id = req.params.id;
 
@@ -197,7 +197,7 @@ productRouter.get("/products/:id", async (req, res) => {
 });
 
 // endpoint 7: DELETE - removing a product
-productRouter.delete("/products/:productId", async (req, res) => {
+productRouter.delete("/products/:productId", isLoggedIn, async (req, res) => {
   try {
     const productId = req.params.productId;
 
@@ -248,13 +248,16 @@ productRouter.delete("/products/:productId", async (req, res) => {
 });
 
 // endpoint 8: POST - buy product
-productRouter.post("/products/buy/:productId", async (req, res) => {
+productRouter.post("/products/buy/", isLoggedIn, async (req, res) => {
   try {
-    const productId = req.params.productId;
     // const accountId = req.user._id;
     const accountId = req.query.accountId;
+    const products = req.body;
 
-    await registerBuyingProductWithAccount(productId, accountId);
+    for (const product of products) {
+      const productId = product._id;
+      await registerBuyingProductWithAccount(productId, accountId);
+    }
 
     return res
       .status(StatusCodes.OK)

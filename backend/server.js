@@ -15,19 +15,19 @@ import stripeRouter from "./routes/stripe.js";
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors());
+//app.use(cors());
 
 app.use(express.json());
 
 // handle the cors error
-/*
+
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET,POST,PATCH,DELETE,PUT");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   next();
 });
-*/
+
 
 // Connect to database
 connectDB();

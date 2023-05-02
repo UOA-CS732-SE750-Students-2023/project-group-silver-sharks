@@ -8,12 +8,13 @@ import {
   getCartContents,
 } from "../dao/account-dao.js";
 
-
 import { ReasonPhrases, StatusCodes } from "http-status-codes";
 import passport from "passport";
 import session from "express-session";
 import { Account } from "../models/accountModel.js";
 import { Product } from "../models/productModel.js";
+import { ProductReview } from "../models/productReviewModel.js";
+import mongoose from "mongoose";
 
 const accountRouter = new express.Router();
 
@@ -39,7 +40,6 @@ function isLoggedIn(req, res, next) {
       });
     }
   } else {
-
     return res.status(401).send({ message: "Unauthorizedd" });
   }
 }
@@ -56,7 +56,7 @@ accountRouter.use(passport.session());
  * Request body: username
  */
 
-// if username already exists 410 
+// if username already exists 410
 // if username is invalid then 409
 accountRouter.post("/account/username", async (req, res) => {
   try {
@@ -97,13 +97,13 @@ accountRouter.get("/account", isLoggedIn, async (req, res) => {
 /**
  * Endpoint 3: GET /account/id/{id}
  * Get account by id.
- * 
+ *
  * // passing in 0 returns the current user
  */
 accountRouter.get("/account/id/:id", isLoggedIn, async (req, res) => {
   const id = req.params.id === "0" ? req.user.id : req.params.id;
   const account = await getAccountById(id);
-  console.log(account)
+  console.log(account);
   return res.status(StatusCodes.OK).json(account);
 });
 
@@ -173,8 +173,68 @@ accountRouter.put("/account/id/:id", isLoggedIn, isAdmin, async (req, res) => {
  * Delete your own account
  */
 accountRouter.delete("/account", isLoggedIn, async (req, res) => {
-  await deleteAccount(req.user.id);
-  return res.json({ message: 'Account deleted successfully' });
+  try {
+    const account = await Account.findById(req.user.id);
+
+    // If account not found
+    if (!account) {
+      return res.status(404).json({ message: "Account not found" });
+    }
+
+    if (account.sellingProducts && account.sellingProducts.length > 0) {
+      for (const productId of account.sellingProducts) {
+        // DELETE PRODUCT
+        try {
+          const deletedProduct = await Product.findByIdAndRemove(productId);
+
+          // delete all reviews for product
+          ProductReview.deleteMany({ product: productId });
+
+          // delete product from account's purchased products
+          try {
+            const result = await Account.updateMany(
+              { productsPurchased: { $in: [productId] } },
+              { $pull: { productsPurchased: productId } }
+            );
+            console.log(`Removed product ${productId} from all accounts.`);
+          } catch (error) {
+            console.error(
+              "Error while removing product from purchased products:",
+              error
+            );
+          }
+
+          // delete products from account's selling products
+          try {
+            const result = await Account.updateMany(
+              { sellingProducts: { $in: [productId] } },
+              { $pull: { sellingProducts: productId } }
+            );
+            console.log(`Removed product ${productId} from all accounts.`);
+          } catch (error) {
+            console.error(
+              "Error while removing product from selling products:",
+              error
+            );
+          }
+
+          if (!deletedProduct) {
+            return res
+              .status(StatusCodes.NOT_FOUND)
+              .send("Error deleting one of the user's products");
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    }
+
+    await deleteAccount(req.user.id);
+    return res.json({ message: "Account deleted successfully" });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send("Error deleting account");
+  }
 });
 
 /**
@@ -186,10 +246,68 @@ accountRouter.delete(
   isLoggedIn,
   isAdmin,
   async (req, res) => {
-    await deleteAccount(req.params.id);
-    return res.json({
-      message: "Account of user " + req.params.id + " deleted successfully",
-    });
+    try {
+      const account = await Account.findById(req.params.id);
+
+      // If account not found
+      if (!account) {
+        return res.status(404).json({ message: "Account not found" });
+      }
+
+      if (account.sellingProducts && account.sellingProducts.length > 0) {
+        for (const productId of account.sellingProducts) {
+          // DELETE PRODUCT
+          try {
+            const deletedProduct = await Product.findByIdAndRemove(productId);
+
+            // delete all reviews for product
+            ProductReview.deleteMany({ product: productId });
+
+            // delete product from account's purchased products
+            try {
+              const result = await Account.updateMany(
+                { productsPurchased: { $in: [productId] } },
+                { $pull: { productsPurchased: productId } }
+              );
+              console.log(`Removed product ${productId} from all accounts.`);
+            } catch (error) {
+              console.error(
+                "Error while removing product from purchased products:",
+                error
+              );
+            }
+
+            // delete products from account's selling products
+            try {
+              const result = await Account.updateMany(
+                { sellingProducts: { $in: [productId] } },
+                { $pull: { sellingProducts: productId } }
+              );
+              console.log(`Removed product ${productId} from all accounts.`);
+            } catch (error) {
+              console.error(
+                "Error while removing product from selling products:",
+                error
+              );
+            }
+
+            if (!deletedProduct) {
+              return res
+                .status(StatusCodes.NOT_FOUND)
+                .send("Error deleting one of the user's products");
+            }
+          } catch (error) {
+            console.log(error);
+          }
+        }
+      }
+
+      await deleteAccount(req.params.id);
+      return res.json({ message: "Account deleted successfully" });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send("Error deleting account");
+    }
   }
 );
 
@@ -213,7 +331,7 @@ accountRouter.get("/account/id/:id/purchased", isLoggedIn, async (req, res) => {
  * Get user's selling items
  * path param: user id
  */
-accountRouter.get("/account/id/:id/selling", async (req, res) => {
+accountRouter.get("/account/id/:id/selling", isLoggedIn, async (req, res) => {
   try {
     const id = req.params.id === "0" ? req.user.id : req.params.id;
     const sellingProducts = await getSellingProductsById(id);
@@ -243,36 +361,40 @@ accountRouter.get("/account/cart", isLoggedIn, async (req, res) => {
  * Add an item to cart
  */
 accountRouter.post("/account/cart/pid/:pid", isLoggedIn, async (req, res) => {
-  const productId = req.params.pid
+  const productId = req.params.pid;
   const userId = req.user.id;
-  
+
   try {
     // Check if the product exists
     const product = await Product.findById(productId);
     if (!product) {
-      return res.status(404).json({ message: 'Product not found' });
+      return res.status(404).json({ message: "Product not found" });
     }
 
     // Check if the user exists
     const account = await Account.findById(userId);
     if (!account) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: "User not found" });
     }
 
     // Check if the product is already in the user's cart
-    const productInCart = account.cartContents.find(item => item.product.toString() === productId);
+    const productInCart = account.cartContents.find(
+      (item) => item.product.toString() === productId
+    );
     if (productInCart) {
-      return res.status(400).json({ message: 'Product is already in cart' });
+      return res.status(400).json({ message: "Product is already in cart" });
     }
 
     // Add the product to the user's cartContents
     account.cartContents.push({ product: productId });
     await account.save();
 
-    res.status(200).json({ message: 'Product added to cart' });
+    res.status(200).json({ message: "Product added to cart" });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: 'Server error: product id may be invalid' });
+    res
+      .status(500)
+      .json({ message: "Server error: product id may be invalid" });
   }
 });
 
@@ -288,47 +410,62 @@ accountRouter.delete("/account/cart/pid/:pid", isLoggedIn, async (req, res) => {
     // Check if the user exists
     const account = await Account.findById(userId);
     if (!account) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: "User not found" });
     }
 
     // Check if the product is in the user's cart
-    const productIndex = account.cartContents.findIndex(item => item.product.toString() === productId);
+    const productIndex = account.cartContents.findIndex(
+      (item) => item.product.toString() === productId
+    );
     if (productIndex === -1) {
-      return res.status(404).json({ message: 'Product not found in cart' });
+      return res.status(404).json({ message: "Product not found in cart" });
     }
 
     // Remove the product from the user's cartContents
     account.cartContents.splice(productIndex, 1);
     await account.save();
 
-    res.status(200).json({ message: 'Product removed from cart' });
+    res.status(200).json({ message: "Product removed from cart" });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: 'Server error: product id may be invalid' });
+    res
+      .status(500)
+      .json({ message: "Server error: product id may be invalid" });
   }
 });
 
-// TEST ENDPOINT FOR ADDING PURCHASED PRODUCTS
-accountRouter.put("/account/:id/products", async (req, res) => {
-  try {
-    const accountId = req.params.id;
-    const products = req.body.products;
+/**
+ * Endpoint 14: GET /account/is-in-cart/pid/{pid}
+ * Checks whether an item is in the user's cart
+ */
+accountRouter.get(
+  "/account/is-in-cart/pid/:pid",
+  isLoggedIn,
+  async (req, res) => {
+    try {
+      const pid = req.params.pid;
+      const id = req.user.id;
 
-    // check if account exists
-    const account = await Account.findById(accountId);
-    if (!account) {
-      return res.status(404).json({ message: "Account not found" });
+      if (!mongoose.Types.ObjectId.isValid(pid)) {
+        return res.status(400).send({ message: "Invalid product id." });
+      }
+
+      const account = await Account.findById(id);
+
+      if (!account) {
+        return res.status(404).send({ message: "Account not found." });
+      }
+
+      const productInCart = account.cartContents.some(
+        (item) => item.product._id.toString() === pid
+      );
+
+      return res.status(200).send({ isInCart: productInCart });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).send({ message: error.message });
     }
-
-    // add products to the productsPurchased field
-    account.productsPurchased.push(...products);
-    await account.save();
-
-    res.status(200).json({ message: "Products added to account successfully" });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Server error" });
   }
-});
+);
 
 export default accountRouter;
