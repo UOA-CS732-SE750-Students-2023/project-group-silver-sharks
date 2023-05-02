@@ -42,7 +42,7 @@ const PaymentForm = ({ cartContentsData }) => {
         }
 
         try {
-            const response = await axios.post('/create-payment-intent', { amount: price });
+            const response = await axios.post('/create-payment-intent', { amount: calculateTotalPrice });
 
             const clientSecret = response.data;
 
