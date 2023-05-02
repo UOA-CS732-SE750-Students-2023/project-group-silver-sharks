@@ -13,6 +13,7 @@ import passport from "passport";
 import session from "express-session";
 import { Account } from "../models/accountModel.js";
 import { Product } from "../models/productModel.js";
+import { ProductReview } from "../models/productReviewModel.js";
 import mongoose from "mongoose";
 
 const accountRouter = new express.Router();
@@ -172,8 +173,68 @@ accountRouter.put("/account/id/:id", isLoggedIn, isAdmin, async (req, res) => {
  * Delete your own account
  */
 accountRouter.delete("/account", isLoggedIn, async (req, res) => {
-  await deleteAccount(req.user.id);
-  return res.json({ message: "Account deleted successfully" });
+  try {
+    const account = await Account.findById(req.user.id);
+
+    // If account not found
+    if (!account) {
+      return res.status(404).json({ message: "Account not found" });
+    }
+
+    if (account.sellingProducts && account.sellingProducts.length > 0) {
+      for (const productId of account.sellingProducts) {
+        // DELETE PRODUCT
+        try {
+          const deletedProduct = await Product.findByIdAndRemove(productId);
+
+          // delete all reviews for product
+          ProductReview.deleteMany({ product: productId });
+
+          // delete product from account's purchased products
+          try {
+            const result = await Account.updateMany(
+              { productsPurchased: { $in: [productId] } },
+              { $pull: { productsPurchased: productId } }
+            );
+            console.log(`Removed product ${productId} from all accounts.`);
+          } catch (error) {
+            console.error(
+              "Error while removing product from purchased products:",
+              error
+            );
+          }
+
+          // delete products from account's selling products
+          try {
+            const result = await Account.updateMany(
+              { sellingProducts: { $in: [productId] } },
+              { $pull: { sellingProducts: productId } }
+            );
+            console.log(`Removed product ${productId} from all accounts.`);
+          } catch (error) {
+            console.error(
+              "Error while removing product from selling products:",
+              error
+            );
+          }
+
+          if (!deletedProduct) {
+            return res
+              .status(StatusCodes.NOT_FOUND)
+              .send("Error deleting one of the user's products");
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    }
+
+    await deleteAccount(req.user.id);
+    return res.json({ message: "Account deleted successfully" });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send("Error deleting account");
+  }
 });
 
 /**
@@ -185,10 +246,68 @@ accountRouter.delete(
   isLoggedIn,
   isAdmin,
   async (req, res) => {
-    await deleteAccount(req.params.id);
-    return res.json({
-      message: "Account of user " + req.params.id + " deleted successfully",
-    });
+    try {
+      const account = await Account.findById(req.params.id);
+
+      // If account not found
+      if (!account) {
+        return res.status(404).json({ message: "Account not found" });
+      }
+
+      if (account.sellingProducts && account.sellingProducts.length > 0) {
+        for (const productId of account.sellingProducts) {
+          // DELETE PRODUCT
+          try {
+            const deletedProduct = await Product.findByIdAndRemove(productId);
+
+            // delete all reviews for product
+            ProductReview.deleteMany({ product: productId });
+
+            // delete product from account's purchased products
+            try {
+              const result = await Account.updateMany(
+                { productsPurchased: { $in: [productId] } },
+                { $pull: { productsPurchased: productId } }
+              );
+              console.log(`Removed product ${productId} from all accounts.`);
+            } catch (error) {
+              console.error(
+                "Error while removing product from purchased products:",
+                error
+              );
+            }
+
+            // delete products from account's selling products
+            try {
+              const result = await Account.updateMany(
+                { sellingProducts: { $in: [productId] } },
+                { $pull: { sellingProducts: productId } }
+              );
+              console.log(`Removed product ${productId} from all accounts.`);
+            } catch (error) {
+              console.error(
+                "Error while removing product from selling products:",
+                error
+              );
+            }
+
+            if (!deletedProduct) {
+              return res
+                .status(StatusCodes.NOT_FOUND)
+                .send("Error deleting one of the user's products");
+            }
+          } catch (error) {
+            console.log(error);
+          }
+        }
+      }
+
+      await deleteAccount(req.params.id);
+      return res.json({ message: "Account deleted successfully" });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send("Error deleting account");
+    }
   }
 );
 
@@ -212,7 +331,7 @@ accountRouter.get("/account/id/:id/purchased", isLoggedIn, async (req, res) => {
  * Get user's selling items
  * path param: user id
  */
-accountRouter.get("/account/id/:id/selling", async (req, res) => {
+accountRouter.get("/account/id/:id/selling", isLoggedIn, async (req, res) => {
   try {
     const id = req.params.id === "0" ? req.user.id : req.params.id;
     const sellingProducts = await getSellingProductsById(id);
@@ -348,28 +467,5 @@ accountRouter.get(
     }
   }
 );
-
-// TEST ENDPOINT FOR ADDING PURCHASED PRODUCTS
-accountRouter.put("/account/:id/products", async (req, res) => {
-  try {
-    const accountId = req.params.id;
-    const products = req.body.products;
-
-    // check if account exists
-    const account = await Account.findById(accountId);
-    if (!account) {
-      return res.status(404).json({ message: "Account not found" });
-    }
-
-    // add products to the productsPurchased field
-    account.productsPurchased.push(...products);
-    await account.save();
-
-    res.status(200).json({ message: "Products added to account successfully" });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Server error" });
-  }
-});
 
 export default accountRouter;
