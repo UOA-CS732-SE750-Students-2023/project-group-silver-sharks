@@ -8,6 +8,8 @@ import {
 } from "react-router-dom";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import "./SellAssetLayout.css";
+import ChatHolder from "./ChatHolder";
+
 
 const SellAssetLayout = ({ userId }) => {
   const [enteredTitle, setEnteredTitle] = useState("");
@@ -267,6 +269,7 @@ const SellAssetLayout = ({ userId }) => {
           </form>
         </Col>        
       </Row>
+      <ChatHolder/>
     </Container>
   );
 };
