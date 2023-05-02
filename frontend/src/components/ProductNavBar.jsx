@@ -6,16 +6,17 @@ import './ProductNavBar.css'; // 引入新的 CSS 文件
 const ProductNavBar = ({ setSearchCategory, setFilter, setSearchTerm }) => {
   const [selectedCategory, setSelectedCategory] = useState('');
 
-  const searchInputStyle = {
-    borderRadius: '25px',
-    border: '2px solid black',
-    paddingRight: '40px',
-    paddingLeft: '20px',
-  };
+  // const searchInputStyle = {
+  //   borderRadius: '25px',
+  //   border: '2px solid black',
+  //   paddingRight: '40px',
+  //   paddingLeft: '20px',
+  //   backgroundColor:'#F1F1F1',
+  // };
 
   const searchIconStyle = {
     position: 'absolute',
-    right: '10px',
+    right: '35px',
     top: '50%',
     transform: 'translateY(-50%)',
     cursor: 'pointer',
@@ -33,22 +34,26 @@ const ProductNavBar = ({ setSearchCategory, setFilter, setSearchTerm }) => {
     setSearchTerm(event.target.value);
   }
 
+  const [p_title, setTitle] = useState('Sort by :\u00A0\u00A0\u00A0Default');
+
   const filterChangeHandler = (event) => {
     setFilter(event);
+    setTitle(`Sort by: ${event}`);
   }
+  
 
   return (
     <div className="gray-background-style">
       <>
         <Form className="d-flex justify-content-center mb-3" style={{ position: 'relative' }}>
-          <div className="input-group" style={{ width: '25%', margin: '35px', }}>
+          <div className="input-group container-of-input">
             <input
               type="search"
-              className="form-control"
+              className="form-control search-input-style"
               placeholder="Search for a digital asset"
               aria-label="Search"
               onChange={searchChangeHandler}
-              style={searchInputStyle}
+              // style={searchInputStyle}
             />
             <i className="bi bi-search" style={searchIconStyle}></i>
           </div>
@@ -159,7 +164,7 @@ const ProductNavBar = ({ setSearchCategory, setFilter, setSearchTerm }) => {
             <InputGroup>
               <DropdownButton
                 variant="outline-secondary"
-                title="Filter"
+                title={p_title}
                 id="sort-dropdown"
                 align="end"
                 className="custom-dropdown-btn-style"
