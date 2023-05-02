@@ -5,6 +5,7 @@ import { InputGroup, DropdownButton, Dropdown } from 'react-bootstrap';
 import "./ProductLayout.css";
 import "./AddReviewForm.css"
 
+
 const ProductLayout = ({ product, author, reviews, userType }) => {
   
   console.log("review: " + reviews , 9)
