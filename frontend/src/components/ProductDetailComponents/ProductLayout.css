@@ -23,17 +23,17 @@
 .product-details,
 .product-reviews {
   width: 80%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
+  /* max-width: 1200px; */
+  margin: 0 10%;
+  /* padding: 20px; */
   /* border-radius: 4px; */
   margin-top: 20px;
-  margin-bottom: 100px;
+  margin-bottom: 120px;
 }
 
 .product-details {
   
-  padding: 20px;
+  /* padding: 20px; */
   /* border-radius: 4px; */
   margin-bottom: 40px;
 }
@@ -59,6 +59,7 @@
 .product-left {
   flex: 1;
   background-color: #fff;
+  overflow: hidden;
 }
 
 .cardcontent_container{
@@ -76,7 +77,8 @@
 }
 
 .product-left img {
-  max-width: 100%;
+  /* max-width: 100%; */
+  width:100%;
   height: auto;
   object-fit: cover;
   margin-bottom: 20px;
@@ -213,13 +215,13 @@
 
 .reviews-container {
   position: relative;
-  padding-left: 20px;
+  /* padding-left: 20px; */
   padding-top: 40px;
 }
 
 .reviews-container h2 {
   margin-bottom: 0px;
-  margin-left: 130px;
+  margin-left: 10%;
   font-family: Poppins;
   font-size: 24px;
   font-weight: 600;
