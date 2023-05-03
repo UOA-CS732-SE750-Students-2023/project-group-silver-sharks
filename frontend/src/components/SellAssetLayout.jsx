@@ -200,26 +200,29 @@ const SellAssetLayout = ({ userId }) => {
             </div>
             <div className="upload-container">
               <p>Add Cover image</p>
+              <label htmlFor="cover-image" className="file-label">Browse</label>
               <input
                 type="file"
                 name="cover-image"
                 id="cover-image"
                 onChange={coverImageChangeHandler}
                 multiple
-          
+                className="file-input"
+                style={{ display: "none" }}
               />
-              {/* <label htmlFor="files" className="browse-button">Browse</label> */}
             </div>
             <div className="upload-container">
               <p>Add product files</p>
+              <label htmlFor="multiple-files" className="file-label">Browse</label>
               <input
                 type="file"
                 name="files"
                 id="multiple-files"
                 onChange={filesChangeHandler}
                 multiple
+                className="file-input"
+                style={{ display: "none" }}
               />
-              {/* <label htmlFor="files" className="browse-button">Browse</label> */}
             </div>
             <div className="form-group">
               <input
@@ -261,7 +264,12 @@ const SellAssetLayout = ({ userId }) => {
                 variant="primary"
                 type="submit"
                 className="mt-4"
-                style={{ backgroundColor: "#348B81" }}
+                style={{ 
+                  backgroundColor: "#348B81", 
+                  border: "none", 
+                  borderRadius: "25px",
+                  padding: "10px 30px",
+                }}
               >
                 List asset
               </Button>

@@ -116,7 +116,7 @@
   border-color: #348B81;
 }
 
-.browse-button {
+/* .browse-button {
   display: inline-block;
   padding: 5px 10px;
   border-radius: 15px;
@@ -127,4 +127,41 @@
 
 .btn {
   border-radius: 15px;
+} */
+
+.file-input {
+  background-color: #ffffff;
+  color: #000000;
+  padding: 5px 10px;
+  border: 2px solid #000000;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  outline: none;
+  display: inline-block;
+}
+
+.file-input:hover {
+  background-color: #348B81;
+  color: #ffffff;
+}
+
+.file-label {
+  background-color: #ffffff;
+  color: #000000;
+  padding: 10px 30px;
+  border: 2px solid #000000;
+  border-radius: 25px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  outline: none;
+  display: inline-block;
+}
+
+.file-label:hover {
+  border: none;
+  background-color: #348B81;
+  color: #ffffff;
 }
