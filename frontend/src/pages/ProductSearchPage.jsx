@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { useLoaderData, json } from "react-router-dom";
 import ProductNavBar from "../components/ProductNavBar";
 import StoreDisplayLayout from "../components/StoreDisplayLayout";
-import PaginationBar from "../components/PaginationBar";
+import ReactPaginate from 'react-paginate';
+import "../components/PaginationBar.css";
+
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "";
 
@@ -165,19 +167,39 @@ const ProductSearchPage = () => {
           setFilter={filterHandler}
           setSearchTerm={searchByPhraseHandler}
         />
-        <StoreDisplayLayout items={displayedProducts} notFound={notFound}/>
-        <PaginationBar
-          itemsPerPage={ITEMS_PER_PAGE}
-          onItemsChange={pageNumberHandler}
-          itemsLength={displayCount}
-          initialPage={pageNumber}
-          searchTerm={storedSearchTerm}
-          previousIsSearch={isSearchStore}
-          changeState={changeState}
-        />
+        <StoreDisplayLayout items={displayedProducts} notFound={notFound} />
+        <div className="pagination-container">
+          <div className="pagination-wrapper">
+            <ReactPaginate
+              breakLabel="..."
+              nextLabel=">"
+              onPageChange={(data) =>
+                pageNumberHandler(data.selected + 1, storedSearchTerm, isSearchStore)
+              }
+              pageCount={Math.ceil(displayCount / ITEMS_PER_PAGE)}
+              marginPagesDisplayed={1}
+              pageRangeDisplayed={5}
+              previousLabel="<"
+              renderOnZeroPageCount={null}
+              initialPage={0}
+              forcePage={pageNumber - 1}
+              containerClassName="pagination"
+              activeClassName="active"
+              disabledClassName="disabled"
+              pageClassName="page-item"
+              pageLinkClassName="page-link"
+              previousClassName="page-item"
+              nextClassName="page-item"
+              previousLinkClassName="page-link"
+              nextLinkClassName="page-link"
+              breakClassName="page-item"
+              breakLinkClassName="page-link"
+            />
+          </div>
+        </div>
       </div>
     </>
-  );
+  );  
 };
 
 // loader function to fetch all the products in the store and display them initially
