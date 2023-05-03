@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Outlet, useLoaderData, json } from "react-router-dom";
+import { Outlet, useLoaderData, json, redirect } from "react-router-dom";
 import StoreNavBar from "../components/StoreComponents/StoreNavBar";
 import Cart from "../components/cart/Cart";
 import ProfileNavBar from "../components/profile-nav/ProfileNavBar";

@@ -1,14 +1,10 @@
 import React from 'react'; 
-import { json,useNavigate ,useRouteLoaderData, useSubmit} from "react-router-dom";
+import { useNavigate , useSubmit} from "react-router-dom";
 import './DashboardLayout.css'
 
-const DashboardLayout = () => { 
-    
-    const user = useRouteLoaderData('username-loader');
-
+const DashboardLayout = ({ user }) => {     
     const navigate = useNavigate();
     const submit = useSubmit();
-
 
     const navigateViewMyProfile = () => {
         //return author page 
@@ -53,8 +49,6 @@ const DashboardLayout = () => {
                     <div>
                         <button onClick={navigateDeleteAccount}>Delete account</button>
                     </div>
-
-                    
                 </div>
            
             </div>

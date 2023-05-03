@@ -28,6 +28,7 @@ import { loader as sellAssetLoader } from './pages/SellAssetPage';
 import { loader as StripeCartLoader } from './pages/StripePage';
 import { action as deleteAccountAction } from './pages/profile/DashboardPage';
 import { action as deleteOtherAccountAction } from './pages/AuthorPage';
+import { loader as dashboardLoader } from './pages/profile/DashboardPage';
 
 
 const router = createBrowserRouter([
@@ -43,7 +44,7 @@ const router = createBrowserRouter([
       {path: 'payment', element: <StripePage />, loader: StripeCartLoader},
       {path: 'author/:aid', element: <AuthorPage />, loader: authorLoader, action: deleteOtherAccountAction},
       {path: 'profile', element: <ProfileRoot />, children: [
-        {index: true, element: <DashBoardPage />, action: deleteAccountAction},
+        {index: true, element: <DashBoardPage />, loader: dashboardLoader, action: deleteAccountAction},
         {path: 'messages', element: <MessagesPage />},
         {path: 'purchase', element: <PurchasePage />},
         {path: 'selling', element: <SellingPage />},
