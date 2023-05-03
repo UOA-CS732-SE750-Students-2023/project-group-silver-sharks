@@ -1,25 +1,22 @@
-import React from 'react'; 
-import Modal from '../modal/Modal';
-import { DashCircle  } from 'react-bootstrap-icons';
-import './Cart.module.css';
-import classes from '../modal/Modal.module.css';
+import React, { useState, useEffect } from 'react';
+import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import './PaymentForm.css';
 
-
-
-// remember when using value from context, useState does not need to be used 
-// because when the cart data values change the component(s) that use them automatically 
-// rerender
-
-const Cart = (props) => { 
-    
+//const PaymentForm = ({ cartContentsData }) => { UNCOMMENT THIS LINE AFTER CART LOADER IS DONE AND REPLACE DUMMY_DATA
+const PaymentForm = () => {
+    const [loading, setLoading] = useState(false);
+    const stripe = useStripe();
+    const elements = useElements();
     const navigate = useNavigate();
+
     const DUMMY_DATA = [
         {   
             pid: 1,
             aid: 2,
             name: 'goku',
-            price:80.00,
+            price:8000,
             sold:414,
             like:4.8,
             category:'Image',
@@ -32,7 +29,7 @@ const Cart = (props) => {
             pid: 3,
             aid: 4,
             name: 'naruto',
-            price:5.50,
+            price:550,
             sold:8545,
             like:3.2,
             category:'Image',
@@ -45,7 +42,7 @@ const Cart = (props) => {
             pid: 5,
             aid: 6,
             name: 'sasuke',
-            price:11.99,
+            price:1199,
             sold:23,
             like:5.0,
             category:'Image',
@@ -58,7 +55,7 @@ const Cart = (props) => {
             pid: 8,
             aid: 11,
             name: 'goku',
-            price:80.00,
+            price:8000,
             sold:414,
             like:4.8,
             category:'Image',
@@ -71,7 +68,7 @@ const Cart = (props) => {
             pid: 9,
             aid: 55,
             name: 'naruto',
-            price:5.50,
+            price:550,
             sold:8545,
             like:3.2,
             category:'Image',
@@ -84,7 +81,7 @@ const Cart = (props) => {
             pid: 57,
             aid: 67,
             name: 'sasuke',
-            price:11.99,
+            price:1199,
             sold:23,
             like:5.0,
             category:'Image',
@@ -96,89 +93,91 @@ const Cart = (props) => {
         
     ];
 
-    const closeCartHandler = () => {
-        props.closeCart();
-    }
-    // Calculate the price of all items in the shopping cart
-    const totalPrice = DUMMY_DATA.reduce((acc, item) => acc + item.price, 0);
-    
-    //Calculate the number of items in the shopping cart
-    const totalAmount=DUMMY_DATA.length;
-    const itemText = totalAmount > 1 ? 'items' : 'item';
+    console.log("++++++++++++++++++++++++++++++++++++++++++")
+    //console.log(cartContentsData, 15);
+    console.log("++++++++++++++++++++++++++++++++++++++++++")
 
-    const handleClick = ()=>{
-        window.alert("Remove the product from cart.");
-    }
-
-    const checkoutClick = ()=>{
-        navigate('/store/payment');
-    }
     
+
+    const calculateTotalPrice = () => {
+        return DUMMY_DATA.reduce((total, DUMMY_DATA) => total + DUMMY_DATA.price, 0); // TODO
+    };
+    //const price = 1000; // Add the price here, in cents
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        if (!stripe || !elements) {
+            return;
+        }
+
+        setLoading(true);
+
+        const cardElement = elements.getElement(CardElement);
+
+        const { error, paymentMethod } = await stripe.createPaymentMethod({
+            type: 'card',
+            card: cardElement,
+        });
+
+        if (error) {
+            console.error('[error]', error);
+                setLoading(false);
+            return;
+        }
+
+        try {
+            const response = await axios.post('/create-payment-intent', { amount: calculateTotalPrice() });
+
+            const clientSecret = response.data;
+
+            const paymentResult = await stripe.confirmCardPayment(clientSecret, {
+                payment_method: paymentMethod.id,
+            });
+
+            if (paymentResult.error) {
+                console.error('[error]', paymentResult.error);
+            } else {
+                if (paymentResult.paymentIntent.status === 'succeeded') {
+                    console.log('Payment successful');
+                    navigate('/store/profile/purchase');
+                }
+            }
+        } catch (err) {
+            console.error(err.message);
+        }
+
+        setLoading(false);
+    };
 
     return (
-        <Modal onClose={props.closeCart}>
-            <div className={`${classes.cartcontainer}`}>
-                <h2>Shopping cart</h2>
-                <ul className="list-unstyled">
-                    {DUMMY_DATA.map((item) => (
-                        <li key={item.pid}>
-                            <div className={`${classes.pic_d}`}>
-                                <img src={item.url}/>
-                            </div>
-                            
-                            <div className={`${classes.intro_d}`}>
-                                <p className="text-nowrap text-truncate">{item.intro}</p>
-                                <p className={`${classes.cate_color}`}>{item.category}</p>
-                            </div>
-                            
-                            <DashCircle className={`${classes.icon}`}
-                                size={24} 
-                                onClick={handleClick}/>
-
-                            
-                            <div className={`d-flex justify-content-end ${classes.price}`}  >
-                                <h1>${Math.floor(item.price)}
-                                    <span>{(item.price % 1).toFixed(2).split('.')[1]}</span>
-                                </h1>
-                                
-                            </div>
+        <div className="payment-form-container">
+            <div className="form-container">
+                <div className="cart-container">
+                    <h2 className="form-title">Cart Contents</h2>
+                    <ul className="cart-list">
+                    {DUMMY_DATA.map((product, index) => (
+                        <li key={index}>
+                        {product.name} - ${(product.price / 100).toFixed(2)}
                         </li>
                     ))}
-                </ul>
-
-                <div className="border-top border-2"></div>
-
-                <div className={`d-flex justify-content-end ${classes.bottom}`}>
-                    <div className={`d-flex flex-column align-items-end ${classes.c_con}`}>
-                        <h3>Sub-total</h3>
-                        <p>{totalAmount}&nbsp;{itemText}</p>
-                    </div>
-                    
-                    <div className={`${classes.totalprice}`}>
-                        <h1>${Math.floor(totalPrice)}
-                            <span>{(totalPrice % 1).toFixed(2).split('.')[1]}</span>
-                        </h1>
-                        
-                    </div>
+                    </ul>
+                    <h3>Total: ${(calculateTotalPrice() / 100).toFixed(2)}</h3> {/* Display total price here */}
                 </div>
-                <div className="d-flex justify-content-end">
-                    <button onClick={checkoutClick} className={`${classes.btt}`}>Checkout</button>
+                <div className="payment-container">
+                    <h2 className="form-title">Complete your payment</h2>
+                    <form onSubmit={handleSubmit}>
+                        <div className="card-element-container">
+                            <CardElement />
+                        </div>
+                        <button type="submit" className="submit-btn" disabled={!stripe || loading}>
+                            {loading ? 'Processing...' : 'Pay'}
+                        </button>
+                    </form>
                 </div>
-                
-                    
-                
-
             </div>
-            {/* <h2>Shopping cart</h2>
-            <h2>{cartContent}</h2>
-            <h2>{DUMMY_DATA.pid}</h2>
-            <div>
-                <h3>The total amount from context is: </h3>
-                <p>{totalAmount}</p>
-            </div>
-            <button onClick={closeCartHandler}>Close</button> */}
-        </Modal>
-    );
-}
+        </div>
+      );
+};
 
-export default Cart;
+export default PaymentForm;
