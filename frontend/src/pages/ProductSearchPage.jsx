@@ -170,7 +170,7 @@ const ProductSearchPage = () => {
           setSearchTerm={searchByPhraseHandler}
         />
         <StoreDisplayLayout items={displayedProducts} notFound={notFound} />
-        <div className="pagination-container">
+        <div className="pagination-container" style={grayBackgroundStyle}>
           <div className="pagination-wrapper">
             <ReactPaginate
               breakLabel="..."
