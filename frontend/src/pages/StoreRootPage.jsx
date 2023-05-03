@@ -68,9 +68,11 @@ export const loader = async () => {
       return json({ message: "Could not fetch data from backend."}, { status: 500 });
   } 
 
+  const user = await userResponse.json();
+  
   localStorage.setItem('userId', userResponse._id);
-
-  responseData.push(userResponse);
+  
+  responseData.push(user);
 
   // fetch the cart contents
   const cartData = await fetch('http://localhost:3000/account/cart');

@@ -94,15 +94,16 @@ const ProductLayout = ({ product, author, reviews, userType }) => {
 
     console.log("product id: " + product._id, 95);
 
-    const response = await fetch("http://localhost:3000/account/cart/pid/" + product._id, {
-        method: 'POST',
-    });
+    const response = await fetch("http://localhost:3000/account/cart/pid/" + product._id);
 
     if (!response.ok){
         throw json({ message: 'Could not add item to cart.'}, {
             status: 500,
         });
     } 
+
+    // reload the page so the cart gets updated
+    window.location.reload()
   }
 
   const editProductSubmitHandler = async (event) => {

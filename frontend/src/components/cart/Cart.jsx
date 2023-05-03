@@ -62,7 +62,7 @@ const Cart = (props) => {
                             </div>
                             
                             <div className={`${classes.intro_d}`}>
-                                <p className="text-nowrap text-truncate">{item.description}</p>
+                                <p className="text-nowrap text-truncate">{item.name}</p>
                                 <p className={`${classes.cate_color}`}>{item.category}</p>
                             </div>
                             

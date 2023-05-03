@@ -10,7 +10,9 @@ const StoreNavBar = (props) => {
 
     const data = useRouteLoaderData('username-loader');
 
-    const user = data[1]; 
+    const user = data[0]; 
+
+    console.log(user,15);
 
     const navigate = useNavigate();
 
