@@ -1,0 +1,43 @@
+.product-price {
+  font-size: 2rem;
+  font-weight: bold;
+  display: flex;
+  align-items: baseline;
+  font-family: Poppins;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.product-price span {
+  font-size: 1rem;
+  margin-left: 0.5rem;
+}
+
+/* ProductLayout.css */
+.edit-input {
+  width: 30%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  outline: none;
+}
+
+.edit-input:focus {
+  border-color: #348B81;
+  box-shadow: 0 0 0 0.1rem #348B81;
+}
+
+.edit-name:focus {
+  outline: none;
+  border-color: #348B81;
+  box-shadow: 0 0 0 0.1rem #348B81;
+}
+
+.edit-description:focus {
+  outline: none;
+  border-color: #348B81;
+  box-shadow: 0 0 0 0.1rem #348B81;
+}
