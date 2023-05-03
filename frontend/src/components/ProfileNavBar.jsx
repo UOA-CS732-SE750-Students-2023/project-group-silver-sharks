@@ -24,7 +24,7 @@ const ProfileNavBar = () => {
     padding: '8px 40px',
     fontSize: '24px',
     marginTop: '100px',
-    marginBottom: '2px',
+    marginBottom: '20px',
     transition: '0.1s',
   };
 
