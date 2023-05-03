@@ -54,8 +54,8 @@ const Cart = (props) => {
         <Modal onClose={props.closeCart}>
             <div className={`${classes.cartcontainer}`}>
                 <h2>Shopping cart</h2>
-                {isCartEmpty && <ul className="list-unstyled">
-                    {props.cartContents.map((item) => (
+                <ul className="list-unstyled">
+                    {!isCartEmpty &&props.cartContents.map((item) => (
                         <li key={item._id}>
                             <div className={`${classes.pic_d}`}>
                                 <img src={`http://localhost:3000/uploads/${item.coverImage}`}/>
@@ -79,7 +79,7 @@ const Cart = (props) => {
                             </div>
                         </li>
                     ))}
-                </ul>}
+                </ul>
 
                 <div className="border-top border-2"></div>
 

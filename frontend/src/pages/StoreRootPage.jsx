@@ -8,7 +8,7 @@ const StoreRootPage = () => {
 
   const data = useLoaderData();
 
-  const cartContents = data[1].product;
+  const cartContents = data[1];
 
   console.log(Array.isArray(cartContents), 13);
 
@@ -84,13 +84,13 @@ export const loader = async () => {
   // react router will extract data from promise
   const cartContents = await cartData.json();
 
+
   console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
   console.log("The users cart contents fetched in the loader are: "); 
   console.log(cartContents, 90);
-  console.log(cartContents.cartContents[0].product, 91);
   console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
 
-  responseData.push(cartContents);
+  responseData.push(cartContents.cartContents);
 
   return responseData;
 }
