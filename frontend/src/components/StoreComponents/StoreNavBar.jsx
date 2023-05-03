@@ -6,7 +6,11 @@ import './StoreNavBar.css';
 
 const StoreNavBar = (props) => { 
 
-    const user = useRouteLoaderData('username-loader');
+    console.log("numItemsInCart: " + props.numItemsCart, 9)
+
+    const data = useRouteLoaderData('username-loader');
+
+    const user = data[1]; 
 
     const navigate = useNavigate();
 
@@ -21,7 +25,7 @@ const StoreNavBar = (props) => {
     const showCartHandler = () => {
         props.showCart();
     }
-    const itemsincart=16;
+    const itemsincart = props.numItemsCart;
 
     return (
         <header className="store-navbar-container">
@@ -34,7 +38,7 @@ const StoreNavBar = (props) => {
                     <div className="sell-asset-wrapper"><button className="store-page-sell-asset-btn" onClick={sellAssetNavigationHandler}>Sell asset</button></div>
                     <div className="cart-icon-wrapper"><ShoppingCartIcon fontSize='large'  onClick={showCartHandler}/>
                         <div className="cart-items-number">
-                                {itemsincart > 0 && <div className="items-number">{itemsincart}</div>}
+                                {<div className="items-number">{itemsincart}</div>}
                             </div>
                     </div>
                     <div className="menu-icon-wrapper"><MenuIcon fontSize='large' onClick={profileNavigationHandler}/></div>
@@ -47,25 +51,3 @@ const StoreNavBar = (props) => {
 }
 
 export default StoreNavBar;
-
-export const loader = async () => {
-
-    const response = await fetch('http://localhost:3000/account/id/0');
-
-    if (!response.ok) {
-       
-        if (response.status === 401){
-            console.log("Not Authorized."); 
-            return redirect("/");
-        } 
-
-        // 428 is returned if username is not set
-        if (response.status === 428){ 
-            return redirect("/username");
-        }
-
-        return json({ message: "Could not fetch data from backend."}, { status: 500 });
-    } else {
-        return response;
-    }
-}
