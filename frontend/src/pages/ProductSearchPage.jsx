@@ -4,6 +4,8 @@ import ProductNavBar from "../components/ProductNavBar";
 import StoreDisplayLayout from "../components/StoreDisplayLayout";
 import ReactPaginate from 'react-paginate';
 import "../components/PaginationBar.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "";
@@ -172,14 +174,14 @@ const ProductSearchPage = () => {
           <div className="pagination-wrapper">
             <ReactPaginate
               breakLabel="..."
-              nextLabel=">"
+              nextLabel={<FontAwesomeIcon icon={faChevronRight} />}
               onPageChange={(data) =>
                 pageNumberHandler(data.selected + 1, storedSearchTerm, isSearchStore)
               }
               pageCount={Math.ceil(displayCount / ITEMS_PER_PAGE)}
               marginPagesDisplayed={1}
               pageRangeDisplayed={5}
-              previousLabel="<"
+              previousLabel={<FontAwesomeIcon icon={faChevronLeft} />} 
               renderOnZeroPageCount={null}
               initialPage={0}
               forcePage={pageNumber - 1}
@@ -190,8 +192,8 @@ const ProductSearchPage = () => {
               pageLinkClassName="page-link"
               previousClassName="page-item"
               nextClassName="page-item"
-              previousLinkClassName="page-link"
-              nextLinkClassName="page-link"
+              previousLinkClassName="page-link previous-label"
+              nextLinkClassName="page-link next-label"
               breakClassName="page-item"
               breakLinkClassName="page-link"
             />
