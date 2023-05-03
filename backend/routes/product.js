@@ -248,13 +248,16 @@ productRouter.delete("/products/:productId", isLoggedIn, async (req, res) => {
 });
 
 // endpoint 8: POST - buy product
-productRouter.post("/products/buy/:productId", isLoggedIn, async (req, res) => {
+productRouter.post("/products/buy/", isLoggedIn, async (req, res) => {
   try {
-    const productId = req.params.productId;
     // const accountId = req.user._id;
     const accountId = req.query.accountId;
+    const products = req.body;
 
-    await registerBuyingProductWithAccount(productId, accountId);
+    for (const product of products) {
+      const productId = product._id;
+      await registerBuyingProductWithAccount(productId, accountId);
+    }
 
     return res
       .status(StatusCodes.OK)
