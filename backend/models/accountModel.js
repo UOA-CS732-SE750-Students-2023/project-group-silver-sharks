@@ -5,8 +5,8 @@ const Schema = mongoose.Schema;
 const accountSchema = new Schema(
   {
     _id: {
-      type: String, 
-      required: true
+      type: String,
+      required: true,
     },
     username: {
       type: String,
@@ -37,10 +37,8 @@ const accountSchema = new Schema(
     ],
     cartContents: [
       {
-        product: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Product",
-        },
+        type: Schema.Types.ObjectId,
+        ref: "Product",
       },
     ],
   },
