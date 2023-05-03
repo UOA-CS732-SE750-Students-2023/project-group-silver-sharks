@@ -269,6 +269,7 @@ const SellAssetLayout = ({ userId }) => {
           </form>
         </Col>        
       </Row>
+      <ChatHolder/>
     </Container>
   );
 };
