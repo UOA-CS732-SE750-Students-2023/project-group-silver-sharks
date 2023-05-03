@@ -101,11 +101,20 @@
 }
 
 .nav-button-style {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 36px;
+  text-align: center;
+
   border-radius: 20px;
   background-color: transparent;
   border-color: transparent;
-  padding: 10px 40px;
-  transition: 0.2s;
+  padding: 15px 30px;
+  /* transition: 0.1s; */
+  margin-bottom: 50px;
+  margin-top: 5px;
 }
 
 .nav-button-selected-style {
@@ -113,6 +122,12 @@
 }
 
 .nav-button-hover-style {
+  padding: 5px 100px;
   background-color: #348B81;
+  color: white;
+}
+
+.nav-button-style:hover {
+  
   color: white;
 }

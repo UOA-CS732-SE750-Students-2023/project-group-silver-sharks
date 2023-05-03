@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Navbar, Nav, Button } from 'react-bootstrap';
 
@@ -17,9 +17,20 @@ const ProfileNavBar = () => {
     backgroundColor: '#F1F1F1',
   };
 
-  const buttonStyle = {
-    fontSize: '18px',
-    padding: '8px 55px',
+  const buttonBaseStyle = {
+    fontFamily: 'Poppins',
+    fontStyle: 'normal',
+    fontWeight: '400',
+    padding: '8px 40px',
+    fontSize: '24px',
+    marginTop: '100px',
+    marginBottom: '2px',
+    transition: '0.1s',
+  };
+
+  const buttonHoverStyle = {
+    backgroundColor: '#348B81',
+    color: 'white',
   };
 
   return (
@@ -28,46 +39,33 @@ const ProfileNavBar = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mx-auto">
-            <Nav.Item className="mx-2">
-              <Button
-                as="a"
-                href="/store/profile"
-                className="nav-link"
-                style={{ ...navLinkStyle('/store/profile'), ...buttonStyle }}
-              >
-                DASHBOARD
-              </Button>
-            </Nav.Item>
-            <Nav.Item className="mx-2">
-              <Button
-                as="a"
-                href="/store/profile/purchase"
-                className="nav-link"
-                style={{ ...navLinkStyle('/store/profile/purchase'), ...buttonStyle }}
-              >
-                PURCHASED
-              </Button>
-            </Nav.Item>
-            <Nav.Item className="mx-2">
-              <Button
-                as="a"
-                href="/store/profile/selling"
-                className="nav-link"
-                style={{ ...navLinkStyle('/store/profile/selling'), ...buttonStyle }}
-              >
-                SELLING
-              </Button>
-            </Nav.Item>
-            <Nav.Item className="mx-2">
-              <Button
-                as="a"
-                href="/store/profile/messages"
-                className="nav-link"
-                style={{ ...navLinkStyle('/store/profile/messages'), ...buttonStyle }}
-              >
-                MESSAGES
-              </Button>
-            </Nav.Item>
+            {['/store/profile', '/store/profile/purchase', '/store/profile/selling', '/store/profile/messages'].map(
+              (path, index) => {
+                const [hover, setHover] = useState(false);
+                const buttonStyle = {
+                  ...buttonBaseStyle,
+                  ...navLinkStyle(path),
+                  ...(hover ? buttonHoverStyle : {}),
+                };
+
+                const labels = ['DASHBOARD', 'PURCHASED', 'SELLING', 'MESSAGES'];
+
+                return (
+                  <Nav.Item className="mx-2" key={index}>
+                    <Button
+                      as="a"
+                      href={path}
+                      className="nav-link"
+                      style={buttonStyle}
+                      onMouseEnter={() => setHover(true)}
+                      onMouseLeave={() => setHover(false)}
+                    >
+                      {labels[index]}
+                    </Button>
+                  </Nav.Item>
+                );
+              }
+            )}
           </Nav>
         </Navbar.Collapse>
       </Navbar>
