@@ -5,6 +5,7 @@ import fs from "fs";
 import archiver from "archiver";
 import { StatusCodes } from "http-status-codes";
 import { addCoverImage, addImages, addDownloadFiles } from "../dao/file-dao.js";
+import { Product } from "../models/productModel.js";
 
 const fileRouter = new express.Router();
 
@@ -67,7 +68,25 @@ fileRouter.post(
   async (req, res) => {
     console.log(req.params.productId);
     console.log(req.files);
-    await addCoverImage(Object.values(req.files)[0], req.params.productId);
+    const productId = req.params.productId;
+    const fileType = path.extname(Object.values(req.files)[0].originalname);
+
+    if (
+      fileType === ".jpeg" ||
+      fileType === ".jpg" ||
+      fileType === ".png" ||
+      fileType === ".gif" ||
+      fileType === ".svg"
+    ) {
+      console.log("correct file type");
+    } else {
+      await fs.promises.unlink(
+        "./public/uploads/" + productId + "-coverimage" + fileType
+      );
+      return res
+        .status(StatusCodes.UNSUPPORTED_MEDIA_TYPE)
+        .json({ message: "Unsupported file type" });
+    }
     return res
       .status(StatusCodes.OK)
       .json({ message: "file uploaded successfully" });
@@ -81,7 +100,99 @@ fileRouter.post(
   async (req, res) => {
     console.log(req.params.productId);
     console.log(req.files);
-    await addDownloadFiles(req.files, req.params.productId);
+
+    const productId = req.params.productId;
+    const product = await Product.findById(productId);
+    const productCategory = product.category;
+    let fileTypes = [];
+
+    for (const file of req.files) {
+      fileTypes.push(path.extname(file.originalname));
+    }
+
+    console.log(fileTypes);
+
+    if (productCategory === "Images") {
+      for (const fileType of fileTypes) {
+        if (
+          fileType != ".jpeg" &&
+          fileType != ".jpg" &&
+          fileType != ".png" &&
+          fileType != ".gif" &&
+          fileType != ".svg"
+        ) {
+          let counter = 1;
+          for (const file of req.files) {
+            const currentFileType = path.extname(file.originalname);
+            await fs.promises.unlink(
+              "./public/downloadFiles/" +
+                productId +
+                "-" +
+                counter +
+                "-downloadFile" +
+                currentFileType
+            );
+            counter++;
+          }
+
+          return res
+            .status(StatusCodes.UNSUPPORTED_MEDIA_TYPE)
+            .json({ message: "Unsupported file type" });
+        }
+      }
+
+      await addDownloadFiles(req.files, req.params.productId);
+      console.log("correct file type");
+    } else if (productCategory === "Music") {
+      for (const fileType of fileTypes) {
+        if (fileType != ".mp3" && fileType != ".mp4" && fileType != ".wav") {
+          let counter = 1;
+          for (const file of req.files) {
+            const currentFileType = path.extname(file.originalname);
+            await fs.promises.unlink(
+              "./public/downloadFiles/" +
+                productId +
+                "-" +
+                counter +
+                "-downloadFile" +
+                currentFileType
+            );
+            counter++;
+          }
+
+          return res
+            .status(StatusCodes.UNSUPPORTED_MEDIA_TYPE)
+            .json({ message: "Unsupported file type" });
+        }
+      }
+
+      await addDownloadFiles(req.files, req.params.productId);
+      console.log("correct file type");
+    } else if (productCategory === "Videos") {
+      for (const fileType of fileTypes) {
+        if (fileType != ".mp4" && fileType != ".m4v") {
+          let counter = 1;
+          for (const file of req.files) {
+            const currentFileType = path.extname(file.originalname);
+            await fs.promises.unlink(
+              "./public/downloadFiles/" +
+                productId +
+                "-" +
+                counter +
+                "-downloadFile" +
+                currentFileType
+            );
+            counter++;
+          }
+          return res
+            .status(StatusCodes.UNSUPPORTED_MEDIA_TYPE)
+            .json({ message: "Unsupported file type" });
+        }
+      }
+
+      await addDownloadFiles(req.files, req.params.productId);
+      console.log("correct file type");
+    }
 
     return res
       .status(StatusCodes.OK)
