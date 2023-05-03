@@ -85,6 +85,25 @@ const ProductLayout = ({ product, author, reviews, userType }) => {
   const closeEditWindowHandler = () => {
     setEditProductWindow(false);
   }
+  
+  const addToCartHandler = async () => {
+    // pre checks GO HERE
+
+    // making the GET request to the backend to add to cart
+    //"/account/cart/pid/:pid"
+
+    console.log("product id: " + product._id, 95);
+
+    const response = await fetch("http://localhost:3000/account/cart/pid/" + product._id, {
+        method: 'POST',
+    });
+
+    if (!response.ok){
+        throw json({ message: 'Could not add item to cart.'}, {
+            status: 500,
+        });
+    } 
+  }
 
   const editProductSubmitHandler = async (event) => {
     event.preventDefault(); 
@@ -234,7 +253,7 @@ const ProductLayout = ({ product, author, reviews, userType }) => {
                 </div>
                 <div className="d-flex justify-content-between">
                   <div><h2>{`$ ${product.price.toFixed(0)}`}<span>{`${product.price.toFixed(2).substr(-2)}`}</span></h2></div>
-                  <div><button>Add to cart</button></div>
+                  <div><button onClick={addToCartHandler}>Add to cart</button></div>
                 </div>
               </div>
             </div>

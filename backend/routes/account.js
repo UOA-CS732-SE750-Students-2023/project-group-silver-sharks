@@ -360,7 +360,7 @@ accountRouter.get("/account/cart", isLoggedIn, async (req, res) => {
  * Endpoint 12: GET /account/cart/pid/{pid}
  * Add an item to cart
  */
-accountRouter.post("/account/cart/pid/:pid", isLoggedIn, async (req, res) => {
+accountRouter.get("/account/cart/pid/:pid", isLoggedIn, async (req, res) => {
   const productId = req.params.pid;
   const userId = req.user.id;
 

@@ -8,7 +8,7 @@ const StoreRootPage = () => {
 
   const data = useLoaderData();
 
-  const cartContents = data[1].cartContents;
+  const cartContents = data[1].product;
 
   console.log(Array.isArray(cartContents), 13);
 
@@ -51,32 +51,32 @@ export const loader = async () => {
 
   let responseData = [];
 
-  const response = await fetch('http://localhost:3000/account/id/0');
+  const userResponse = await fetch('http://localhost:3000/account/id/0');
 
-  if (!response.ok) {
+  if (!userResponse.ok) {
      
-      if (response.status === 401){
+      if (userResponse.status === 401){
           console.log("Not Authorized."); 
           return redirect("/");
       } 
 
       // 428 is returned if username is not set
-      if (response.status === 428){ 
+      if (userResponse.status === 428){ 
           return redirect("/username");
       }
 
       return json({ message: "Could not fetch data from backend."}, { status: 500 });
   } 
 
-  localStorage.setItem('userId', response._id);
+  localStorage.setItem('userId', userResponse._id);
 
-  responseData.push(response);
+  responseData.push(userResponse);
 
   // fetch the cart contents
   const cartData = await fetch('http://localhost:3000/account/cart');
 
-  // throwing will send the data to the error page
-  if (!response.ok){
+  // response will send the data to the error page
+  if (!cartData.ok){
       throw json({ message: 'Could not get the users cart contents'}, {
           status: 500,
       });
@@ -87,6 +87,7 @@ export const loader = async () => {
   console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
   console.log("The users cart contents fetched in the loader are: "); 
   console.log(cartContents, 90);
+  console.log(cartContents.cartContents[0].product, 91);
   console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
 
   responseData.push(cartContents);
