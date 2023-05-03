@@ -10,6 +10,7 @@ import "./auth.js";
 import authRouter from "./routes/authentication.js";
 import cors from "cors";
 import fileRouter from "./routes/file.js";
+import stripeRouter from "./routes/stripe.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -56,6 +57,7 @@ app.use(productRouter);
 app.use(accountRouter);
 app.use(authRouter);
 app.use(fileRouter);
+app.use(stripeRouter);
 
 app.use((error, req, res, next) => {
   const status = error.status || 500;
