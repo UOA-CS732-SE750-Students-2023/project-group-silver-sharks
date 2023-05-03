@@ -363,7 +363,11 @@ accountRouter.get("/account/cart", isLoggedIn, async (req, res) => {
 accountRouter.get("/account/cart/pid/:pid", isLoggedIn, async (req, res) => {
   const productId = req.params.pid;
   const userId = req.user.id;
-
+  if (
+    !mongoose.Types.ObjectId.isValid(productId)
+  ) {
+    return res.status(400).json({ message: "Invalid accountId or productId" });
+  }
   try {
     // Check if the product exists
     const product = await Product.findById(productId);
@@ -378,15 +382,15 @@ accountRouter.get("/account/cart/pid/:pid", isLoggedIn, async (req, res) => {
     }
 
     // Check if the product is already in the user's cart
-    const productInCart = account.cartContents.find(
-      (item) => item.product.toString() === productId
+    const productInCart = account.cartContents.some(
+      (product) => product._id.toString() === productId
     );
     if (productInCart) {
       return res.status(400).json({ message: "Product is already in cart" });
     }
 
     // Add the product to the user's cartContents
-    account.cartContents.push({ product: productId });
+    account.cartContents.push(productId);
     await account.save();
 
     res.status(200).json({ message: "Product added to cart" });
@@ -405,23 +409,31 @@ accountRouter.get("/account/cart/pid/:pid", isLoggedIn, async (req, res) => {
 accountRouter.delete("/account/cart/pid/:pid", isLoggedIn, async (req, res) => {
   const productId = req.params.pid;
   const userId = req.user.id;
-
+  if (
+    !mongoose.Types.ObjectId.isValid(productId)
+  ) {
+    return res.status(400).json({ message: "Invalid accountId or productId" });
+  }
   try {
-    // Check if the user exists
     const account = await Account.findById(userId);
+    const product = await Product.findById(productId);
+
     if (!account) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ message: "Account not found" });
     }
 
-    // Check if the product is in the user's cart
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    // Check if product is in the cart
     const productIndex = account.cartContents.findIndex(
-      (item) => item.product.toString() === productId
+      (product) => product.toString() === productId
     );
     if (productIndex === -1) {
-      return res.status(404).json({ message: "Product not found in cart" });
+      return res.status(400).json({ message: "Product not in the cart" });
     }
 
-    // Remove the product from the user's cartContents
     account.cartContents.splice(productIndex, 1);
     await account.save();
 
@@ -443,27 +455,26 @@ accountRouter.get(
   isLoggedIn,
   async (req, res) => {
     try {
-      const pid = req.params.pid;
-      const id = req.user.id;
-
-      if (!mongoose.Types.ObjectId.isValid(pid)) {
-        return res.status(400).send({ message: "Invalid product id." });
+      const productId = req.params.pid;
+      const accountId = req.user.id;
+      const account = await Account.findById(accountId);
+      const product = await Product.findById(productId);
+      if (!account) {
+        return res.status(404).json({ message: "Account not found" });
       }
 
-      const account = await Account.findById(id);
-
-      if (!account) {
-        return res.status(404).send({ message: "Account not found." });
+      if (!product) {
+        return res.status(404).json({ message: "Product not found" });
       }
 
       const productInCart = account.cartContents.some(
-        (item) => item.product._id.toString() === pid
+        (product) => product.toString() === productId
       );
 
-      return res.status(200).send({ isInCart: productInCart });
+      res.json({ inCart: productInCart });
     } catch (error) {
-      console.log(error);
-      return res.status(500).send({ message: error.message });
+      console.error(error);
+      res.status(500).json({ message: "Internal server error" });
     }
   }
 );
