@@ -1,6 +1,8 @@
 .container-fluid {
   background-color: #F1F1F1;
   padding: 2px 20px 200px; 
+  font-family: 'Poppins';
+  font-style: normal;
 }
 
 /* .sell-container {
@@ -25,8 +27,10 @@
   padding: 35px;
 } */
 .sell-asset-title h4 {
-  margin-left: 40px; 
-  margin-top: 20px;
+  margin-left: 8%; 
+  margin-top: 30px;
+  font-family: 'Poppins';
+  font-style: normal;
 }
 
 .form-group {
@@ -42,7 +46,7 @@
   width: 60%;
   padding: 5px 10px;
   border: 2px solid black;
-  border-radius: 5px;
+  border-radius: 10px;
 }
 
 .styled-input:focus {
@@ -60,7 +64,7 @@
 
 .required-star {
   position: absolute;
-  top: 50%;
+  top: 45%;
   right: 38%;
   color: red;
   font-size: 20px;
@@ -69,7 +73,7 @@
 
 .required-star-des {
   position: absolute;
-  top: 35%;
+  top: 23%;
   right: 38%;
   color: red;
   font-size: 20px;
@@ -78,8 +82,8 @@
 
 .required-star-price {
   position: absolute;
-  top: 50%;
-  left: 11%;
+  top: 42%;
+  left: 9%;
   color: red;
   font-size: 20px;
   transform: translateY(-50%);
@@ -103,12 +107,18 @@
 } */
 
 .styled-select {
-  width: 15%;
+  font-family: Poppins;
+  width: 20%;
   padding: 5px 10px;
   border: 2px solid black;
-  border-radius: 5px;
+  border-radius: 10px;
   appearance: none;
   background-color: #fff;
+
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0em;
 }
 
 .styled-select:focus {
@@ -164,4 +174,10 @@
   border: none;
   background-color: #348B81;
   color: #ffffff;
+}
+
+.select-chevron {
+  position: absolute;
+  top: 84.5%;
+  left: 18.5%;
 }

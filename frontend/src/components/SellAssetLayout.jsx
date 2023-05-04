@@ -9,6 +9,9 @@ import {
 import { Container, Row, Col, Button } from "react-bootstrap";
 import "./SellAssetLayout.css";
 import ChatHolder from "./ChatHolder";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+
 
 
 const SellAssetLayout = ({ userId }) => {
@@ -178,7 +181,7 @@ const SellAssetLayout = ({ userId }) => {
                 type="text"
                 name="title"
                 className="styled-input"
-                placeholder="title"
+                placeholder="Title"
                 value={enteredTitle}
                 onChange={titleChangeHandler}
                 required
@@ -191,7 +194,7 @@ const SellAssetLayout = ({ userId }) => {
                 name="description"
                 rows="5"
                 className="styled-input"
-                placeholder="description"
+                placeholder="Description"
                 value={enteredDescription}
                 onChange={descriptionChangeHandler}
                 required
@@ -234,7 +237,7 @@ const SellAssetLayout = ({ userId }) => {
                 value={price}
                 onChange={priceChangeHandler}
                 required
-                style={{ width: "10%" }}
+                style={{ width: "8%", borderRadius: '10px' }}
               />
               <span className="required-star-price">*</span>
             </div>
@@ -245,11 +248,12 @@ const SellAssetLayout = ({ userId }) => {
                 value={category}
                 onChange={categoryChangeHandler}
               >
-                <option value="Images">Images</option>
-                <option value="Videos">Videos</option>
-                <option value="Music">Music</option>
-                <option value="Services">Services</option>
+                <option value="Images">Category: Images</option>
+                <option value="Videos">Category: Videos</option>
+                <option value="Music">Category: Music</option>
+                <option value="Services">Category: Services</option>
               </select>
+              <FontAwesomeIcon icon={faChevronDown} className="select-chevron" />
             </div>
             <div className="d-flex justify-content-center">
               {/* <Button

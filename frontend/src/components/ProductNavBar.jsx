@@ -1,7 +1,9 @@
 // frontend/src/components/ProductNavBar.jsx
 import React, { useState } from 'react';
 import { Navbar, Button, Nav, Form, InputGroup, DropdownButton, Dropdown } from 'react-bootstrap';
-import './ProductNavBar.css'; // 引入新的 CSS 文件
+import './ProductNavBar.css'; 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 const ProductNavBar = ({ setSearchCategory, setFilter, setSearchTerm }) => {
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -55,7 +57,8 @@ const ProductNavBar = ({ setSearchCategory, setFilter, setSearchTerm }) => {
               onChange={searchChangeHandler}
               // style={searchInputStyle}
             />
-            <i className="bi bi-search" style={searchIconStyle}></i>
+{/*             <i className="bi bi-search" style={searchIconStyle}></i> */}
+            <FontAwesomeIcon icon={faMagnifyingGlass} style={searchIconStyle}/>
           </div>
         </Form>
         <Navbar expand="lg" className="gray-background-style">
@@ -142,15 +145,15 @@ const ProductNavBar = ({ setSearchCategory, setFilter, setSearchTerm }) => {
             <label htmlFor="max-price" className="form-label">
               Max price
             </label>
-            <input
-              type="number"
-              className="form-control min-max-input-style"
-              id="max-price"
-              aria-label="Max price"
-            />
-          </div>
-          <div className="d-flex align-items-end">
-            <i className="bi bi-search ms-3" style={{ fontSize: '1.5rem', cursor: 'pointer' }}></i>
+            <div className="d-flex align-items-center">
+              <input
+                type="number"
+                className="form-control min-max-input-style"
+                id="max-price"
+                aria-label="Max price"
+              />
+              <FontAwesomeIcon icon={faMagnifyingGlass} style={{ fontSize: '1.5rem', marginLeft: '15px' }}/>
+            </div>
           </div>
         </div>
 
