@@ -44,6 +44,10 @@
     font-size: 30px;
 }
 
+.brand:hover {
+  cursor: pointer !important; 
+}
+
 /* Modified for frontend fixes */
 .store-page-sell-asset-btn{
     width: 8em;
