@@ -10,16 +10,22 @@ import fileRouter from "./routes/file.js";
 import http from "http";
 import { Server } from "socket.io";
 import { Message } from "./models/messageModel.js";
+import redisClient from "./redisClient.js";
 
 // 1. INITIAL SETUP
 import stripeRouter from "./routes/stripe.js";
-
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 const server = http.createServer(app);
 const io = new Server(server);
+
+// Setup redis client
+app.use((req, res, next) => {
+  req.redisClient = redisClient;
+  next();
+});
 
 app.use(express.json());
 app.use((req, res, next) => {
