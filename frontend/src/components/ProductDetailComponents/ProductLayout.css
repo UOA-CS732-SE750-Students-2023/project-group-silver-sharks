@@ -3,6 +3,7 @@
   flex-direction: column;
   background-color: #F1F1F1;
   padding: 20px;
+  font-family: Poppins;
 }
 
 .p_btnstyling button{
@@ -317,4 +318,20 @@
 .rating-input:checked {
   background-color: #ffc107;
   border-color: #ffc107;
+}
+
+/* Replace dropdown icon */
+.dropdown-chevron-icon {
+  margin-left: 15px;
+}
+
+.dropdown-toggle::after {
+  content: none;
+}
+
+.dropdown-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
 }

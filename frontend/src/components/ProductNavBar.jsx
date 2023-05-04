@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Navbar, Button, Nav, Form, InputGroup, DropdownButton, Dropdown } from 'react-bootstrap';
 import './ProductNavBar.css'; 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { faMagnifyingGlass, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
 const ProductNavBar = ({ setSearchCategory, setFilter, setSearchTerm }) => {
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -57,7 +57,6 @@ const ProductNavBar = ({ setSearchCategory, setFilter, setSearchTerm }) => {
               onChange={searchChangeHandler}
               // style={searchInputStyle}
             />
-{/*             <i className="bi bi-search" style={searchIconStyle}></i> */}
             <FontAwesomeIcon icon={faMagnifyingGlass} style={searchIconStyle}/>
           </div>
         </Form>
@@ -167,10 +166,18 @@ const ProductNavBar = ({ setSearchCategory, setFilter, setSearchTerm }) => {
             <InputGroup>
               <DropdownButton
                 variant="outline-secondary"
-                title={p_title}
+                title={
+                  <>
+                    {p_title}
+                    <FontAwesomeIcon
+                      icon={faChevronDown}
+                      className="dropdown-chevron-icon"
+                    />
+                  </>
+                } 
                 id="sort-dropdown"
                 align="end"
-                className="custom-dropdown-btn-style"
+                className="custom-dropdown-btn-style dropdown-toggle"
                 onSelect={filterChangeHandler}
               >
                 <Dropdown.Item eventKey="priceLowToHigh">Price: Low to High</Dropdown.Item>
