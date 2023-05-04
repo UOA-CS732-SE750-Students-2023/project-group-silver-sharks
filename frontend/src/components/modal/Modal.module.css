@@ -136,31 +136,40 @@
 }
 .modal .intro_d{
     display: inline-block;
-    width: 159px;
+    width: 140px;
     height: 48px;
 }
 .modal .icon{
     background-color:#F48686;
     border-radius:50%;
     margin-top:-30px;
-    margin-left: 12px;
+    /* margin-left: 12px; */
     color:black;
 }
 .modal .icon:hover{
     cursor: pointer; 
 }
 .modal .price{
-    display: inline-block;
-    margin-top: -40px;
-    margin-right: 5px;
+    /* width:30px; */
+    /* display: inline-block; */
+    position: relative;
+    top: -10px; 
+    display: inline;
+    /* vertical-align:top; */
+    line-height: 30px;
 }
 .modal .price h1{
+    /* width:30px; */
+    /* overflow-wrap: break-word; */
+    margin-left: 25px;
+    display: inline;
     font-family: Poppins;
     font-size: 24px;
     font-weight: 600;
     line-height: 36px;
     letter-spacing: 0em;
     text-align: right;
+    /* vertical-align:bottom; */
 }
 .modal .price span{
     vertical-align: super;
@@ -189,9 +198,11 @@
     overflow-y: auto;
     white-space: nowrap;
     max-height: 300px;
+    margin-bottom: 8px;
   }
 .modal ul::-webkit-scrollbar {
     width: 8px;
+    height: 5px;
   }
   
 .modal ul::-webkit-scrollbar-thumb {
@@ -202,6 +213,10 @@
 .modal ul::-webkit-scrollbar-thumb:hover {
     background-color: #aaa;
   }
+
+.modal ul::-webkit-scrollbar-corner {
+    background-color:transparent;
+}
 @media (min-width: 768px) {
     .modal .cartcontainer{
         width: 485px;

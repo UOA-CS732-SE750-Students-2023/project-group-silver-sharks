@@ -46,91 +46,90 @@ const AuthorLayout = ({ author, userAccountType }) => {
 
     return (
         <div className='a_allcontainer'>
-            <div className='a_firstdiv'>
-                <h1 className='a_authorname'>{author.username}</h1>
-                <div className='a_forcontainbutton'>
-                    <div className='a_message'>
-                        <Link to="../profile/messages">Message</Link>
+            <div className='a_formargin'>
+                <div className='a_firstdiv'>
+                    <h1 className='a_authorname'>{author.username}</h1>
+                    <div className='a_forcontainbutton row'>
+                        <div className='a_message col-sm-2'>
+                            <Link to="../profile/messages">Message</Link>
+                        </div>
+                        {isAdmin && <div className='a_forcontainlink col-sm-10'>
+                        <button onClick={deleteAccountHandler}>Delete Account</button>
+                    </div>}
+                        {/* <button className='a_message'>Message</button> */}
                     </div>
-                    
-                    {/* <button className='a_message'>Message</button> */}
                 </div>
-                {/* 此处在另外一个页面删掉 */}
-                {isAdmin && <div className='a_forcontainlink'>
-                    <button onClick={deleteAccountHandler}>Delete Account</button>
-                </div>}
-                {/* 结束删除 */}
-            </div>
-            <div className='a_tablecontainer'>
-                <table className="table table-borderless">
-                    <tbody>
-                        <tr>
-                            <td>Average Rating</td>
-                            <td>{averageRating}</td>
-                        </tr>
-                        {/* 另外一个页面删除 */}
-                        <tr>
-                            <td>Assets Sold</td>
-                            <td>{totalItems}</td>
-                        </tr>
-                        <tr>
-                            <td>Email</td>
-                            <td>{author.email}</td>
-                        </tr>
-                        {/* 结束删除 */}
-                    </tbody>
-                </table>
-            </div>
-            <div className='a_cardpart d-flex justify-content-between'>
-                <div>
-                    <h2>Showing {totalItems}&nbsp;{itemText} for sale</h2>
+                <div className='a_tablecontainer'>
+                    <table className="table table-borderless">
+                        <tbody>
+                            <tr>
+                                <td>Average Rating</td>
+                                <td>{averageRating}</td>
+                            </tr>
+                            {/* 另外一个页面删除 */}
+                            <tr>
+                                <td>Assets Sold</td>
+                                <td>{totalItems}</td>
+                            </tr>
+                            <tr>
+                                <td>Email</td>
+                                <td><p className='text-wrap'>{author.email}</p></td>
+                            </tr>
+                            {/* 结束删除 */}
+                        </tbody>
+                    </table>
                 </div>
-                <div>
-                    <InputGroup>
-                        <DropdownButton
-                            variant="outline-secondary"
-                            title={a_title}
-                            id="sort-dropdown"
-                            align="end"
-                            onSelect={handleSelect}
-                            className='a_dropdownbutton'
-                        >
-                            <Dropdown.Item href="#/price-asc" eventKey="plth">Price: Low to High</Dropdown.Item>
-                            <Dropdown.Item href="#/price-desc" eventKey="phtl">Price: High to Low</Dropdown.Item>
-                        </DropdownButton>
-                    </InputGroup>
+                <div className='a_cardpart d-flex justify-content-between'>
+                    <div>
+                        <h2>Showing {totalItems}&nbsp;{itemText} for sale</h2>
+                    </div>
+                    <div>
+                        <InputGroup>
+                            <DropdownButton
+                                variant="outline-secondary"
+                                title={a_title}
+                                id="sort-dropdown"
+                                align="end"
+                                onSelect={handleSelect}
+                                className='a_dropdownbutton'
+                            >
+                                <Dropdown.Item href="#/price-asc" eventKey="plth">Price: Low to High</Dropdown.Item>
+                                <Dropdown.Item href="#/price-desc" eventKey="phtl">Price: High to Low</Dropdown.Item>
+                            </DropdownButton>
+                        </InputGroup>
+                    </div>
                 </div>
-            </div>
-            <div className='a_cardpart2'>
-                <ul className="row list-unstyled" >
-                    {author.sellingProducts.map((item) => (
-                    <li key={item._id} className="col-sm-4">
-                        <Card>
-                            <div className={`${classes.authorpagecard}`}>
-                                <div className={`${classes.authorimgcontainer}`}>
-                                    <img src={'http://localhost:3000/uploads/' + item.coverImage}/>
-                                </div>
-                                <div className={`${classes.contentcontainer}`}>
-                                    <div className="d-flex justify-content-between flex-wrap">
-                                    <div className={`${classes.productcontainer}`}><Link id="productLink" to={`/store/product/${item._id}`}><p className="text-nowrap text-truncate">{item.name}</p></Link></div>
-                                        <div className={`${classes.price}`}  >
-                                            <h1>${Math.floor(item.price)}
-                                            <span>{(item.price % 1).toFixed(2).split('.')[1]}</span>
-                                            </h1>
+                <div className='a_cardpart2'>
+                    <ul className="row list-unstyled" >
+                        {author.sellingProducts.map((item) => (
+                        <li key={item._id} className="col-sm-4">
+                            <Card>
+                                <div className={`${classes.authorpagecard}`}>
+                                    <div className={`${classes.authorimgcontainer}`}>
+                                        <img src={'http://localhost:3000/uploads/' + item.coverImage}/>
+                                    </div>
+                                    <div className={`${classes.contentcontainer}`}>
+                                        <div className="d-flex justify-content-between flex-wrap">
+                                        <div className={`${classes.productcontainer}`}><Link id="productLink" to={`/store/product/${item._id}`}><p className="text-nowrap text-truncate">{item.name}</p></Link></div>
+                                            <div className={`${classes.price}`}  >
+                                                <h1>${Math.floor(item.price)}
+                                                <span>{(item.price % 1).toFixed(2).split('.')[1]}</span>
+                                                </h1>
+                                            </div>
+                                        </div>
+
+                                        <div className={`${classes.cardtextcon}`}><p className="text-nowrap text-truncate">{item.description}</p></div>
+                                        <div className="d-flex justify-content-between flex-wrap">
+                                            <h5>{item.amountSold} Sold</h5>
+                                            <h5 className="float-right"> <StarFill color="black" size={18} />&nbsp;{item.averageRating.toFixed(1)}</h5>
                                         </div>
                                     </div>
-
-                                    <div className={`${classes.cardtextcon}`}><p className="text-nowrap text-truncate">{item.description}</p></div>
-                                    <div className="d-flex justify-content-between flex-wrap">
-                                        <h5>{item.amountSold} Sold</h5>
-                                        <h5 className="float-right"> <StarFill color="black" size={18} />&nbsp;{item.averageRating.toFixed(1)}</h5>
-                                    </div>
                                 </div>
-                            </div>
-                        </Card> 
-                    </li>
-                ))}
-                </ul>
+                            </Card> 
+                        </li>
+                    ))}
+                    </ul>
+                </div>
             </div>
         </div>
     );

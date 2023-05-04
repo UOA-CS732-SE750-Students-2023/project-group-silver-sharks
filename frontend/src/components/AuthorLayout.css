@@ -2,8 +2,11 @@
     background-color: #F1F1F1;
     padding: 20px;
 }
+.a_formargin{
+    margin: 0 10%;
+}
 .a_firstdiv{
-    margin: 20px 160px;
+    margin: 20px 0;
 }
 .a_authorname{
     font-family: Poppins;
@@ -15,6 +18,8 @@
     margin-left: 10px;
 }
 .a_message{
+    margin-left: 5px;
+    /* display: inline; */
     font-family: Poppins;
     font-size: 16px;
     font-weight: 400;
@@ -37,19 +42,29 @@
 }
 .a_message a{
     text-decoration: none;
+    display: inline;
 }
 .a_message a:hover{
     color: aliceblue;
 
 }
-.a_forcontainbutton{
-    display: inline-block;
-}
-.a_forcontainlink{
+/* .a_forcontainbutton{
+    display: inline;
+} */
+.a_forcontainlink button{
     vertical-align: top;
-    display: inline-block;
-    margin-top: 5px;
-    
+    display: inline;
+    font-family: Poppins;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+    margin-top: 15px;
 }
 .a_forcontainlink a {
     
@@ -65,7 +80,8 @@
     margin-left: 35px;
   }
 .a_tablecontainer{
-    margin: 50px 160px;
+    width: 80%;
+    margin: 50px 0;
     background-color: white;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
     padding: 20px 20px 5px 20px;
@@ -90,7 +106,7 @@
     color:#616161;
 }
 .a_cardpart{
-    margin: 80px 160px 20px 160px;
+    margin: 80px 0px 20px 0px;
 }
 .a_cardpart h2{
     display: inline-block;
@@ -117,7 +133,7 @@
     color: #000000;
 }
 .a_cardpart2{
-    margin: 30px 160px 100px 160px;
+    margin: 30px 0px 100px 0px;
 }
 .a_cardpart2 li{
     margin-bottom: 20px;
