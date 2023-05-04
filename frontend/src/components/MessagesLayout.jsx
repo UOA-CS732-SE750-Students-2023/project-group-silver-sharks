@@ -5,20 +5,69 @@ const DUMMY_DATA = [
     {   
         _id: Math.floor(Math.random() * (10000 - 1 + 1) + 1),
         receiver: "Steve",
-        message: "Hi there friend what are you doing", 
-        date: "6/5/2023"
+        messages: [
+            {   
+                _id: Math.floor(Math.random() * (10000 - 1 + 1) + 1),
+                message: "Hi there friend what are you doing", 
+                date: "6/5/2023", 
+                sentByUser: true
+            },
+            {   
+                _id: Math.floor(Math.random() * (10000 - 1 + 1) + 1),
+                message: "I am doing fine, hbu?", 
+                date: "7/5/2023",
+                sentByUser: false
+            },
+            {   
+                _id: Math.floor(Math.random() * (10000 - 1 + 1) + 1),
+                message: "Could be better.", 
+                date: "8/5/2023",
+                sentByUser: true
+            },
+        ]
     },
     {   
         _id: Math.floor(Math.random() * (10000 - 1 + 1) + 1),
-        receiver: "Jack",
-        message: "Don't call me again or im calling the police", 
-        date: "5/5/2023"
+        receiver: "Shrek",
+        messages: [
+            {   
+                _id: Math.floor(Math.random() * (10000 - 1 + 1) + 1),
+                message: "hey there friendo", 
+                date: "1/5/2023",
+                sentByUser: false
+            },
+            {   
+                _id: Math.floor(Math.random() * (10000 - 1 + 1) + 1),
+                message: "Leave me alone or im calling the police.", 
+                date: "2/5/2023",
+                sentByUser: true
+            }
+        ]
     },
     {   
         _id: Math.floor(Math.random() * (10000 - 1 + 1) + 1),
-        receiver: "Steve",
-        message: "Can you stop harrassing me pls.", 
-        date: "4/5/2023"
+        receiver: "Solomon",
+        messages: [
+            {   
+                _id: Math.floor(Math.random() * (10000 - 1 + 1) + 1),
+                message: "Hey we still on for today?", 
+                date: "10/4/2023",
+                sentByUser: true
+
+            },
+            {   
+                _id: Math.floor(Math.random() * (10000 - 1 + 1) + 1),
+                message: "???? ", 
+                date: "10/4/2023",
+                sentByUser: true
+            },
+            {   
+                _id: Math.floor(Math.random() * (10000 - 1 + 1) + 1),
+                message: "K", 
+                date: "10/4/2023",
+                sentByUser: true
+            },
+        ]
     }
 ]
 
@@ -64,9 +113,13 @@ const MessagesLayout = () => {
                     id={chat._id + "-" + index} 
                     className="tabcontent" 
                     style={{ display: "none" }}
-                >
-                    <p>{chat.message}</p>
-                    <p>{chat.date}</p>
+                >   
+                    {chat.messages.map((singleMessage, index) => (
+                        <div key={index}>
+                            <p style={{ fontSize: "15px" }}>{singleMessage.message}</p>
+                            <p style={{ fontSize: "10px" }}>{singleMessage.date}</p>
+                        </div>
+                    ))}
                 </div>
             ))}
         </>
