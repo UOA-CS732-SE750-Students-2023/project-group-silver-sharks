@@ -120,5 +120,5 @@ export const action = async ({params, request}) => {
 
   console.log("cart item deleted successfully")
 
-  return redirect('/store/product-search');
+  return true;
 };

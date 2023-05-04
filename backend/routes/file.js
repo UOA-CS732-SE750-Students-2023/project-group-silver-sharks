@@ -79,6 +79,7 @@ fileRouter.post(
       fileType === ".svg"
     ) {
       console.log("correct file type");
+      await addCoverImage(Object.values(req.files)[0], req.params.productId);
     } else {
       await fs.promises.unlink(
         "./public/uploads/" + productId + "-coverimage" + fileType
