@@ -3,7 +3,7 @@ import Modal from '../modal/Modal';
 import { DashCircle  } from 'react-bootstrap-icons';
 import './Cart.module.css';
 import classes from '../modal/Modal.module.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSubmit } from 'react-router-dom';
 
 
 
@@ -12,8 +12,11 @@ import { useNavigate } from 'react-router-dom';
 // rerender
 
 const Cart = (props) => { 
+    const submit = useSubmit();
     //const [isCartEmpty, setIsCartEmpty] = useState(false);
     let isCartEmpty = false;
+
+    let currentCartItem;
 
 
     console.log("cart: " + props.cartContents, 16)
@@ -41,8 +44,15 @@ const Cart = (props) => {
     const totalAmount = props.cartContents.length ?? 0;
     const itemText = totalAmount > 1 ? 'items' : 'item';
 
-    const handleClick = ()=>{
-        window.alert("Remove the product from cart.");
+    const deleteHandler = (event, productId) => {
+        const proceed = window.confirm('Are you sure?');
+
+        if (proceed){
+            const id = 1;
+            // trigger action programmatically using the useSubmit hook
+            // params for function are data and other details like method
+            submit({ id: productId }, { method: 'delete' });
+        }
     }
 
     const checkoutClick = ()=>{
@@ -68,9 +78,7 @@ const Cart = (props) => {
                             
                             <DashCircle className={`${classes.icon}`}
                                 size={24} 
-                                onClick={handleClick}/>
-
-                            
+                                onClick={(event) => deleteHandler(event, item._id)}/>
                             <div className={`d-flex justify-content-end ${classes.price}`}  >
                                 <h1>${Math.floor(item.price)}
                                     <span>{(item.price % 1).toFixed(2).split('.')[1]}</span>

@@ -29,7 +29,7 @@ import { loader as StripeCartLoader } from './pages/StripePage';
 import { action as deleteAccountAction } from './pages/profile/DashboardPage';
 import { action as deleteOtherAccountAction } from './pages/AuthorPage';
 import { loader as dashboardLoader } from './pages/profile/DashboardPage';
-
+import { action as removeCartItem } from './pages/StoreRootPage';
 
 const router = createBrowserRouter([
   {path:'/', element: <RootPage />, children: [
@@ -38,7 +38,7 @@ const router = createBrowserRouter([
     {path: 'login', element: <LoginPage />, action: loginAction},
     {path: 'payment', element: <StripePage />}, // Testing Purposes, remove line when finished
     {path: 'signup', element: <SignupPage />, action: signupAction},
-    {path:'store', element: <StoreRootPage />, loader: usernameLoader, id: 'username-loader', children: [
+    {path:'store', element: <StoreRootPage />, loader: usernameLoader, id: 'username-loader', action: removeCartItem , children: [
       {path:'product-search', element: <ProductSearchPage />, loader: allProductsLoader},
       {path: 'product/:productid', element: <ProductPage />, loader: productLoader, action: productAction},
       {path: 'payment', element: <StripePage />, loader: StripeCartLoader},

@@ -96,3 +96,29 @@ export const loader = async () => {
 
   return responseData;
 }
+
+export const action = async ({params, request}) => {
+
+
+  const formData = await request.formData();
+
+  const productId =  formData.get('id'); 
+
+  console.log("product id is: " + productId, 107);  
+
+  //"/products/:productId"
+
+  const response = await fetch('http://localhost:3000/account/cart/pid/' + productId, {
+      method: request.method,
+  });
+
+  if (!response.ok){
+      throw json({ message: 'Could not delete cart item.'}, {
+          status: 500,
+      });
+  }
+
+  console.log("cart item deleted successfully")
+
+  return redirect('/store/product-search');
+};
