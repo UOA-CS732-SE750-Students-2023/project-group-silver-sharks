@@ -13,7 +13,6 @@ const SellingPage = () => {
 
 export default SellingPage;
 
-// /account/id/:id/selling
 
 export const loader = async ({request,params}) => {
     
@@ -54,3 +53,28 @@ export const loader = async ({request,params}) => {
 
     return sellingProducts.sellingProducts;
 };
+
+export const action = async ({request,params}) => {
+    // getting the form data from request argument 
+    const formData = await request.formData();
+
+    const productId = formData.get("id");
+
+    // getting the http method from the request argument
+    const method = request.method;
+
+    // check whether the request is a delete or a post
+
+    const response = await fetch("http://localhost:3000/products/" + productId, {
+        method: method,
+    });
+
+    if (!response.ok){ 
+        throw json({ message: 'Could not delete product.'}, { status: 500 });
+    }
+
+    console.log("product deleted action", 118)
+
+    // redirect to the current page
+    return redirect('.');
+}

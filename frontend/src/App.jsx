@@ -32,6 +32,7 @@ import { loader as dashboardLoader } from './pages/profile/DashboardPage';
 import { action as removeCartItem } from './pages/StoreRootPage';
 import { loader as purchaseAssetsLoader } from './pages/profile/PurchasePage';
 import { loader as sellingAssetsLoader } from './pages/profile/SellingPage';
+import { action as sellingPageAction } from './pages/profile/SellingPage';
 
 const router = createBrowserRouter([
   {path:'/', element: <RootPage />, children: [
@@ -49,7 +50,7 @@ const router = createBrowserRouter([
         {index: true, element: <DashBoardPage />, loader: dashboardLoader, action: deleteAccountAction},
         {path: 'messages', element: <MessagesPage />},
         {path: 'purchase', element: <PurchasePage />, loader: purchaseAssetsLoader},
-        {path: 'selling', element: <SellingPage />, loader: sellingAssetsLoader},
+        {path: 'selling', element: <SellingPage />, loader: sellingAssetsLoader, action: sellingPageAction},
       ]},
       {path: 'sell-asset', element: <SellAssetPage />, loader: sellAssetLoader, action: sellAssetAction}
     ]}, 

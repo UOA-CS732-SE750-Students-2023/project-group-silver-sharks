@@ -31,7 +31,12 @@ const SellingLayout = ({ sellingAssets }) => {
   }
 
   const removeListingHandler = async (productId) => {
-    console.log(productId);
+    // call the delete product endpoint 
+    const proceed = window.confirm('Are you sure?');
+
+    if (proceed){
+        submit({ id: productId }, { method: 'DELETE' });
+    }
   }
 
   const totalEarnings = sellingAssets.reduce((acc, asset) => acc + asset.price * asset.amountSold, 0);
@@ -56,7 +61,7 @@ const SellingLayout = ({ sellingAssets }) => {
                     <button onClick={() => downloadFile(asset._id, asset.name)}>Download files</button>
                   </div>
                   <div>
-                    <button onClick={() => removeListingHandler(asset.id)}>Remove listing</button>
+                    <button onClick={() => removeListingHandler(asset._id)}>Remove listing</button>
                   </div>
                 </div>
               </div>
