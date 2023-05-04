@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
-import { Link, useSubmit, useNavigation, useNavigate, Form, useActionData, json } from "react-router-dom";
+import { Link, useSubmit, useNavigation, useNavigate, Form, json } from "react-router-dom";
 import ProductContext from "../../store/product-context";
 import { InputGroup, DropdownButton, Dropdown } from 'react-bootstrap';
 import "./ProductLayout.css";
@@ -28,6 +28,18 @@ const ProductLayout = ({ product, author, reviews, userType }) => {
 
   // edit product details window
   const [editProductWindow, setEditProductWindow] = useState(false);
+
+  const openEditWindowHandler = () => {
+    setEditProductWindow(true);
+  }
+
+  const closeEditWindowHandler = () => {
+    setEditProductWindow(false);
+  }
+
+  const closeAddReviewWindowHandler = () => {
+    setShowAddReviewWindow(false);
+  };
 
   const checkCanReview = async () => {
 
@@ -80,14 +92,6 @@ const ProductLayout = ({ product, author, reviews, userType }) => {
 
     setShowAddReviewWindow(true);
   };
-
-  const openEditWindowHandler = () => {
-    setEditProductWindow(true);
-  }
-
-  const closeEditWindowHandler = () => {
-    setEditProductWindow(false);
-  }
   
   const addToCartHandler = async () => {
     // pre checks GO HERE
@@ -140,15 +144,17 @@ const ProductLayout = ({ product, author, reviews, userType }) => {
 
     console.log("edit event is successful");
 
-    navigate("/store/product-search");
+    // reload the current page and close the modal
+    navigate(".");
+    closeEditWindowHandler();
   }
-
-
+  
   const closeAddReviewWindowHandler = () => {
     setShowAddReviewWindow(false);
   };
 
   const [a_title, setTitle] = useState('Sort by: Most recent');
+
   const handleSelect = (eventKey) => {
     if (eventKey === 'recent') {
       setTitle('Sort by: Most recent');

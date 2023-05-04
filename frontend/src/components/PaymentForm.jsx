@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import axios from 'axios';
-import { useNavigate, json } from 'react-router-dom';
+import { useNavigate, json, useSubmit } from 'react-router-dom';
 import './PaymentForm.css';
 
 const PaymentForm = ({ cartContentsData }) => {
@@ -9,6 +9,7 @@ const PaymentForm = ({ cartContentsData }) => {
     const stripe = useStripe();
     const elements = useElements();
     const navigate = useNavigate();
+    const submit = useSubmit();
 
     console.log("++++++++++++++++++++++++++++++++++++++++++")
     console.log(cartContentsData, 15);
@@ -18,6 +19,10 @@ const PaymentForm = ({ cartContentsData }) => {
         return cartContentsData.reduce((total, cartContentsData) => total + cartContentsData.price, 0); // TODO
     };
     //const TotalPriceInCents = (calculateTotalPrice() / 100).toFixed(2)
+
+    const clearCartHandler = () => {
+        submit(null, { method: 'DELETE' });
+    }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -77,7 +82,7 @@ const PaymentForm = ({ cartContentsData }) => {
                     const user = await userResponse.json();
                     console.log("Line 61 User ID : " + user._id);
 
-                     // first post request to upload the text data for the new listed product
+                     // call Product/buy endpoint to register the cart contents as being bought by the user
                     const buyProductResponse = await fetch('http://localhost:3000/products/buy?accountId=' + user._id, {
                         method: "POST",
                         headers: {
@@ -92,6 +97,10 @@ const PaymentForm = ({ cartContentsData }) => {
 
                     const newProduct = await buyProductResponse.json()
                     console.log("Line 94: " + newProduct.message);
+
+                    // Clear the cart contents
+                    clearCartHandler();
+
                     navigate('/store/profile/purchase');
                 }
             }

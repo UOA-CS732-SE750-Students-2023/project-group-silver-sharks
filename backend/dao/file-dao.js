@@ -35,7 +35,6 @@ const addImages = async (files, productId) => {
 
 const addDownloadFiles = async (files, productId) => {
   const product = await Product.findById(productId);
-  console.log(product);
   console.log(productId);
   let downloadFiles = [];
   let counter = 1;
@@ -51,8 +50,7 @@ const addDownloadFiles = async (files, productId) => {
   }
 
   product.files = downloadFiles;
-
-  console.log("product files" + product.files, 31);
+  console.log("product files" + product, 53);
 
   await product.save();
 
