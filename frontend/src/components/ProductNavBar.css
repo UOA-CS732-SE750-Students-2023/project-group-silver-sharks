@@ -138,3 +138,11 @@
   right: '45px';
   top: '45%';
 } */
+
+.dropdown-chevron-icon {
+  margin-left: 10px;
+}
+
+.dropdown-toggle::after {
+  content: none;
+}
