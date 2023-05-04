@@ -5,6 +5,9 @@ import { InputGroup, DropdownButton, Dropdown } from 'react-bootstrap';
 import "./ProductLayout.css";
 import "./AddReviewForm.css";
 import "./EditProductWindow.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+
 
 const ProductLayout = ({ product, author, reviews, userType }) => {
   const navigation = useNavigation();
@@ -145,14 +148,16 @@ const ProductLayout = ({ product, author, reviews, userType }) => {
     setShowAddReviewWindow(false);
   };
 
-  const [a_title, setTitle] = useState('Sort by: Price: Low to High');
+  const [a_title, setTitle] = useState('Sort by: Most recent');
   const handleSelect = (eventKey) => {
-      if (eventKey === 'plth') {
-        setTitle('Sort by: Price: Low to High');
-      } else {
-        setTitle('Sort by: Price: High to Low');
-      }
-    };
+    if (eventKey === 'recent') {
+      setTitle('Sort by: Most recent');
+    } else if (eventKey === 'highrate') {
+      setTitle('Sort by: Highest rate');
+    } else if (eventKey === 'lowrate') {
+      setTitle('Sort by: Lowest rate');
+    } 
+  };
   const sold = product.amountSold; // Replace this variable with the actual number of sales
 
   const [role,setRole] = useState(userType);
@@ -282,19 +287,28 @@ const ProductLayout = ({ product, author, reviews, userType }) => {
               <div><button onClick={addReviewWindowHandler} disabled={!showReview} className="add-review-button">Add Review</button></div>}
               <div>
                 <InputGroup>
-                        <DropdownButton
-                            variant="outline-secondary"
-                            title={a_title}
-                            id="sort-dropdown"
-                            align="end"
-                            onSelect={handleSelect}
-                            className='p_dropdownbutton'
-                        >
-                            <Dropdown.Item href="#/price-asc" eventKey="plth">Sort by: Most recent</Dropdown.Item>
-                            <Dropdown.Item href="#/price-desc" eventKey="phtl">Sort by: Highest rate</Dropdown.Item>
-                        </DropdownButton>
-                    </InputGroup>
-                </div>
+                  <DropdownButton
+                    variant="outline-secondary"
+                    title={
+                      <span className="dropdown-title">
+                        {a_title}
+                        <FontAwesomeIcon
+                          icon={faChevronDown}
+                          className="dropdown-chevron-icon"
+                        />
+                      </span>
+                    }
+                    id="sort-dropdown"
+                    align="end"
+                    onSelect={handleSelect}
+                    className='p_dropdownbutton dropdown-toggle'
+                  >
+                    <Dropdown.Item href="#/recent" eventKey="recent">Sort by: Most recent</Dropdown.Item>
+                    <Dropdown.Item href="#/highrate" eventKey="highrate">Sort by: Highest rate</Dropdown.Item>
+                    <Dropdown.Item href="#/lowrate" eventKey="lowrate">Sort by: Lowest rate</Dropdown.Item>
+                  </DropdownButton>
+                </InputGroup>
+              </div>
             </div>
           </div>
           {reviews.map((review, index) => (

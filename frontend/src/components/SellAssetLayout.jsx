@@ -176,12 +176,13 @@ const SellAssetLayout = ({ userId }) => {
           </div>
           <form  className="sell-assets" enctype='multipart/form-data' onSubmit={submitHandler}>
             <div className="form-group">
+              <label htmlFor="title">Title</label>
               <input
                 id="title"
                 type="text"
                 name="title"
                 className="styled-input"
-                placeholder="Title"
+                placeholder=""
                 value={enteredTitle}
                 onChange={titleChangeHandler}
                 required
@@ -189,12 +190,13 @@ const SellAssetLayout = ({ userId }) => {
               <span className="required-star">*</span>
             </div>
             <div className="form-group">
+              <label htmlFor="description">Description</label>
               <textarea
                 id="description"
                 name="description"
                 rows="5"
                 className="styled-input"
-                placeholder="Description"
+                placeholder=""
                 value={enteredDescription}
                 onChange={descriptionChangeHandler}
                 required
@@ -228,12 +230,13 @@ const SellAssetLayout = ({ userId }) => {
               />
             </div>
             <div className="form-group">
+              <label htmlFor="price">Price</label>
               <input
                 id="price"
                 type="number"
                 name="price"
                 className="styled-input"
-                placeholder="Price"
+                placeholder=""
                 value={price}
                 onChange={priceChangeHandler}
                 required
@@ -241,20 +244,25 @@ const SellAssetLayout = ({ userId }) => {
               />
               <span className="required-star-price">*</span>
             </div>
-            <div>
-              {/* <label htmlFor="category">Filter by year</label> */}
-              <select
-                className="styled-select"
-                value={category}
-                onChange={categoryChangeHandler}
-              >
-                <option value="Images">Category: Images</option>
-                <option value="Videos">Category: Videos</option>
-                <option value="Music">Category: Music</option>
-                <option value="Services">Category: Services</option>
-              </select>
-              <FontAwesomeIcon icon={faChevronDown} className="select-chevron" />
+            <div className="form-group">
+              <label htmlFor="category">Category</label>
+              <div className="select-container">
+                <select
+                  className="styled-select"
+                  value={category}
+                  onChange={categoryChangeHandler}
+                >
+                  <option value="Images">Images</option>
+                  <option value="Videos">Videos</option>
+                  <option value="Music">Music</option>
+                  <option value="Services">Services</option>
+                </select>
+                <div className="select-chevron">
+                  <FontAwesomeIcon icon={faChevronDown} />
+                </div>
+              </div>
             </div>
+
             <div className="d-flex justify-content-center">
               {/* <Button
                 variant="secondary"
@@ -279,7 +287,7 @@ const SellAssetLayout = ({ userId }) => {
               </Button>
             </div>
           </form>
-        </Col>        
+        </Col>       
       </Row>
     </Container>
   );
