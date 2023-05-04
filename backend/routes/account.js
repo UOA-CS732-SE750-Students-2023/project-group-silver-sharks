@@ -447,7 +447,37 @@ accountRouter.delete("/account/cart/pid/:pid", isLoggedIn, async (req, res) => {
 });
 
 /**
- * Endpoint 14: GET /account/is-in-cart/pid/{pid}
+ * Delete the accounts cart contents 
+ * Endpoint 14: DELETE /account/cart/clear
+ */
+accountRouter.delete("/account/cart/clear", isLoggedIn, async (req, res) => {
+
+  const userId = req.user.id;
+ 
+  try {
+    const account = await Account.findById(userId);
+
+    if (!account) {
+      return res.status(404).json({ message: "Account not found" });
+    }
+
+    // clear the cart contents
+    account.cartContents = [];
+
+    // save the updated account document for the user
+    await account.save();
+
+    res.status(200).json({ message: "All products removed from cart" });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .json({ message: "Server error: Something went wrong with deleting from cart" });
+  }
+});
+
+/**
+ * Endpoint 15: GET /account/is-in-cart/pid/{pid}
  * Checks whether an item is in the user's cart
  */
 accountRouter.get(

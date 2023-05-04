@@ -33,18 +33,18 @@ import { action as removeCartItem } from './pages/StoreRootPage';
 import { loader as purchaseAssetsLoader } from './pages/profile/PurchasePage';
 import { loader as sellingAssetsLoader } from './pages/profile/SellingPage';
 import { action as sellingPageAction } from './pages/profile/SellingPage';
+import { action as ClearCartAction } from './pages/StripePage';
 
 const router = createBrowserRouter([
   {path:'/', element: <RootPage />, children: [
     {index: true, element: <LandingPage />},
     {path: 'username', element: <UsernamePage />},
     {path: 'login', element: <LoginPage />, action: loginAction},
-    {path: 'payment', element: <StripePage />}, // Testing Purposes, remove line when finished
     {path: 'signup', element: <SignupPage />, action: signupAction},
     {path:'store', element: <StoreRootPage />, loader: usernameLoader, id: 'username-loader', action: removeCartItem , children: [
       {path:'product-search', element: <ProductSearchPage />, loader: allProductsLoader},
       {path: 'product/:productid', element: <ProductPage />, loader: productLoader, action: productAction},
-      {path: 'payment', element: <StripePage />, loader: StripeCartLoader},
+      {path: 'payment', element: <StripePage />, loader: StripeCartLoader, action: ClearCartAction},
       {path: 'author/:aid', element: <AuthorPage />, loader: authorLoader, action: deleteOtherAccountAction},
       {path: 'profile', element: <ProfileRoot />, children: [
         {index: true, element: <DashBoardPage />, loader: dashboardLoader, action: deleteAccountAction},

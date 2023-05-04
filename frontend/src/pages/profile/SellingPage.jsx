@@ -1,5 +1,5 @@
 import React from 'react'; 
-import { json, useLoaderData } from 'react-router-dom';
+import { json, useLoaderData,redirect } from 'react-router-dom';
 import SellingLayout from '../../components/profile-nav/ProfileComponents/SellingLayout';
 
 const SellingPage = () => {

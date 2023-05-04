@@ -39,3 +39,23 @@ export const loader = async ({request,params}) => {
   
   return cartContents;
 };
+
+export const action = async ({request,params}) => {
+  // getting the http method from the request argument
+  const method = request.method;
+
+  // check whether the request is a delete or a post
+
+  const response = await fetch("http://localhost:3000/account/cart/clear", {
+      method: method,
+  });
+
+  if (!response.ok){ 
+      throw json({ message: 'Could not clear cart contents.'}, { status: 500 });
+  }
+
+  console.log("cart cleared! from inside action", 76)
+
+  // redirect to the current page
+  return true;
+}

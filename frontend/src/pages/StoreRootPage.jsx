@@ -120,6 +120,6 @@ export const action = async ({params, request}) => {
 
   console.log("cart item deleted successfully")
 
-  return true;
+  return redirect('/store/product/' + productId);
 };
   
