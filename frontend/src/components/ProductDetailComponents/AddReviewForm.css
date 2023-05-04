@@ -42,6 +42,12 @@
   resize: none;
 }
 
+.edit-review:focus {
+  outline: none;
+  border-color: #348B81;
+  box-shadow: 0 0 0 0.1rem #348B81;
+}
+
 .add-review-container button {
   background-color: #348b81;
   color: #ffffff;
