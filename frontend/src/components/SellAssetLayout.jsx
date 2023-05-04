@@ -244,20 +244,25 @@ const SellAssetLayout = ({ userId }) => {
               />
               <span className="required-star-price">*</span>
             </div>
-            <div>
-              {/* <label htmlFor="category">Filter by year</label> */}
-              <select
-                className="styled-select"
-                value={category}
-                onChange={categoryChangeHandler}
-              >
-                <option value="Images">Category: Images</option>
-                <option value="Videos">Category: Videos</option>
-                <option value="Music">Category: Music</option>
-                <option value="Services">Category: Services</option>
-                <FontAwesomeIcon icon={faChevronDown} className="select-chevron" />
-              </select>
+            <div className="form-group">
+              <label htmlFor="category">Category</label>
+              <div className="select-container">
+                <select
+                  className="styled-select"
+                  value={category}
+                  onChange={categoryChangeHandler}
+                >
+                  <option value="Images">Images</option>
+                  <option value="Videos">Videos</option>
+                  <option value="Music">Music</option>
+                  <option value="Services">Services</option>
+                </select>
+                <div className="select-chevron">
+                  <FontAwesomeIcon icon={faChevronDown} />
+                </div>
+              </div>
             </div>
+
             <div className="d-flex justify-content-center">
               {/* <Button
                 variant="secondary"

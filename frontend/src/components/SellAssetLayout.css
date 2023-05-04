@@ -114,7 +114,7 @@
 
 .styled-select {
   font-family: Poppins;
-  width: 20%;
+  width: 100%;
   padding: 5px 10px;
   border: 2px solid black;
   border-radius: 10px;
@@ -125,6 +125,8 @@
   font-weight: 400;
   line-height: 24px;
   letter-spacing: 0em;
+
+  text-align: center;
 }
 
 .styled-select:focus {
@@ -182,12 +184,6 @@
   color: #ffffff;
 }
 
-.select-chevron {
-  position: absolute;
-  top: 84.5%;
-  left: 18.5%;
-}
-
 /* ... */
 .form-group label {
   display: block;
@@ -195,3 +191,19 @@
   font-weight: 500;
 }
 /* ... */
+
+.select-container {
+  position: relative;
+  display: inline-block;
+  width: 15%;
+}
+
+.select-chevron {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+
