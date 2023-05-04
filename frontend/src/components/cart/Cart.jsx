@@ -79,7 +79,7 @@ const Cart = (props) => {
                             <DashCircle className={`${classes.icon}`}
                                 size={24} 
                                 onClick={(event) => deleteHandler(event, item._id)}/>
-                            <div className={`d-flex justify-content-end ${classes.price}`}  >
+                            <div className={`${classes.price}`}>
                                 <h1>${Math.floor(item.price)}
                                     <span>{(item.price % 1).toFixed(2).split('.')[1]}</span>
                                 </h1>
