@@ -1,9 +1,9 @@
-import React from 'react'; 
+import React, { useState } from 'react'; 
 import Modal from '../modal/Modal';
 import { DashCircle  } from 'react-bootstrap-icons';
 import './Cart.module.css';
 import classes from '../modal/Modal.module.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSubmit } from 'react-router-dom';
 
 
 
@@ -12,102 +12,47 @@ import { useNavigate } from 'react-router-dom';
 // rerender
 
 const Cart = (props) => { 
+    const submit = useSubmit();
+    //const [isCartEmpty, setIsCartEmpty] = useState(false);
+    let isCartEmpty = false;
+
+    let currentCartItem;
+
+
+    console.log("cart: " + props.cartContents, 16)
+
+    if (props.cartContents.length === 0){ 
+        isCartEmpty = true;
+    } else { 
+        isCartEmpty = false;
+    }
+
+
+    // check if the cart is empty or not 
+
+    // if it is empty then render a display message
     
     const navigate = useNavigate();
-    const DUMMY_DATA = [
-        {   
-            pid: 1,
-            aid: 2,
-            name: 'goku',
-            price:80.00,
-            sold:414,
-            like:4.8,
-            category:'Image',
-            url: 'https://www.cartonionline.com/wordpress/wp-content/uploads/2023/02/goku-814x1024.jpg',
-            author: 'steve',
-            intro:'This is a brief introduction to the product.',
-            description: 'is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'
-        },
-        {   
-            pid: 3,
-            aid: 4,
-            name: 'naruto',
-            price:5.50,
-            sold:8545,
-            like:3.2,
-            category:'Image',
-            url: 'https://animecorner.me/wp-content/uploads/2022/10/naruto.png',
-            author: 'herobrine',
-            intro:'This is a brief introduction to the product.',
-            description: 'is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'
-        },
-        {   
-            pid: 5,
-            aid: 6,
-            name: 'sasuke',
-            price:11.99,
-            sold:23,
-            like:5.0,
-            category:'Image',
-            url: 'https://www.looper.com/img/gallery/every-power-sasuke-has-on-naruto-explained/intro-1663193400.jpg',
-            author: 'bob',
-            intro:'This is a brief introduction to the product.',
-            description: 'is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'
-        },
-        {   
-            pid: 8,
-            aid: 11,
-            name: 'goku',
-            price:80.00,
-            sold:414,
-            like:4.8,
-            category:'Image',
-            url: 'https://www.cartonionline.com/wordpress/wp-content/uploads/2023/02/goku-814x1024.jpg',
-            author: 'steve',
-            intro:'This is a brief introduction to the product.',
-            description: 'is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'
-        },
-        {   
-            pid: 9,
-            aid: 55,
-            name: 'naruto',
-            price:5.50,
-            sold:8545,
-            like:3.2,
-            category:'Image',
-            url: 'https://animecorner.me/wp-content/uploads/2022/10/naruto.png',
-            author: 'herobrine',
-            intro:'This is a brief introduction to the product.',
-            description: 'is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'
-        },
-        {   
-            pid: 57,
-            aid: 67,
-            name: 'sasuke',
-            price:11.99,
-            sold:23,
-            like:5.0,
-            category:'Image',
-            url: 'https://www.looper.com/img/gallery/every-power-sasuke-has-on-naruto-explained/intro-1663193400.jpg',
-            author: 'bob',
-            intro:'This is a brief introduction to the product.',
-            description: 'is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'
-        },
-        
-    ];
 
     const closeCartHandler = () => {
         props.closeCart();
     }
     // Calculate the price of all items in the shopping cart
-    const totalPrice = DUMMY_DATA.reduce((acc, item) => acc + item.price, 0);
+    const totalPrice = props.cartContents.reduce((acc, item) => acc + item.price, 0);
     
     //Calculate the number of items in the shopping cart
-    const totalAmount=DUMMY_DATA.length;
+    const totalAmount = props.cartContents.length ?? 0;
     const itemText = totalAmount > 1 ? 'items' : 'item';
 
-    const handleClick = ()=>{
-        window.alert("Remove the product from cart.");
+    const deleteHandler = (event, productId) => {
+        const proceed = window.confirm('Are you sure?');
+
+        if (proceed){
+            const id = 1;
+            // trigger action programmatically using the useSubmit hook
+            // params for function are data and other details like method
+            submit({ id: productId }, { method: 'delete' });
+        }
     }
 
     const checkoutClick = ()=>{
@@ -120,22 +65,20 @@ const Cart = (props) => {
             <div className={`${classes.cartcontainer}`}>
                 <h2>Shopping cart</h2>
                 <ul className="list-unstyled">
-                    {DUMMY_DATA.map((item) => (
-                        <li key={item.pid}>
+                    {!isCartEmpty &&props.cartContents.map((item) => (
+                        <li key={item._id}>
                             <div className={`${classes.pic_d}`}>
-                                <img src={item.url}/>
+                                <img src={`http://localhost:3000/uploads/${item.coverImage}`}/>
                             </div>
                             
                             <div className={`${classes.intro_d}`}>
-                                <p className="text-nowrap text-truncate">{item.intro}</p>
+                                <p className="text-nowrap text-truncate">{item.name}</p>
                                 <p className={`${classes.cate_color}`}>{item.category}</p>
                             </div>
                             
                             <DashCircle className={`${classes.icon}`}
                                 size={24} 
-                                onClick={handleClick}/>
-
-                            
+                                onClick={(event) => deleteHandler(event, item._id)}/>
                             <div className={`d-flex justify-content-end ${classes.price}`}  >
                                 <h1>${Math.floor(item.price)}
                                     <span>{(item.price % 1).toFixed(2).split('.')[1]}</span>
@@ -162,21 +105,9 @@ const Cart = (props) => {
                     </div>
                 </div>
                 <div className="d-flex justify-content-end">
-                    <button onClick={checkoutClick} className={`${classes.btt}`}>Checkout</button>
+                    <button onClick={checkoutClick} disabled={isCartEmpty} className={`${classes.btt}`}>Checkout</button>
                 </div>
-                
-                    
-                
-
             </div>
-            {/* <h2>Shopping cart</h2>
-            <h2>{cartContent}</h2>
-            <h2>{DUMMY_DATA.pid}</h2>
-            <div>
-                <h3>The total amount from context is: </h3>
-                <p>{totalAmount}</p>
-            </div>
-            <button onClick={closeCartHandler}>Close</button> */}
         </Modal>
     );
 }

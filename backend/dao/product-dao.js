@@ -184,7 +184,9 @@ const deleteProduct = async (productId) => {
   const downloadFilesToRemove = productFiles.filter((file) =>
     file.includes(productId)
   );
-
+  
+  // checking if the product has download files to remove or not
+ 
   await Promise.all(
     downloadFilesToRemove.map((file) =>
       fs.unlinkSync(path.join("./public/uploads", file))

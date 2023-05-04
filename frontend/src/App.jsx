@@ -21,14 +21,15 @@ import StripePage from './pages/StripePage';
 import { loader as allProductsLoader } from './pages/ProductSearchPage';
 import { loader as productLoader } from './pages/ProductPage';
 import { action as sellAssetAction } from './pages/SellAssetPage';
-import { loader as usernameLoader } from './components/StoreComponents/StoreNavBar';
+import { loader as usernameLoader } from './pages/StoreRootPage';
 import { loader as authorLoader } from './pages/AuthorPage';
 import { action as productAction } from './pages/ProductPage';
 import { loader as sellAssetLoader } from './pages/SellAssetPage';
 import { loader as StripeCartLoader } from './pages/StripePage';
 import { action as deleteAccountAction } from './pages/profile/DashboardPage';
 import { action as deleteOtherAccountAction } from './pages/AuthorPage';
-
+import { loader as dashboardLoader } from './pages/profile/DashboardPage';
+import { action as removeCartItem } from './pages/StoreRootPage';
 
 const router = createBrowserRouter([
   {path:'/', element: <RootPage />, children: [
@@ -37,13 +38,13 @@ const router = createBrowserRouter([
     {path: 'login', element: <LoginPage />, action: loginAction},
     {path: 'payment', element: <StripePage />}, // Testing Purposes, remove line when finished
     {path: 'signup', element: <SignupPage />, action: signupAction},
-    {path:'store', element: <StoreRootPage />, loader: usernameLoader, id: 'username-loader', children: [
+    {path:'store', element: <StoreRootPage />, loader: usernameLoader, id: 'username-loader', action: removeCartItem , children: [
       {path:'product-search', element: <ProductSearchPage />, loader: allProductsLoader},
       {path: 'product/:productid', element: <ProductPage />, loader: productLoader, action: productAction},
       {path: 'payment', element: <StripePage />, loader: StripeCartLoader},
       {path: 'author/:aid', element: <AuthorPage />, loader: authorLoader, action: deleteOtherAccountAction},
       {path: 'profile', element: <ProfileRoot />, children: [
-        {index: true, element: <DashBoardPage />, action: deleteAccountAction},
+        {index: true, element: <DashBoardPage />, loader: dashboardLoader, action: deleteAccountAction},
         {path: 'messages', element: <MessagesPage />},
         {path: 'purchase', element: <PurchasePage />},
         {path: 'selling', element: <SellingPage />},

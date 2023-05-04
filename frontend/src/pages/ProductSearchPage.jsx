@@ -14,7 +14,7 @@ const grayBackgroundStyle = {
   backgroundColor: "#F1F1F1",
 };
 
-const ITEMS_PER_PAGE = 3;
+const ITEMS_PER_PAGE = 9;
 
 const ProductSearchPage = () => {
   // fetching all products from the backend

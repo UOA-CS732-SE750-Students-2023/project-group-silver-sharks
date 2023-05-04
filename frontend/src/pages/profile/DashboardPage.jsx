@@ -4,8 +4,10 @@ import { useLoaderData, redirect, json } from 'react-router-dom';
 
 const DashBoardPage = () => {
 
+    const user = useLoaderData();
+
     return ( 
-        <DashboardLayout />
+        <DashboardLayout user={user}/>
     );
 }
 
