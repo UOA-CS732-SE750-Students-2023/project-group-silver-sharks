@@ -1,28 +1,40 @@
 import React from 'react';
 import './SellingLayout.css';
 
-const SellingLayout = () => {
-  const sellingAssets = [
-    {
-      pid: 1,
-      name: 'Naruto',
-      price: 5.5,
-      category: 'Image',
-      url: 'https://animecorner.me/wp-content/uploads/2022/10/naruto.png',
-      sold: 8545,
-    },
-    {
-      pid: 2,
-      name: 'sasuke',
-      price: 11.99,
-      category: 'Image',
-      url: 'https://www.looper.com/img/gallery/every-power-sasuke-has-on-naruto-explained/intro-1663193400.jpg',
-      sold: 2000,
-    },
-    // Add more assets here
-  ];
+const SellingLayout = ({ sellingAssets }) => {
 
-  const totalEarnings = sellingAssets.reduce((acc, asset) => acc + asset.price * asset.sold, 0);
+  const downloadFile = async (productId, productname) => {
+    try {
+      const response = await fetch("http://localhost:3000/download/" + productId);
+
+      const blob = await response.blob();
+
+      // Create a Blob URL
+      const blobUrl = URL.createObjectURL(blob);
+
+      // Create an anchor element and set the Blob URL as its href attribute
+      const anchor = document.createElement("a");
+      anchor.href = blobUrl;
+      anchor.download = productname + '.zip';
+
+      // Append the anchor to the document, trigger a click event, and remove it
+      document.body.appendChild(anchor);
+      anchor.click();
+      setTimeout(() => {
+        document.body.removeChild(anchor);
+        URL.revokeObjectURL(blobUrl);
+      }, 0);
+      
+    } catch (error) {
+      console.error("Error downloading the file:", error);
+    }
+  }
+
+  const removeListingHandler = async (productId) => {
+    console.log(productId);
+  }
+
+  const totalEarnings = sellingAssets.reduce((acc, asset) => acc + asset.price * asset.amountSold, 0);
 
   return (
     <div className="selling-layout">
@@ -33,7 +45,7 @@ const SellingLayout = () => {
           {sellingAssets.map((asset, index) => (
             <div className="asset-item" key={index}>
               <div className="asset-image">
-                <img src={asset.url} alt={asset.name} />
+                <img src={"http://localhost:3000/uploads/" + asset.coverImage} alt={asset.name} />
               </div>
               <div className="asset-details">
                 <h3>{asset.name}</h3>
@@ -41,10 +53,10 @@ const SellingLayout = () => {
                 <p>Category: {asset.category}</p>
                 <div className="asset-links">
                   <div>
-                    <a href={asset.url} download>Download</a>
+                    <button onClick={() => downloadFile(asset._id, asset.name)}>Download files</button>
                   </div>
                   <div>
-                    <button onClick={() => handleRemove(asset.id)}>Remove</button>
+                    <button onClick={() => removeListingHandler(asset.id)}>Remove listing</button>
                   </div>
                 </div>
               </div>
@@ -58,7 +70,7 @@ const SellingLayout = () => {
           {sellingAssets.map((asset, index) => (
             <div className="asset-item" key={index}>
               <div className="asset-image">
-                <img src={asset.url} alt={asset.name} />
+                <img src={"http://localhost:3000/uploads/" + asset.coverImage} alt={asset.name} />
               </div>
               <div className="asset-name-category">
                 <h3>{asset.name}</h3>
@@ -66,10 +78,10 @@ const SellingLayout = () => {
               </div>
               <div className="asset-price-sold">
                 <p>Price: ${asset.price.toFixed(2)}</p>
-                <p>{asset.sold} sold</p>
+                <p>{asset.amountSold} sold</p>
               </div>
               <div className="asset-total">
-                <p>${(asset.price * asset.sold).toFixed(2)}</p>
+                <p>${(asset.price * asset.amountSold).toFixed(2)}</p>
               </div>
             </div>
           ))}

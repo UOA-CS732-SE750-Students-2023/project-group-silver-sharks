@@ -1,9 +1,11 @@
 import React, { useRef, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "./PurchaseLayout.css";
 
 const PurchaseLayout = ({ purchasedAssets }) => {
   const [imageHeight, setImageHeight] = useState(null);
   const imageRef = useRef();
+  const navigate = useNavigate();
 
   console.log("+++++++++++++++++++++++++++++++++++++++");
   console.log("purchased assets in purchase layout: " + purchasedAssets, 9);
@@ -66,6 +68,7 @@ const PurchaseLayout = ({ purchasedAssets }) => {
                   <p>Price: ${asset.price.toFixed(2)}</p>
                   <p>Category: {asset.category}</p>
                   <button onClick={() => downloadFile(asset._id, asset.name)}>Download files</button>
+                  <button onClick={() => navigate(`/store/product/${asset._id}`)}>Review</button>
                 </div>
               </div>
             ))}

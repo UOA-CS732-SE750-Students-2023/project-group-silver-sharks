@@ -137,7 +137,9 @@ const ProductLayout = ({ product, author, reviews, userType }) => {
 
     console.log("edit event is successful");
 
-    navigate("/store/product-search");
+    // reload the current page and close the modal
+    navigate(".");
+    closeEditWindowHandler();
   }
 
 
