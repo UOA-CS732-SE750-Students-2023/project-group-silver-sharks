@@ -27,6 +27,7 @@ const addImages = async (files, productId) => {
   }
 
   product.files = images;
+
   await product.save();
 
   return { message: "Successsfully saved images" };
@@ -49,7 +50,10 @@ const addDownloadFiles = async (files, productId) => {
     counter++;
   }
 
-  product.downloadFiles = downloadFiles;
+  product.files = downloadFiles;
+
+  console.log("product files" + product.files, 31);
+
   await product.save();
 
   return { message: "Successsfully saved download files" };

@@ -30,6 +30,7 @@ import { action as deleteAccountAction } from './pages/profile/DashboardPage';
 import { action as deleteOtherAccountAction } from './pages/AuthorPage';
 import { loader as dashboardLoader } from './pages/profile/DashboardPage';
 import { action as removeCartItem } from './pages/StoreRootPage';
+import { loader as purchaseAssetsLoader } from './pages/profile/PurchasePage';
 
 const router = createBrowserRouter([
   {path:'/', element: <RootPage />, children: [
@@ -46,7 +47,7 @@ const router = createBrowserRouter([
       {path: 'profile', element: <ProfileRoot />, children: [
         {index: true, element: <DashBoardPage />, loader: dashboardLoader, action: deleteAccountAction},
         {path: 'messages', element: <MessagesPage />},
-        {path: 'purchase', element: <PurchasePage />},
+        {path: 'purchase', element: <PurchasePage />, loader: purchaseAssetsLoader},
         {path: 'selling', element: <SellingPage />},
       ]},
       {path: 'sell-asset', element: <SellAssetPage />, loader: sellAssetLoader, action: sellAssetAction}
