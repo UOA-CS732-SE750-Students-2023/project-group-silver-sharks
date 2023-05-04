@@ -33,6 +33,9 @@ export const loader = async ({request,params}) => {
   }
 
   const data = await response.json();
+
+  const cartContents = data.cartContents;
+  console.log("line 38" + cartContents);
   
-  return data;
+  return cartContents;
 };

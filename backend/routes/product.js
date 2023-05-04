@@ -253,8 +253,10 @@ productRouter.post("/products/buy/", isLoggedIn, async (req, res) => {
     // const accountId = req.user._id;
     const accountId = req.query.accountId;
     const products = req.body;
+    console.log("Line 256 Request body, there are the products: " + req.body);
 
     for (const product of products) {
+      console.log("Product ID is: " + product._id);
       const productId = product._id;
       await registerBuyingProductWithAccount(productId, accountId);
     }
