@@ -3,8 +3,8 @@ import { Link, useSubmit, useNavigation, useNavigate, Form, useActionData, json 
 import ProductContext from "../../store/product-context";
 import { InputGroup, DropdownButton, Dropdown } from 'react-bootstrap';
 import "./ProductLayout.css";
-import "./AddReviewForm.css"
-
+import "./AddReviewForm.css";
+import "./EditProductWindow.css";
 
 const ProductLayout = ({ product, author, reviews, userType }) => {
   const navigation = useNavigation();
@@ -178,7 +178,7 @@ const ProductLayout = ({ product, author, reviews, userType }) => {
         >
           <Form method='POST'>
             <h2>Add Review</h2>
-            <textarea rows="4" placeholder="Your review" id="review" name="review"></textarea>
+            <textarea calssName="edit-review" rows="4" placeholder="Your review" id="review" name="review"></textarea>
             <div className="rating-container">
               <label htmlFor="rating">Rating</label>
               <div className="star-rating">
@@ -214,9 +214,9 @@ const ProductLayout = ({ product, author, reviews, userType }) => {
         >
           <form method='POST' onSubmit={editProductSubmitHandler}>
             <h2>Edit Details</h2>
-            <input type="text" placeholder="Edit name" id="name" name="name" ref={nameInputRef}/>
-            <textarea rows="4" placeholder="Description..." id="description" name="description" ref={descriptionInputRef}></textarea>
-            <input id="price" placeholder="Price" type="number" ref={priceInputRef}/>
+            <input className="edit-name" type="text" placeholder="Edit name" id="name" name="name" ref={nameInputRef}/>
+            <textarea className="edit-description" rows="4" placeholder="Description..." id="description" name="description" ref={descriptionInputRef}></textarea>
+            <input className="edit-input" id="price" placeholder="Price" type="number" ref={priceInputRef}/>
             <div>
               <button className="add-button" type="submit" disabled={isSubmitting}>Submit Changes</button>
               <button className="cancel-button" onClick={closeEditWindowHandler}>
@@ -253,7 +253,10 @@ const ProductLayout = ({ product, author, reviews, userType }) => {
                   <button className="message-button">Message</button>
                 </div>
                 <div className="d-flex justify-content-between">
-                  <div><h2>{`$ ${product.price.toFixed(0)}`}<span>{`${product.price.toFixed(2).substr(-2)}`}</span></h2></div>
+                  <div className="product-price">
+                    <h2>{`$ ${product.price.toFixed(0)}`}</h2>
+                    <span>{`${product.price.toFixed(2).substr(-2)}`}</span>
+                  </div>
                   <div><button onClick={addToCartHandler}>Add to cart</button></div>
                 </div>
               </div>
