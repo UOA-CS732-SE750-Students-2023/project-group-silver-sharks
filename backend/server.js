@@ -10,6 +10,7 @@ import fileRouter from "./routes/file.js";
 import http from "http";
 import { Server } from "socket.io";
 import { Message } from "./models/messageModel.js";
+import { Room } from "./models/roomModel.js";
 
 // 1. INITIAL SETUP
 import stripeRouter from "./routes/stripe.js";
@@ -65,16 +66,33 @@ io.on("connection", (socket) => {
 
   socket.on("send_message", async (data) => {
     // Save the message to the database
+    let newMessage;
     try {
-      const newMessage = new Message({
+      newMessage = new Message({
         content: data.content,
         senderId: data.senderId,
         receiverId: data.receiverId,
       });
-
+  
       await newMessage.save();
     } catch (error) {
       console.log("Error saving message:", error);
+    }
+  
+    // Add the message to the room's messages array
+    try {
+      await Room.findOneAndUpdate(
+        {
+          $or: [
+            { account1: data.senderId, account2: data.receiverId },
+            { account1: data.receiverId, account2: data.senderId },
+          ],
+        },
+        { $push: { messages: newMessage._id } },
+        { new: true, useFindAndModify: false }
+      );
+    } catch (error) {
+      console.log("Error adding message to room:", error);
     }
 
     // Emit the message to the room
