@@ -92,6 +92,25 @@ const ProductLayout = ({ product, author, reviews, userType }) => {
 
     setShowAddReviewWindow(true);
   };
+
+  const checkItemInCart = async () => {
+    // /account/is-in-cart/pid/:pid
+    const response = await fetch("http://localhost:3000/account/is-in-cart/pid/" + product._id);
+
+    if (!response.ok){
+        throw json({ message: 'Incorrect Product id supplied'}, {
+            status: 500,
+        });
+    } 
+
+    const responseData = await response.json();
+
+    console.log(responseData); 
+
+    return responseData.inCart;
+  }
+
+  const checkIfOwnProduct = async 
   
   const addToCartHandler = async () => {
     // pre checks GO HERE

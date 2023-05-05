@@ -6,8 +6,8 @@ import { Container } from 'react-bootstrap';
 const MessagesPage = () => {
     return (
         <Container>
-        <MessagesLayout />
-        <ChatHolder />
+          <MessagesLayout />
+          <ChatHolder />
         </Container>
     );
 }
