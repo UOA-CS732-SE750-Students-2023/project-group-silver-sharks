@@ -148,10 +148,7 @@ const ProductLayout = ({ product, author, reviews, userType }) => {
     navigate(".");
     closeEditWindowHandler();
   }
-  
-  const closeAddReviewWindowHandler = () => {
-    setShowAddReviewWindow(false);
-  };
+
 
   const [a_title, setTitle] = useState('Sort by: Most recent');
 
