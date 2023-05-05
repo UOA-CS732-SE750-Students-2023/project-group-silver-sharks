@@ -168,6 +168,7 @@ const ProductSearchPage = () => {
           setSearchCategory={categoryHandler}
           setFilter={filterHandler}
           setSearchTerm={searchByPhraseHandler}
+          notFound={notFound}
         />
         <StoreDisplayLayout items={displayedProducts} notFound={notFound} />
         <div className="pagination-container" style={grayBackgroundStyle}>

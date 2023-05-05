@@ -5,7 +5,7 @@ import './ProductNavBar.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
-const ProductNavBar = ({ setSearchCategory, setFilter, setSearchTerm }) => {
+const ProductNavBar = ({ setSearchCategory, setFilter, setSearchTerm, notFound }) => {
   const [selectedCategory, setSelectedCategory] = useState('');
 
   // const searchInputStyle = {
@@ -68,7 +68,7 @@ const ProductNavBar = ({ setSearchCategory, setFilter, setSearchTerm }) => {
                 <Button
                   onClick={categoryHandler}
                   className={`nav-link nav-button-style ${
-                    selectedCategory === 'Images' ? 'nav-button-selected-style' : ''
+                    !notFound && selectedCategory === 'Images' ? 'nav-button-selected-style' : ''
                   }`}
                   onMouseEnter={(e) => (e.target.style.backgroundColor = '#348B81')}
                   onMouseLeave={(e) =>
@@ -83,7 +83,7 @@ const ProductNavBar = ({ setSearchCategory, setFilter, setSearchTerm }) => {
                 <Button
                   onClick={categoryHandler}
                   className={`nav-link nav-button-style ${
-                    selectedCategory === 'Videos' ? 'nav-button-selected-style' : ''
+                    !notFound && selectedCategory === 'Videos' ? 'nav-button-selected-style' : ''
                   }`}
                   onMouseEnter={(e) => (e.target.style.backgroundColor = '#348B81')}
                   onMouseLeave={(e) =>
@@ -98,7 +98,7 @@ const ProductNavBar = ({ setSearchCategory, setFilter, setSearchTerm }) => {
                 <Button
                   onClick={categoryHandler}
                   className={`nav-link nav-button-style ${
-                    selectedCategory === 'Music' ? 'nav-button-selected-style' : ''
+                    !notFound && selectedCategory === 'Music' ? 'nav-button-selected-style' : ''
                   }`}
                   onMouseEnter={(e) => (e.target.style.backgroundColor = '#348B81')}
                   onMouseLeave={(e) =>
@@ -113,7 +113,7 @@ const ProductNavBar = ({ setSearchCategory, setFilter, setSearchTerm }) => {
                 <Button
                   onClick={categoryHandler}
                   className={`nav-link nav-button-style ${
-                    selectedCategory === 'Services' ? 'nav-button-selected-style' : ''
+                    !notFound && selectedCategory === 'Services' ? 'nav-button-selected-style' : ''
                   }`}
                   onMouseEnter={(e) => (e.target.style.backgroundColor = '#348B81')}
                   onMouseLeave={(e) =>
