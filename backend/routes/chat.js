@@ -34,8 +34,13 @@ chatRouter.use(passport.session());
  * Either creates a room if one doesn’t exist between 2 users, or gets it if it does exist
  */
 chatRouter.post('/chat', isLoggedIn, async (req, res) => {
-  const { account1, account2 } = req.body;
-
+  let { account1, account2 } = req.body;
+  if (account1 == 0) {
+    account1 = req.user.id;
+  }
+  if (account2 == 0) {
+    account2 = req.user.id;
+  }
   let room = await Room.findOne({
     $or: [
       { account1: account1, account2: account2 },
