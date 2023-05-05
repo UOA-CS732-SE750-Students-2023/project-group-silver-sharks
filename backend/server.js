@@ -4,16 +4,17 @@ import * as url from "url";
 import path from "path";
 import productRouter from "./routes/product.js";
 import accountRouter from "./routes/account.js";
+import chatRouter from "./routes/chat.js";
 import "./auth.js";
 import authRouter from "./routes/authentication.js";
 import fileRouter from "./routes/file.js";
 import http from "http";
 import { Server } from "socket.io";
 import { Message } from "./models/messageModel.js";
+import { Room } from "./models/roomModel.js";
 
 // 1. INITIAL SETUP
 import stripeRouter from "./routes/stripe.js";
-
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -35,6 +36,7 @@ app.use(accountRouter);
 app.use(authRouter);
 app.use(fileRouter);
 app.use(stripeRouter);
+app.use(chatRouter);
 
 app.use((error, req, res, next) => {
   const status = error.status || 500;
@@ -65,8 +67,9 @@ io.on("connection", (socket) => {
 
   socket.on("send_message", async (data) => {
     // Save the message to the database
+    let newMessage;
     try {
-      const newMessage = new Message({
+      newMessage = new Message({
         content: data.content,
         senderId: data.senderId,
         receiverId: data.receiverId,
@@ -75,6 +78,22 @@ io.on("connection", (socket) => {
       await newMessage.save();
     } catch (error) {
       console.log("Error saving message:", error);
+    }
+
+    // Add the message to the room's messages array
+    try {
+      await Room.findOneAndUpdate(
+        {
+          $or: [
+            { account1: data.senderId, account2: data.receiverId },
+            { account1: data.receiverId, account2: data.senderId },
+          ],
+        },
+        { $push: { messages: newMessage._id } },
+        { new: true, useFindAndModify: false }
+      );
+    } catch (error) {
+      console.log("Error adding message to room:", error);
     }
 
     // Emit the message to the room
