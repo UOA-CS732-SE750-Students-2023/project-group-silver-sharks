@@ -56,7 +56,7 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
             style={{ color: "black" }}
             onClick={() => openChatWindow(index)}
           >
-            {otherUsername[index].otherId}
+            {otherUsername[index].otherUsername}
           </button>
         ))}
       </div>

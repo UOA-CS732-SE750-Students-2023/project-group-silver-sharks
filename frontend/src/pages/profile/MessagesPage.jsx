@@ -1,60 +1,76 @@
-import React from 'react'; 
-import { useLoaderData, json } from 'react-router-dom';
-import MessagesLayout from '../../components/MessagesLayout';
-import ChatHolder from '../../components/ChatHolder';
-import { Container } from 'react-bootstrap';
+import React from "react";
+import { useLoaderData, json } from "react-router-dom";
+import MessagesLayout from "../../components/MessagesLayout";
+import ChatHolder from "../../components/ChatHolder";
+import { Container } from "react-bootstrap";
 
 const MessagesPage = () => {
   const data = useLoaderData();
 
-  // 0 - rooms objects array 
-  // 1 - is the other username for each room 
+  // 0 - rooms objects array
+  // 1 - is the other username for each room
   // 2 is my own username
-  const rooms = data[0]; 
-  const otherUsername = data[1]; 
+  const rooms = data[0];
+  const otherUsername = data[1];
   const ownUsername = data[2];
 
   return (
-      <Container>
-        <MessagesLayout rooms={rooms} otherUsername={otherUsername} ownUsername={ownUsername}/>
-        <ChatHolder />
-      </Container>
+    <Container>
+      <MessagesLayout
+        rooms={rooms}
+        otherUsername={otherUsername}
+        ownUsername={ownUsername}
+      />
+      <ChatHolder
+        roomId={rooms[0]?._id}
+        senderId={ownUsername.loggedInId}
+        receiverId={
+          otherUsername.find(
+            (usernameObj) => usernameObj.roomId === rooms[0]?._id
+          )?.otherId
+        }
+      />
+    </Container>
   );
-}
+};
 
 export default MessagesPage;
 
-export const loader = async ({request,params}) => {
-
+export const loader = async ({ request, params }) => {
   let responseData = [];
 
   // fetch the id of the currently logged in user
-  const userResponse = await fetch('http://localhost:3000/account/id/0');
+  const userResponse = await fetch("http://localhost:3000/account/id/0");
 
   if (!userResponse.ok) {
-     
-      if (userResponse.status === 401){
-          console.log("Not Authorized."); 
-          return redirect("/");
-      } 
+    if (userResponse.status === 401) {
+      console.log("Not Authorized.");
+      return redirect("/");
+    }
 
-      // 428 is returned if username is not set
-      if (userResponse.status === 428){ 
-          return redirect("/username");
-      }
+    // 428 is returned if username is not set
+    if (userResponse.status === 428) {
+      return redirect("/username");
+    }
 
-      return json({ message: "Could not fetch data from backend."}, { status: 500 });
-  } 
+    return json(
+      { message: "Could not fetch data from backend." },
+      { status: 500 }
+    );
+  }
 
   const user = await userResponse.json();
 
   // get all of the current user's rooms -> array of room ids
-  
-  const roomsResponse = await fetch('http://localhost:3000/chat/rooms');
+
+  const roomsResponse = await fetch("http://localhost:3000/chat/rooms");
 
   if (!roomsResponse.ok) {
-      return json({ message: "Could not fetch rooms from the backend"}, { status: 500 });
-  } 
+    return json(
+      { message: "Could not fetch rooms from the backend" },
+      { status: 500 }
+    );
+  }
 
   const rooms = await roomsResponse.json();
 
@@ -63,27 +79,33 @@ export const loader = async ({request,params}) => {
   const loggedInId = user._id;
 
   let usernamesPromises = rooms.rooms.map(async (room) => {
-    let accountIds = []; 
-    accountIds.push(room.account1); 
+    let accountIds = [];
+    accountIds.push(room.account1);
     accountIds.push(room.account2);
 
-    const otherId = accountIds.filter((id) => id !== loggedInId); 
+    const otherId = accountIds.filter((id) => id !== loggedInId);
 
     // use the id to get the other users username
-    const otherUserResponse = await fetch('http://localhost:3000/account/id/' + otherId[0]);
+    const otherUserResponse = await fetch(
+      "http://localhost:3000/account/id/" + otherId[0]
+    );
 
     if (!otherUserResponse.ok) {
-        return json({ message: "Could not fetch account from rest api"}, { status: 500 });
-    } 
+      return json(
+        { message: "Could not fetch account from rest api" },
+        { status: 500 }
+      );
+    }
 
     const otherUser = await otherUserResponse.json();
 
     const otherUsersName = otherUser.username;
 
     const otherusername = {
-      roomId: room._id, 
-      otherId: otherUsersName
-    }
+      roomId: room._id,
+      otherUsername: otherUsersName,
+      otherId: otherId[0]
+    };
 
     return otherusername;
   });
@@ -91,18 +113,18 @@ export const loader = async ({request,params}) => {
   let usernames = await Promise.all(usernamesPromises);
 
   // return the data as an array
-  // 0 - rooms objects array 
-  // 1 - is the other username for each room 
+  // 0 - rooms objects array
+  // 1 - is the other username for each room
   // 2 is my own username
 
-  responseData.push(rooms.rooms); 
-  responseData.push(usernames); 
+  responseData.push(rooms.rooms);
+  responseData.push(usernames);
   responseData.push({
-    loggedInUsername: loggedInUsername, 
-    loggedInId: loggedInId
+    loggedInUsername: loggedInUsername,
+    loggedInId: loggedInId,
   });
 
   console.log(responseData, 89);
 
   return responseData;
-}
+};
