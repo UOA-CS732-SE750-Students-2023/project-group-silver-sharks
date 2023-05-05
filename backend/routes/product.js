@@ -124,6 +124,11 @@ productRouter.post("/products/sell/:userId", isLoggedIn, async (req, res) => {
     // register the account with the product
     await registerAccountWithProduct(userId, newProduct._id);
 
+    const keys = await redisClient.keys("products:filter:*");
+    if (keys.length > 0) {
+      await redisClient.del(...keys);
+    }
+
     return res
       .status(StatusCodes.CREATED)
       .header("Location", `/products/${newProduct._id}`)
@@ -141,6 +146,11 @@ productRouter.put("/products/:productId", isLoggedIn, async (req, res) => {
     const updatedProductData = req.body;
 
     const updatedProduct = await updateProduct(productId, updatedProductData);
+
+    const keys = await redisClient.keys("products:filter:*");
+    if (keys.length > 0) {
+      await redisClient.del(...keys);
+    }
 
     if (updatedProduct) {
       return res.status(StatusCodes.OK).json(updatedProduct);
@@ -193,12 +203,6 @@ productRouter.get("/products/filter", isLoggedIn, async (req, res) => {
         JSON.stringify([products, count])
       );
       console.log("Successfully cached results");
-      // await req.redisClient.setAsync(
-      //   cacheKey,
-      //   JSON.stringify([products, count]),
-      //   "EX",
-      //   3600
-      // );
 
       return res.status(StatusCodes.OK).json([products, count]);
     }
@@ -268,6 +272,11 @@ productRouter.delete("/products/:productId", isLoggedIn, async (req, res) => {
     const productId = req.params.productId;
 
     const deletedProduct = await deleteProduct(productId);
+
+    const keys = await redisClient.keys("products:filter:*");
+    if (keys.length > 0) {
+      await redisClient.del(...keys);
+    }
 
     // delete all reviews for product
     ProductReview.deleteMany({ product: productId });
