@@ -115,10 +115,17 @@ const MessagesLayout = () => {
                     style={{ display: "none" }}
                 >   
                     {chat.messages.map((singleMessage, index) => (
-                        <div key={index}>
-                            <p style={{ fontSize: "15px" }}>{singleMessage.message}</p>
-                            <p style={{ fontSize: "10px" }}>{singleMessage.date}</p>
-                        </div>
+                        <>
+                            { singleMessage.sentByUser ? 
+                                (<div key={index} style={{ textAlign: "left"}}>
+                                    <p style={{ fontSize: "15px" }}>{singleMessage.message}</p>
+                                    <p style={{ fontSize: "10px" }}>{singleMessage.date}</p>
+                                </div>) : (<div key={index} style={{ textAlign: "right"}}>
+                                    <p style={{ fontSize: "15px" }}>{singleMessage.message}</p>
+                                    <p style={{ fontSize: "10px" }}>{singleMessage.date}</p>
+                                </div>)
+                            }
+                        </>
                     ))}
                 </div>
             ))}
