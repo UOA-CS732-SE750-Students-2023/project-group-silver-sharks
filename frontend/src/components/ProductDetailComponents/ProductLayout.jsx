@@ -93,6 +93,7 @@ const ProductLayout = ({ product, author, reviews, userType }) => {
     setShowAddReviewWindow(true);
   };
 
+  /*
   const checkItemInCart = async () => {
     // /account/is-in-cart/pid/:pid
     const response = await fetch("http://localhost:3000/account/is-in-cart/pid/" + product._id);
@@ -111,6 +112,7 @@ const ProductLayout = ({ product, author, reviews, userType }) => {
   }
 
   const checkIfOwnProduct = async 
+  */
   
   const addToCartHandler = async () => {
     // pre checks GO HERE

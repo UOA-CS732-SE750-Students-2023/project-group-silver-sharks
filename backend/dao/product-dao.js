@@ -172,7 +172,10 @@ const deleteProduct = async (productId) => {
     file.includes(productId)
   );
 
+  console.log(process.cwd(), 175);
+
   await Promise.all(
+
     uploadFilesToRemove.map((file) =>
       fs.unlinkSync(path.join("./public/uploads", file))
     )
