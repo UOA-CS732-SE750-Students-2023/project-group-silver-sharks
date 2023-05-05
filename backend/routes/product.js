@@ -1,5 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
+import Redis from "redis";
 import {
   getAllProducts,
   getPaginatedProducts,
@@ -23,6 +24,11 @@ import session from "express-session";
 import { Account } from "../models/accountModel.js";
 
 const productRouter = new express.Router();
+
+const redisClient = Redis.createClient();
+redisClient.connect();
+
+const DEFAULT_EXPIRATION = 3600;
 
 // Middle-ware function to ensure authentication of endpoints
 function isLoggedIn(req, res, next) {
@@ -58,7 +64,7 @@ productRouter.get("/products", isLoggedIn, async (req, res) => {
 
   try {
     // Check if the cache key exists in Redis
-    const cachedResult = await req.redisClient.get(cacheKey);
+    const cachedResult = await redisClient.get(cacheKey);
 
     if (cachedResult) {
       console.log("Getting cached results");
@@ -78,12 +84,18 @@ productRouter.get("/products", isLoggedIn, async (req, res) => {
       }
 
       // Store the result in Redis with a 1-hour expiration time (3600 seconds)
-      await redisClient.setAsync(
+      await redisClient.setEx(
         cacheKey,
-        JSON.stringify([products, count]),
-        "EX",
-        3600
+        DEFAULT_EXPIRATION,
+        JSON.stringify([products, count])
       );
+      console.log("Successfully cached results");
+      // await redisClient.setAsync(
+      //   cacheKey,
+      //   JSON.stringify([products, count]),
+      //   "EX",
+      //   3600
+      // );
 
       return res.status(StatusCodes.OK).json([products, count]);
     }
@@ -154,7 +166,7 @@ productRouter.get("/products/filter", isLoggedIn, async (req, res) => {
 
   try {
     // Check if the cache key exists in Redis
-    const cachedResult = await req.redisClient.get(cacheKey);
+    const cachedResult = await redisClient.get(cacheKey);
 
     if (cachedResult) {
       console.log("Getting cached results");
@@ -175,12 +187,18 @@ productRouter.get("/products/filter", isLoggedIn, async (req, res) => {
       }
 
       // Store the result in Redis with a 1-hour expiration time (3600 seconds)
-      await req.redisClient.setAsync(
+      await redisClient.setEx(
         cacheKey,
-        JSON.stringify([products, count]),
-        "EX",
-        3600
+        DEFAULT_EXPIRATION,
+        JSON.stringify([products, count])
       );
+      console.log("Successfully cached results");
+      // await req.redisClient.setAsync(
+      //   cacheKey,
+      //   JSON.stringify([products, count]),
+      //   "EX",
+      //   3600
+      // );
 
       return res.status(StatusCodes.OK).json([products, count]);
     }
