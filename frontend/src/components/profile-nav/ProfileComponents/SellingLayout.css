@@ -1,6 +1,7 @@
 .selling-layout {
   background-color: #F1F1F1;
   padding: 20px;
+  font-family: 'Poppins';
 }
 
 .selling-layout h2 {
@@ -10,11 +11,15 @@
 }
 
 .selling-assets {
-  margin: 0 90px;
+  width: 82%;
+  margin-left: 9%;
+  margin-bottom: 5%;
 }
 
 .total-earnings {
-  margin: 0 90px 100px;
+  width: 82%;
+  margin-left: 9%;
+  margin-bottom: 20%;
 }
 
 .assets-container {
