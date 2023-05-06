@@ -1,11 +1,12 @@
 import React from "react";
 import { useLoaderData, json } from "react-router-dom";
 import MessagesLayout from "../../components/MessagesLayout";
-import ChatHolder from "../../components/ChatHolder";
 import { Container } from "react-bootstrap";
 
 const MessagesPage = () => {
   const data = useLoaderData();
+
+  console.log(data, 9)
 
   // 0 - rooms objects array
   // 1 - is the other username for each room
@@ -20,15 +21,6 @@ const MessagesPage = () => {
         rooms={rooms}
         otherUsername={otherUsername}
         ownUsername={ownUsername}
-      />
-      <ChatHolder
-        roomId={rooms[0]?._id}
-        senderId={ownUsername.loggedInId}
-        receiverId={
-          otherUsername.find(
-            (usernameObj) => usernameObj.roomId === rooms[0]?._id
-          )?.otherId
-        }
       />
     </Container>
   );
@@ -83,11 +75,11 @@ export const loader = async ({ request, params }) => {
     accountIds.push(room.account1);
     accountIds.push(room.account2);
 
-    const otherId = accountIds.filter((id) => id !== loggedInId);
+    const otherId = accountIds.find((id) => id !== loggedInId);
 
     // use the id to get the other users username
     const otherUserResponse = await fetch(
-      "http://localhost:3000/account/id/" + otherId[0]
+      "http://localhost:3000/account/id/" + otherId
     );
 
     if (!otherUserResponse.ok) {
@@ -104,7 +96,7 @@ export const loader = async ({ request, params }) => {
     const otherusername = {
       roomId: room._id,
       otherUsername: otherUsersName,
-      otherId: otherId[0]
+      otherId: otherId
     };
 
     return otherusername;
