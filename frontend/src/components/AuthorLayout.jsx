@@ -6,8 +6,9 @@ import { StarFill } from 'react-bootstrap-icons';
 import classes from '../pages/ui/Card.module.css'
 import './AuthorLayout.css'
 
-const AuthorLayout = ({ author, userAccountType }) => { 
+const AuthorLayout = ({ author, userAccountType, authorPageId, userId }) => { 
     const submit = useSubmit();
+    const navigate = useNavigate();
     // checking the account type of the author 
     const isAdmin = (userAccountType === "admin");
 
@@ -44,6 +45,34 @@ const AuthorLayout = ({ author, userAccountType }) => {
         }
     }
 
+    const createNewChatWithUser = async () => {
+
+        const chatData = {
+            account1: userId, 
+            account2: authorPageId
+        }
+
+        // post endpoint to create a new chat
+        const response = await fetch('http://localhost:3000/chat', {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(chatData)
+        });
+
+        if (!response.ok){
+            throw json({ message: "Could not successfully create a new chat room with this user"}, { status: 500 });
+        }
+
+        const roomId = await response.json() 
+
+        console.log(roomId, 70);
+
+        // navigate to the messages page
+        navigate('/store/profile/messages');
+    }
+
     return (
         <div className='a_allcontainer'>
             <div className='a_formargin'>
@@ -51,11 +80,11 @@ const AuthorLayout = ({ author, userAccountType }) => {
                     <h1 className='a_authorname'>{author.username}</h1>
                     <div className='a_forcontainbutton row'>
                         <div className='a_message col-sm-2'>
-                            <Link to="../profile/messages">Message</Link>
+                            <button className='a_message' onClick={createNewChatWithUser}>Message</button>
                         </div>
                         {isAdmin && <div className='a_forcontainlink col-sm-10'>
                         <button onClick={deleteAccountHandler}>Delete Account</button>
-                    </div>}
+                        </div>}
                         {/* <button className='a_message'>Message</button> */}
                     </div>
                 </div>

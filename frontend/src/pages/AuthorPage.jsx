@@ -4,11 +4,15 @@ import AuthorLayout from '../components/AuthorLayout';
 import AuthorLayoutUserview from '../components/AuthorLayoutUserview';
 
 const AuthorPage = () => {
-
+    const params = useParams();
     const data = useLoaderData();
 
     const authorData = data[1]; 
     const userAccountType = data[0].accountType;
+    const userId = data[0]._id;
+    const authorPageId = params.aid;
+
+    console.log("author id from the url: ", params.aid, 13); 
 
     /*
     const whovisit=()=>{
@@ -29,7 +33,7 @@ const AuthorPage = () => {
     
     return (
         <div>
-            <AuthorLayout author={authorData} userAccountType={userAccountType}/>
+            <AuthorLayout author={authorData} userAccountType={userAccountType} authorPageId={authorPageId} userId={userId}/>
         </div>
     );
 }
