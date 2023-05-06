@@ -36,7 +36,7 @@ const StoreNavBar = (props) => {
                     <p>Logged in as <b>{user.username}</b></p>
                 </div>
                 <div className="store-navbar-action-row">
-                    <Link><div className="brand-name"><b>SHARKET</b>PLACE</div></Link>
+                    <div className="brand-name"><Link to={`/store/product-search`}><b>SHARKET</b>PLACE</Link></div>
                     <div className="sell-asset-wrapper"><button className="store-page-sell-asset-btn" onClick={sellAssetNavigationHandler}>Sell asset</button></div>
                     <div className="cart-icon-wrapper"><ShoppingCartIcon fontSize='large'  onClick={showCartHandler}/>
                         <div className="cart-items-number">
