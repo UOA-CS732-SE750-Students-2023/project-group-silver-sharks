@@ -36,11 +36,11 @@ const StoreDisplayLayout = (props) => {
                 {props.items.map((item) => (
                     <li key={item._id} className="col-sm-4">
                         <Card priority={item.priority}>
-                            <div className={`${classes.storepagecard}`}>
+                            <div className={`${classes.storepagecard}`} style={{ backgroundColor: priorityToColor(item.priority) }}>
                                 <div className={`${classes.storeimgcontainer}`}>
                                     {<img src={'http://localhost:3000/uploads/' + item.coverImage}/>}
                                 </div>
-                                <div className={`${classes.contentcontainer}`} style={{ backgroundColor: priorityToColor(item.priority) }}>
+                                <div className={`${classes.contentcontainer}`} >
                                     <div className="d-flex justify-content-between flex-wrap">
                                         <div className={`${classes.productcontainer}`}><Link id="productLink" to={`/store/product/${item._id}`}><p className="text-nowrap text-truncate">{item.name}</p></Link></div>
                                         <div className={`${classes.price}`}  >
@@ -50,7 +50,15 @@ const StoreDisplayLayout = (props) => {
                                         </div>
                                     </div>
                                     {/* <p>author: <Link id="authorLink" to={`/store/author/${item.aid}`}>{item.author}</Link></p> */}
-                                    <div className={`${classes.cardtextcon}`}><p className="text-nowrap text-truncate">{item.description}</p></div>
+                                    <div className="d-flex justify-content-between">
+                                        <div className={`${classes.cardtextcon}`}>
+                                            <p className="text-nowrap text-truncate">{item.description}</p>
+                                        </div>
+                                        <div>
+                                            <h5>{item.category}</h5>
+                                        </div>
+                                    </div>
+                                    
                                     <div className="d-flex justify-content-between flex-wrap">
                                         <h5>{item.amountSold} Sold</h5>
                                         <h5 className="float-right"> <StarFill color="black" size={18} />&nbsp;{item.averageRating.toFixed(1)}</h5>

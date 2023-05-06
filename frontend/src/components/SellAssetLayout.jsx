@@ -271,38 +271,42 @@ const SellAssetLayout = ({ userId }) => {
 
             <div className="form-group">
               <label htmlFor="priority">Priority</label>
-              <div>
-                <input
-                  type="radio"
-                  id="normal"
-                  name="priority"
-                  value="1"
-                  checked={priority === 1}
-                  onChange={(e) => setPriority(Number(e.target.value))}
-                />
-                <label htmlFor="normal">Normal (free)</label>
-              </div>
-              <div>
-                <input
-                  type="radio"
-                  id="high"
-                  name="priority"
-                  value="2"
-                  checked={priority === 2}
-                  onChange={(e) => setPriority(Number(e.target.value))}
-                />
-                <label htmlFor="high">High ($10)</label>
-              </div>
-              <div>
-                <input
-                  type="radio"
-                  id="super"
-                  name="priority"
-                  value="3"
-                  checked={priority === 3}
-                  onChange={(e) => setPriority(Number(e.target.value))}
-                />
-                <label htmlFor="super">Super ($30)</label>
+              <div className="s_inputStyling row">
+                <div className="col-sm-2">
+                  <label htmlFor="normal">Normal (free)</label>
+                  <input
+                    type="radio"
+                    id="normal"
+                    name="priority"
+                    value="1"
+                    checked={priority === 1}
+                    onChange={(e) => setPriority(Number(e.target.value))}
+                  />
+                  
+                </div>
+                <div className="col-sm-2">
+                  <label htmlFor="high">High ($10)</label>
+                  <input
+                    type="radio"
+                    id="high"
+                    name="priority"
+                    value="2"
+                    checked={priority === 2}
+                    onChange={(e) => setPriority(Number(e.target.value))}
+                  />
+                </div>
+                <div className="col-sm-8">
+                  <label htmlFor="super">Super ($30)</label>
+                  <input
+                    type="radio"
+                    id="super"
+                    name="priority"
+                    value="3"
+                    checked={priority === 3}
+                    onChange={(e) => setPriority(Number(e.target.value))}
+                  />
+                  
+                </div>
               </div>
             </div>
 

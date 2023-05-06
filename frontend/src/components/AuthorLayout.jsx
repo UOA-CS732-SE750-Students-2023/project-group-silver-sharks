@@ -118,7 +118,14 @@ const AuthorLayout = ({ author, userAccountType }) => {
                                             </div>
                                         </div>
 
-                                        <div className={`${classes.cardtextcon}`}><p className="text-nowrap text-truncate">{item.description}</p></div>
+                                        <div className="d-flex justify-content-between">
+                                            <div className={`${classes.cardtextcon}`}>
+                                                <p className="text-nowrap text-truncate">{item.description}</p>
+                                            </div>
+                                            <div>
+                                                <h5>{item.category}</h5>
+                                            </div>
+                                        </div>
                                         <div className="d-flex justify-content-between flex-wrap">
                                             <h5>{item.amountSold} Sold</h5>
                                             <h5 className="float-right"> <StarFill color="black" size={18} />&nbsp;{item.averageRating.toFixed(1)}</h5>
