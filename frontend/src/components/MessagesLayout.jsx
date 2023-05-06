@@ -7,7 +7,8 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
   const [activeRoom, setActiveRoom] = useState(null);
   const chatWindows = useRef([]);
   const tabLinks = useRef([]);
-  const scrollRef = useRef(null);
+  const previewRef = useRef(null);
+  let isFirstClick = true;
 
   useEffect(() => {
     fetchAllRoomsMessages();
@@ -47,7 +48,14 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
   }
 
   const openChatWindow = async (index, roomId) => {
-    // Fetch messages for the roomId when switching tabs
+   
+    if (isFirstClick){
+      // change the display of the preview element to none 
+      previewRef.current.style.display = "none";
+      isFirstClick = false;
+    }
+    
+     // Fetch messages for the roomId when switching tabs
     const newMessagesData = await fetchMessages(roomId);
     setMessagesData((prevData) =>
       prevData.map((chat) => (chat._id === roomId ? newMessagesData : chat))
@@ -56,6 +64,7 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
     chatWindows.current.forEach(
       (chatWindow) => (chatWindow.style.display = "none")
     );
+
     tabLinks.current.forEach((tablink) => tablink.classList.remove("active"));
     chatWindows.current[index].style.display = "block";
     tabLinks.current[index].classList.add("active");
@@ -75,7 +84,7 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
 
   return (
     <>
-      <div className="tab">
+      <div className="tab" style={{ overflow: "auto", maxHeight: "500px" }}>
         {rooms.map((room, index) => (
           <button
             key={room._id}
@@ -123,7 +132,15 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
             />
           )}
         </div>
+        
       ))}
+        <div
+            ref={previewRef}
+            className="preview"
+            style={{ maxHeight: "500px" }}
+          >
+            <h3>Click on a chat to get started.</h3>
+          </div>
       <div>
             <button onClick={refreshChatHandler}>&#8634;</button>
       </div>
