@@ -1,11 +1,10 @@
-import React, { useEffect} from "react";
+import React, { useEffect } from "react";
 import io from "socket.io-client";
 import Chat from "./Chat";
 
 const socket = io.connect("http://localhost:3000");
 
-function ChatHolder({ roomId, senderId, receiverId }) {
-
+function ChatHolder({ roomId, senderId, receiverId, updateMessagesData }) {
   const joinRoom = () => {
     if (senderId !== "" && roomId !== "") {
       socket.emit("join_room", roomId);
@@ -25,6 +24,7 @@ function ChatHolder({ roomId, senderId, receiverId }) {
         room={roomId}
         senderId={senderId}
         receiverId={receiverId}
+        updateMessagesData={updateMessagesData}
       />
     </div>
   );

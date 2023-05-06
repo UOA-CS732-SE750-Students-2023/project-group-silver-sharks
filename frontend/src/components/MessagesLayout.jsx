@@ -56,6 +56,15 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
     setActiveRoom(roomId); // Set the active room to the roomId passed
   };
 
+  const updateMessagesData = (roomId, messageData) => {
+    setMessagesData((prevData) =>
+      prevData.map((chat) =>
+        chat._id === roomId
+          ? { ...chat, messages: [...chat.messages, messageData] }
+          : chat
+      )
+    );
+  };
 
   return (
     <>
@@ -103,6 +112,7 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
               roomId={chat._id}
               senderId={ownUsername.loggedInId}
               receiverId={chat.receiver}
+              updateMessagesData={updateMessagesData}
             />
           )}
         </div>
