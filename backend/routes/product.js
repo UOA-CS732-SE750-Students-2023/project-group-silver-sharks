@@ -1,6 +1,5 @@
 import express from "express";
 import mongoose from "mongoose";
-import Redis from "redis";
 import {
   getAllProducts,
   getPaginatedProducts,
@@ -24,11 +23,6 @@ import session from "express-session";
 import { Account } from "../models/accountModel.js";
 
 const productRouter = new express.Router();
-
-const redisClient = Redis.createClient();
-redisClient.connect();
-
-const DEFAULT_EXPIRATION = 3600;
 
 // Middle-ware function to ensure authentication of endpoints
 function isLoggedIn(req, res, next) {
@@ -59,46 +53,15 @@ productRouter.get("/products", isLoggedIn, async (req, res) => {
   const sortBy = req.query.sortBy || "default";
   console.log("Getting paginated products!");
 
-  // Create a cache key for the request
-  const cacheKey = `products:${page}:${limit}:${sortBy}`;
-
   try {
-    // Check if the cache key exists in Redis
-    const cachedResult = await redisClient.get(cacheKey);
+    // If the cache key doesn't exist, get the data and cache it
+    const { products, count } = await getPaginatedProducts(page, limit, sortBy);
 
-    if (cachedResult) {
-      console.log("Getting cached results");
-      // If the cache key exists, return the cached result
-      return res.status(StatusCodes.OK).send(cachedResult);
-    } else {
-      console.log("Getting new results");
-      // If the cache key doesn't exist, get the data and cache it
-      const { products, count } = await getPaginatedProducts(
-        page,
-        limit,
-        sortBy
-      );
-
-      if (count === 0) {
-        return res.status(StatusCodes.NOT_FOUND).send("No Products Were Found");
-      }
-
-      // Store the result in Redis with a 1-hour expiration time (3600 seconds)
-      await redisClient.setEx(
-        cacheKey,
-        DEFAULT_EXPIRATION,
-        JSON.stringify([products, count])
-      );
-      console.log("Successfully cached results");
-      // await redisClient.setAsync(
-      //   cacheKey,
-      //   JSON.stringify([products, count]),
-      //   "EX",
-      //   3600
-      // );
-
-      return res.status(StatusCodes.OK).json([products, count]);
+    if (count === 0) {
+      return res.status(StatusCodes.NOT_FOUND).send("No Products Were Found");
     }
+
+    return res.status(StatusCodes.OK).json([products, count]);
   } catch (error) {
     console.error(error.message);
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error");
@@ -124,11 +87,6 @@ productRouter.post("/products/sell/:userId", isLoggedIn, async (req, res) => {
     // register the account with the product
     await registerAccountWithProduct(userId, newProduct._id);
 
-    const keys = await redisClient.keys("products:filter:*");
-    if (keys.length > 0) {
-      await redisClient.del(...keys);
-    }
-
     return res
       .status(StatusCodes.CREATED)
       .header("Location", `/products/${newProduct._id}`)
@@ -146,11 +104,6 @@ productRouter.put("/products/:productId", isLoggedIn, async (req, res) => {
     const updatedProductData = req.body;
 
     const updatedProduct = await updateProduct(productId, updatedProductData);
-
-    const keys = await redisClient.keys("products:filter:*");
-    if (keys.length > 0) {
-      await redisClient.del(...keys);
-    }
 
     if (updatedProduct) {
       return res.status(StatusCodes.OK).json(updatedProduct);
@@ -171,41 +124,19 @@ productRouter.get("/products/filter", isLoggedIn, async (req, res) => {
   const category = req.query.category;
   const sortBy = req.query.sortBy || "default";
 
-  // Create a cache key for the request
-  const cacheKey = `products:filter:${page}:${limit}:${category}:${sortBy}`;
-
   try {
-    // Check if the cache key exists in Redis
-    const cachedResult = await redisClient.get(cacheKey);
+    const { products, count } = await getPaginatedCategories(
+      page,
+      limit,
+      category,
+      sortBy
+    );
 
-    if (cachedResult) {
-      console.log("Getting cached results");
-      // If the cache key exists, return the cached result
-      return res.status(StatusCodes.OK).send(cachedResult);
-    } else {
-      console.log("Getting new results and caching them");
-      // If the cache key doesn't exist, get the data and cache it
-      const { products, count } = await getPaginatedCategories(
-        page,
-        limit,
-        category,
-        sortBy
-      );
-
-      if (count === 0) {
-        return res.status(StatusCodes.NOT_FOUND).send("No Products Were Found");
-      }
-
-      // Store the result in Redis with a 1-hour expiration time (3600 seconds)
-      await redisClient.setEx(
-        cacheKey,
-        DEFAULT_EXPIRATION,
-        JSON.stringify([products, count])
-      );
-      console.log("Successfully cached results");
-
-      return res.status(StatusCodes.OK).json([products, count]);
+    if (count === 0) {
+      return res.status(StatusCodes.NOT_FOUND).send("No Products Were Found");
     }
+
+    return res.status(StatusCodes.OK).json([products, count]);
   } catch (error) {
     console.log(error);
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error");
@@ -272,11 +203,6 @@ productRouter.delete("/products/:productId", isLoggedIn, async (req, res) => {
     const productId = req.params.productId;
 
     const deletedProduct = await deleteProduct(productId);
-
-    const keys = await redisClient.keys("products:filter:*");
-    if (keys.length > 0) {
-      await redisClient.del(...keys);
-    }
 
     // delete all reviews for product
     ProductReview.deleteMany({ product: productId });
