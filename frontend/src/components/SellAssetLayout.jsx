@@ -21,6 +21,10 @@ const SellAssetLayout = ({ userId }) => {
   const [files, setFiles] = useState([]);
   const [category, setCategory] = useState("Images");
   const [price, setPrice] = useState(0);
+  
+  // Add for priority
+  const [priority, setPriority] = useState(1);
+
 
   // data returned from the post request -> if there are any errors or a response it will be in here
   const data = useActionData();
@@ -63,6 +67,7 @@ const SellAssetLayout = ({ userId }) => {
     console.log(category, 59);
     console.log(coverImage, 60);
     console.log(files, 61);
+    console.log(priority, 62);
     console.log("END");
 
     // print the user id that will be needed to create the product in the backend
@@ -73,6 +78,7 @@ const SellAssetLayout = ({ userId }) => {
       description: enteredDescription,
       category: category,
       price: price,
+      priority: priority,
     };
 
     // print the user id that will be needed to create the product in the backend
@@ -262,6 +268,44 @@ const SellAssetLayout = ({ userId }) => {
                 </div>
               </div>
             </div>
+
+            <div className="form-group">
+              <label htmlFor="priority">Priority</label>
+              <div>
+                <input
+                  type="radio"
+                  id="normal"
+                  name="priority"
+                  value="1"
+                  checked={priority === 1}
+                  onChange={(e) => setPriority(Number(e.target.value))}
+                />
+                <label htmlFor="normal">Normal (free)</label>
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  id="high"
+                  name="priority"
+                  value="2"
+                  checked={priority === 2}
+                  onChange={(e) => setPriority(Number(e.target.value))}
+                />
+                <label htmlFor="high">High ($10)</label>
+              </div>
+              <div>
+                <input
+                  type="radio"
+                  id="super"
+                  name="priority"
+                  value="3"
+                  checked={priority === 3}
+                  onChange={(e) => setPriority(Number(e.target.value))}
+                />
+                <label htmlFor="super">Super ($30)</label>
+              </div>
+            </div>
+
 
             <div className="d-flex justify-content-center">
               {/* <Button
