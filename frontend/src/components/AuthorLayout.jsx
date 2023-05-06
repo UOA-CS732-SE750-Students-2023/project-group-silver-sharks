@@ -6,7 +6,7 @@ import { StarFill } from 'react-bootstrap-icons';
 import classes from '../pages/ui/Card.module.css'
 import './AuthorLayout.css'
 
-const AuthorLayout = ({ author, userAccountType, authorPageId, userId }) => { 
+const AuthorLayout = ({ author, userAccountType, authorPageId, userId, isOwnAccount }) => { 
     const submit = useSubmit();
     const navigate = useNavigate();
     // checking the account type of the author 
@@ -79,9 +79,9 @@ const AuthorLayout = ({ author, userAccountType, authorPageId, userId }) => {
                 <div className='a_firstdiv'>
                     <h1 className='a_authorname'>{author.username}</h1>
                     <div className='a_forcontainbutton row'>
-                        <div className='a_message col-sm-2'>
+                        {!isOwnAccount &&<div className='a_message col-sm-2'>
                             <button className='a_message' onClick={createNewChatWithUser}>Message</button>
-                        </div>
+                        </div>}
                         {isAdmin && <div className='a_forcontainlink col-sm-10'>
                         <button onClick={deleteAccountHandler}>Delete Account</button>
                         </div>}

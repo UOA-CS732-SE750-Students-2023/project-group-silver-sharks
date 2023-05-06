@@ -14,6 +14,13 @@ const AuthorPage = () => {
 
     console.log("author id from the url: ", params.aid, 13); 
 
+    let isOwnAccount = false; 
+
+    // if it is the authors own page then dont render the message 
+    if (userId === authorPageId){
+        isOwnAccount = true;
+    }
+
     /*
     const whovisit=()=>{
         if(current_aid===authorpage_aid){
@@ -33,7 +40,7 @@ const AuthorPage = () => {
     
     return (
         <div>
-            <AuthorLayout author={authorData} userAccountType={userAccountType} authorPageId={authorPageId} userId={userId}/>
+            <AuthorLayout author={authorData} userAccountType={userAccountType} authorPageId={authorPageId} userId={userId} isOwnAccount={isOwnAccount} />
         </div>
     );
 }

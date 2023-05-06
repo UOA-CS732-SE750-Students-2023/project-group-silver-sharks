@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
 
-const ProductLayout = ({ product, author, reviews, userType, userId }) => {
+const ProductLayout = ({ product, author, reviews, userType, userId, isOwnAccount }) => {
   const navigation = useNavigation();
   const navigate = useNavigate();
   const isSubmitting = navigation.state === 'submitting';
@@ -306,7 +306,7 @@ const ProductLayout = ({ product, author, reviews, userType, userId }) => {
               </p>
               <div className="product-buttons">
                 <div className="d-flex justify-content-end align-items-center">
-                  <button onClick={createNewChatHandler} className="message-button">Message</button>
+                  {!isOwnAccount && <button onClick={createNewChatHandler} className="message-button">Message</button>}
                 </div>
                 <div className="d-flex justify-content-between">
                   <div className="product-price">
