@@ -26,16 +26,23 @@ const ProductPage = () => {
     
     let userType = "normal";
 
+    let isOwnAccount = false; 
+
     // determine whether the user is admin or normal and whether the user is the author for the product
     if (author._id === loggedInUser._id || loggedInUser.accountType === "admin"){
         userType = "admin";
     }
 
+    if (author._id === loggedInUser._id){
+        isOwnAccount = true;
+    }
+
+
     console.log("user type: " + userType)
 
     return (
         <>
-            <ProductLayout product={product} author={author} reviews={reviews} userType={userType}/>
+            <ProductLayout product={product} author={author} reviews={reviews} userType={userType} userId={loggedInUser._id} isOwnAccount={isOwnAccount} />
         </>
     );
 }

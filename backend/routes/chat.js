@@ -67,7 +67,7 @@ chatRouter.get('/chat/rooms', isLoggedIn, async (req, res) => {
     ]
   }).sort('-updatedAt');
 
-  res.status(200).json({ roomIds: rooms.map(room => room._id) });
+  res.status(200).json({ rooms: rooms });
 });
 
 // 3. GET /chat/rid/{rid}/messages
