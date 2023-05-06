@@ -31,10 +31,12 @@ const StoreRootPage = () => {
     setDisplayProfileNav(false);
   };
 
+  const userData = data[0];
+
   return (
     <>
       {displayCart && <Cart closeCart={hideCartHandler} cartContents={cartContents} />}
-      {displayProfileNav && <ProfileNavBar closeProfileNav={hideProfileNav} />}
+      {displayProfileNav && <ProfileNavBar closeProfileNav={hideProfileNav} user={userData} />}    
       <StoreNavBar
         showCart={showCartHandler}
         showProfileNavBar={showProfileNav}
