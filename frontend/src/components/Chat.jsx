@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ScrollToBottom from "react-scroll-to-bottom";
 
-function Chat({ socket, room, senderId, receiverId }) {
+function Chat({ socket, room, senderId, receiverId, onMessageSent }) {
   const [currentMessage, setCurrentMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
 
@@ -21,6 +21,9 @@ function Chat({ socket, room, senderId, receiverId }) {
       await socket.emit("send_message", messageData);
       setMessageList((list) => [...list, messageData]);
       setCurrentMessage("");
+
+      // Invoke the callback
+      onMessageSent(messageData);
     }
   };
 

@@ -56,6 +56,26 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
     setActiveRoom(roomId); // Set the active room to the roomId passed
   };
 
+  const handleNewMessage = (messageData) => {
+    setMessagesData((prevData) =>
+      prevData.map((chat) =>
+        chat._id === messageData.room
+          ? {
+              ...chat,
+              messages: [
+                ...chat.messages,
+                {
+                  _id: Math.random().toString(36).substr(2, 9),
+                  message: messageData.content,
+                  date: new Date().toLocaleString(),
+                  sentByUser: messageData.senderId === ownUsername.loggedInId,
+                },
+              ],
+            }
+          : chat
+      )
+    );
+  };
 
   return (
     <>
@@ -72,8 +92,7 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
             {otherUsername[index].otherUsername}
           </button>
         ))}
-      </div>
-
+      </div>{" "}
       {messagesData.map((chat, index) => (
         <div key={chat._id}>
           <div
@@ -97,12 +116,13 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
                 )}
               </>
             ))}
-          </div>
+          </div>{" "}
           {activeRoom === chat._id && (
             <ChatHolder
               roomId={chat._id}
               senderId={ownUsername.loggedInId}
               receiverId={chat.receiver}
+              onNewMessage={handleNewMessage}
             />
           )}
         </div>
