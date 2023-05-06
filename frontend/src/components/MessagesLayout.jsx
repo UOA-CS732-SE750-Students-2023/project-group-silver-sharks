@@ -9,35 +9,43 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
   const tabLinks = useRef([]);
 
   useEffect(() => {
-    Promise.all(
-      rooms.map((room) =>
-        fetch(`http://localhost:3000/chat/rid/${room._id}/messages`)
-          .then((response) => response.json())
-          .then((data) => ({
-            _id: room._id,
-            receiver: otherUsername.find(
-              (usernameObj) => usernameObj.roomId === room._id
-            ).otherId,
-            messages: data.messages.map((message) => ({
-              _id: message._id,
-              message: message.content,
-              date: new Date(message.createdAt).toLocaleString(),
-              sentByUser: message.senderId === ownUsername.loggedInId,
-            })),
-          }))
-      )
-    ).then((allData) => {
-      setMessagesData(allData);
-    });
+    fetchAllRoomsMessages();
   }, [rooms, otherUsername, ownUsername.loggedInId]);
 
-  useLayoutEffect(() => {
-    if (messagesData.length > 0) {
-      openChatWindow(0, messagesData[0]._id);
-    }
-  }, [messagesData]);
+  const fetchMessages = async (roomId) => {
+    const response = await fetch(
+      `http://localhost:3000/chat/rid/${roomId}/messages`
+    );
+    const data = await response.json();
 
-  const openChatWindow = (index, roomId) => {
+    return {
+      _id: roomId,
+      receiver: otherUsername.find(
+        (usernameObj) => usernameObj.roomId === roomId
+      ).otherId,
+      messages: data.messages.map((message) => ({
+        _id: message._id,
+        message: message.content,
+        date: new Date(message.createdAt).toLocaleString(),
+        sentByUser: message.senderId === ownUsername.loggedInId,
+      })),
+    };
+  };
+
+  const fetchAllRoomsMessages = async () => {
+    const allData = await Promise.all(
+      rooms.map((room) => fetchMessages(room._id))
+    );
+    setMessagesData(allData);
+  };
+
+  const openChatWindow = async (index, roomId) => {
+    // Fetch messages for the roomId when switching tabs
+    const newMessagesData = await fetchMessages(roomId);
+    setMessagesData((prevData) =>
+      prevData.map((chat) => (chat._id === roomId ? newMessagesData : chat))
+    );
+
     chatWindows.current.forEach(
       (chatWindow) => (chatWindow.style.display = "none")
     );
@@ -47,6 +55,7 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
 
     setActiveRoom(roomId); // Set the active room to the roomId passed
   };
+
 
   return (
     <>
