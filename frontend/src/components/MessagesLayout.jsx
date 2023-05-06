@@ -39,6 +39,12 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
     setMessagesData(allData);
   };
 
+  const refreshChatHandler = () => {
+    fetchAllRoomsMessages();
+
+    console.log("completed", 45);
+  }
+
   const openChatWindow = async (index, roomId) => {
     // Fetch messages for the roomId when switching tabs
     const newMessagesData = await fetchMessages(roomId);
@@ -117,6 +123,9 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
           )}
         </div>
       ))}
+      <div>
+            <button onClick={refreshChatHandler}>&#8634;</button>
+      </div>
     </>
   );
 };
