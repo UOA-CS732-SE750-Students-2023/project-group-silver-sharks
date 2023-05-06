@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSubmit } from 'react-router-dom';
 import './SellingLayout.css';
 
 const SellingLayout = ({ sellingAssets }) => {
@@ -35,7 +36,7 @@ const SellingLayout = ({ sellingAssets }) => {
     const proceed = window.confirm('Are you sure?');
 
     if (proceed){
-        submit({ id: productId }, { method: 'DELETE' });
+        submit({ id: productId }, { method: 'DELETE', action: '/store/profile/selling' });
     }
   }
 

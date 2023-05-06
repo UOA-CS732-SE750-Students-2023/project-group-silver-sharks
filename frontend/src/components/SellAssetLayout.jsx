@@ -162,7 +162,7 @@ const SellAssetLayout = ({ userId }) => {
       );
     }
 
-    redirect("/store/profile/selling");
+    navigate("/store/product/" + newProduct._id);
   };
 
    return (

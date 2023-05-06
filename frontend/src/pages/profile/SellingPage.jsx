@@ -60,6 +60,8 @@ export const action = async ({request,params}) => {
 
     const productId = formData.get("id");
 
+    console.log("inside the selling page action", 63)
+
     // getting the http method from the request argument
     const method = request.method;
 

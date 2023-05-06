@@ -1,5 +1,5 @@
 import React from 'react'; 
-import { useNavigate,useRouteLoaderData } from 'react-router-dom';
+import { useNavigate,useRouteLoaderData, Link } from 'react-router-dom';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import MenuIcon from '@mui/icons-material/Menu';
 import './StoreNavBar.css';
@@ -36,7 +36,7 @@ const StoreNavBar = (props) => {
                     <p>Logged in as <b>{user.username}</b></p>
                 </div>
                 <div className="store-navbar-action-row">
-                    <div className="brand-name"><b>SHARKET</b>PLACE</div>
+                    <Link><div className="brand-name"><b>SHARKET</b>PLACE</div></Link>
                     <div className="sell-asset-wrapper"><button className="store-page-sell-asset-btn" onClick={sellAssetNavigationHandler}>Sell asset</button></div>
                     <div className="cart-icon-wrapper"><ShoppingCartIcon fontSize='large'  onClick={showCartHandler}/>
                         <div className="cart-items-number">
