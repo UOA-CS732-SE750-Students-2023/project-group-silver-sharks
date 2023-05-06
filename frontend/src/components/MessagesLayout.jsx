@@ -7,6 +7,7 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
   const [activeRoom, setActiveRoom] = useState(null);
   const chatWindows = useRef([]);
   const tabLinks = useRef([]);
+  const scrollRef = useRef(null);
 
   useEffect(() => {
     fetchAllRoomsMessages();

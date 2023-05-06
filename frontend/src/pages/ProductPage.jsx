@@ -35,7 +35,7 @@ const ProductPage = () => {
 
     return (
         <>
-            <ProductLayout product={product} author={author} reviews={reviews} userType={userType}/>
+            <ProductLayout product={product} author={author} reviews={reviews} userType={userType} userId={loggedInUser._id}/>
         </>
     );
 }

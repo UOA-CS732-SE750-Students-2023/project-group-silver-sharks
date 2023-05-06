@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
 
-const ProductLayout = ({ product, author, reviews, userType }) => {
+const ProductLayout = ({ product, author, reviews, userType, userId }) => {
   const navigation = useNavigation();
   const navigate = useNavigate();
   const isSubmitting = navigation.state === 'submitting';
@@ -197,6 +197,33 @@ const ProductLayout = ({ product, author, reviews, userType }) => {
     }
   }
 
+  const createNewChatHandler = async () => {
+    const chatData = {
+      account1: userId, 
+      account2: author._id
+    }
+
+  // post endpoint to create a new chat
+  const response = await fetch('http://localhost:3000/chat', {
+      method: "POST",
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(chatData)
+    });
+
+      if (!response.ok){
+          throw json({ message: "Could not successfully create a new chat room with this user"}, { status: 500 });
+      }
+
+      const roomId = await response.json() 
+
+      console.log(roomId, 70);
+
+      // navigate to the messages page
+      navigate('/store/profile/messages');
+  }
+
   return (
     <div className="product-layout">
       {showAddReviewWindow && (
@@ -279,7 +306,7 @@ const ProductLayout = ({ product, author, reviews, userType }) => {
               </p>
               <div className="product-buttons">
                 <div className="d-flex justify-content-end align-items-center">
-                  <button className="message-button">Message</button>
+                  <button onClick={createNewChatHandler} className="message-button">Message</button>
                 </div>
                 <div className="d-flex justify-content-between">
                   <div className="product-price">
