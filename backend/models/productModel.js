@@ -44,6 +44,9 @@ const productSchema = new Schema(
     author: {
       type: String,
     },
+    priority: {
+      type: Number,
+    },
   },
   {
     timestamps: {},
