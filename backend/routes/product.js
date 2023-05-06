@@ -48,14 +48,16 @@ productRouter.use(passport.session());
 
 // endpoint 1: GET - paginated products
 productRouter.get("/products", isLoggedIn, async (req, res) => {
-  // retrieving the query params
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 10;
   const sortBy = req.query.sortBy || "default";
+  console.log("Getting paginated products!");
+
   try {
+    // If the cache key doesn't exist, get the data and cache it
     const { products, count } = await getPaginatedProducts(page, limit, sortBy);
 
-    if (count == 0) {
+    if (count === 0) {
       return res.status(StatusCodes.NOT_FOUND).send("No Products Were Found");
     }
 
@@ -117,7 +119,6 @@ productRouter.put("/products/:productId", isLoggedIn, async (req, res) => {
 // endpoint 4: GET filter by category
 // query param ?category=<category>&page=<page>&limit=<limit>
 productRouter.get("/products/filter", isLoggedIn, async (req, res) => {
-  // retrieving query params
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 10;
   const category = req.query.category;
@@ -131,7 +132,7 @@ productRouter.get("/products/filter", isLoggedIn, async (req, res) => {
       sortBy
     );
 
-    if (count == 0) {
+    if (count === 0) {
       return res.status(StatusCodes.NOT_FOUND).send("No Products Were Found");
     }
 

@@ -165,36 +165,18 @@ const deleteProduct = async (productId) => {
     return null;
   }
 
-  // delete product image files
-  const uploadFiles = fs.readdirSync("./public/uploads");
+  // delete product cover image file
+  const coverImagePath = "./public/uploads/" + deletedProduct.coverImage;
+  fs.unlinkSync(coverImagePath);
 
-  const uploadFilesToRemove = uploadFiles.filter((file) =>
-    file.includes(productId)
-  );
+  // delete product download files
+  const downloadFiles = deletedProduct.files;
 
-  console.log(process.cwd(), 175);
-
-  await Promise.all(
-
-    uploadFilesToRemove.map((file) =>
-      fs.unlinkSync(path.join("./public/uploads", file))
-    )
-  );
-
-  // delete product files
-  const productFiles = fs.readdirSync("./public/downloadFiles");
-
-  const downloadFilesToRemove = productFiles.filter((file) =>
-    file.includes(productId)
-  );
-  
-  // checking if the product has download files to remove or not
- 
-  await Promise.all(
-    downloadFilesToRemove.map((file) =>
-      fs.unlinkSync(path.join("./public/uploads", file))
-    )
-  );
+  for (const file of downloadFiles) {
+    const currentPath = "./public/downloadFiles/" + file;
+    console.log(path);
+    fs.unlinkSync(currentPath);
+  }
 
   console.log("Files removed successfully");
 
