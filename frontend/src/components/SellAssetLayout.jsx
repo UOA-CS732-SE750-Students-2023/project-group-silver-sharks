@@ -165,6 +165,10 @@ const SellAssetLayout = ({ userId }) => {
     redirect("/store/profile/selling");
   };
 
+  // Needed for getting users set up on stripe onboarding. You can find this ID
+  // under Stripe Dashboard > Settings > Connect Settings
+  const REACT_APP_STRIPE_CLIENT_ID = ca_Nq0lRvkvOFNQuvGmPak9JEYF4AHc97sw
+
    return (
     <Container fluid className="container-fluid">
       <Row className="mt-5"></Row>
@@ -289,6 +293,12 @@ const SellAssetLayout = ({ userId }) => {
           </form>
         </Col>       
       </Row>
+      <a
+        href={`https://connect.stripe.com/oauth/authorize?response_type=code&client_id=${REACT_APP_STRIPE_CLIENT_ID}&scope=read_write`}
+      >
+        Connect with Stripe
+      </a>
+
     </Container>
   );
 };

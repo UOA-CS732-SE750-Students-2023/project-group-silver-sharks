@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useNavigate, json, useSubmit } from 'react-router-dom';
 import './PaymentForm.css';
 
-const PaymentForm = ({ cartContentsData }) => {
+const PaymentForm = ({ cartContentsData, connectedAccountId }) => {
     const [loading, setLoading] = useState(false);
     const stripe = useStripe();
     const elements = useElements();
@@ -49,7 +49,7 @@ const PaymentForm = ({ cartContentsData }) => {
         try {
             const totalPrice = calculateTotalPrice() * 100;
             console.log("Line 46 Total Price: " + totalPrice);
-            const response = await axios.post('/create-payment-intent', { amount: totalPrice });
+            const response = await axios.post('/create-payment-intent', { amount: totalPrice, connectedAccountId });
 
             const clientSecret = response.data;
 

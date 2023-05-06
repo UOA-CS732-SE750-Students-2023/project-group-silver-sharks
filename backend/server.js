@@ -12,8 +12,6 @@ import http from "http";
 import { Server } from "socket.io";
 import { Message } from "./models/messageModel.js";
 import { Room } from "./models/roomModel.js";
-
-// 1. INITIAL SETUP
 import stripeRouter from "./routes/stripe.js";
 
 const app = express();
