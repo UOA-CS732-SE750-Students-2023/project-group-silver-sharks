@@ -143,3 +143,15 @@
     }
 }
 
+/* */
+.priority-1 {
+  background-color: white;
+}
+
+.priority-2 {
+  background-color: #dddeb1;
+}
+
+.priority-3 {
+  background-color: #e2b0dd;
+}
