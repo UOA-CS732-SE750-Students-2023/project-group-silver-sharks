@@ -73,10 +73,10 @@ const PaymentForm = ({ cartContentsData }) => {
 
             console.log("LIST OF CART AUTHORS:")
             console.log(cartAuthorIds);
-            for (const cartAuthorId of cartAuthorIds) {
-                const authorResponse = (await fetch('http://localhost:3000/account/id/' + cartAuthorId));
-                const totalPrice = calculateTotalPrice() * 100;
-                const response = await axios.post('/create-payment-intent', { userId: user._id, amount: totalPrice, connectedAccountId: authorResponse.stripeId });
+            for (const cartContent of cartContentsData) {
+                const authorResponse = (await fetch('http://localhost:3000/account/id/' + cartContent.author));
+                const price = cartContent.price * 100;
+                const response = await axios.post('/create-payment-intent', { userId: user._id, amount: price, connectedAccountId: authorResponse.stripeId });
                 const clientSecret = response.data;
 
                 const paymentResult = await stripe.confirmCardPayment(clientSecret, {
