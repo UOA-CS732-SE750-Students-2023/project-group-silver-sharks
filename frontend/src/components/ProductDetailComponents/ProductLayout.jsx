@@ -303,13 +303,13 @@ const ProductLayout = ({ product, author, reviews, userType, userId, isOwnAccoun
                 &#x2605; {avg_rating}
               </p>
               <div className="product-buttons">
-                <div className="d-flex justify-content-end align-items-center">
+                <div className="d-flex justify-content-between">
+                  <div><p>{product.category}</p></div>
                   {!isOwnAccount && <button onClick={createNewChatHandler} className="message-button">Message</button>}
                 </div>
                 <div className="d-flex justify-content-between">
                   <div className="product-price">
-                    <h2>{`$ ${product.price.toFixed(0)}`}</h2>
-                    <span>{`${product.price.toFixed(2).substr(-2)}`}</span>
+                    <h2>{`$ ${product.price.toFixed(0)}`}<span>{`${product.price.toFixed(2).substr(-2)}`}</span></h2>
                   </div>
                   <div><button onClick={addToCartHandler}>Add to cart</button></div>
                 </div>
