@@ -134,7 +134,7 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
         </div>
         
       ))}
-        <div
+          <div
             ref={previewRef}
             className="preview"
             style={{ maxHeight: "500px" }}
