@@ -174,8 +174,9 @@ const ProductSearchPage = () => {
           setFilter={filterHandler}
           setSearchTerm={searchByPhraseHandler}
           notFound={notFound}
+          displayCount={displayCount}
         />
-        <StoreDisplayLayout items={displayedProducts} notFound={notFound} />
+        <StoreDisplayLayout items={displayedProducts} notFound={notFound}/>
         <div className="pagination-container" style={grayBackgroundStyle}>
           <div className="pagination-wrapper">
             <ReactPaginate
