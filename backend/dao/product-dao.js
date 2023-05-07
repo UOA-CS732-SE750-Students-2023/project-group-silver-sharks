@@ -112,7 +112,7 @@ const getProductsMatchingSearchTerm = async (
   limit,
   sortBy
 ) => {
-  let sortCriteria = { createdAt: 1 };
+  let sortCriteria = { priority: -1 };
 
   if (sortBy === "priceLowToHigh") {
     sortCriteria = { price: 1 };
