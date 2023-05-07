@@ -33,6 +33,7 @@ const ProductSearchPage = () => {
   const categoryHandler = async (category) => {
     setIsSearchStore(false);
     setCategory(category);
+    setPageNumber(1); 
     const response = await handleItemsChange(1, category, undefined, false, undefined);
     
     setChangeState((previous => !previous));
@@ -54,6 +55,9 @@ const ProductSearchPage = () => {
   const searchByPhraseHandler = async (searchTerm) => {
     setStoredSearchTerm(searchTerm)
     setIsSearchStore(true);
+
+    setPageNumber(1);
+
     const response = await handleItemsChange(pageNumber, undefined, undefined, true, searchTerm);
 
     setChangeState((previous => !previous));
@@ -61,6 +65,7 @@ const ProductSearchPage = () => {
 
   const handleItemsChange = async (currentPageNumber, specifiedCategory, specifiedFilter, isSearch, enteredSearchTerm) => {
     setNotFound(false);
+    
 
     const currentFilter = specifiedFilter || filter; 
     const currentCategory = specifiedCategory || category;
