@@ -8,15 +8,15 @@ const STRIPE_PUBLIC_KEY="pk_test_51N1lMJFS4UEikyYAt7Nwhaua9GihCbBx7J0Jl7MgqUzuhx
 const stripePromise = loadStripe(STRIPE_PUBLIC_KEY);
 
 function StripePage () {
-  const data = useLoaderData(); 
+  const cartData = useLoaderData(); 
 
-  console.log(data, 12);
+  console.log(cartData, 12);
   
 
   // Must wrap all UI involved with Stripe with Elements tag
   return (
     <Elements stripe={stripePromise}>
-      <PaymentForm cartContentsData={data}/>
+      <PaymentForm cartContentsData={cartData}/>
     </Elements>
   );
 }
@@ -25,18 +25,18 @@ export default StripePage;
 
 export const loader = async ({request,params}) => {
 
-  const response = await fetch('http://localhost:3000/account/cart');
+  // Get cart response
+  const cartResponse = await fetch('http://localhost:3000/account/cart');
             
-  // Check if the response status is ok
-  if (!response.ok) {
-      throw new Error(`HTTP error! cannot get cart: ${response.status}`);
+  if (!cartResponse.ok) {
+      throw new Error(`HTTP error! cannot get cart: ${cartResponse.status}`);
   }
 
-  const data = await response.json();
+  const data = await cartResponse.json();
 
   const cartContents = data.cartContents;
-  console.log("line 38" + cartContents);
-  
+
+
   return cartContents;
 };
 

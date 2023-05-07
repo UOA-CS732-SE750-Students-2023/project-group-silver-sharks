@@ -1,3 +1,4 @@
+import { Int32 } from "mongodb";
 import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
@@ -7,6 +8,13 @@ const accountSchema = new Schema(
     _id: {
       type: String,
       required: true,
+    },
+    stripeId: {
+      type: String,
+    },
+    balance: { // In cents, USD
+      type: Number,
+      default: 0,
     },
     username: {
       type: String,
