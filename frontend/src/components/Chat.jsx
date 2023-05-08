@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from "react";
+import './Chat.css';
+import TelegramIcon from '@mui/icons-material/Telegram';
+
 
 function Chat({ socket, room, senderId, receiverId, updateMessagesData }) {
   const [currentMessage, setCurrentMessage] = useState("");
@@ -47,6 +50,7 @@ function Chat({ socket, room, senderId, receiverId, updateMessagesData }) {
     <div className="chat-window">
       <div className="chat-footer">
         <input
+          className="chat-input" //Newly added
           type="text"
           value={currentMessage}
           placeholder="Hey..."
@@ -57,7 +61,7 @@ function Chat({ socket, room, senderId, receiverId, updateMessagesData }) {
             event.key === "Enter" && sendMessage();
           }}
         />
-        <button onClick={sendMessage}>►</button>
+        <button className="send-button" onClick={sendMessage}><TelegramIcon /></button>
       </div>
     </div>
   );
