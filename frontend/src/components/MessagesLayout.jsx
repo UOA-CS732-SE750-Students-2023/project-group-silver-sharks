@@ -12,6 +12,8 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
   const tabLinks = useRef([]);
   const previewRef = useRef(null);
   let isFirstClick = true;
+  const chatWindowRef = useRef(null);
+
 
   useEffect(() => {
     fetchAllRoomsMessages();
@@ -73,6 +75,10 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
     tabLinks.current[index].classList.add("active");
 
     setActiveRoom(roomId); // Set the active room to the roomId passed
+
+    if (chatWindowRef.current) {
+      chatWindowRef.current.scrollTop = chatWindowRef.current.scrollHeight;
+    }
   };
 
   const updateMessagesData = (roomId, messageData) => {
@@ -164,11 +170,11 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
                   <div>
                     {otherUsername[index].otherUsername}
                     <br />
-                    <span style={{ color: "#616161", fontSize: "14px" }}>
+                    <span style={{ color: "#616161", fontSize: "14px", fontWeight: "400", }}>
                       {getLastMessage(room._id)}
                     </span>
                   </div>
-                  <div style={{ color: "#616161", fontSize: "14px", alignSelf: "center" }}>
+                  <div style={{ color: "#616161", fontSize: "14px", alignSelf: "center", fontWeight: "400", }}>
                     {getLastMessageDate(room._id)}
                   </div>
                 </div>
@@ -179,7 +185,7 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
 
 
           
-          <div className="tabcontent" style={{ overflow: "auto", maxHeight: "500px" }}>
+          <div ref={chatWindowRef} className="tabcontent" style={{ overflow: "auto", maxHeight: "500px" }}>
             {messagesData.map((chat, index) => (
               <div key={chat._id}>
                 <div
