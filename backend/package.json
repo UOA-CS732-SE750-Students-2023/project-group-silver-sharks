@@ -28,6 +28,7 @@
     "passport": "^0.6.0",
     "passport-google-oauth2": "^0.2.0",
     "redis": "^4.6.6",
+    "rimraf": "^5.0.0",
     "socket.io": "^4.6.1",
     "stripe": "^12.3.0",
     "swagger-jsdoc": "^6.2.8",
