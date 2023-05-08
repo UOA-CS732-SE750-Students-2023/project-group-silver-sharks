@@ -86,6 +86,7 @@ const PaymentForm = ({ cartContentsData }) => {
 
                 const price = cartContent.price * 100;
                 const response = await axios.post('/create-payment-intent', { userId: author._id, amount: price, connectedAccountId: author.stripeId });
+
                 const clientSecret = response.data;
 
                 const paymentResult = await stripe.confirmCardPayment(clientSecret, {
@@ -116,6 +117,7 @@ const PaymentForm = ({ cartContentsData }) => {
                     }
                 }
             };
+
             // Clear the cart contents
             clearCartHandler();
 
