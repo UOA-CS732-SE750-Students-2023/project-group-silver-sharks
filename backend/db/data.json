@@ -1,0 +1,167 @@
+{
+  "Accounts": [
+    {
+      "_id": "101628246745447861849",
+      "firstName": "Jaskaran",
+      "lastName": "Sandhu",
+      "email": "jsan956@aucklanduni.ac.nz",
+      "accountType": "admin",
+      "username": "Jazzy",
+      "sellingProducts": [
+        "644caf3d41e8d663a938864e",
+        "644caf6741e8d663a9388655",
+        "644caf8141e8d663a938865c",
+        "644e3f327b9865addb7b3f14"
+      ]
+    },
+    {
+      "_id": "100953959910033868204",
+      "firstName": "Nilay",
+      "lastName": "Setiya",
+      "email": "nset793@aucklanduni.ac.nz",
+      "accountType": "normal",
+      "username": "Nilay",
+      "sellingProducts": [
+        "644ea31b70a8647e3e32eefd",
+        "644ea5f52459804f9fd26b3a",
+        "644ea78fe3c6082891a73f71",
+        "644ea8c5e3c6082891a73fc2"
+      ]
+    },
+    {
+      "_id": "115762580670597246231",
+      "firstName": "Ibrahim",
+      "lastName": "Anees",
+      "email": "iane056@aucklanduni.ac.nz",
+      "accountType": "normal",
+      "username": "Ibrahim"
+    },
+    {
+      "_id": "102770690999467255961",
+      "firstName": "Yunting",
+      "lastName": "Huang",
+      "email": "yhua972@aucklanduni.ac.nz",
+      "accountType": "normal",
+      "username": "Janet"
+    },
+    {
+      "_id": "108534135006980824413",
+      "firstName": "Yuzhuo",
+      "lastName": "Li",
+      "email": "yil708@aucklanduni.ac.nz",
+      "accountType": "admin",
+      "username": "Lucas"
+    },
+    {
+      "_id": "115597168327745249591",
+      "firstName": "Bryan",
+      "lastName": "Liu",
+      "email": "bliu631@aucklanduni.ac.nz",
+      "accountType": "normal",
+      "username": "Brydawg"
+    }
+  ],
+  "Products": [
+    {
+      "_id": "644caf3d41e8d663a938864e",
+      "category": "Images",
+      "name": "Hand Drawn Naruto Images",
+      "description": "Introducing our collection of hand-drawn Naruto images, created by talented artists with a passion for the popular anime series. Each image is a unique and one-of-a-kind piece of art, capturing the iconic characters and moments from the beloved series. Whether you're a fan of Naruto, Sasuke, or any of the other memorable characters from the series, our collection has something for you. Each image is meticulously crafted with attention to detail, bringing the characters to life in a way that only hand-drawn art can. Our Naruto images make the perfect addition to any fan's collection or a unique gift for someone who loves the series. Hang them in your home, office, or dorm room to show off your love for the series and add some personality to your space. All of our hand-drawn Naruto images are available in a variety of sizes and formats, including posters, prints, and digital downloads, making it easy to find the perfect option for your needs. And with our affordable prices, you can collect multiple images without breaking the bank. Order now and add some hand-drawn Naruto art to your collection today!",
+      "author": "101628246745447861849",
+      "price": 10,
+      "priority": 3,
+      "coverImage": "644caf3d41e8d663a938864e-coverimage.png",
+      "files": [
+        "644caf3d41e8d663a938864e-1-downloadFile.jpg",
+        "644caf3d41e8d663a938864e-2-downloadFile.jpg"
+      ]
+    },
+    {
+      "_id": "644caf6741e8d663a9388655",
+      "category": "Videos",
+      "name": "Naruto Running",
+      "description": "Are you a fan of Naruto? Do you want to experience the thrill of running like a ninja? Then you need our video of Naruto running! This high-quality video features a skilled cosplayer dressed in a Naruto costume, running with the iconic Naruto run that fans of the series know and love. The video is shot in stunning high definition, capturing every detail of the runner's costume and movements. With our video of Naruto running, you can experience the thrill of feeling like a ninja without leaving your home. Use the video for cosplay inspiration, as a fun addition to your social media profiles, or simply to enjoy as a fan of the series. Our video is available for purchase as a digital download, so you can watch it anytime, anywhere. And with our affordable prices, you won't have to break the bank to add this exciting video to your collection. Order now and experience the thrill of Naruto running for yourself with our high-quality video!",
+      "author": "101628246745447861849",
+      "price": 12,
+      "priority": 2,
+      "coverImage": "644caf6741e8d663a9388655-coverimage.jpeg",
+      "files": [
+        "644caf6741e8d663a9388655-1-downloadFile.mp4"
+      ]
+    },
+    {
+      "_id": "644caf8141e8d663a938865c",
+      "category": "Music",
+      "name": "Naruto Soundtrack",
+      "description": "Are you a fan of the iconic anime series Naruto? Do you love the memorable music that accompanies the epic battles, emotional moments, and thrilling adventures of the series? Then you need our Naruto soundtrack! Our soundtrack features all of the unforgettable music from the series, including the iconic opening and ending themes, battle music, and emotional ballads that have become synonymous with the series. Each track is a masterpiece of composition, bringing the world of Naruto to life with its evocative melodies and themes. Whether you're a long-time fan of the series or a newcomer to the world of Naruto, our soundtrack is a must-have addition to your collection. With over an hour of music spanning the entire series, you can relive your favorite moments and immerse yourself in the world of the series whenever you want. Our Naruto soundtrack is available for purchase as a digital download or physical CD, so you can choose the format that best suits your needs. And with our affordable prices, you can add this essential piece of Naruto merchandise to your collection without breaking the bank. Order now and add the unforgettable music of Naruto to your collection today!",
+      "author": "101628246745447861849",
+      "price": 25,
+      "priority": 1,
+      "coverImage": "644caf8141e8d663a938865c-coverimage.jpg",
+      "files": [
+        "644caf8141e8d663a938865c-1-downloadFile.mp3"
+      ]
+    },
+    {
+      "_id": "644e3f327b9865addb7b3f14",
+      "category": "Services",
+      "name": "Custom Naruto Game - PyGame",
+      "description": "Introducing our custom Naruto game created with PyGame, the Python library for game development. Our game is a unique and exciting experience for fans of the popular anime series, featuring beloved characters, iconic locations, and thrilling gameplay. Our PyGame-powered Naruto game is a one-of-a-kind experience that immerses players in the world of the series. Play as your favorite characters, battle fierce enemies, and explore the rich and detailed world of Naruto in stunning detail. What makes our game truly unique is that it is completely customizable. We can work with you to create a custom Naruto game tailored to your specific preferences and needs. Whether you want to add your own characters, locations, or gameplay elements, we can help bring your vision to life. Our custom Naruto game is the perfect addition to any fan's collection, a fun and engaging way to experience the series like never before. And with our affordable prices and flexible customization options, you won't have to break the bank to get the game of your dreams. Order now and experience the thrill of a custom Naruto game created with PyGame!",
+      "author": "101628246745447861849",
+      "price": 169,
+      "priority": 3,
+      "coverImage": "644e3f327b9865addb7b3f14-coverimage.png"
+    },
+    {
+      "_id": "644ea31b70a8647e3e32eefd",
+      "category": "Images",
+      "name": "High Quality Anime Gifs",
+      "description": "Introducing our collection of high-quality anime GIFs, featuring stunning and vibrant animations from your favorite anime series. Each GIF is carefully crafted to capture the essence and style of the series, bringing your favorite characters and moments to life in stunning detail. Our anime GIFs are perfect for use in social media posts, blogs, websites, or any other type of online content. Use them to add some personality and flair to your online presence, or to express your love for your favorite anime series to your followers and friends. What makes our anime GIFs truly special is their exceptional quality. Each GIF is created using high-quality images and animation techniques, resulting in a beautiful and eye-catching animation that stands out from the crowd. Our collection of anime GIFs includes a wide range of series and characters, so you can find the perfect GIF to suit your needs. And with our affordable prices, you can collect multiple GIFs without breaking the bank. Order now and add some stunning and high-quality anime GIFs to your collection today!",
+      "author": "100953959910033868204",
+      "price": 16,
+      "priority": 2,
+      "coverImage": "644ea31b70a8647e3e32eefd-coverimage.gif",
+      "files": [
+        "644ea31b70a8647e3e32eefd-1-downloadFile.gif",
+        "644ea31b70a8647e3e32eefd-2-downloadFile.gif",
+        "644ea31b70a8647e3e32eefd-3-downloadFile.gif"
+      ]
+    },
+    {
+      "_id": "644ea5f52459804f9fd26b3a",
+      "category": "Videos",
+      "name": "Beautiful Anime Scenery",
+      "description": "Introducing our collection of videos featuring beautiful anime scenery, showcasing stunning and immersive artwork inspired by your favorite anime series. Each video is a breathtaking and relaxing experience, transporting you to the world of your favorite anime series in stunning detail. Our videos feature a wide range of scenes and series, from tranquil landscapes and cityscapes to breathtaking nature and architectural marvels. Each scene is captured with exceptional quality, showcasing vivid colors and stunning detail that capture the beauty and mood of the artwork. Our videos are perfect for use as ambient videos, background footage, or simply as a way to relax and enjoy the stunning beauty of your favorite anime series. Use them to create a relaxing and immersive atmosphere in your home, office, or other spaces, or as a way to unwind and de-stress after a long day. What makes our anime scenery videos truly special is their exceptional quality. Each video is shot in stunning high definition, capturing every detail and color of the artwork in stunning clarity and depth. Order now and experience the breathtaking beauty of anime scenery in stunning high definition with our collection of videos.",
+      "author": "100953959910033868204",
+      "price": 22,
+      "priority": 1,
+      "coverImage": "644ea5f52459804f9fd26b3a-coverimage.jpg",
+      "files": [
+        "644ea5f52459804f9fd26b3a-1-downloadFile.mp4"
+      ]
+    },
+    {
+      "_id": "644ea78fe3c6082891a73f71",
+      "category": "Music",
+      "name": "Peaceful Anime Music",
+      "description": "Introducing our collection of peaceful anime music, featuring soothing and relaxing compositions inspired by your favorite anime series. Each track is a beautiful and tranquil experience, perfect for relaxing, studying, or simply enjoying the beauty of the music. Our peaceful anime music collection features a wide range of styles and moods, from soft piano ballads to tranquil orchestral compositions. Each track is carefully crafted to evoke a sense of peace and tranquility, transporting you to a peaceful and beautiful world. Our music is perfect for use as background music, meditation, or simply as a way to unwind and relax after a long day. Use it to create a peaceful and relaxing atmosphere in your home, office, or other spaces, or as a way to help you focus and concentrate while studying or working. What makes our peaceful anime music truly special is its exceptional quality. Each track is composed and recorded by talented musicians and producers, resulting in a beautiful and high-quality audio experience that is truly exceptional. Order now and experience the peace and tranquility of anime-inspired music with our collection of peaceful anime music tracks.",
+      "author": "100953959910033868204",
+      "price": 5,
+      "priority": 3,
+      "coverImage": "644ea78fe3c6082891a73f71-coverimage.jpg",
+      "files": [
+        "644ea78fe3c6082891a73f71-1-downloadFile.mp3"
+      ]
+    },
+    {
+      "_id": "644ea8c5e3c6082891a73fc2",
+      "category": "Services",
+      "name": "Conversion rate optimization for e-commerce websites",
+      "description": "Introducing our conversion rate optimization (CRO) services for e-commerce websites, designed to help businesses improve their online sales and revenue. Our CRO services are tailored to the unique needs of each client, providing a comprehensive and effective solution to improve the effectiveness of their e-commerce website. Our team of experienced and skilled professionals will work closely with you to analyze your website's performance and identify areas for improvement. We will then develop and implement a customized strategy to optimize your website's design, functionality, and user experience, with the goal of increasing conversions and maximizing revenue. Our CRO services include a wide range of techniques and strategies, including website design and layout optimization, A/B testing, user experience optimization, and more. We use data-driven insights and industry best practices to ensure that our strategies are effective and tailored to your specific business needs. By choosing our CRO services, you can improve the effectiveness of your e-commerce website and increase your online sales and revenue. Our services are affordable, flexible, and scalable, making them ideal for businesses of all sizes and budgets. Order now and start optimizing your e-commerce website for maximum conversions and revenue!",
+      "author": "100953959910033868204",
+      "price": 799,
+      "priority": 2,
+      "coverImage": "644ea8c5e3c6082891a73fc2-coverimage.png"
+    }
+  ]
+}

@@ -11,13 +11,13 @@ const accountSchema = new Schema(
     stripeId: {
       type: String,
     },
-    balance: { // In cents, USD
+    balance: {
+      // In cents, USD
       type: Number,
       default: 0,
     },
     username: {
       type: String,
-      unique: true,
     },
     firstName: String,
     lastName: String,
