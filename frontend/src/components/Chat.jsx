@@ -27,14 +27,22 @@ function Chat({ socket, room, senderId, receiverId, updateMessagesData }) {
   };
 
   useEffect(() => {
-    socket.on("receive_message", (data) => {
+    const handleMessage = (data) => {
       updateMessagesData(room, {
         message: data.content,
         date: data.time,
         sentByUser: senderId === data.senderId,
       });
-    });
-  }, [socket]);
+    };
+
+    socket.on("receive_message", handleMessage);
+
+    // Clean up the event listener when the component is unmounted
+    return () => {
+      socket.off("receive_message", handleMessage);
+    };
+  }, [socket, room, senderId, updateMessagesData]);
+
   return (
     <div className="chat-window">
       <div className="chat-footer">

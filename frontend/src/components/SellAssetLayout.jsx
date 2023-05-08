@@ -55,19 +55,6 @@ const SellAssetLayout = ({ userId }) => {
   const submitHandler = async (event) => {
     event.preventDefault();
 
-    // print all the data returned from the form
-    console.log("after form submission !!!");
-    console.log(enteredTitle, 56);
-    console.log(enteredDescription, 57);
-    console.log(price, 58);
-    console.log(category, 59);
-    console.log(coverImage, 60);
-    console.log(files, 61);
-    console.log("END");
-
-    // print the user id that will be needed to create the product in the backend
-    console.log(userId, 65);
-
     const productData = {
       name: enteredTitle,
       description: enteredDescription,
@@ -75,15 +62,12 @@ const SellAssetLayout = ({ userId }) => {
       price: price,
     };
 
-    // print the user id that will be needed to create the product in the backend
-    console.log(userId, 65);
-
     const textResponse = await fetch(
       "http://localhost:3000/products/sell/" + userId,
       {
         method: "POST",
         headers: {
-          "Content-Type": "application/json", // */*
+          "Content-Type": "application/json", 
         },
         body: JSON.stringify(productData),
       }
@@ -162,7 +146,7 @@ const SellAssetLayout = ({ userId }) => {
       );
     }
 
-    redirect("/store/profile/selling");
+    navigate("/store/product/" + newProduct._id);
   };
 
    return (

@@ -23,40 +23,54 @@ const coverImageStorage = multer.diskStorage({
 
 const coverImageUpload = multer({ storage: coverImageStorage });
 
-const imageStorage = multer.diskStorage({
-  destination: function (req, file, callback) {
-    callback(null, "./public/uploads");
-  },
-  filename: (function () {
-    let fileCount = 1;
+// const imageStorage = multer.diskStorage({
+//   destination: function (req, file, callback) {
+//     callback(null, "./public/uploads");
+//   },
+//   filename: (function () {
+//     let fileCount = 1;
 
-    return function (req, file, callback) {
-      const productId = req.params.productId;
-      const extension = path.extname(file.originalname);
-      const newFilename = `${productId}-${fileCount}${extension}`;
-      fileCount++;
-      callback(null, newFilename);
-    };
-  })(),
-});
+//     return function (req, file, callback) {
+//       const productId = req.params.productId;
+//       const extension = path.extname(file.originalname);
+//       const newFilename = `${productId}-${fileCount}${extension}`;
+//       fileCount++;
+//       callback(null, newFilename);
+//     };
+//   })(),
+// });
 
-const imageUpload = multer({ storage: imageStorage });
+// const imageUpload = multer({ storage: imageStorage });
+
+async function prepareFileCounter(req, res, next) {
+  const productId = req.params.productId;
+
+  // Get the list of files in the destination folder
+  const files = await fs.promises.readdir("./public/downloadFiles");
+
+  // Filter the files that belong to the current productId
+  const productFiles = files.filter((file) => file.startsWith(`${productId}-`));
+
+  // Calculate the new file count based on existing files
+  const fileCount = productFiles.length + 1;
+
+  req.fileCount = fileCount;
+  next();
+}
 
 const downloadFileStorage = multer.diskStorage({
   destination: function (req, file, callback) {
     callback(null, "./public/downloadFiles");
   },
-  filename: (function () {
-    let fileCount = 1;
+  filename: function (req, file, callback) {
+    const productId = req.params.productId;
+    const fileCount = req.fileCount;
+    const extension = path.extname(file.originalname);
 
-    return function (req, file, callback) {
-      const productId = req.params.productId;
-      const extension = path.extname(file.originalname);
-      const newFilename = `${productId}-${fileCount}-downloadFile${extension}`;
-      fileCount++;
-      callback(null, newFilename);
-    };
-  })(),
+    const newFilename = `${productId}-${fileCount}-downloadFile${extension}`;
+    req.fileCount++; // Increment the file count for the next file
+    callback(null, newFilename);
+  },
 });
 
 const downloadFileUpload = multer({ storage: downloadFileStorage });
@@ -97,6 +111,7 @@ fileRouter.post(
 // Endpoint 2: POST - Upload files for Videos, Music, or Images
 fileRouter.post(
   "/upload-downloadfiles/:productId",
+  prepareFileCounter,
   downloadFileUpload.array("files"),
   async (req, res) => {
     console.log(req.params.productId);
