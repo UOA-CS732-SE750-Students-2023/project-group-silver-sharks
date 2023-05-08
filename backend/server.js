@@ -13,6 +13,7 @@ import { Server } from "socket.io";
 import { Message } from "./models/messageModel.js";
 import { Room } from "./models/roomModel.js";
 import stripeRouter from "./routes/stripe.js";
+import importDataFromFile from "./db/seeding.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -28,6 +29,7 @@ app.use((req, res, next) => {
   next();
 });
 connectDB();
+//importDataFromFile();
 
 app.use(productRouter);
 app.use(accountRouter);

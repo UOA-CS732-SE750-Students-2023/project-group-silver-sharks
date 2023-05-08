@@ -11,7 +11,8 @@ const accountSchema = new Schema(
     stripeId: {
       type: String,
     },
-    balance: { // In cents, USD
+    balance: {
+      // In cents, USD
       type: Number,
       default: 0,
     },
