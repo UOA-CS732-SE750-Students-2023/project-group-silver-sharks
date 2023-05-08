@@ -11,7 +11,7 @@
 .sell-assets {
   margin: 0 90px 200px;
   background-color: #fff;
-  padding: 20px;
+  padding: 40px;
   border-radius: 4px;
   position: relative;
 
@@ -70,7 +70,7 @@
 
 .required-star {
   position: absolute;
-  top: 42%;
+  top: 55%;
   right: 38%;
   color: red;
   font-size: 20px;
@@ -79,7 +79,7 @@
 
 .required-star-des {
   position: absolute;
-  top: 20%;
+  top: 21%;
   right: 38%;
   color: red;
   font-size: 20px;
@@ -88,8 +88,8 @@
 
 .required-star-price {
   position: absolute;
-  top: 40%;
-  left: 8%;
+  bottom:0%;
+  left: 9.5%;
   color: red;
   font-size: 20px;
   transform: translateY(-50%);

@@ -138,18 +138,22 @@ const AuthorLayout = ({ author, userAccountType, authorPageId, userId, isOwnAcco
                                         <img src={'http://localhost:3000/uploads/' + item.coverImage}/>
                                     </div>
                                     <div className={`${classes.contentcontainer}`}>
-                                        <div className="d-flex justify-content-between flex-wrap">
-                                        <div className={`${classes.productcontainer}`}><Link id="productLink" to={`/store/product/${item._id}`}><p className="text-nowrap text-truncate">{item.name}</p></Link></div>
-                                            <div className={`${classes.price}`}  >
-                                                <h1>${Math.floor(item.price)}
-                                                <span>{(item.price % 1).toFixed(2).split('.')[1]}</span>
-                                                </h1>
+                                        <div className="row">
+                                            <div className={`${classes.productcontainer} col-md-8`}>
+                                                <Link id="productLink" to={`/store/product/${item._id}`}>
+                                                    <p className="text-nowrap text-truncate">{item.name}</p>
+                                                </Link>
+                                            </div>
+                                            <div className={`${classes.price} col-md-4`} >
+                                                <p>${Math.floor(item.price)}
+                                                    <span>{(item.price % 1).toFixed(2).split('.')[1]}</span>
+                                                </p>
                                             </div>
                                         </div>
 
                                         <div className="d-flex justify-content-between">
-                                            <div className={`${classes.cardtextcon}`}>
-                                                <p className="text-nowrap text-truncate">{item.description}</p>
+                                            <div>
+                                                {/* <p className="text-nowrap text-truncate">{item.description}</p> */}
                                             </div>
                                             <div>
                                                 <h5>{item.category}</h5>
