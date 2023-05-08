@@ -1,12 +1,14 @@
-import React from 'react';
-import { useSubmit } from 'react-router-dom';
-import './SellingLayout.css';
+import React from "react";
+import { useSubmit } from "react-router-dom";
+import "./SellingLayout.css";
 
 const SellingLayout = ({ sellingAssets }) => {
-
+  const submit = useSubmit();
   const downloadFile = async (productId, productname) => {
     try {
-      const response = await fetch("http://localhost:3000/download/" + productId);
+      const response = await fetch(
+        "http://localhost:3000/download/" + productId
+      );
 
       const blob = await response.blob();
 
@@ -16,7 +18,7 @@ const SellingLayout = ({ sellingAssets }) => {
       // Create an anchor element and set the Blob URL as its href attribute
       const anchor = document.createElement("a");
       anchor.href = blobUrl;
-      anchor.download = productname + '.zip';
+      anchor.download = productname + ".zip";
 
       // Append the anchor to the document, trigger a click event, and remove it
       document.body.appendChild(anchor);
@@ -25,22 +27,27 @@ const SellingLayout = ({ sellingAssets }) => {
         document.body.removeChild(anchor);
         URL.revokeObjectURL(blobUrl);
       }, 0);
-      
     } catch (error) {
       console.error("Error downloading the file:", error);
     }
-  }
+  };
 
   const removeListingHandler = async (productId) => {
-    // call the delete product endpoint 
-    const proceed = window.confirm('Are you sure?');
+    // call the delete product endpoint
+    const proceed = window.confirm("Are you sure?");
 
-    if (proceed){
-        submit({ id: productId }, { method: 'DELETE', action: '/store/profile/selling' });
+    if (proceed) {
+      submit(
+        { id: productId },
+        { method: "DELETE", action: "/store/profile/selling" }
+      );
     }
-  }
+  };
 
-  const totalEarnings = sellingAssets.reduce((acc, asset) => acc + asset.price * asset.amountSold, 0);
+  const totalEarnings = sellingAssets.reduce(
+    (acc, asset) => acc + asset.price * asset.amountSold,
+    0
+  );
 
   return (
     <div className="selling-layout">
@@ -51,7 +58,10 @@ const SellingLayout = ({ sellingAssets }) => {
           {sellingAssets.map((asset, index) => (
             <div className="asset-item" key={index}>
               <div className="asset-image">
-                <img src={"http://localhost:3000/uploads/" + asset.coverImage} alt={asset.name} />
+                <img
+                  src={"http://localhost:3000/uploads/" + asset.coverImage}
+                  alt={asset.name}
+                />
               </div>
               <div className="asset-details">
                 <h3>{asset.name}</h3>
@@ -59,10 +69,14 @@ const SellingLayout = ({ sellingAssets }) => {
                 <p>Category: {asset.category}</p>
                 <div className="asset-links">
                   <div>
-                    <button onClick={() => downloadFile(asset._id, asset.name)}>Download files</button>
+                    <button onClick={() => downloadFile(asset._id, asset.name)}>
+                      Download files
+                    </button>
                   </div>
                   <div>
-                    <button onClick={() => removeListingHandler(asset._id)}>Remove listing</button>
+                    <button onClick={() => removeListingHandler(asset._id)}>
+                      Remove listing
+                    </button>
                   </div>
                 </div>
               </div>
@@ -76,7 +90,10 @@ const SellingLayout = ({ sellingAssets }) => {
           {sellingAssets.map((asset, index) => (
             <div className="asset-item" key={index}>
               <div className="asset-image">
-                <img src={"http://localhost:3000/uploads/" + asset.coverImage} alt={asset.name} />
+                <img
+                  src={"http://localhost:3000/uploads/" + asset.coverImage}
+                  alt={asset.name}
+                />
               </div>
               <div className="asset-name-category">
                 <h3>{asset.name}</h3>
