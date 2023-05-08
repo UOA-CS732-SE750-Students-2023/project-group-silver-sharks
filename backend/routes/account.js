@@ -14,6 +14,8 @@ import session from "express-session";
 import { Account } from "../models/accountModel.js";
 import { Product } from "../models/productModel.js";
 import { ProductReview } from "../models/productReviewModel.js";
+import { Room } from "../models/roomModel.js";
+import { Message } from "../models/messageModel.js";
 import mongoose from "mongoose";
 
 const accountRouter = new express.Router();
@@ -229,6 +231,16 @@ accountRouter.delete("/account", isLoggedIn, async (req, res) => {
       }
     }
 
+    // Deleting rooms and messages
+    const rooms = await Room.find({
+      $or: [{ account1: req.user.id }, { account2: req.user.id }],
+    });
+
+    for (const room of rooms) {
+      await Message.deleteMany({ _id: { $in: room.messages } });
+      await Room.findByIdAndRemove(room._id);
+    }
+
     await deleteAccount(req.user.id);
     return res.json({ message: "Account deleted successfully" });
   } catch (error) {
@@ -302,6 +314,16 @@ accountRouter.delete(
         }
       }
 
+      // Deleting rooms and messages
+      const rooms = await Room.find({
+        $or: [{ account1: req.params.id }, { account2: req.params.id }],
+      });
+
+      for (const room of rooms) {
+        await Message.deleteMany({ _id: { $in: room.messages } });
+        await Room.findByIdAndRemove(room._id);
+      }
+
       await deleteAccount(req.params.id);
       return res.json({ message: "Account deleted successfully" });
     } catch (error) {
@@ -363,9 +385,7 @@ accountRouter.get("/account/cart", isLoggedIn, async (req, res) => {
 accountRouter.get("/account/cart/pid/:pid", isLoggedIn, async (req, res) => {
   const productId = req.params.pid;
   const userId = req.user.id;
-  if (
-    !mongoose.Types.ObjectId.isValid(productId)
-  ) {
+  if (!mongoose.Types.ObjectId.isValid(productId)) {
     return res.status(400).json({ message: "Invalid accountId or productId" });
   }
   try {
@@ -409,9 +429,7 @@ accountRouter.get("/account/cart/pid/:pid", isLoggedIn, async (req, res) => {
 accountRouter.delete("/account/cart/pid/:pid", isLoggedIn, async (req, res) => {
   const productId = req.params.pid;
   const userId = req.user.id;
-  if (
-    !mongoose.Types.ObjectId.isValid(productId)
-  ) {
+  if (!mongoose.Types.ObjectId.isValid(productId)) {
     return res.status(400).json({ message: "Invalid accountId or productId" });
   }
   try {
@@ -447,13 +465,12 @@ accountRouter.delete("/account/cart/pid/:pid", isLoggedIn, async (req, res) => {
 });
 
 /**
- * Delete the accounts cart contents 
+ * Delete the accounts cart contents
  * Endpoint 14: DELETE /account/cart/clear
  */
 accountRouter.delete("/account/cart/clear", isLoggedIn, async (req, res) => {
-
   const userId = req.user.id;
- 
+
   try {
     const account = await Account.findById(userId);
 
@@ -470,9 +487,9 @@ accountRouter.delete("/account/cart/clear", isLoggedIn, async (req, res) => {
     res.status(200).json({ message: "All products removed from cart" });
   } catch (error) {
     console.log(error);
-    res
-      .status(500)
-      .json({ message: "Server error: Something went wrong with deleting from cart" });
+    res.status(500).json({
+      message: "Server error: Something went wrong with deleting from cart",
+    });
   }
 });
 

@@ -17,7 +17,6 @@ const accountSchema = new Schema(
     },
     username: {
       type: String,
-      unique: true,
     },
     firstName: String,
     lastName: String,
