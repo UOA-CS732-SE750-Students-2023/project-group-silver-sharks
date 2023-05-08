@@ -14,7 +14,7 @@ import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
 
 
-const SellAssetLayout = ({ userId }) => {
+const SellAssetLayout = ({ userId, userStripeId }) => {
   const [enteredTitle, setEnteredTitle] = useState("");
   const [enteredDescription, setEnteredDescription] = useState("");
   const [coverImage, setCoverImage] = useState("");
@@ -149,6 +149,8 @@ const SellAssetLayout = ({ userId }) => {
     navigate("/store/product/" + newProduct._id);
   };
 
+  console.log("STRIPE USER ID IN SELL ASSET: " + userStripeId);
+
    return (
     <Container fluid className="container-fluid">
       <Row className="mt-5"></Row>
@@ -256,7 +258,14 @@ const SellAssetLayout = ({ userId }) => {
               >
                 Cancel
               </Button> */}
-              <Button
+              {/** If there is no Stripe ID associated with user, the user is prompted to create one. */}
+              { userStripeId ? (
+                <div style={{
+                  "display": "flex",
+                  "flex-direction": "column",
+                  "width": "40%"
+                }}>
+                <Button
                 variant="primary"
                 type="submit"
                 className="mt-4"
@@ -266,9 +275,33 @@ const SellAssetLayout = ({ userId }) => {
                   borderRadius: "25px",
                   padding: "10px 30px",
                 }}
-              >
-                List asset
-              </Button>
+                >
+                  List asset
+                </Button>
+              </div>
+              ) : (
+                <div style={{
+                  "display": "flex",
+                  "flex-direction": "column",
+                  "width": "40%"
+                }}>
+                <i>Stripe is not linked to your account! Please set up your Stripe authentication.</i>
+                <Button
+                disabled
+                variant="primary"
+                type="submit"
+                className="mt-4"
+                style={{ 
+                  backgroundColor: "#348B81", 
+                  border: "none", 
+                  borderRadius: "25px",
+                  padding: "10px 30px",
+                }}
+                >
+                  List asset
+                </Button>
+              </div>
+              )} 
             </div>
           </form>
         </Col>       

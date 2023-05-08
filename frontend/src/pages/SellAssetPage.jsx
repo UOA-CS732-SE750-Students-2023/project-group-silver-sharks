@@ -4,10 +4,11 @@ import SellAssetLayout from '../components/SellAssetLayout';
 
 const SellAssetPage = () => { 
 
-    const userId = useLoaderData(); 
+    const { userId, userStripeId} = useLoaderData();
+    console.log("Stripe User ID on page jsx file: " + userStripeId);
 
     return (
-        <SellAssetLayout userId={userId}/>
+        <SellAssetLayout userId={userId} userStripeId={userStripeId}/>
     );
 }
 
@@ -30,10 +31,13 @@ export const loader = async ({request,params}) => {
 
     console.log("################################################")
     console.log("this is the username and userid fetched from the backend")
-    console.log(user.username + " " + user._id);
+    console.log(user.username + " " + user._id + " Stripe: " + user.stripeId);
     console.log("################################################")
 
-    return user._id;
+    return {
+        userId: user._id, 
+        userStripeId: user.stripeId
+    };
 };
 
 export const action = async ({request,params}) => {

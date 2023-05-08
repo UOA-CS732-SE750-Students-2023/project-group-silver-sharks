@@ -67,16 +67,26 @@ const PaymentForm = ({ cartContentsData }) => {
         }
 
         try {
-            console.log("ATTEMPTING TO GET CART CONTENTS")
             // Get each cart item's author
             const cartAuthorIds = cartContentsData.map(cart => cart.author);
 
             console.log("LIST OF CART AUTHORS:")
             console.log(cartAuthorIds);
+            
             for (const cartContent of cartContentsData) {
+
+                console.log("Author:");
+                console.log(cartContent.author);
+
                 const authorResponse = (await fetch('http://localhost:3000/account/id/' + cartContent.author));
+                const author = await authorResponse.json();
+
+                console.log("Author Response:");
+                console.log(author);
+
                 const price = cartContent.price * 100;
-                const response = await axios.post('/create-payment-intent', { userId: user._id, amount: price, connectedAccountId: authorResponse.stripeId });
+                const response = await axios.post('/create-payment-intent', { userId: author._id, amount: price, connectedAccountId: author.stripeId });
+
                 const clientSecret = response.data;
 
                 const paymentResult = await stripe.confirmCardPayment(clientSecret, {
@@ -88,7 +98,6 @@ const PaymentForm = ({ cartContentsData }) => {
                 } else {
                     if (paymentResult.paymentIntent.status === 'succeeded') {
                         console.log('Payment successful');
-                        
 
                         // call Product/buy endpoint to register the cart contents as being bought by the user
                         const buyProductResponse = await fetch('http://localhost:3000/products/buy?accountId=' + user._id, {
@@ -105,13 +114,10 @@ const PaymentForm = ({ cartContentsData }) => {
 
                         const newProduct = await buyProductResponse.json()
                         console.log("Line 94: " + newProduct.message);
-
-                        
                     }
                 }
             };
 
-            
             // Clear the cart contents
             clearCartHandler();
 
