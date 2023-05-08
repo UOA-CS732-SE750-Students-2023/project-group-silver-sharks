@@ -21,11 +21,11 @@ function LandingNavBar() {
             <b>The world's premier<br/><span>digital marketplace</span>.</b>
           </div>
           <div className="landing-page-search-bar-wrapper">
-          <input
+          {/* <input
             className="landing-page-search-bar"
             type="search"
             placeholder="Search for a digital asset"/>
-            <SearchIcon className='landing-page-search-icon'/>
+            <SearchIcon className='landing-page-search-icon'/> */}
           </div>
         </div>
       </div>
