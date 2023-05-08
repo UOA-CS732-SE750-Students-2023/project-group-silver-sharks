@@ -29,7 +29,7 @@ app.use((req, res, next) => {
   next();
 });
 connectDB();
-importDataFromFile();
+//importDataFromFile();
 
 app.use(productRouter);
 app.use(accountRouter);
