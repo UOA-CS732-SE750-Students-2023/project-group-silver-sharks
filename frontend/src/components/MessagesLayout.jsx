@@ -206,12 +206,21 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
                   ))}
                 </div>
                 {activeRoom === chat._id && (
-                  <ChatHolder
-                    roomId={chat._id}
-                    senderId={ownUsername.loggedInId}
-                    receiverId={chat.receiver}
-                    updateMessagesData={updateMessagesData}
-                  />
+                  <div className="chatHolder-actions-container">
+                    <ChatHolder
+                      roomId={chat._id}
+                      senderId={ownUsername.loggedInId}
+                      receiverId={chat.receiver}
+                      updateMessagesData={updateMessagesData}
+                    />
+                    <div className="actions">
+                      <FontAwesomeIcon
+                        icon={faRetweet}
+                        onClick={refreshChatHandler}
+                        className="action-icon"
+                      />
+                    </div>
+                  </div>
                 )}
               </div>
             ))}
@@ -223,13 +232,7 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
           >
             <h3>Click on a chat to get started.</h3>
           </div>
-          <div className="actions">
-          <FontAwesomeIcon
-            icon={faRetweet}
-            onClick={refreshChatHandler}
-            className="action-icon"
-          />
-        </div>
+          
         </div>
         
       </div>
