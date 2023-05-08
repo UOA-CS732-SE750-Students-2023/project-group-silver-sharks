@@ -92,11 +92,13 @@
   word-wrap: break-word;
 }
 
-.message-content {
-  padding: 5px 10px;
-  border-radius: 10px;
-  display: inline-block;
+.message-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 100%;
 }
+
 
 .left-message {
   text-align: left;

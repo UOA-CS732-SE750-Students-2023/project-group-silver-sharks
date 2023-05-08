@@ -117,18 +117,14 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
                   {chat.messages.map((singleMessage, index) => (
                     <>
                       {singleMessage.sentByUser ? (
-                        <div key={index} className="message-container left-message">
-                          <div className="message-content">
-                            <p style={{ fontSize: "15px" }}>{singleMessage.message}</p>
-                            <p style={{ fontSize: "10px" }}>{singleMessage.date}</p>
-                          </div>
-                        </div>
+                        <div key={index} className="message-container" style={{ alignItems: 'flex-end' }}>
+                          <p style={{ fontSize: "15px", backgroundColor: "#4368C9", color: "white", borderRadius: "15px 0px 15px 15px", padding: "10px" }}>{singleMessage.message}</p>
+                          <p style={{ fontSize: "10px" }}>{singleMessage.date}</p>
+                        </div> 
                       ) : (
-                        <div key={index} className="message-container right-message">
-                          <div className="message-content">
-                            <p style={{ fontSize: "15px" }}>{singleMessage.message}</p>
-                            <p style={{ fontSize: "10px" }}>{singleMessage.date}</p>
-                          </div>
+                        <div key={index} className="message-container">
+                          <p style={{ fontSize: "15px", backgroundColor: "#EAEAEA", color: "black", borderRadius: "0px 15px 15px 15px", padding: "10px" }}>{singleMessage.message}</p>
+                          <p style={{ fontSize: "10px" }}>{singleMessage.date}</p>
                         </div>
                       )}
                     </>
