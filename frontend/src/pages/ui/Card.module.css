@@ -8,7 +8,7 @@
   flex-wrap: wrap;
   gap: 1rem;
   margin: 0.5rem;
-  height: 445px;
+  height: 455px;
 }
 
 .card .authorpagecard{
@@ -17,7 +17,7 @@
   flex-wrap: wrap;
   gap: 1rem;
   margin: 0.5rem;
-  height: 415px;
+  height: 425px;
 }
 
 .card .storeimgcontainer{
@@ -36,8 +36,14 @@
   object-fit: cover;
   
 }
+.card .productcontainer{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .card .productcontainer p {
-  max-width: 100%;
+  /* max-width: 350px; */
+  width: 100%;
   padding: 0.2rem;
   text-decoration: underline;
   color: black;
@@ -71,6 +77,11 @@
     text-align: left;
 
   }
+.card .price{
+  min-width: 30px;
+  word-break: break-word;
+}
+
 .card .price span{
   vertical-align: super;
   color: black;
@@ -81,7 +92,8 @@
   letter-spacing: 0em;
   text-align: center;
 }
-.card .price h1{
+.card .price p{
+  width: 100%;
   color: black;
   font-family: Poppins;
   font-size: 24px;
@@ -89,6 +101,7 @@
   line-height: 36px;
   letter-spacing: 0em;
   text-align: right;
+
 
 }
 .card .contentcontainer{
@@ -98,7 +111,7 @@
   width:70%;
 }
 
-@media (max-width: 1400px) {
+@media (max-width: 1520px) {
   .card .storepagecard{
     background-color:white;
     flex-direction: row;
@@ -141,8 +154,29 @@
     text-align: left;
   
     }
+  .card .price{
+      width:100%;
+      word-break: break-all;
+  }
 }
-
+@media (max-width: 720px){
+  .card .storepagecard{
+    background-color:white;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 0.5rem;
+    height: 550px;
+  }
+  .card .authorpagecard{
+    background-color:white;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 0.5rem;
+    height: 600px;
+  }
+}
 /* */
 .priority-1 {
   background-color: white;
