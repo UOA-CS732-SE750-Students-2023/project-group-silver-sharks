@@ -36,17 +36,21 @@
 .asset-item {
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
 .asset-image {
-  flex: 0 0 150px;
+  flex: 0 0 250px;
   margin-right: 20px;
+  height:150px;
+  overflow: hidden;
+  background-color: #616161;
 }
 
 .asset-image img {
-  max-width: 100%;
-  height: auto;
+  height: 100%;
+  width: 100%; 
+  object-fit: cover;
 }
 
 .asset-details {
@@ -60,7 +64,7 @@
 }
 
 .asset-details p {
-  margin: 1px 0;
+  margin: 1.5px 0;
 }
 
 .asset-details .asset-links a,
@@ -101,4 +105,43 @@
   justify-content: flex-end;
   margin-top: 20px;
   font-weight: bold;
+}
+.selling-scroll-container{
+  max-height: 350px;
+  overflow-y: auto;
+  white-space: nowrap;
+}
+.selling-scroll-container::-webkit-scrollbar {
+  width: 8px;
+  margin-right: 5px;
+}
+
+.selling-scroll-container::-webkit-scrollbar-thumb {
+  margin-right: 5px;
+  background-color:rgb(79, 79, 79);
+  border-radius: 5px;
+}
+
+.selling-scroll-container::-webkit-scrollbar-thumb:hover {
+  background-color: #aaa;
+}
+.earnings-scroll-container{
+  max-height: 520px;
+  overflow-y: auto;
+  white-space: nowrap;
+  padding-right: 30px;
+}
+.earnings-scroll-container::-webkit-scrollbar {
+  width: 8px;
+  margin-right: 5px;
+}
+
+.earnings-scroll-container::-webkit-scrollbar-thumb {
+  margin-right: 5px;
+  background-color:rgb(79, 79, 79);
+  border-radius: 5px;
+}
+
+.earnings-scroll-container::-webkit-scrollbar-thumb:hover {
+  background-color: #aaa;
 }

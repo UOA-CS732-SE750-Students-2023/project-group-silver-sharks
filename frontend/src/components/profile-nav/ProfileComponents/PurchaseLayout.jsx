@@ -48,30 +48,32 @@ const PurchaseLayout = ({ purchasedAssets }) => {
       <div className="purchase-layout">
         <div className="purchase-assets">
           <h2>Purchased Assets</h2>
-          <div className="assets-container">
+          <div className="p-assets-container">
             <p>Showing {purchasedAssets.length} purchased assets</p>
-            {purchasedAssets.map((asset, index) => (
-              <div className="asset-item" key={index}>
-                <div className="asset-image" ref={imageRef}>
-                  <img
-                    src={"http://localhost:3000/uploads/" + asset.coverImage}
-                    alt={asset.name}
-                  />
+            <div className="p-sco">
+              {purchasedAssets.map((asset, index) => (
+                <div className="asset-item" key={index}>
+                  <div className="asset-image" ref={imageRef}>
+                    <img
+                      src={"http://localhost:3000/uploads/" + asset.coverImage}
+                      alt={asset.name}
+                    />
+                  </div>
+                  <div
+                    className="asset-details"
+                    style={{
+                      gap: imageHeight ? `${imageHeight * 0.02}px` : "1px",
+                    }}
+                  >
+                    <h3>{asset.name}</h3>
+                    <p>Price: ${asset.price.toFixed(2)}</p>
+                    <p>Category: {asset.category}</p>
+                    <button onClick={() => downloadFile(asset._id, asset.name)}>Download files</button>
+                    <button onClick={() => navigate(`/store/product/${asset._id}`)}>Review</button>
+                  </div>
                 </div>
-                <div
-                  className="asset-details"
-                  style={{
-                    gap: imageHeight ? `${imageHeight * 0.02}px` : "1px",
-                  }}
-                >
-                  <h3>{asset.name}</h3>
-                  <p>Price: ${asset.price.toFixed(2)}</p>
-                  <p>Category: {asset.category}</p>
-                  <button onClick={() => downloadFile(asset._id, asset.name)}>Download files</button>
-                  <button onClick={() => navigate(`/store/product/${asset._id}`)}>Review</button>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>

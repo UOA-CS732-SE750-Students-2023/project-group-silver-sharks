@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
 const ProductNavBar = ({ setSearchCategory, setFilter, setSearchTerm, notFound, displayCount }) => {
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('Images');
 
   // const searchInputStyle = {
   //   borderRadius: '25px',
@@ -36,11 +36,17 @@ const ProductNavBar = ({ setSearchCategory, setFilter, setSearchTerm, notFound, 
     setSearchTerm(event.target.value);
   }
 
-  const [p_title, setTitle] = useState('Sort by :\u00A0\u00A0\u00A0Priority');
+  const [p_title, setTitle] = useState('Sort by :\u00A0\u00A0\u00A0Default');
 
   const filterChangeHandler = (event) => {
     setFilter(event);
-    setTitle(`Sort by: ${event}`);
+    const ek=`${event}`
+    if(ek==='priceLowToHigh'){
+      setTitle(`Price: Low to High`);
+    }
+    if(ek==='priceHighToLow'){
+      setTitle(`Price: High to Low`);
+    }
   }
   
 
@@ -180,7 +186,6 @@ const ProductNavBar = ({ setSearchCategory, setFilter, setSearchTerm, notFound, 
                 className="custom-dropdown-btn-style dropdown-toggle"
                 onSelect={filterChangeHandler}
               >
-                {/* <Dropdown.Item eventKey="priceLowToHigh">Priority</Dropdown.Item> */}
                 <Dropdown.Item eventKey="priceLowToHigh">Price: Low to High</Dropdown.Item>
                 <Dropdown.Item eventKey="priceHighToLow">Price: High to Low</Dropdown.Item>
               </DropdownButton>

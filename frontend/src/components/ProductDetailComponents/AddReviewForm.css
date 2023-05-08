@@ -98,9 +98,10 @@
 }
 
 .star-rating {
-  display: inline-block;
+  display: flex;
   font-size: 0;
   position: relative;
+  flex-direction: row-reverse;
 }
 
 .star-rating input[type="radio"] {
@@ -124,3 +125,9 @@
 .star-rating label:hover ~ label {
   color: #f0c14b;
 }
+
+
+
+
+
+

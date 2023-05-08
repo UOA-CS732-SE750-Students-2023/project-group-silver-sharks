@@ -30,14 +30,11 @@ const ProfileNavBar = (props) => {
     const navigateMessagesHandler = () => {
         navigate('/store/profile/messages');
     }
-    /* const user = useRouteLoaderData('username-loader'); */
-    const user = props.user || {};
-
-
+    const user = useRouteLoaderData('username-loader');
 
 
     //the number of unread messages
-    const [unreadCount, setUnreadCount] = useState(717);
+    const [unreadCount, setUnreadCount] = useState(0);
     //More than 99 unread messages displayed as 99+
     const unreadnumber = unreadCount > 99 ? '99+' : unreadCount;
 
@@ -46,8 +43,7 @@ const ProfileNavBar = (props) => {
         <Modal onClose={props.closeProfileNav}>
             <div className={`${classes.profilecontainer}`}>
                 <div className={styles.p_firstcontainer}>
-                    {/* <h2>{user.username}</h2> */}
-                    <h2>{user.username || 'Loading...'}</h2>
+                    <h2>{user.username}</h2>
                     <div className='p_firstline'>
                         <PersonFillGear size={24} className={styles.iconsty}/>
                         <button onClick={navigateDashboardHandler}>My Account</button>
@@ -56,9 +52,9 @@ const ProfileNavBar = (props) => {
                     <div className='p_firstline'>
                         <ChatDots size={24} className={styles.iconsty}/>
                         <button onClick={navigateMessagesHandler}>Messages</button>
-                        <div className={styles.p_circle}>
-                            {unreadCount > 0 && <div className={styles.p_unread}>{unreadnumber}</div>}
-                        </div>
+                        {unreadCount > 0 && <div className={styles.p_circle}>
+                            <div className={styles.p_unread}>{unreadnumber}</div>
+                        </div>}
                         
                     </div>
                     <div className="border-top border-2"></div>

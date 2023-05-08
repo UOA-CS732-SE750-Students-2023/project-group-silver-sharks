@@ -297,7 +297,9 @@ const ProductLayout = ({ product, author, reviews, userType, userId, isOwnAccoun
             <div className="cardcontent_container">
               <div className="product-stats d-flex justify-content-between">
                 <div><p>{`${sold} sold`}</p></div>
-                <div><p><Link to={`/store/author/${author._id}`} style={{ color: "#000000" }}>{author.username}</Link></p></div>
+                <div>
+                  <p>Author:&nbsp;&nbsp;<Link to={`/store/author/${author._id}`} style={{ color: "#000000" }}>{author.username}</Link></p>
+                </div>
               </div>
               <p>
                 &#x2605; {avg_rating}

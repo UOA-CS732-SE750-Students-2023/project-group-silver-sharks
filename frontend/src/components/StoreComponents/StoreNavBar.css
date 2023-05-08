@@ -43,6 +43,9 @@
     width: 80vw;
     font-size: 30px;
 }
+.brand-name a{
+  text-decoration: none;
+}
 
 /* Modified for frontend fixes */
 .store-page-sell-asset-btn{
