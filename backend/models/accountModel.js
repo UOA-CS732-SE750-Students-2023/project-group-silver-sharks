@@ -8,6 +8,13 @@ const accountSchema = new Schema(
       type: String,
       required: true,
     },
+    stripeId: {
+      type: String,
+    },
+    balance: { // In cents, USD
+      type: Number,
+      default: 0,
+    },
     username: {
       type: String,
       unique: true,

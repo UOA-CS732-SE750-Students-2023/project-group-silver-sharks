@@ -4,12 +4,14 @@
   display: flex;
   align-items: baseline;
   font-family: Poppins;
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
   border-radius: 4px;
   margin-bottom: 10px;
 }
 
 .product-price span {
+  vertical-align: super;
+  color: black;
   font-size: 1rem;
   margin-left: 0.5rem;
 }

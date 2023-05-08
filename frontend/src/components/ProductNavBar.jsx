@@ -5,7 +5,7 @@ import './ProductNavBar.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
-const ProductNavBar = ({ setSearchCategory, setFilter, setSearchTerm, notFound }) => {
+const ProductNavBar = ({ setSearchCategory, setFilter, setSearchTerm, notFound, displayCount }) => {
   const [selectedCategory, setSelectedCategory] = useState('');
 
   // const searchInputStyle = {
@@ -159,7 +159,7 @@ const ProductNavBar = ({ setSearchCategory, setFilter, setSearchTerm, notFound }
         <div className="d-flex justify-content-between align-items-center my-2 min-max-input-container-style">
           <div>
             <span>
-              <h4 className="black-text-style">Showing 1,405 results</h4>
+              <h4 className="black-text-style">{!notFound ? `Showing ${displayCount} results` : "Showing 0 results"}</h4>
             </span>
           </div>
           <div className="drop-down-container-style">

@@ -17,9 +17,23 @@ const DashboardLayout = ({ user }) => {
         if (proceed){
             submit(null, { method: 'DELETE' });
         }
-        
     }
 
+    /*** STRIPE SET UP AUTHENTICATION ***/
+
+    // Needed for getting users set up on stripe onboarding. You can find this ID
+    // under Stripe Dashboard > Settings > Connect Settings
+    const REACT_APP_STRIPE_CLIENT_ID = "ca_Nq0lRvkvOFNQuvGmPak9JEYF4AHc97sw";
+
+    // The redirect uri when stripe onboarding is completed.
+    const REACT_APP_STRIPE_REDIRECT_URI = `http://localhost:3000/oauth/callback`;
+
+    const externalUrl = `https://connect.stripe.com/oauth/authorize?response_type=code&client_id=${REACT_APP_STRIPE_CLIENT_ID}&scope=read_write&redirect_uri=${REACT_APP_STRIPE_REDIRECT_URI}`;
+    const navigateStripeAuthentication = () => {
+        window.open(externalUrl, '_blank', 'noopener,noreferrer');
+    };
+   
+    // Search up
     return (
         <div className='d_background'>
             <div className='d_fdiv'> 
@@ -48,6 +62,9 @@ const DashboardLayout = ({ user }) => {
                 <div className='d_linkcontainer'>
                     <div>
                         <button onClick={navigateDeleteAccount}>Delete account</button>
+                    </div>
+                    <div>
+                        <a href><button onClick={navigateStripeAuthentication}>Set Up Payment</button></a>
                     </div>
                 </div>
            

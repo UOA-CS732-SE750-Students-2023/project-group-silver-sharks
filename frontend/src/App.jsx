@@ -34,6 +34,7 @@ import { loader as purchaseAssetsLoader } from './pages/profile/PurchasePage';
 import { loader as sellingAssetsLoader } from './pages/profile/SellingPage';
 import { action as sellingPageAction } from './pages/profile/SellingPage';
 import { action as ClearCartAction } from './pages/StripePage';
+import { loader as MessagesLoader } from './pages/profile/MessagesPage';
 
 const router = createBrowserRouter([
   {path:'/', element: <RootPage />, children: [
@@ -48,7 +49,7 @@ const router = createBrowserRouter([
       {path: 'author/:aid', element: <AuthorPage />, loader: authorLoader, action: deleteOtherAccountAction},
       {path: 'profile', element: <ProfileRoot />, children: [
         {index: true, element: <DashBoardPage />, loader: dashboardLoader, action: deleteAccountAction},
-        {path: 'messages', element: <MessagesPage />},
+        {path: 'messages', element: <MessagesPage />, loader: MessagesLoader},
         {path: 'purchase', element: <PurchasePage />, loader: purchaseAssetsLoader},
         {path: 'selling', element: <SellingPage />, loader: sellingAssetsLoader, action: sellingPageAction},
       ]},
