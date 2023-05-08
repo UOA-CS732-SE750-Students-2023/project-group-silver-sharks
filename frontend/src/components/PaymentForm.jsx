@@ -40,6 +40,26 @@ const PaymentForm = ({ cartContentsData }) => {
             card: cardElement,
         });
 
+        const userResponse = await fetch('http://localhost:3000/account/id/0');
+
+        if (!userResponse.ok) {
+            
+            if (userResponse.status === 401){
+                console.log("Not Authorized."); 
+                return redirect("/");
+            } 
+
+            // 428 is returned if username is not set
+            if (userResponse.status === 428){ 
+                return redirect("/username");
+            }
+
+            return json({ message: "Could not fetch data from backend."}, { status: 500 });
+        } 
+
+        const user = await userResponse.json();
+        console.log("Line 61 User ID : " + user._id);
+
         if (error) {
             console.error('[error]', error);
                 setLoading(false);
@@ -47,63 +67,55 @@ const PaymentForm = ({ cartContentsData }) => {
         }
 
         try {
-            const totalPrice = calculateTotalPrice() * 100;
-            console.log("Line 46 Total Price: " + totalPrice);
-            const response = await axios.post('/create-payment-intent', { amount: totalPrice });
+            console.log("ATTEMPTING TO GET CART CONTENTS")
+            // Get each cart item's author
+            const cartAuthorIds = cartContentsData.map(cart => cart.author);
 
-            const clientSecret = response.data;
+            console.log("LIST OF CART AUTHORS:")
+            console.log(cartAuthorIds);
+            for (const cartContent of cartContentsData) {
+                const authorResponse = (await fetch('http://localhost:3000/account/id/' + cartContent.author));
+                const price = cartContent.price * 100;
+                const response = await axios.post('/create-payment-intent', { userId: user._id, amount: price, connectedAccountId: authorResponse.stripeId });
+                const clientSecret = response.data;
 
-            const paymentResult = await stripe.confirmCardPayment(clientSecret, {
-                payment_method: paymentMethod.id,
-            });
+                const paymentResult = await stripe.confirmCardPayment(clientSecret, {
+                    payment_method: paymentMethod.id,
+                });
 
-            if (paymentResult.error) {
-                console.error('[error]', paymentResult.error);
-            } else {
-                if (paymentResult.paymentIntent.status === 'succeeded') {
-                    console.log('Payment successful');
-                    const userResponse = await fetch('http://localhost:3000/account/id/0');
-
-                    if (!userResponse.ok) {
+                if (paymentResult.error) {
+                    console.error('[error]', paymentResult.error);
+                } else {
+                    if (paymentResult.paymentIntent.status === 'succeeded') {
+                        console.log('Payment successful');
                         
-                        if (userResponse.status === 401){
-                            console.log("Not Authorized."); 
-                            return redirect("/");
-                        } 
 
-                        // 428 is returned if username is not set
-                        if (userResponse.status === 428){ 
-                            return redirect("/username");
+                        // call Product/buy endpoint to register the cart contents as being bought by the user
+                        const buyProductResponse = await fetch('http://localhost:3000/products/buy?accountId=' + user._id, {
+                            method: "POST",
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(cartContentsData)
+                        });
+                    
+                        if (!buyProductResponse.ok){
+                            throw json({ message: "Could not successfully buy item."}, { status: 500 });
                         }
 
-                        return json({ message: "Could not fetch data from backend."}, { status: 500 });
-                    } 
+                        const newProduct = await buyProductResponse.json()
+                        console.log("Line 94: " + newProduct.message);
 
-                    const user = await userResponse.json();
-                    console.log("Line 61 User ID : " + user._id);
-
-                     // call Product/buy endpoint to register the cart contents as being bought by the user
-                    const buyProductResponse = await fetch('http://localhost:3000/products/buy?accountId=' + user._id, {
-                        method: "POST",
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(cartContentsData)
-                    });
-                
-                    if (!buyProductResponse.ok){
-                        throw json({ message: "Could not successfully buy item."}, { status: 500 });
+                        
                     }
-
-                    const newProduct = await buyProductResponse.json()
-                    console.log("Line 94: " + newProduct.message);
-
-                    // Clear the cart contents
-                    clearCartHandler();
-
-                    navigate('/store/profile/purchase');
                 }
-            }
+            };
+
+            
+            // Clear the cart contents
+            clearCartHandler();
+
+            navigate('/store/profile/purchase');
         } catch (err) {
             console.error(err.message);
         }
@@ -138,7 +150,7 @@ const PaymentForm = ({ cartContentsData }) => {
                 </div>
             </div>
         </div>
-      );
+    );
 };
 
 export default PaymentForm;
