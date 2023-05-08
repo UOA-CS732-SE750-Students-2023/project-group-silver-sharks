@@ -85,6 +85,59 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
     );
   };
 
+  const displayDate = (date) => {
+    const newDate = new Date(date);
+    return `${newDate.getDate().toString().padStart(2, "0")}/${(newDate.getMonth() + 1).toString().padStart(2, "0")}/${newDate.getFullYear().toString().slice(-2)}`;
+  };
+  
+  const isNewDay = (currentDate, prevDate) => {
+    const current = new Date(currentDate);
+    const previous = new Date(prevDate);
+  
+    return current.getDate() !== previous.getDate() ||
+      current.getMonth() !== previous.getMonth() ||
+      current.getFullYear() !== previous.getFullYear();
+  };
+  
+  const getLastMessage = (roomId) => {
+    const chat = messagesData.find((chat) => chat._id === roomId);
+    if (!chat || chat.messages.length === 0) {
+      return "";
+    }
+    const lastMessage = chat.messages[chat.messages.length - 1].message;
+    const maxLength = 25;
+    return lastMessage.length > maxLength
+      ? lastMessage.slice(0, maxLength) + "..."
+      : lastMessage;
+  };
+
+  const getLastMessageDate = (roomId) => {
+    const chat = messagesData.find((chat) => chat._id === roomId);
+    if (!chat || chat.messages.length === 0) {
+      return "";
+    }
+    const lastMessageDate = new Date(chat.messages[chat.messages.length - 1].date);
+  
+    const isToday = (date) => {
+      const today = new Date();
+      return (
+        date.getDate() === today.getDate() &&
+        date.getMonth() === today.getMonth() &&
+        date.getFullYear() === today.getFullYear()
+      );
+    };
+  
+    return isToday(lastMessageDate)
+      ? lastMessageDate.toLocaleString("en-US", {
+          hour: "numeric",
+          minute: "numeric",
+          hour12: true,
+        })
+      : displayDate(lastMessageDate);
+  };
+  
+  
+
   return (
     <>
       <div className="messages-container">
@@ -102,10 +155,29 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
                 style={{ color: "black" }}
                 onClick={() => openChatWindow(index, room._id)}
               >
-                {otherUsername[index].otherUsername}
+                {/* {otherUsername[index].otherUsername}
+                <br />
+                <span style={{ color: "#616161", fontSize: "14px" }}>
+                  {getLastMessage(room._id)}
+                </span> */}
+                <div style={{ display: "flex", justifyContent: "space-between" }}>
+                  <div>
+                    {otherUsername[index].otherUsername}
+                    <br />
+                    <span style={{ color: "#616161", fontSize: "14px" }}>
+                      {getLastMessage(room._id)}
+                    </span>
+                  </div>
+                  <div style={{ color: "#616161", fontSize: "14px", alignSelf: "center" }}>
+                    {getLastMessageDate(room._id)}
+                  </div>
+                </div>
               </button>
             ))}
+           
           </div>
+
+
           
           <div className="tabcontent" style={{ overflow: "auto", maxHeight: "500px" }}>
             {messagesData.map((chat, index) => (
@@ -116,15 +188,18 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
                 >
                   {chat.messages.map((singleMessage, index) => (
                     <>
+                      {(index === 0 || isNewDay(singleMessage.date, chat.messages[index - 1].date)) && (
+                        <p style={{ textAlign: "center", color: "#616161" }}>{displayDate(singleMessage.date)}</p>
+                      )}
                       {singleMessage.sentByUser ? (
                         <div key={index} className="message-container" style={{ alignItems: 'flex-end' }}>
-                          <p style={{ fontSize: "15px", backgroundColor: "#4368C9", color: "white", borderRadius: "15px 0px 15px 15px", padding: "10px" }}>{singleMessage.message}</p>
-                          <p style={{ fontSize: "10px" }}>{singleMessage.date}</p>
-                        </div> 
+                          <p style={{ fontSize: "15px", backgroundColor: "#4368C9", color: "white", borderRadius: "15px 0px 15px 15px", padding: "10px", display: "inline-block" }}>{singleMessage.message}</p>
+                          <p style={{ fontSize: "10px", color: "#616161", display: "inline" }}>&nbsp;{new Date(singleMessage.date).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}</p>
+                        </div>
                       ) : (
                         <div key={index} className="message-container">
-                          <p style={{ fontSize: "15px", backgroundColor: "#EAEAEA", color: "black", borderRadius: "0px 15px 15px 15px", padding: "10px" }}>{singleMessage.message}</p>
-                          <p style={{ fontSize: "10px" }}>{singleMessage.date}</p>
+                          <p style={{ fontSize: "15px", backgroundColor: "#EAEAEA", color: "black", borderRadius: "0px 15px 15px 15px", padding: "10px", display: "inline-block" }}>{singleMessage.message}</p>
+                          <p style={{ fontSize: "10px", color: "#616161", display: "inline" }}>&nbsp;{new Date(singleMessage.date).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}</p>
                         </div>
                       )}
                     </>
