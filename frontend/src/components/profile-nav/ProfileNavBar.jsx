@@ -30,7 +30,10 @@ const ProfileNavBar = (props) => {
     const navigateMessagesHandler = () => {
         navigate('/store/profile/messages');
     }
-    const user = useRouteLoaderData('username-loader');
+    /* const user = useRouteLoaderData('username-loader'); */
+    const user = props.user || {};
+
+
 
 
     //the number of unread messages
@@ -43,7 +46,8 @@ const ProfileNavBar = (props) => {
         <Modal onClose={props.closeProfileNav}>
             <div className={`${classes.profilecontainer}`}>
                 <div className={styles.p_firstcontainer}>
-                    <h2>{user.username}</h2>
+                    {/* <h2>{user.username}</h2> */}
+                    <h2>{user.username || 'Loading...'}</h2>
                     <div className='p_firstline'>
                         <PersonFillGear size={24} className={styles.iconsty}/>
                         <button onClick={navigateDashboardHandler}>My Account</button>

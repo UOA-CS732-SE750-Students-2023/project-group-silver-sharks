@@ -36,7 +36,7 @@ const ProductNavBar = ({ setSearchCategory, setFilter, setSearchTerm, notFound, 
     setSearchTerm(event.target.value);
   }
 
-  const [p_title, setTitle] = useState('Sort by :\u00A0\u00A0\u00A0Default');
+  const [p_title, setTitle] = useState('Sort by :\u00A0\u00A0\u00A0Priority');
 
   const filterChangeHandler = (event) => {
     setFilter(event);
@@ -180,6 +180,7 @@ const ProductNavBar = ({ setSearchCategory, setFilter, setSearchTerm, notFound, 
                 className="custom-dropdown-btn-style dropdown-toggle"
                 onSelect={filterChangeHandler}
               >
+                {/* <Dropdown.Item eventKey="priceLowToHigh">Priority</Dropdown.Item> */}
                 <Dropdown.Item eventKey="priceLowToHigh">Price: Low to High</Dropdown.Item>
                 <Dropdown.Item eventKey="priceHighToLow">Price: High to Low</Dropdown.Item>
               </DropdownButton>

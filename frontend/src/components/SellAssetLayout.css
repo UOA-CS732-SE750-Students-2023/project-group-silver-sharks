@@ -41,7 +41,7 @@
 
 .form-group {
   position: relative;
-  margin-bottom: 15px;
+  margin-bottom: 30px;
 }
 
 .form-group label {
@@ -189,6 +189,13 @@
   display: block;
   margin-bottom: 5px;
   font-weight: 500;
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: left;
+
 }
 /* ... */
 
@@ -205,5 +212,43 @@
   transform: translateY(-50%);
   pointer-events: none;
 }
+.s_inputStyling{
+  margin:0px 20px;
+}
+.s_inputStyling label{
 
+  font-weight: 400;
 
+}
+.s_inputStyling input[type="radio"] {
+  /* 隐藏默认的单选按钮 */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  /* 使用自定义的图标 */
+  width: 27px;
+  height: 27px;
+  border-radius: 50%;
+  background: #D9D9D9;
+  border-radius: 20px;
+  margin-left:20px;
+  position: relative;
+}
+
+.s_inputStyling input[type="radio"]::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background-color:#D9D9D9;
+}
+
+/* 选中状态 */
+.s_inputStyling input[type="radio"]:checked::before {
+  background-color: #348B81;
+}
