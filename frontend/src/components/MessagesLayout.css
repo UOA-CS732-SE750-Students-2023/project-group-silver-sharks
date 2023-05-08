@@ -3,10 +3,8 @@
 /* Style the tab */
 .tab {
   float: left;
-  border: 1px solid #ccc;
-  background-color: #f1f1f1;
   width: 30%;
-  height: 300px;
+  height: 600px;
 }
 
 /* Style the buttons that are used to open the tab content */
@@ -40,7 +38,7 @@
   border: 1px solid #ccc;
   width: 70%;
   border-left: none;
-  height: 300px;
+  height: 600px;
 }
 
 .preview {
@@ -51,3 +49,73 @@
   border-left: none;
   height: 300px;
 }
+
+.header {
+  margin-bottom: 10px;
+}
+
+.messages-container {
+  background-color: #f1f1f1;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 90%;
+  margin-left: 5%;
+  margin-bottom: 20%;
+
+
+}
+
+.chat-area {
+  background-color: white;
+  padding: 10px;
+  display: flex;
+  width: 100%;
+  height: 600px;
+}
+
+.actions {
+  display: flex;
+  margin-top: 10px;
+}
+
+.action-icon {
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.message-container {
+  padding: 5px 10px;
+  margin-bottom: 10px;
+  max-width: 70%;
+  word-wrap: break-word;
+}
+
+.message-content {
+  padding: 5px 10px;
+  border-radius: 10px;
+  display: inline-block;
+}
+
+.left-message {
+  text-align: left;
+}
+
+.right-message {
+  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+}
+
+
+.left-message .message-content {
+  background-color: #EAEAEA;
+}
+
+.right-message .message-content {
+  background-color: #4368C9;
+  color: white;
+}
+
+

@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 import "./MessagesLayout.css";
 import ChatHolder from "./ChatHolder"; // Add this import at the top
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; // Add this import
+import { faTelegram, faRetweet } from "@fortawesome/free-solid-svg-icons"; // Add this import
+
 
 const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
   const [messagesData, setMessagesData] = useState([]);
@@ -84,56 +87,64 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
 
   return (
     <>
-      <div className="tab" style={{ overflow: "auto", maxHeight: "500px" }}>
-        {rooms.map((room, index) => (
-          <button
-            key={room._id}
-            ref={(tab) => (tabLinks.current[index] = tab)}
-            id={room._id}
-            className="tablinks"
-            style={{ color: "black" }}
-            onClick={() => openChatWindow(index, room._id)}
-          >
-            {otherUsername[index].otherUsername}
-          </button>
-        ))}
-      </div>
-
-      {messagesData.map((chat, index) => (
-        <div key={chat._id}>
-          <div
-            ref={(chatWindow) => (chatWindows.current[index] = chatWindow)}
-            id={chat._id + "-" + index}
-            className="tabcontent"
-            style={{ display: "none", overflow: "auto", maxHeight: "500px" }}
-          >
-            {chat.messages.map((singleMessage, index) => (
-              <>
-                {singleMessage.sentByUser ? (
-                  <div key={index} style={{ textAlign: "left" }}>
-                    <p style={{ fontSize: "15px" }}>{singleMessage.message}</p>
-                    <p style={{ fontSize: "10px" }}>{singleMessage.date}</p>
-                  </div>
-                ) : (
-                  <div key={index} style={{ textAlign: "right" }}>
-                    <p style={{ fontSize: "15px" }}>{singleMessage.message}</p>
-                    <p style={{ fontSize: "10px" }}>{singleMessage.date}</p>
-                  </div>
-                )}
-              </>
+      <div className="messages-container">
+        <div className="header">
+          <h3>Direct messages</h3>
+        </div>
+        <div className="chat-area">
+          <div className="tab" style={{ overflow: "auto", maxHeight: "500px" }}>
+            {rooms.map((room, index) => (
+              <button
+                key={room._id}
+                ref={(tab) => (tabLinks.current[index] = tab)}
+                id={room._id}
+                className="tablinks"
+                style={{ color: "black" }}
+                onClick={() => openChatWindow(index, room._id)}
+              >
+                {otherUsername[index].otherUsername}
+              </button>
             ))}
           </div>
-          {activeRoom === chat._id && (
-            <ChatHolder
-              roomId={chat._id}
-              senderId={ownUsername.loggedInId}
-              receiverId={chat.receiver}
-              updateMessagesData={updateMessagesData}
-            />
-          )}
-        </div>
-        
-      ))}
+          
+          <div className="tabcontent" style={{ overflow: "auto", maxHeight: "500px" }}>
+            {messagesData.map((chat, index) => (
+              <div key={chat._id}>
+                <div
+                  ref={(chatWindow) => (chatWindows.current[index] = chatWindow)}
+                  id={chat._id + "-" + index}
+                >
+                  {chat.messages.map((singleMessage, index) => (
+                    <>
+                      {singleMessage.sentByUser ? (
+                        <div key={index} className="message-container left-message">
+                          <div className="message-content">
+                            <p style={{ fontSize: "15px" }}>{singleMessage.message}</p>
+                            <p style={{ fontSize: "10px" }}>{singleMessage.date}</p>
+                          </div>
+                        </div>
+                      ) : (
+                        <div key={index} className="message-container right-message">
+                          <div className="message-content">
+                            <p style={{ fontSize: "15px" }}>{singleMessage.message}</p>
+                            <p style={{ fontSize: "10px" }}>{singleMessage.date}</p>
+                          </div>
+                        </div>
+                      )}
+                    </>
+                  ))}
+                </div>
+                {activeRoom === chat._id && (
+                  <ChatHolder
+                    roomId={chat._id}
+                    senderId={ownUsername.loggedInId}
+                    receiverId={chat.receiver}
+                    updateMessagesData={updateMessagesData}
+                  />
+                )}
+              </div>
+            ))}
+          </div>  
           <div
             ref={previewRef}
             className="preview"
@@ -141,11 +152,19 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
           >
             <h3>Click on a chat to get started.</h3>
           </div>
-      <div>
-            <button onClick={refreshChatHandler}>&#8634;</button>
+          <div className="actions">
+          <FontAwesomeIcon
+            icon={faRetweet}
+            onClick={refreshChatHandler}
+            className="action-icon"
+          />
+        </div>
+        </div>
+        
       </div>
     </>
   );
+  
 };
 
 export default MessagesLayout;
