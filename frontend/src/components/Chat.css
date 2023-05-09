@@ -1,0 +1,65 @@
+.chat-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  position: relative; 
+}
+
+.chat-input {
+  width:750px;
+  background: #EAEAEA;
+  border-radius: 15px;
+  flex-grow: 1; 
+  margin-right: 10px;
+  padding: 5px 10px;
+  border: none;
+}
+
+.send-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Add these media queries */
+@media (max-width: 1400px) {
+  .chat-input {
+    width: 600px /* adjust as needed */
+  }
+}
+
+@media (max-width: 1200px) {
+  .chat-input {
+    width: 500px /* adjust as needed */
+  }
+  .chat-footer {
+    width: 90%; /* adjust as needed */
+  }
+}
+
+
+@media (max-width: 1000px) {
+  .chat-input {
+    width: 300px; /* adjust as needed */
+  }
+  
+  .chat-footer {
+    width: 90%; /* adjust as needed */
+  }
+}
+
+@media (max-width: 800px) {
+  .chat-input {
+    width: 100%; /* adjust as needed */
+  }
+  
+  .chat-footer {
+    width: 90%; /* adjust as needed */
+  }
+}
