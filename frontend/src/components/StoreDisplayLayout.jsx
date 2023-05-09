@@ -1,4 +1,4 @@
-import React from 'react'; 
+import React, { useState, useEffect } from 'react'; 
 import { Link } from 'react-router-dom';
 import Card from '../pages/ui/Card';
 import { StarFill } from 'react-bootstrap-icons';
@@ -27,6 +27,29 @@ const StoreDisplayLayout = (props) => {
           return 'white';
       }
     };
+
+    const [authors, setAuthors] = useState({});
+
+    useEffect(() => {
+      // 当产品列表更新时，重新获取所有的作者信息
+      const fetchAuthors = async () => {
+        const authorPromises = props.items.map(async item => {
+          const response = await fetch(`http://localhost:3000/account/id/${item.author}`);
+          const authorData = await response.json();
+          return { id: item.author, username: authorData.username };
+        });
+        const authorDataList = await Promise.all(authorPromises);
+        const newAuthors = {};
+        for (const authorData of authorDataList) {
+          newAuthors[authorData.id] = authorData.username;
+        }
+        setAuthors(newAuthors);
+      };
+      fetchAuthors();
+    }, [props.items]);
+    
+    console.log("Author Response:");
+    console.log(authors);
     
     
 
@@ -44,7 +67,7 @@ const StoreDisplayLayout = (props) => {
                                     <div className="row">
                                         <div className={`${classes.productcontainer} col-md-8`}>
                                             <Link id="productLink" to={`/store/product/${item._id}`}>
-                                                <p className="text-nowrap text-truncate">{item.name}</p>
+                                                <p className="text-nowrap text-truncate" style={{margin: "0", padding: "0"}}>{item.name}</p>
                                             </Link>
                                         </div>
                                         <div className={`${classes.price} col-md-4`} >
@@ -56,6 +79,7 @@ const StoreDisplayLayout = (props) => {
                                     {/* <p>author: <Link id="authorLink" to={`/store/author/${item.aid}`}>{item.author}</Link></p> */}
                                     <div className="d-flex justify-content-between">
                                         <div>
+                                          <Link to={`/store/author/${item.author}`} style={{ color: 'black' }}>{authors[item.author]}</Link>
                                         </div>
                                         <div>
                                             <h5>{item.category}</h5>
