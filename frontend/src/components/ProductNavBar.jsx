@@ -1,13 +1,16 @@
 // frontend/src/components/ProductNavBar.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navbar, Button, Nav, Form, InputGroup, DropdownButton, Dropdown } from 'react-bootstrap';
 import './ProductNavBar.css'; 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
-const ProductNavBar = ({ setSearchCategory, setFilter, setSearchTerm, notFound, displayCount }) => {
+const ProductNavBar = ({ setSearchCategory, setFilter, setSearchTerm, notFound, displayCount, category }) => {
   const [selectedCategory, setSelectedCategory] = useState('Images');
 
+  useEffect(() => {
+    setSelectedCategory(category);
+  }, [category]);
   // const searchInputStyle = {
   //   borderRadius: '25px',
   //   border: '2px solid black',
