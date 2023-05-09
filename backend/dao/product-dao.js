@@ -5,6 +5,7 @@ import { Message } from "../models/messageModel.js";
 import fs from "fs";
 import path from "path";
 import mongoose from "mongoose";
+import nodemailer from "nodemailer";
 
 // return all products in the database
 const getAllProducts = async () => {
@@ -186,7 +187,13 @@ const deleteProduct = async (productId) => {
   return deletedProduct;
 };
 
-const sendSharkbotMessage = async (sellerId, productId, requestingUserId) => {
+const sendSharkbotMessage = async (
+  sellerId,
+  productId,
+  requestingUserId,
+  sellerEmail,
+  buyerEmail
+) => {
   try {
     // Checking that product Id is valid
     if (!mongoose.Types.ObjectId.isValid(productId)) {
@@ -224,6 +231,9 @@ const sendSharkbotMessage = async (sellerId, productId, requestingUserId) => {
     const buyerAccount = await Account.findById(requestingUserId);
     const buyerUsername = buyerAccount.username;
 
+    const sellerAccount = await Account.findById(sellerId);
+    const sellerUsername = sellerAccount.username;
+
     const productSold = await Product.findById(productId);
     const productName = productSold.name;
     const productPrice = productSold.price;
@@ -237,8 +247,56 @@ const sendSharkbotMessage = async (sellerId, productId, requestingUserId) => {
     await newMessage.save();
     room.messages.push(newMessage._id);
     await room.save();
+
+    // Sending email to seller
+    // Create Nodemailer transporter
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "sharketplace@gmail.com",
+        pass: "ktlrouzujgybqdct",
+      },
+    });
+
+    // Send email
+    const mailOptions = {
+      from: "sharketplace@gmail.com",
+      to: sellerEmail,
+      subject: "Sharketplace: Asset successfully sold!",
+      text: content,
+    };
+
+    await transporter.sendMail(mailOptions);
+
+    // Sending email to buyer
+
+    const content2 = `Congratulations! You purchased product "${productName}" from category "${productCategory}" for $${productPrice.toFixed(
+      2
+    )} from "${sellerUsername}".`;
+    // Send email
+    const mailOptions2 = {
+      from: "sharketplace@gmail.com",
+      to: buyerEmail,
+      subject: "Sharketplace: Asset successfully purchased!",
+      text: content2,
+    };
+
+    await transporter.sendMail(mailOptions2);
   } catch (error) {
-    console.error("Error sending message: " + error.message);
+    console.error("Error sending message/email: " + error.message);
+  }
+};
+
+const getAccountEmailById = async (accountId) => {
+  try {
+    const account = await Account.findById(accountId);
+    if (!account) {
+      throw new Error("Account not found");
+    }
+    return account.email;
+  } catch (error) {
+    console.error("Error getting account email:", error);
+    throw error;
   }
 };
 
@@ -254,4 +312,5 @@ export {
   registerProductWithAccount,
   registerBuyingProductWithAccount,
   sendSharkbotMessage,
+  getAccountEmailById,
 };

@@ -12,6 +12,7 @@ import {
   registerProductWithAccount,
   registerBuyingProductWithAccount,
   sendSharkbotMessage,
+  getAccountEmailById,
 } from "../dao/product-dao.js";
 
 import { registerAccountWithProduct } from "../dao/account-dao.js";
@@ -256,12 +257,16 @@ productRouter.post("/products/buy/", isLoggedIn, async (req, res) => {
     const accountId = req.query.accountId;
     const products = req.body;
     console.log("Line 256 Request body, there are the products: " + req.body);
+    const buyerEmail = await getAccountEmailById(req.user.id);
+
+
 
     for (const product of products) {
       console.log("Product ID is: " + product._id);
       const productId = product._id;
       await registerBuyingProductWithAccount(productId, accountId);
-      await sendSharkbotMessage(product.author, productId, req.user.id);
+      const sellerEmail = await getAccountEmailById(product.author);
+      await sendSharkbotMessage(product.author, productId, req.user.id, sellerEmail, buyerEmail);
     }
 
     return res
