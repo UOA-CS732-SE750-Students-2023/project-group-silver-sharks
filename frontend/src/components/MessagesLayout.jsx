@@ -118,6 +118,7 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
 
   const displayDate = (date) => {
     const newDate = new Date(date);
+    if(isNaN(newDate)) return null; // check if date is valid
     return `${newDate.getDate().toString().padStart(2, "0")}/${(newDate.getMonth() + 1).toString().padStart(2, "0")}/${newDate.getFullYear().toString().slice(-2)}`;
   };
   
@@ -237,18 +238,18 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
                 >
                   {chat.messages.map((singleMessage, index) => (
                     <>
-                      {(index === 0 || isNewDay(singleMessage.date, chat.messages[index - 1].date)) && (
+                      {(index === 0 || isNewDay(singleMessage.date, chat.messages[index - 1].date)) && displayDate(singleMessage.date) && (
                         <p style={{ textAlign: "center", color: "#616161" }}>{displayDate(singleMessage.date)}</p>
                       )}
                       {singleMessage.sentByUser ? (
                         <div key={index} className="message-container" style={{ alignItems: 'flex-end' }}>
                           <p style={{ fontSize: "15px", backgroundColor: "#4368C9", color: "white", borderRadius: "15px 0px 15px 15px", padding: "10px", display: "inline-block" }}>{singleMessage.message}</p>
-                          <p style={{ fontSize: "10px", color: "#616161", display: "inline" }}>&nbsp;{new Date(singleMessage.date).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}</p>
+                          <p style={{ fontSize: "10px", color: "#616161", display: "inline" }}>&nbsp;{singleMessage.date}</p>
                         </div>
                       ) : (
                         <div key={index} className="message-container">
                           <p style={{ fontSize: "15px", backgroundColor: "#EAEAEA", color: "black", borderRadius: "0px 15px 15px 15px", padding: "10px", display: "inline-block" }}>{singleMessage.message}</p>
-                          <p style={{ fontSize: "10px", color: "#616161", display: "inline" }}>&nbsp;{new Date(singleMessage.date).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}</p>
+                          <p style={{ fontSize: "10px", color: "#616161", display: "inline" }}>&nbsp;{singleMessage.date}</p>
                         </div>
                       )}
                     </>
