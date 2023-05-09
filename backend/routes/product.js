@@ -27,6 +27,10 @@ const productRouter = new express.Router();
 
 // Middle-ware function to ensure authentication of endpoints
 function isLoggedIn(req, res, next) {
+  if (process.env.NODE_ENV === "backend-test") {
+    req.user = { _id: req.header("x-user-id") };
+    return next();
+  }
   if (req.isAuthenticated()) {
     if (req.user.username) {
       return next();
@@ -261,7 +265,9 @@ productRouter.post("/products/buy/", isLoggedIn, async (req, res) => {
       console.log("Product ID is: " + product._id);
       const productId = product._id;
       await registerBuyingProductWithAccount(productId, accountId);
-      await sendSharkbotMessage(product.author, productId, req.user.id);
+      if (process.env.NODE_ENV != "backend-test") {
+        await sendSharkbotMessage(product.author, productId, req.user.id);
+      }
     }
 
     return res

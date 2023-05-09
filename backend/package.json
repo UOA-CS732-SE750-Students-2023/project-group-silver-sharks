@@ -9,7 +9,7 @@
     "start": "node server.js",
     "dev": "nodemon server.js",
     "production": "cross-env NODE_ENV=production node --experimental-specifier-resolution=node server.js",
-    "backend-test": "jest"
+    "backend-test": "cross-env NODE_ENV=backend-test jest"
   },
   "keywords": [],
   "author": "",

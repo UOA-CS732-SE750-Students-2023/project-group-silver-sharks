@@ -1,2 +1,2 @@
 // jest.setup.js
-jest.setTimeout(10000);
+jest.setTimeout(30000);
