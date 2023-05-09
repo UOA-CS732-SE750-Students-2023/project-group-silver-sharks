@@ -59,7 +59,6 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
       // change the display of the preview element to none 
       previewRef.current.style.display = "none";
       isFirstClick = false;
-      // aaaa=true;
     }
     
      // Fetch messages for the roomId when switching tabs
@@ -78,10 +77,12 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
 
     setActiveRoom(roomId); // Set the active room to the roomId passed
 
-    if (chatWindowRef.current) {
-      chatWindowRef.current.scrollTop = chatWindowRef.current.scrollHeight;
-    }
+    // Scroll to the bottom of the chat window
+    setTimeout(() => {
+      chatWindows.current[index].scrollTop = chatWindows.current[index].scrollHeight;
+    }, 0);
   };
+
 
   const updateMessagesData = (roomId, messageData) => {
     setMessagesData((prevData) =>
