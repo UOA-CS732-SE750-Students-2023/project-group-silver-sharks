@@ -80,10 +80,10 @@ const AuthorLayout = ({ author, userAccountType, authorPageId, userId, isOwnAcco
                     <h1 className='a_authorname'>{author.username}</h1>
                     <div className='a_forcontainbutton row'>
                         {!isOwnAccount &&<div className='a_message col-sm-2'>
-                            <button className='a_message' onClick={createNewChatWithUser}>Message</button>
+                          <button className='a_message' onClick={createNewChatWithUser}>Message</button>
                         </div>}
                         {isAdmin && <div className='a_forcontainlink col-sm-10'>
-                        <button onClick={deleteAccountHandler}>Delete Account</button>
+                          <button onClick={deleteAccountHandler}>Delete Account</button>
                         </div>}
                         {/* <button className='a_message'>Message</button> */}
                     </div>

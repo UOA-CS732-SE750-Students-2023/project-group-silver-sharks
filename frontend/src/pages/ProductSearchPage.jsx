@@ -66,7 +66,6 @@ const ProductSearchPage = () => {
   const handleItemsChange = async (currentPageNumber, specifiedCategory, specifiedFilter, isSearch, enteredSearchTerm) => {
     setNotFound(false);
     
-
     const currentFilter = specifiedFilter || filter; 
     const currentCategory = specifiedCategory || category;
     const searchTerm = enteredSearchTerm || '';
@@ -77,8 +76,7 @@ const ProductSearchPage = () => {
     console.log("category " + currentCategory)
     console.log("search " + searchTerm)
     console.log("is search" + isSearch)
-
-
+  
     if (!isSearch){
       const response = await navigateHandler(currentPageNumber, currentCategory, currentFilter)
     } else {
@@ -87,12 +85,12 @@ const ProductSearchPage = () => {
       } else {
         // when the search bar is empty then go back to displaying the first page of images
         setIsSearchStore(false);
+        setCategory('Images'); // Update the category state here
         const response = await navigateHandler(1, "Images", currentFilter)
       }
-
-      // could return all the products in the store if the nav bar is empty
     }
   };
+  
 
   const searchHandler = async (currentPageNumber, searchTerm) => {
     const response = await fetch(
@@ -175,6 +173,7 @@ const ProductSearchPage = () => {
           setSearchTerm={searchByPhraseHandler}
           notFound={notFound}
           displayCount={displayCount}
+          category={category}
         />
         <StoreDisplayLayout items={displayedProducts} notFound={notFound}/>
         <div className="pagination-container" style={grayBackgroundStyle}>

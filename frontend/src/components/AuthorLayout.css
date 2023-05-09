@@ -1,9 +1,10 @@
 .a_allcontainer{
     background-color: #F1F1F1;
     padding: 20px;
+    font-family: Poppins;
 }
 .a_formargin{
-    margin: 0 10%;
+    margin: 0 9%;
 }
 .a_firstdiv{
     margin: 20px 0;
@@ -15,7 +16,7 @@
     line-height: 36px;
     letter-spacing: 0em;
     text-align: left;
-    margin-left: 10px;
+    /* margin-left: 10px; */
 }
 .a_message{
     margin-left: 5px;
@@ -106,7 +107,8 @@
     color:#616161;
 }
 .a_cardpart{
-    margin: 80px 0px 20px 0px;
+    /* margin: 80px 0px 20px 0px; */
+    margin: 80px 0px 0px 0px;
 }
 .a_cardpart h2{
     display: inline-block;
