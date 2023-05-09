@@ -1,14 +1,20 @@
 import React from 'react'; 
 import { json, redirect, useLoaderData } from 'react-router-dom';
 import SellAssetLayout from '../components/SellAssetLayout';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
 
 const SellAssetPage = () => { 
+    const STRIPE_PUBLIC_KEY="pk_test_51N1lMJFS4UEikyYAt7Nwhaua9GihCbBx7J0Jl7MgqUzuhxfHGF5wwW10ZfoXPQep3gKpvsT9nyNVQYMy98mxrhUE00qyHLmDg1"
+    const stripePromise = loadStripe(STRIPE_PUBLIC_KEY);  
 
     const { userId, userStripeId} = useLoaderData();
     console.log("Stripe User ID on page jsx file: " + userStripeId);
 
     return (
-        <SellAssetLayout userId={userId} userStripeId={userStripeId}/>
+        <Elements stripe={stripePromise}>
+            <SellAssetLayout userId={userId} userStripeId={userStripeId}/>
+        </Elements>
     );
 }
 

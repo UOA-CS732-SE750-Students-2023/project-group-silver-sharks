@@ -252,3 +252,11 @@
 .s_inputStyling input[type="radio"]:checked::before {
   background-color: #348B81;
 }
+
+.form-group-wrapper {
+  display: flex;
+  display: column;
+}
+.card-element-container {
+  width: 40%;
+}

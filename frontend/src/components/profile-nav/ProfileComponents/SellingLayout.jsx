@@ -3,7 +3,7 @@ import { useSubmit } from 'react-router-dom';
 import './SellingLayout.css';
 
 const SellingLayout = ({ sellingAssets }) => {
-
+  const submit = useSubmit();
   const downloadFile = async (productId, productname) => {
     try {
       const response = await fetch("http://localhost:3000/download/" + productId);
