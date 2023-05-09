@@ -12,13 +12,14 @@ const stripeRouter = express.Router();
 
 // Create payment intent for stripe that sends balance to target account
 stripeRouter.post("/create-payment-intent", async (req, res) => {
-  const { userId, amount, connectedAccountId } = req.body;
+  const { userId, amount, connectedAccountId, paymentMethodId } = req.body;
 
   try {
     const paymentIntent = await stripe.paymentIntents.create({
       amount,
       currency: "usd",
       payment_method_types: ["card"],
+      payment_method: paymentMethodId,
       transfer_data: {
         destination: connectedAccountId,
       },
