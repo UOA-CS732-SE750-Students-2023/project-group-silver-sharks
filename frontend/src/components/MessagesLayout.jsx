@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 import "./MessagesLayout.css";
-import ChatHolder from "./ChatHolder"; // Add this import at the top
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; // Add this import
-import { faTelegram, faRetweet } from "@fortawesome/free-solid-svg-icons"; // Add this import
+import ChatHolder from "./ChatHolder"; 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; 
+import { faRetweet } from "@fortawesome/free-solid-svg-icons"; 
 
 
 const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
@@ -187,7 +187,7 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
           
           <div ref={chatWindowRef} className="tabcontent" style={{ overflow: "auto", maxHeight: "500px" }}>
             {messagesData.map((chat, index) => (
-              <div key={chat._id}>
+              <div key={chat._id} style={{position: "relative"}}>
                 <div
                   ref={(chatWindow) => (chatWindows.current[index] = chatWindow)}
                   id={chat._id + "-" + index}
@@ -212,7 +212,7 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
                   ))}
                 </div>
                 {activeRoom === chat._id && (
-                  <div className="chatHolder-actions-container">
+                  <div className="chatHolder-actions-container" style={{position: "absolute", bottom: 0, width: "100%"}}>
                     <ChatHolder
                       roomId={chat._id}
                       senderId={ownUsername.loggedInId}
