@@ -31,7 +31,6 @@ const StoreDisplayLayout = (props) => {
     const [authors, setAuthors] = useState({});
 
     useEffect(() => {
-      // 当产品列表更新时，重新获取所有的作者信息
       const fetchAuthors = async () => {
         const authorPromises = props.items.map(async item => {
           const response = await fetch(`http://localhost:3000/account/id/${item.author}`);
