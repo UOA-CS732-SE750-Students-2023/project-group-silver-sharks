@@ -151,7 +151,7 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
           <h3>Direct messages</h3>
         </div>
         <div className="chat-area">
-          <div className="tab" style={{ overflow: "auto", maxHeight: "500px" }}>
+          <div className="tab" style={{ overflow: "auto", maxHeight: "700px" }}>
             {rooms.map((room, index) => (
               <button
                 key={room._id}
@@ -185,7 +185,7 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
 
 
           
-          <div ref={chatWindowRef} className="tabcontent" style={{ overflow: "auto", maxHeight: "500px" }}>
+          <div ref={chatWindowRef} className="tabcontent" style={{ overflow: "auto", maxHeight: "600px" }}>
             {messagesData.map((chat, index) => (
               <div key={chat._id} style={{position: "relative"}}>
                 <div
@@ -234,7 +234,7 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
           <div
             ref={previewRef}
             className="preview"
-            style={{ maxHeight: "500px" }}
+            style={{ maxHeight: "700px" }}
           >
             <h3>Click on a chat to get started.</h3>
           </div>
