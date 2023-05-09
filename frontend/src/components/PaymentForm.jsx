@@ -135,11 +135,29 @@ const PaymentForm = ({ cartContentsData }) => {
                 <div className="cart-container">
                     <h2 className="form-title">Cart Contents</h2>
                     <ul className="cart-list">
-                    {cartContentsData.map((product, index) => (
-                        <li key={index}>
-                        {product.name} - ${product.price}
-                        </li>
-                    ))}
+                    <div className="p-selling-scroll-container">
+                        {cartContentsData.map((product, index) => (
+                            // <li key={index} className='p_productselling'>
+                            // {product.name} - ${product.price}
+                            // </li>
+                            <div className="p-asset-item" key={index}>
+                                <div className="p-asset-image">
+                                    <img src={"http://localhost:3000/uploads/" + product.coverImage} alt={product.name} />
+                                </div>
+                                <div className="p-asset-name-category">
+                                    <h3>{product.name}</h3>
+                                    <p>Category: {product.category}</p>
+                                </div>
+                                <div className="p-asset-price-sold">
+                                    <p>Price: ${product.price.toFixed(2)}</p>
+                                    <p>{product.amountSold} sold</p>
+                                </div>
+                                <div className="p-asset-total">
+                                    <p>${(product.price * product.amountSold).toFixed(2)}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
                     </ul>
                     <h3>Total: ${calculateTotalPrice()}</h3> {/* Display total price here */}
                 </div>
