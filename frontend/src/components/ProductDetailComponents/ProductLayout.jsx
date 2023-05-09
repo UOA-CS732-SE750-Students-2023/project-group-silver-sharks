@@ -65,14 +65,16 @@ const ProductLayout = ({ product, author, reviews, userType, userId, isOwnAccoun
      
   },[]);
 
-
+  // const [ avg_rating, ca_avgrating ] = useState("Not available");
   //Calculate the number of reviews
   const totalAmount=reviews.length;
   const reviewnumber = totalAmount > 1 ? 'reviews' : 'review';
 
   // Calculate the average 
   const totalLike = reviews.reduce((acc, item) => acc + item.rating, 0);
-  const avg_rating=totalLike/totalAmount;
+  const average_ra=totalLike/totalAmount;
+  const avg_rating = totalAmount > 0 ? average_ra: 'Not available';
+ 
 
   const addReviewWindowHandler = async () => {
     
