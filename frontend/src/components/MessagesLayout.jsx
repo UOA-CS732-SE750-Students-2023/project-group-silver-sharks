@@ -11,10 +11,11 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
   const chatWindows = useRef([]);
   const tabLinks = useRef([]);
   const previewRef = useRef(null);
-  let isFirstClick = true;
+  /* let isFirstClick = true; */
   // let aaaa=false;
   const chatWindowRef = useRef(null);
   const [activeUsernames, setActiveUsernames] = useState({});
+  const [isFirstClick, setIsFirstClick] = useState(true);
 
 
 
@@ -76,7 +77,7 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
     if (isFirstClick){
       // change the display of the preview element to none 
       previewRef.current.style.display = "none";
-      isFirstClick = false;
+      setIsFirstClick(false);
     }
     
      // Fetch messages for the roomId when switching tabs
@@ -200,7 +201,7 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
                       {getLastMessage(room._id)}
                     </span>
                   </div>
-                  <div style={{ color: "#616161", fontSize: "14px", alignSelf: "center", fontWeight: "400", }}>
+                  <div style={{ color: "#616161", fontSize: "14px", alignSelf: "center", fontWeight: "400", }} className="last-message-date">
                     {getLastMessageDate(room._id)}
                   </div>
                 </div>
@@ -210,77 +211,68 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
           </div>
 
 
-          
-          <div ref={chatWindowRef} className="tabcontent">
-            {messagesData.map((chat, index) => (
-              <div key={chat._id} style={{position: "relative"}}>
-                  {activeRoom === chat._id && (
-                    <div
-                      style={{
-                        position: "absolute",
-                        top: "-80px",
-                        left: 0,
-                        fontWeight: "bold",
-                        fontSize: "18px",
-                        backgroundColor: "white",
-                        width: "100%",
-                        padding: "10px",
-                        zIndex: 1,
-                    }}
+          {!isFirstClick && (
+            <div ref={chatWindowRef} className="tabcontent">
+              {messagesData.map((chat, index) => (
+                <div key={chat._id} style={{position: "relative"}}>
+                    {activeRoom === chat._id && (
+                      <div
+                        className="activeUsernames-div"
+                        style={{ position: "absolute", top: "-80px", left: 0, fontWeight: "bold", fontSize: "18px", backgroundColor: "white", width: "100%", padding: "10px", zIndex: 1,}}
+                      >
+                        {activeUsernames[chat._id]}
+                      </div>
+                    )}  
+                  <div
+                    ref={(chatWindow) => (chatWindows.current[index] = chatWindow)}
+                    id={chat._id + "-" + index}
+                    className="m-messagebox"
                   >
-                      {activeUsernames[chat._id]}
-                    </div>
-                  )}  
-                <div
-                  ref={(chatWindow) => (chatWindows.current[index] = chatWindow)}
-                  id={chat._id + "-" + index}
-                  className="m-messagebox"
-                >
-                  {chat.messages.map((singleMessage, index) => (
-                    <>
-                      {(index === 0 || isNewDay(singleMessage.date, chat.messages[index - 1].date)) && displayDate(singleMessage.date) && (
-                        <p style={{ textAlign: "center", color: "#616161" }}>{displayDate(singleMessage.date)}</p>
-                      )}
-                      {singleMessage.sentByUser ? (
-                        <div key={index} className="message-container" style={{ alignItems: 'flex-end' }}>
-                          <p style={{ fontSize: "15px", backgroundColor: "#4368C9", color: "white", borderRadius: "15px 0px 15px 15px", padding: "10px", display: "inline-block" }}>{singleMessage.message}</p>
-                          <p style={{ fontSize: "10px", color: "#616161", display: "inline" }}>&nbsp;{singleMessage.date}</p>
-                        </div>
-                      ) : (
-                        <div key={index} className="message-container">
-                          <p style={{ fontSize: "15px", backgroundColor: "#EAEAEA", color: "black", borderRadius: "0px 15px 15px 15px", padding: "10px", display: "inline-block" }}>{singleMessage.message}</p>
-                          <p style={{ fontSize: "10px", color: "#616161", display: "inline" }}>&nbsp;{singleMessage.date}</p>
-                        </div>
-                      )}
-                    </>
-                  ))}
-                </div>
-                {activeRoom === chat._id && (
-                  <div className="chatHolder-actions-container">
-                    <ChatHolder
-                      roomId={chat._id}
-                      senderId={ownUsername.loggedInId}
-                      receiverId={chat.receiver}
-                      updateMessagesData={updateMessagesData}
-                    />
-                    <div className="actions">
-                      <FontAwesomeIcon
-                        icon={faRetweet}
-                        onClick={refreshChatHandler}
-                        className="action-icon"
-                      />
-                    </div>
+                    {chat.messages.map((singleMessage, index) => (
+                      <>
+                        {(index === 0 || isNewDay(singleMessage.date, chat.messages[index - 1].date)) && displayDate(singleMessage.date) && (
+                          <p style={{ textAlign: "center", color: "#616161" }}>{displayDate(singleMessage.date)}</p>
+                        )}
+                        {singleMessage.sentByUser ? (
+                          <div key={index} className="message-container" style={{ alignItems: 'flex-end' }}>
+                            <p style={{ fontSize: "15px", backgroundColor: "#4368C9", color: "white", borderRadius: "15px 0px 15px 15px", padding: "10px", display: "inline-block" }}>{singleMessage.message}</p>
+                            <p style={{ fontSize: "10px", color: "#616161", display: "inline" }}>&nbsp;{singleMessage.date}</p>
+                          </div>
+                        ) : (
+                          <div key={index} className="message-container">
+                            <p style={{ fontSize: "15px", backgroundColor: "#EAEAEA", color: "black", borderRadius: "0px 15px 15px 15px", padding: "10px", display: "inline-block" }}>{singleMessage.message}</p>
+                            <p style={{ fontSize: "10px", color: "#616161", display: "inline" }}>&nbsp;{singleMessage.date}</p>
+                          </div>
+                        )}
+                      </>
+                    ))}
                   </div>
-                )}
-              </div>
-            ))}
-          </div>
-          { isFirstClick && <div
-            ref={previewRef}
-            className="preview"
-          >
-            <h3>Click on a chat to get started.</h3>
-          </div>}
+                  {activeRoom === chat._id && (
+                    <div className="chatHolder-actions-container">
+                      <ChatHolder
+                        roomId={chat._id}
+                        senderId={ownUsername.loggedInId}
+                        receiverId={chat.receiver}
+                        updateMessagesData={updateMessagesData}
+                      />
+                      <div className="actions">
+                        <FontAwesomeIcon
+                          icon={faRetweet}
+                          onClick={refreshChatHandler}
+                          className="action-icon"
+                        />
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+          { isFirstClick && (
+            <div ref={previewRef} className="preview">
+              <h3>Click on a chat to get started.</h3>
+            </div>
+          )}
           
         </div>
         

@@ -172,3 +172,14 @@
 }
 
 
+@media only screen and (max-width: 800px) {
+  .activeUsernames-div {
+    display: none !important;
+  }
+}
+
+@media (max-width: 800px) {
+  .last-message-date {
+    display: none;
+  }
+}

@@ -26,3 +26,40 @@
   top: 50%;
   transform: translateY(-50%);
 }
+
+/* Add these media queries */
+@media (max-width: 1400px) {
+  .chat-input {
+    width: 600px /* adjust as needed */
+  }
+}
+
+@media (max-width: 1200px) {
+  .chat-input {
+    width: 500px /* adjust as needed */
+  }
+  .chat-footer {
+    width: 90%; /* adjust as needed */
+  }
+}
+
+
+@media (max-width: 1000px) {
+  .chat-input {
+    width: 300px; /* adjust as needed */
+  }
+  
+  .chat-footer {
+    width: 90%; /* adjust as needed */
+  }
+}
+
+@media (max-width: 800px) {
+  .chat-input {
+    width: 100%; /* adjust as needed */
+  }
+  
+  .chat-footer {
+    width: 90%; /* adjust as needed */
+  }
+}
