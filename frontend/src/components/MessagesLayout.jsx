@@ -14,6 +14,8 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
   let isFirstClick = true;
   // let aaaa=false;
   const chatWindowRef = useRef(null);
+  const [activeUsernames, setActiveUsernames] = useState({});
+
 
 
   useEffect(() => {
@@ -92,7 +94,11 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
     tabLinks.current[index].classList.add("active");
 
     setActiveRoom(roomId); // Set the active room to the roomId passed
-
+    setActiveUsernames(prevUsernames => ({
+      ...prevUsernames,
+      [roomId]: otherUsername[index].otherUsername,
+    })
+  );
     // Scroll to the bottom of the chat window
     setTimeout(() => {
       chatWindows.current[index].scrollTop = chatWindows.current[index].scrollHeight;
@@ -207,6 +213,19 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
           <div ref={chatWindowRef} className="tabcontent">
             {messagesData.map((chat, index) => (
               <div key={chat._id} style={{position: "relative"}}>
+                  {activeRoom === chat._id && (
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: "-10%", 
+                        left: "0",
+                        fontWeight: "bold",
+                        fontSize: "18px",
+                      }}
+                    >
+                      {activeUsernames[chat._id]}
+                    </div>
+                  )}  
                 <div
                   ref={(chatWindow) => (chatWindows.current[index] = chatWindow)}
                   id={chat._id + "-" + index}
