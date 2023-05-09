@@ -1,7 +1,10 @@
 import { Product } from "../models/productModel.js";
 import { Account } from "../models/accountModel.js";
+import { Room } from "../models/roomModel.js";
+import { Message } from "../models/messageModel.js";
 import fs from "fs";
 import path from "path";
+import mongoose from "mongoose";
 
 // return all products in the database
 const getAllProducts = async () => {
@@ -183,6 +186,62 @@ const deleteProduct = async (productId) => {
   return deletedProduct;
 };
 
+const sendSharkbotMessage = async (sellerId, productId, requestingUserId) => {
+  try {
+    // Checking that product Id is valid
+    if (!mongoose.Types.ObjectId.isValid(productId)) {
+      console.error("Invalid or productId");
+      return;
+    }
+
+    // Checking that seller Id exists
+    const account = await Account.findById(sellerId);
+    if (!account) {
+      console.error("Seller's account not found");
+      return;
+    }
+
+    // Creating/getting room with Sharkbot
+    const sharkbotId = "109761511246582815438";
+    let room = await Room.findOne({
+      $or: [
+        { account1: sharkbotId, account2: sellerId },
+        { account1: sellerId, account2: sharkbotId },
+      ],
+    });
+
+    let account1 = sharkbotId;
+    let account2 = sellerId;
+    if (!room) {
+      room = new Room({ account1, account2 });
+      await room.save();
+    }
+
+    // Sending message
+    const senderId = sharkbotId;
+    const receiverId = sellerId;
+
+    const buyerAccount = await Account.findById(requestingUserId);
+    const buyerUsername = buyerAccount.username;
+
+    const productSold = await Product.findById(productId);
+    const productName = productSold.name;
+    const productPrice = productSold.price;
+    const productCategory = productSold.category;
+
+    const content = `Congratulations! Your product "${productName}" from category "${productCategory}" has been sold for $${productPrice.toFixed(
+      2
+    )} to "${buyerUsername}".`;
+
+    const newMessage = new Message({ content, senderId, receiverId });
+    await newMessage.save();
+    room.messages.push(newMessage._id);
+    await room.save();
+  } catch (error) {
+    console.error("Error sending message: " + error.message);
+  }
+};
+
 export {
   getAllProducts,
   getPaginatedProducts,
@@ -194,4 +253,5 @@ export {
   deleteProduct,
   registerProductWithAccount,
   registerBuyingProductWithAccount,
+  sendSharkbotMessage,
 };
