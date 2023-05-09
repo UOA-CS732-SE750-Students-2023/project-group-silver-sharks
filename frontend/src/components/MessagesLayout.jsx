@@ -217,12 +217,16 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
                     <div
                       style={{
                         position: "absolute",
-                        top: "-10%", 
-                        left: "0",
+                        top: "-80px",
+                        left: 0,
                         fontWeight: "bold",
                         fontSize: "18px",
-                      }}
-                    >
+                        backgroundColor: "white",
+                        width: "100%",
+                        padding: "10px",
+                        zIndex: 1,
+                    }}
+                  >
                       {activeUsernames[chat._id]}
                     </div>
                   )}  
