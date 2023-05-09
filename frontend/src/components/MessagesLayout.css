@@ -42,31 +42,48 @@
 .tabcontent {
   position: relative; 
   float: left;
-  padding: 2% 15px;
+  padding: 2% 10px;
   margin-top: 10%;
   width: 70%;
   border-left: none;
   height: 600px;
   border-top: 2px solid #EAEAEA;
-  overflow: auto;
 }
 
 .preview {
+  display: flex;
+  top: -0.1%;
+  left: 30%;
+  background-color: white;
+  position: absolute;
+  z-index: 1;
   float: left;
   padding: 0px 12px;
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
   width: 70%;
   border-left: none;
   height: 800px;
+  align-items: center;
+  justify-content: center;
+  
 }
+.preview h3{
+  font-family: Poppins;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 36px;
+  letter-spacing: 0em;
+  text-align: left;
 
+
+}
 .header {
   margin-bottom: 10px;
 }
 
 .messages-container {
   background-color: #f1f1f1;
-  padding: 10px;
+  padding: 15px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -78,6 +95,7 @@
 }
 
 .chat-area {
+  position: relative;
   background-color: white;
   padding: 10px;
   display: flex;
@@ -96,7 +114,7 @@
 }
 
 .message-container {
-  padding: 5px 10px;
+  padding: 5px 20px 5px 10px;
   margin-bottom: 10px;
   max-width: 70%;
   word-wrap: break-word;
@@ -108,35 +126,42 @@
   align-items: flex-start;
   max-width: 100%;
 }
-
+.m-messagebox{
+  height:60%;
+  overflow: auto;
+  max-height: 550px;
+  border-bottom: 1px solid #ccc;
+}
 .chatHolder-actions-container {
-  position: absolute;
-  bottom: 0; 
+  height: 15%;
+  /* position: absolute; */
+  /* bottom: 0;  */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  /* width: 100%; */
   background: white;
   padding: 5px; 
+  margin: 25px 10px 10px 10px;
 }
 
 
 
 
 /*  Chrome, Edge, Safari  */
-.tabcontent::-webkit-scrollbar {
+.m-messagebox::-webkit-scrollbar {
   width: 6px; /* scrollbar width */
 }
 
-.tabcontent::-webkit-scrollbar-track {
+.m-messagebox::-webkit-scrollbar-track {
   background: #f1f1f1; /* scrollbar-track color */
 }
 
-.tabcontent::-webkit-scrollbar-thumb {
+.m-messagebox::-webkit-scrollbar-thumb {
   background: #EAEAEA; /* scrollbar color */
 }
 
-.tabcontent::-webkit-scrollbar-thumb:hover {
+.m-messagebox::-webkit-scrollbar-thumb:hover {
   background: #8f8f8f; 
 }
 

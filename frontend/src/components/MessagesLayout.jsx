@@ -12,6 +12,7 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
   const tabLinks = useRef([]);
   const previewRef = useRef(null);
   let isFirstClick = true;
+  // let aaaa=false;
   const chatWindowRef = useRef(null);
 
 
@@ -58,6 +59,7 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
       // change the display of the preview element to none 
       previewRef.current.style.display = "none";
       isFirstClick = false;
+      // aaaa=true;
     }
     
      // Fetch messages for the roomId when switching tabs
@@ -185,12 +187,13 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
 
 
           
-          <div ref={chatWindowRef} className="tabcontent" style={{ overflow: "auto", maxHeight: "600px" }}>
+          <div ref={chatWindowRef} className="tabcontent">
             {messagesData.map((chat, index) => (
               <div key={chat._id} style={{position: "relative"}}>
                 <div
                   ref={(chatWindow) => (chatWindows.current[index] = chatWindow)}
                   id={chat._id + "-" + index}
+                  className="m-messagebox"
                 >
                   {chat.messages.map((singleMessage, index) => (
                     <>
@@ -212,7 +215,7 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
                   ))}
                 </div>
                 {activeRoom === chat._id && (
-                  <div className="chatHolder-actions-container" style={{position: "absolute", bottom: 0, width: "100%"}}>
+                  <div className="chatHolder-actions-container">
                     <ChatHolder
                       roomId={chat._id}
                       senderId={ownUsername.loggedInId}
@@ -230,14 +233,13 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
                 )}
               </div>
             ))}
-          </div>  
-          <div
+          </div>
+          { isFirstClick && <div
             ref={previewRef}
             className="preview"
-            style={{ maxHeight: "700px" }}
           >
             <h3>Click on a chat to get started.</h3>
-          </div>
+          </div>}
           
         </div>
         
