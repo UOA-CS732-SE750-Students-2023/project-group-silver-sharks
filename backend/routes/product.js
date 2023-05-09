@@ -28,7 +28,14 @@ const productRouter = new express.Router();
 // Middle-ware function to ensure authentication of endpoints
 function isLoggedIn(req, res, next) {
   if (process.env.NODE_ENV === "backend-test") {
-    req.user = { _id: req.header("x-user-id") };
+    req.user = {
+      _id: req.header("x-user-id"),
+      productsPurchased: [
+        { _id: "000000000000000000000001" },
+        { _id: "000000000000000000000002" },
+        { _id: "000000000000000000000003" },
+      ],
+    };
     return next();
   }
   if (req.isAuthenticated()) {
@@ -361,7 +368,7 @@ productRouter.post(
       }
 
       const existingReview = product.reviews.find(
-        (review) => String(review.account) === String(req.user.id)
+        (review) => String(review.account) === String(req.user._id)
       );
 
       if (existingReview) {
@@ -374,7 +381,7 @@ productRouter.post(
         text,
         rating,
         product: productId,
-        account: req.user.id,
+        account: req.user._id,
       });
 
       await review.save();
@@ -419,7 +426,7 @@ productRouter.delete(
       }
 
       if (
-        String(review.account) !== String(req.user.id) &&
+        String(review.account) !== String(req.user._id) &&
         req.user.accountType !== "admin"
       ) {
         return res
@@ -447,7 +454,7 @@ productRouter.delete(
       console.log(review);
       await ProductReview.findOneAndDelete({ _id: reviewId });
 
-      return res.json({ success: true });
+      return res.status(200).json({ success: true });
     } catch (err) {
       console.error(err);
       return res.status(500).json({ error: "Server Error" });
@@ -472,14 +479,14 @@ productRouter.get(
         String(p._id)
       );
       const existingReview = product.reviews.find(
-        (review) => String(review.account) === String(req.user.id)
+        (review) => String(review.account) === String(req.user._id)
       );
       if (!purchasedProductIds.includes(String(productId))) {
-        res.send(false);
+        res.status(401).send(false);
       } else if (existingReview) {
-        res.send(false);
+        res.status(401).send(false);
       } else {
-        res.send(true);
+        res.status(200).send(true);
       }
     } catch (err) {
       console.error(err);

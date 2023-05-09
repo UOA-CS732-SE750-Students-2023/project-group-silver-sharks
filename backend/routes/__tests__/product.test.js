@@ -75,7 +75,11 @@ const account2 = {
   lastName: "Fring",
   email: "stevespizzera@gmail.com",
   sellingProducts: [],
-  productsPurchased: ["000000000000000000000001", "000000000000000000000002"],
+  productsPurchased: [
+    "000000000000000000000001",
+    "000000000000000000000002",
+    "000000000000000000000003",
+  ],
 };
 
 const accounts = [account1, account2];
@@ -385,6 +389,115 @@ it("buy product", (done) => {
       expect(currentAccount.productsPurchased[2].toString()).toBe(
         "000000000000000000000003"
       );
+
+      return done();
+    });
+});
+
+it("get reviews for a product", (done) => {
+  request(app)
+    .get("/products/pid/000000000000000000000001/reviews")
+    .expect(200)
+    .end(async (err, res) => {
+      if (err) {
+        return done(err);
+      }
+
+      const responseFromApi = res.body;
+      expect(responseFromApi[0].text).toBe("Very nice pizza");
+      expect(responseFromApi[0].rating).toBe(4);
+      expect(responseFromApi[0].product.toString()).toBe(
+        "000000000000000000000001"
+      );
+      expect(responseFromApi[0].account._id.toString()).toBe(
+        "000000000000000000000020"
+      );
+
+      return done();
+    });
+});
+
+const newReview = {
+  text: "Great product!",
+  rating: 5,
+};
+
+it("adds a review for a specific product", (done) => {
+  request(app)
+    .post("/products/pid/000000000000000000000003/review")
+    .set("x-user-id", "000000000000000000000020")
+    .set("productsPurchased", [
+      { _id: "000000000000000000000001" },
+      { _id: "000000000000000000000002" },
+      { _id: "000000000000000000000003" },
+    ])
+    .send(newReview)
+    .expect(200)
+    .end(async (err, res) => {
+      if (err) {
+        return done(err);
+      }
+
+      const responseReview = res.body;
+
+      // Check if the review has been added successfully
+      expect(responseReview.text).toBe("Great product!");
+      expect(responseReview.rating).toBe(5);
+      expect(responseReview.product).toBe("000000000000000000000003");
+      expect(responseReview.account).toBe("000000000000000000000020");
+
+      const newReviewInDB = await ProductReview.findById(responseReview._id);
+
+      // check if new review exists in database
+      expect(newReviewInDB).toBeTruthy();
+
+      return done();
+    });
+});
+
+it("deletes a review for a specific product", (done) => {
+  request(app)
+    .delete("/products/pid/000000000000000000000002/review")
+    .set("x-user-id", "000000000000000000000020")
+    .send({ reviewId: "000000000000000000000200" })
+    .expect(200)
+    .end(async (err, res) => {
+      if (err) {
+        return done(err);
+      }
+
+      const response = res.body;
+
+      expect(response.success).toBe(true);
+
+      const reviewInDB = await ProductReview.findById(
+        "000000000000000000000200"
+      );
+      expect(reviewInDB).toBeNull();
+
+      return done();
+    });
+});
+
+it("checks if an account can add a review", (done) => {
+  request(app)
+    .get("/products/pid/000000000000000000000002/can-review")
+    .set("x-user-id", "000000000000000000000020")
+    .set("productsPurchased", [
+      { _id: "000000000000000000000001" },
+      { _id: "000000000000000000000002" },
+      { _id: "000000000000000000000003" },
+    ])
+    .send()
+    .expect(200)
+    .end(async (err, res) => {
+      if (err) {
+        return done(err);
+      }
+
+      const response = res.body;
+
+      expect(response).toBe(true);
 
       return done();
     });
