@@ -20,6 +20,22 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
     fetchAllRoomsMessages();
   }, [rooms, otherUsername, ownUsername.loggedInId]);
 
+  useEffect(() => {
+    // 找到当前活动聊天窗口在 messagesData 数组中的索引
+    const activeIndex = messagesData.findIndex(chat => chat._id === activeRoom);
+
+    // 检查索引是否有效
+    if (activeIndex !== -1) {
+        // 确保 chatWindows.current[activeIndex] 存在
+        if (chatWindows.current[activeIndex]) {
+            // 滚动到底部
+            chatWindows.current[activeIndex].scrollTop = chatWindows.current[activeIndex].scrollHeight;
+        }
+    }
+  }, [messagesData, activeRoom]); // 当 messagesData 或 activeRoom 发生变化时，触发该 useEffect
+
+
+
   const fetchMessages = async (roomId) => {
     const response = await fetch(
       `http://localhost:3000/chat/rid/${roomId}/messages`
