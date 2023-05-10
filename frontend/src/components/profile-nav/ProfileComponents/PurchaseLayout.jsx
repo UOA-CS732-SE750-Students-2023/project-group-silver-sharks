@@ -68,7 +68,7 @@ const PurchaseLayout = ({ purchasedAssets }) => {
                     <h3>{asset.name}</h3>
                     <p>Price: ${asset.price.toFixed(2)}</p>
                     <p>Category: {asset.category}</p>
-                    <button onClick={() => downloadFile(asset._id, asset.name)}>Download files</button>
+                    {asset.category !== 'Services' && <button onClick={() => downloadFile(asset._id, asset.name)}>Download files</button>}
                     <button onClick={() => navigate(`/store/product/${asset._id}`)}>Review</button>
                   </div>
                 </div>
