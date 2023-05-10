@@ -60,7 +60,7 @@ const SellingLayout = ({ sellingAssets }) => {
                   <p>Category: {asset.category}</p>
                   <div className="asset-links">
                     <div>
-                      <button onClick={() => downloadFile(asset._id, asset.name)}>Download files</button>
+                      {asset.category !== 'Services' && <button onClick={() => downloadFile(asset._id, asset.name)}>Download files</button>}
                     </div>
                     <div>
                       <button onClick={() => removeListingHandler(asset._id)}>Remove listing</button>
