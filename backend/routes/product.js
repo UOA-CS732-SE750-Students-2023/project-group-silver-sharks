@@ -26,6 +26,19 @@ import { Account } from "../models/accountModel.js";
 
 const productRouter = new express.Router();
 
+productRouter.get("/products/landing-page", async (req, res) => {
+  try {
+    const products = await getLandingPageProducts();
+    console.log("final products", products);
+    return res.status(StatusCodes.OK).json(products);
+  } catch (err) {
+    console.error(err);
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ message: "Error getting products for landing page" });
+  }
+});
+
 // Middle-ware function to ensure authentication of endpoints
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
@@ -484,17 +497,5 @@ productRouter.get(
     }
   }
 );
-
-productRouter.get("/products/landing-page", async (req, res) => {
-  try {
-    const products = getLandingPageProducts();
-    return res.status(StatusCodes.OK).json(products);
-  } catch (err) {
-    console.error(err);
-    return res
-      .status(StatusCodes.INTERNAL_SERVER_ERROR)
-      .json({ message: "Error getting products for landing page" });
-  }
-});
 
 export default productRouter;

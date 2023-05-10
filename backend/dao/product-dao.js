@@ -244,19 +244,25 @@ const sendSharkbotMessage = async (sellerId, productId, requestingUserId) => {
 
 const getLandingPageProducts = async () => {
   let finalResults = {};
+  const fields = "name price coverImage amountSold";
+
   const imageProducts = await Product.find({ category: "Images" })
+    .select(fields)
     .sort({ priority: -1, amountSold: -1 })
     .limit(3);
 
   const videoProducts = await Product.find({ category: "Videos" })
+    .select(fields)
     .sort({ priority: -1, amountSold: -1 })
     .limit(3);
 
   const musicProducts = await Product.find({ category: "Music" })
+    .select(fields)
     .sort({ priority: -1, amountSold: -1 })
     .limit(3);
 
   const serviceProducts = await Product.find({ category: "Services" })
+    .select(fields)
     .sort({ priority: -1, amountSold: -1 })
     .limit(3);
 
