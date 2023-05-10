@@ -480,156 +480,164 @@
     {
       "_id": "645a4208560310e7e8e06725",
       "category": "Music",
-      "name": "",
-      "description": "",
+      "name": "Calming Music",
+      "description": "Relax and unwind with our calming music audio file! This soothing composition is designed to help you find peace and tranquility, with gentle melodies and soft harmonies that will help you escape the stresses of daily life. Whether you're looking to meditate, unwind after a long day, or simply enjoy some relaxing music, this audio file is the perfect addition to your collection.",
       "author": "101628246745447861849",
-      "price": ,
-      "priority": ,
-      "coverImage": "",
-      "files": []
+      "price": 15,
+      "priority": 1,
+      "coverImage": "645a4208560310e7e8e06725-coverimage.jpg",
+      "files": [
+        "645a4208560310e7e8e06725-1-downloadFile.mp3"
+      ]
     },
     {
       "_id": "645a42b183a0116e16cbd65b",
       "category": "Music",
-      "name": "",
-      "description": "",
+      "name": "EPIC: A freestyle beat",
+      "description": "Feel the power and energy of our epic freestyle beat audio file! This dynamic composition is designed to get your blood pumping and your feet moving, with driving rhythms and intense beats that will ignite your passion and creativity. Whether you're a rapper, a dancer, or simply a lover of great beats, this audio file is the perfect way to add some fire to your music collection.",
       "author": "100953959910033868204",
-      "price": ,
-      "priority": ,
-      "coverImage": "",
-      "files": []
+      "price": 250,
+      "priority": 3,
+      "coverImage": "645a42b183a0116e16cbd65b-coverimage.jpg",
+      "files": [
+        "645a42b183a0116e16cbd65b-1-downloadFile.mp3"
+      ]
     },
     {
       "_id": "645a42d7560310e7e8e0680b",
       "category": "Music",
-      "name": "",
-      "description": "",
+      "name": "HARD: A freestyle beat",
+      "description": "Embrace the raw intensity of our hard freestyle beat audio file! This edgy composition is designed to push the boundaries and challenge your limits, with hard-hitting rhythms and aggressive beats that will test your skills and inspire your creativity. Whether you're a rapper, a DJ, or simply a lover of cutting-edge music, this audio file is the perfect way to add some edge to your collection.",
       "author": "100953959910033868204",
-      "price": ,
-      "priority": ,
-      "coverImage": "",
-      "files": []
+      "price": 250,
+      "priority": 3,
+      "coverImage": "645a42d7560310e7e8e0680b-coverimage.jpg",
+      "files": [
+        "645a42d7560310e7e8e0680b-1-downloadFile.mp3"
+      ]
     },
     {
       "_id": "645a43a950f323a88021c65e",
       "category": "Music",
-      "name": "",
-      "description": "",
+      "name": "Guitar melody music",
+      "description": "Experience the beauty and versatility of the guitar with our guitar melody audio file! This mesmerizing composition is designed to showcase the rich tones and intricate melodies of this beloved instrument, with soaring notes and delicate harmonies that will take your breath away. Whether you're a guitarist, a music lover, or simply appreciate great audio content, this audio file is the perfect addition to your collection.",
       "author": "118069059652555688591",
-      "price": ,
-      "priority": ,
-      "coverImage": "",
-      "files": []
+      "price": 20,
+      "priority": 1,
+      "coverImage": "645a43a950f323a88021c65e-coverimage.jpg",
+      "files": [
+        "645a43a950f323a88021c65e-1-downloadFile.mp3"
+      ]
     },
     {
       "_id": "645a44cc3fd52091fea557cf",
       "category": "Services",
-      "name": "",
-      "description": "",
+      "name": "Financial Audit Service",
+      "description": "Take control of your finances with our professional financial audit service! Our team of experts will conduct a comprehensive analysis of your financial statements and transactions, identifying areas for improvement and offering actionable insights and recommendations to help you achieve your financial goals.",
       "author": "101628246745447861849",
-      "price": ,
-      "priority": ,
-      "coverImage": ""
+      "price": 1000,
+      "priority": 3,
+      "coverImage": "645a44cc3fd52091fea557cf-coverimage.jpg"
     },
     {
       "_id": "645a44ee5aa53872e55d290e",
       "category": "Services",
-      "name": "",
-      "description": "",
+      "name": "Software Solutions Consulting",
+      "description": "Unlock the full potential of your technology with our software solutions consulting service! Our team of experienced consultants will work with you to understand your needs and goals, and develop a customized plan to optimize your software and technology systems, increasing efficiency, productivity, and profitability.",
       "author": "101628246745447861849",
-      "price": ,
-      "priority": ,
-      "coverImage": ""
+      "price": 750,
+      "priority": 2,
+      "coverImage": "645a44ee5aa53872e55d290e-coverimage.png"
     },
     {
       "_id": "645a450b3fd52091fea55838",
       "category": "Services",
-      "name": "",
-      "description": "",
+      "name": "Naruto hand drawings",
+      "description": "Bring your favorite Naruto characters to life with our hand-drawn Naruto drawings service! Our talented artists will create stunning illustrations of your favorite characters, from Naruto himself to Sasuke, Sakura, and beyond. Whether you're a fan of the anime or simply appreciate great art, our Naruto drawings are the perfect addition to your collection.",
       "author": "118069059652555688591",
-      "price": ,
-      "priority": ,
-      "coverImage": ""
+      "price": 20,
+      "priority": 1,
+      "coverImage": "645a450b3fd52091fea55838-coverimage.jpg"
     },
     {
       "_id": "645a45493fd52091fea55867",
       "category": "Services",
-      "name": "",
-      "description": "",
+      "name": "Fantasy football advice",
+      "description": "Dominate your fantasy football league with our expert fantasy football advice service! Our team of seasoned analysts will provide in-depth analysis, rankings, and recommendations to help you draft the perfect team, make informed trades, and stay ahead of the competition.",
       "author": "118069059652555688591",
-      "price": ,
-      "priority": ,
-      "coverImage": ""
+      "price": 25,
+      "priority": 2,
+      "coverImage": "645a45493fd52091fea55867-coverimage.jpg"
     },
     {
       "_id": "645a46b55aa53872e55d2b3a",
       "category": "Services",
-      "name": "",
-      "description": "",
+      "name": "Coding coaching",
+      "description": "Learn the secrets of coding and software development with our coding coaching service! Our experienced instructors will work with you one-on-one to develop your skills and knowledge, offering personalized guidance and support to help you reach your full potential as a coder.",
       "author": "102770690999467255961",
-      "price": ,
-      "priority": ,
-      "coverImage": ""
+      "price": 200,
+      "priority": 1,
+      "coverImage": "645a46b55aa53872e55d2b3a-coverimage.jpg"
     },
     {
       "_id": "645a47d35aa53872e55d2c0f",
       "category": "Services",
-      "name": "",
-      "description": "",
+      "name": "YouTube Thumbnails",
+      "description": "Make your YouTube videos stand out with our customized YouTube thumbnail design service! Our talented designers will create eye-catching and engaging thumbnails that will grab your viewers' attention and entice them to click on your videos.",
       "author": "102770690999467255961",
-      "price": ,
-      "priority": ,
-      "coverImage": ""
+      "price": 15,
+      "priority": 1,
+      "coverImage": "645a47d35aa53872e55d2c0f-coverimage.jpg"
     },
     {
       "_id": "645a4b20a12305c52c7eb68a",
       "category": "Services",
-      "name": "",
-      "description": "",
+      "name": "Photo Editing Service",
+      "description": "Take your photos to the next level with our professional photo editing service! Our experienced editors will enhance your photos, fixing common issues like lighting, color, and composition, and adding special effects and filters to create stunning visual masterpieces.",
       "author": "102770690999467255961",
-      "price": ,
-      "priority": ,
-      "coverImage": ""
+      "price": 32,
+      "priority": 1,
+      "coverImage": "645a4b20a12305c52c7eb68a-coverimage.jpg"
     },
     {
       "_id": "645a4b8ca12305c52c7eb7eb",
       "category": "Services",
-      "name": "",
-      "description": "",
+      "name": "Financial advice",
+      "description": "Get the financial guidance you need with our professional financial advice service! Our team of experts will provide personalized recommendations and insights to help you manage your finances, make informed investments, and achieve your financial goals.",
       "author": "102236187957599377142",
-      "price": ,
-      "priority": ,
-      "coverImage": ""
+      "price": 200,
+      "priority": 1,
+      "coverImage": "645a4b8ca12305c52c7eb7eb-coverimage.jpg"
     },
     {
       "_id": "645b7612402c2fa1d2147528",
       "category": "Services",
-      "name": "",
-      "description": "",
+      "name": "Hand drawings",
+      "description": "Add a personal touch to your space with our hand-drawn drawings service! I will create unique and captivating illustrations, from portraits to landscapes to abstract designs, that will bring a touch of beauty and inspiration to your home or office.",
       "author": "115597168327745249591",
-      "price": ,
-      "priority": ,
-      "coverImage": ""
+      "price": 10,
+      "priority": 1,
+      "coverImage": "645b7612402c2fa1d2147528-coverimage.jpg"
     },
     {
       "_id": "645b761e402c2fa1d2147555",
       "category": "Services",
-      "name": "",
-      "description": "",
+      "name": "Website design",
+      "description": "Build a stunning website that reflects your unique brand and vision with our website design service! Our team of experienced designers and developers will work with you to create a customized website that is both functional and beautiful, optimized for maximum performance and user experience.",
       "author": "115597168327745249591",
-      "price": ,
-      "priority": ,
-      "coverImage": ""
+      "price": 350,
+      "priority": 2,
+      "coverImage": "645b761e402c2fa1d2147555-coverimage.jpg"
     },
     {
       "_id": "645b762e402c2fa1d2147582",
       "category": "Services",
-      "name": "",
-      "description": "",
+      "name": "Cybersecurity consulting",
+      "description": "Protect your business from cyber threats with our cybersecurity consulting service! Our team of experts will conduct a comprehensive assessment of your IT systems and infrastructure, identifying vulnerabilities and offering customized solutions to protect your business from cyber attacks and data breaches.",
       "author": "115597168327745249591",
-      "price": ,
-      "priority": ,
-      "coverImage": ""
+      "price": 1200,
+      "priority": 3,
+      "coverImage": "645b762e402c2fa1d2147582-coverimage.jpg"
     }
   ]
 }
