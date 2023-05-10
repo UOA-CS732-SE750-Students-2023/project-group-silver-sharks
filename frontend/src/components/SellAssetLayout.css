@@ -108,6 +108,7 @@
   border-width: 2px;
 }
 
+
 /* .form-control .form-select {
   width: 25%;
 } */
@@ -150,8 +151,9 @@
 .file-input {
   background-color: #ffffff;
   color: #000000;
+  margin-left: 60px;
   padding: 5px 10px;
-  border: 2px solid #000000;
+  border: none;
   border-radius: 5px;
   cursor: pointer;
   text-decoration: none;
@@ -251,4 +253,34 @@
 /* 选中状态 */
 .s_inputStyling input[type="radio"]:checked::before {
   background-color: #348B81;
+}
+
+.form-group-wrapper {
+  display: flex;
+  display: column;
+}
+.card-element-container {
+  width: 40%;
+}
+.s-buttoncontainer{
+  /* display: flex; */
+  flex-direction: column;
+  width:40%;
+
+}
+.list-asset-wrapper button{
+  background-color: #348B81;
+  border: none;
+  border-radius: 25px;
+  padding:10px 30px;
+  width: 15%;
+  margin-left: 43%;
+
+}
+.list-asset-wrapper button:hover{
+  background-color: #2b7169;
+}
+.list-asset-wrapper{
+  justify-content: center;
+  width: 100%;
 }
