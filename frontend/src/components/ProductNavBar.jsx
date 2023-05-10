@@ -39,7 +39,7 @@ const ProductNavBar = ({ setSearchCategory, setFilter, setSearchTerm, notFound, 
     setSearchTerm(event.target.value);
   }
 
-  const [p_title, setTitle] = useState('Sort by :\u00A0\u00A0\u00A0Default');
+  const [p_title, setTitle] = useState('Sort by :\u00A0\u00A0\u00A0Featured');
 
   const filterChangeHandler = (event) => {
     setFilter(event);
@@ -49,6 +49,9 @@ const ProductNavBar = ({ setSearchCategory, setFilter, setSearchTerm, notFound, 
     }
     if(ek==='priceHighToLow'){
       setTitle(`Price: High to Low`);
+    }
+    if(ek==='popularity'){
+      setTitle(`Sort by :\u00A0\u00A0\u00A0Featured`);
     }
   }
   
@@ -191,6 +194,7 @@ const ProductNavBar = ({ setSearchCategory, setFilter, setSearchTerm, notFound, 
               >
                 <Dropdown.Item eventKey="priceLowToHigh">Price: Low to High</Dropdown.Item>
                 <Dropdown.Item eventKey="priceHighToLow">Price: High to Low</Dropdown.Item>
+                <Dropdown.Item eventKey="popularity">Featured</Dropdown.Item>
               </DropdownButton>
             </InputGroup>
           </div>
