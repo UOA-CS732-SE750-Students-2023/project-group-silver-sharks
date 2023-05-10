@@ -12,6 +12,7 @@ import {
   registerProductWithAccount,
   registerBuyingProductWithAccount,
   sendSharkbotMessage,
+  getLandingPageProducts,
 } from "../dao/product-dao.js";
 
 import { registerAccountWithProduct } from "../dao/account-dao.js";
@@ -483,5 +484,17 @@ productRouter.get(
     }
   }
 );
+
+productRouter.get("/products/landing-page", async (req, res) => {
+  try {
+    const products = getLandingPageProducts();
+    return res.status(StatusCodes.OK).json(products);
+  } catch (err) {
+    console.error(err);
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json({ message: "Error getting products for landing page" });
+  }
+});
 
 export default productRouter;

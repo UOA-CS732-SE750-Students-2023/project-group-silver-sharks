@@ -242,6 +242,32 @@ const sendSharkbotMessage = async (sellerId, productId, requestingUserId) => {
   }
 };
 
+const getLandingPageProducts = async () => {
+  let finalResults = {};
+  const imageProducts = await Product.find({ category: "Images" })
+    .sort({ priority: -1, amountSold: -1 })
+    .limit(3);
+
+  const videoProducts = await Product.find({ category: "Videos" })
+    .sort({ priority: -1, amountSold: -1 })
+    .limit(3);
+
+  const musicProducts = await Product.find({ category: "Music" })
+    .sort({ priority: -1, amountSold: -1 })
+    .limit(3);
+
+  const serviceProducts = await Product.find({ category: "Services" })
+    .sort({ priority: -1, amountSold: -1 })
+    .limit(3);
+
+  finalResults.imageProducts = imageProducts;
+  finalResults.videoProducts = videoProducts;
+  finalResults.musicProducts = musicProducts;
+  finalResults.serviceProducts = serviceProducts;
+
+  return finalResults;
+};
+
 export {
   getAllProducts,
   getPaginatedProducts,
@@ -254,4 +280,5 @@ export {
   registerProductWithAccount,
   registerBuyingProductWithAccount,
   sendSharkbotMessage,
+  getLandingPageProducts,
 };
