@@ -28,6 +28,22 @@ const ProductNavBar = ({ setSearchCategory, setFilter, setSearchTerm, notFound, 
     zIndex: 100,
   };
 
+  const minpriceChangeHandler = (event) => {
+    const inputPrice = event.target.value;
+    if (inputPrice >= 0) {
+      setPrice(inputPrice);
+    }else{
+      event.target.value = 0; 
+    }
+  };
+  const maxpriceChangeHandler = (event) => {
+    const inputPrice = event.target.value;
+    if (inputPrice >= 0) {
+      setPrice(inputPrice);
+    }else{
+      event.target.value = 0; 
+    }
+  };
   const categoryHandler = (event) => {
     const buttonText = event.target.innerHTML;
     const formattedCategory = buttonText.charAt(0) + buttonText.slice(1).toLowerCase();
@@ -147,6 +163,8 @@ const ProductNavBar = ({ setSearchCategory, setFilter, setSearchTerm, notFound, 
               className="form-control min-max-input-style"
               id="min-price"
               aria-label="Min price"
+              onChange={minpriceChangeHandler}
+              min="0"
             />
           </div>
           <div className="d-flex flex-column">
@@ -159,6 +177,8 @@ const ProductNavBar = ({ setSearchCategory, setFilter, setSearchTerm, notFound, 
                 className="form-control min-max-input-style"
                 id="max-price"
                 aria-label="Max price"
+                onChange={maxpriceChangeHandler}
+                min="0"
               />
               <FontAwesomeIcon icon={faMagnifyingGlass} style={{ fontSize: '1.5rem', marginLeft: '15px' }}/>
             </div>

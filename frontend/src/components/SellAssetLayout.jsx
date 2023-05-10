@@ -58,7 +58,10 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
   
 
   const priceChangeHandler = (event) => {
-    setPrice(event.target.value);
+    const inputPrice = event.target.value;
+    if (inputPrice >= 0) {
+      setPrice(inputPrice);
+    }
   };
 
   const categoryChangeHandler = (event) => {
@@ -311,7 +314,8 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
                 value={price}
                 onChange={priceChangeHandler}
                 required
-                style={{ width: "8%", borderRadius: "10px" }}
+                style={{ width: "8%", borderRadius: '10px' }}
+                min="0"
               />
               <span className="required-star-price">*</span>
             </div>
@@ -392,24 +396,13 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
                 Cancel
               </Button> */}
               {/** If there is no Stripe ID associated with user, the user is prompted to create one. */}
-              {userStripeId ? (
-                <div
-                  style={{
-                    display: "flex",
-                    "flex-direction": "column",
-                    width: "40%",
-                  }}
-                >
+
+              { userStripeId ? (
+                <div>
                   <Button
-                    variant="primary"
-                    type="submit"
-                    className="mt-4"
-                    style={{
-                      backgroundColor: "#348B81",
-                      border: "none",
-                      borderRadius: "25px",
-                      padding: "10px 30px",
-                    }}
+                  variant="primary"
+                  type="submit"
+                  className="mt-4"
                   >
                     List asset
                   </Button>
