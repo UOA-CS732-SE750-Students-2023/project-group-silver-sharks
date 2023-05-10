@@ -33,12 +33,12 @@ const PaymentForm = ({ cartContentsData }) => {
 
         setLoading(true);
 
-        const cardElement = elements.getElement(CardElement);
+        // const cardElement = elements.getElement(CardElement);
 
-        const { error, paymentMethod } = await stripe.createPaymentMethod({
-            type: 'card',
-            card: cardElement,
-        });
+        // const { error, paymentMethod } = await stripe.createPaymentMethod({
+        //     type: 'card',
+        //     card: cardElement,
+        // });
 
         const userResponse = await fetch('http://localhost:3000/account/id/0');
 
@@ -60,12 +60,6 @@ const PaymentForm = ({ cartContentsData }) => {
         const user = await userResponse.json();
         console.log("Line 61 User ID : " + user._id);
 
-        if (error) {
-            console.error('[error]', error);
-                setLoading(false);
-            return;
-        }
-
         try {
             // Get each cart item's author
             const cartAuthorIds = cartContentsData.map(cart => cart.author);
@@ -74,49 +68,69 @@ const PaymentForm = ({ cartContentsData }) => {
             console.log(cartAuthorIds);
             
             for (const cartContent of cartContentsData) {
+                
+                try {
+                    // Create a payment method for each object in cart
+                    // It has to be like this since if we use a single payment method for multiple
+                    // objects in cart, Stripe will throw customer detachment error.
+                    const cardElement = elements.getElement(CardElement);
+                    const { error, paymentMethod } = await stripe.createPaymentMethod({
+                        type: 'card',
+                        card: cardElement,
+                    });
 
-                console.log("Author:");
-                console.log(cartContent.author);
+                    console.log("Author:");
+                    console.log(cartContent.author);
 
-                const authorResponse = (await fetch('http://localhost:3000/account/id/' + cartContent.author));
-                const author = await authorResponse.json();
+                    const authorResponse = (await fetch('http://localhost:3000/account/id/' + cartContent.author));
+                    const author = await authorResponse.json();
 
-                console.log("Author Response:");
-                console.log(author);
+                    console.log("Author Response:");
+                    console.log(author);
 
-                const price = cartContent.price * 100;
-                const response = await axios.post('/create-payment-intent', { userId: author._id, amount: price, connectedAccountId: author.stripeId });
+                    const price = cartContent.price * 100;
+                    const response = await axios.post('/create-payment-intent', { 
+                        userId: author._id, 
+                        amount: price, 
+                        connectedAccountId: author.stripeId,
+                        paymentMethodId: paymentMethod.id
+                    });
 
-                const clientSecret = response.data;
+                    const clientSecret = response.data;
 
-                const paymentResult = await stripe.confirmCardPayment(clientSecret, {
-                    payment_method: paymentMethod.id,
-                });
+                    const paymentResult = await stripe.confirmCardPayment(clientSecret, {
+                        payment_method: paymentMethod.id,
+                    });
 
-                if (paymentResult.error) {
-                    console.error('[error]', paymentResult.error);
-                } else {
-                    if (paymentResult.paymentIntent.status === 'succeeded') {
-                        console.log('Payment successful');
+                    if (paymentResult.error) {
+                        console.error('[error]', paymentResult.error);
+                    } else {
+                        if (paymentResult.paymentIntent.status === 'succeeded') {
+                            console.log('Payment successful');
 
-                        // call Product/buy endpoint to register the cart contents as being bought by the user
-                        const buyProductResponse = await fetch('http://localhost:3000/products/buy?accountId=' + user._id, {
-                            method: "POST",
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify(cartContentsData)
-                        });
-                    
-                        if (!buyProductResponse.ok){
-                            throw json({ message: "Could not successfully buy item."}, { status: 500 });
+                            // call Product/buy endpoint to register the cart contents as being bought by the user
+                            const buyProductResponse = await fetch('http://localhost:3000/products/buy?accountId=' + user._id, {
+                                method: "POST",
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify(cartContentsData)
+                            });
+                        
+                            if (!buyProductResponse.ok){
+                                throw json({ message: "Could not successfully buy item."}, { status: 500 });
+                            }
+
+                            const newProduct = await buyProductResponse.json()
+                            console.log("Line 94: " + newProduct.message);
                         }
-
-                        const newProduct = await buyProductResponse.json()
-                        console.log("Line 94: " + newProduct.message);
                     }
+                } catch (error) {
+                    console.error('[error]', error);
+                    setLoading(false);
+                    return;
                 }
-            };
+            }
 
             // Clear the cart contents
             clearCartHandler();
@@ -147,13 +161,7 @@ const PaymentForm = ({ cartContentsData }) => {
                                 <div className="p-asset-name-category">
                                     <h3>{product.name}</h3>
                                     <p>Category: {product.category}</p>
-                                </div>
-                                <div className="p-asset-price-sold">
                                     <p>Price: ${product.price.toFixed(2)}</p>
-                                    <p>{product.amountSold} sold</p>
-                                </div>
-                                <div className="p-asset-total">
-                                    <p>${(product.price * product.amountSold).toFixed(2)}</p>
                                 </div>
                             </div>
                         ))}
