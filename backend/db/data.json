@@ -29,6 +29,15 @@
       ]
     },
     {
+      "_id": "109761511246582815438",
+      "firstName": "Admin",
+      "lastName": "SharketPlace",
+      "email": "SharketPlace@gmail.com",
+      "accountType": "admin",
+      "username": "SharketPlace",
+      "stripeId": "acct_1N5lDnCYHACaDnCs"
+    },
+    {
       "_id": "115762580670597246231",
       "firstName": "Ibrahim",
       "lastName": "Anees",

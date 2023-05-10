@@ -12,6 +12,8 @@ const stripeRouter = express.Router();
 
 // Create payment intent for stripe that sends balance to target account
 stripeRouter.post("/create-payment-intent", async (req, res) => {
+  
+
   const { userId, amount, connectedAccountId, paymentMethodId } = req.body;
 
   try {
@@ -27,9 +29,11 @@ stripeRouter.post("/create-payment-intent", async (req, res) => {
 
     // Store the balance of the user
     console.log("Adding balance to user: " + userId);
+
     const userAccount = await Account.findById(userId);
 
     console.log("User account:");
+
     console.log(userAccount);
 
     userAccount.balance += amount;
