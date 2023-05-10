@@ -21,6 +21,7 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
   const [files, setFiles] = useState([]);
   const [category, setCategory] = useState("Images");
   const [price, setPrice] = useState(0);
+  const [renderAddFiles, setRenderAddFiles] = useState(true);
   const stripe = useStripe();
   const elements = useElements();
   const priorityPrice = [0, 1000, 3000]; // In cents
@@ -61,6 +62,12 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
 
   const categoryChangeHandler = (event) => {
     setCategory(event.target.value);
+
+    if (event.target.value === "Services"){
+      setRenderAddFiles(false);
+    } else {
+      setRenderAddFiles(true);
+    }
   };
 
   const submitHandler = async (event) => {
@@ -265,20 +272,17 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
             </div>
             <div className="upload-container">
               <p>Add Cover image</p>
-              <label htmlFor="cover-image" className="file-label">Browse</label>
               <input
                 type="file"
                 name="cover-image"
                 id="cover-image"
                 onChange={coverImageChangeHandler}
-                multiple
+                required
                 className="file-input"
-                style={{ display: "none" }}
               />
             </div>
-            <div className="upload-container">
+            {renderAddFiles && <div className="upload-container">
               <p>Add product files</p>
-              <label htmlFor="multiple-files" className="file-label">Browse</label>
               <input
                 type="file"
                 name="files"
@@ -286,9 +290,8 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
                 onChange={filesChangeHandler}
                 multiple
                 className="file-input"
-                style={{ display: "none" }}
               />
-            </div>
+            </div>}
             <div className="form-group">
               <label htmlFor="price">Price</label>
               <input
