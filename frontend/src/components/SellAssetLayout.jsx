@@ -5,6 +5,7 @@ import {
   Form,
   json,
   redirect,
+  Link,
 } from "react-router-dom";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import "./SellAssetLayout.css";
@@ -433,10 +434,11 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
                     width: "40%",
                   }}
                 >
-                  <i>
+                  <Link to={'/store/profile'} style={{ color: "black" }}>
                     Stripe is not linked to your account! Please set up your
                     Stripe authentication.
-                  </i>
+                  </Link>
+                  
                   <Button
                     disabled
                     variant="primary"
