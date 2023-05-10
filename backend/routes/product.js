@@ -272,7 +272,7 @@ productRouter.post("/products/buy/", isLoggedIn, async (req, res) => {
       console.log("Product ID is: " + product._id);
       const productId = product._id;
       await registerBuyingProductWithAccount(productId, accountId);
-      if (process.env.NODE_ENV != "backend-test") {
+      if (process.env.NODE_ENV !== "backend-test") {
         await sendSharkbotMessage(product.author, productId, req.user.id);
       }
     }
