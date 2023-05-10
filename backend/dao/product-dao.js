@@ -25,6 +25,8 @@ const getPaginatedProducts = async (page, limit, sortBy) => {
     sortCriteria = { price: 1 };
   } else if (sortBy === "priceHighToLow") {
     sortCriteria = { price: -1 };
+  } else if (sortBy === "popularity") {
+    sortCriteria = { priority: -1, amountSold: -1 };
   }
 
   const products = await Product.find()
@@ -47,6 +49,8 @@ const getPaginatedCategories = async (page, limit, userCategory, sortBy) => {
     sortCriteria = { price: 1 };
   } else if (sortBy === "priceHighToLow") {
     sortCriteria = { price: -1 };
+  } else if (sortBy === "popularity") {
+    sortCriteria = { priority: -1, amountSold: -1 };
   }
 
   const products = await Product.find({ category: { $eq: userCategory } })
@@ -121,6 +125,8 @@ const getProductsMatchingSearchTerm = async (
     sortCriteria = { price: 1 };
   } else if (sortBy === "priceHighToLow") {
     sortCriteria = { price: -1 };
+  } else if (sortBy === "popularity") {
+    sortCriteria = { priority: -1, amountSold: -1 };
   }
   // { "authors": { "$regex": "Alex", "$options": "i" } }
   const products = await Product.find({
