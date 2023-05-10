@@ -33,16 +33,29 @@ const ProductPage = () => {
         userType = "admin";
     }
 
+    // check whether the product is listed by the user
     if (author._id === loggedInUser._id){
         isOwnAccount = true;
     }
 
+    // check whether the product has already been bought by the user
+    let alreadyPurchased = false; 
+
+    console.log(loggedInUser.productsPurchased);
+
+    loggedInUser.productsPurchased.forEach((purchased) => {
+        if (purchased._id === product._id){
+            alreadyPurchased = true;
+        }
+    });
+
+    console.log("already purchased: " + alreadyPurchased, 52);
 
     console.log("user type: " + userType)
 
     return (
         <>
-            <ProductLayout product={product} author={author} reviews={reviews} userType={userType} userId={loggedInUser._id} isOwnAccount={isOwnAccount} />
+            <ProductLayout product={product} author={author} reviews={reviews} userType={userType} userId={loggedInUser._id} isOwnAccount={isOwnAccount} alreadyPurchased={alreadyPurchased}/>
         </>
     );
 }

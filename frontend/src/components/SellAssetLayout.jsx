@@ -265,20 +265,17 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
             </div>
             <div className="upload-container">
               <p>Add Cover image</p>
-              <label htmlFor="cover-image" className="file-label">Browse</label>
               <input
                 type="file"
                 name="cover-image"
                 id="cover-image"
                 onChange={coverImageChangeHandler}
-                multiple
+                required
                 className="file-input"
-                style={{ display: "none" }}
               />
             </div>
             <div className="upload-container">
               <p>Add product files</p>
-              <label htmlFor="multiple-files" className="file-label">Browse</label>
               <input
                 type="file"
                 name="files"
@@ -286,7 +283,6 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
                 onChange={filesChangeHandler}
                 multiple
                 className="file-input"
-                style={{ display: "none" }}
               />
             </div>
             <div className="form-group">
