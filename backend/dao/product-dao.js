@@ -127,6 +127,8 @@ const getProductsMatchingSearchTerm = async (
     sortCriteria = { price: -1 };
   } else if (sortBy === "popularity") {
     sortCriteria = { priority: -1, amountSold: -1 };
+  } else if (sortBy === "featured") {
+    sortCriteria = { priority: -1 };
   }
   // { "authors": { "$regex": "Alex", "$options": "i" } }
   const products = await Product.find({
