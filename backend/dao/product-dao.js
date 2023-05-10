@@ -168,20 +168,22 @@ const deleteProduct = async (productId) => {
     return null;
   }
 
-  // delete product cover image file
-  const coverImagePath = "./public/uploads/" + deletedProduct.coverImage;
-  fs.unlinkSync(coverImagePath);
+  if (process.env.NODE_ENV != "backend-test") {
+    // delete product cover image file
+    const coverImagePath = "./public/uploads/" + deletedProduct.coverImage;
+    fs.unlinkSync(coverImagePath);
 
-  // delete product download files
-  const downloadFiles = deletedProduct.files;
+    // delete product download files
+    const downloadFiles = deletedProduct.files;
 
-  for (const file of downloadFiles) {
-    const currentPath = "./public/downloadFiles/" + file;
-    console.log(path);
-    fs.unlinkSync(currentPath);
+    for (const file of downloadFiles) {
+      const currentPath = "./public/downloadFiles/" + file;
+      console.log(path);
+      fs.unlinkSync(currentPath);
+    }
+
+    console.log("Files removed successfully");
   }
-
-  console.log("Files removed successfully");
 
   return deletedProduct;
 };
