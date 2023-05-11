@@ -185,7 +185,7 @@ const ProductSearchPage = () => {
               onPageChange={(data) =>
                 pageNumberHandler(data.selected + 1, storedSearchTerm, isSearchStore)
               }
-              pageCount={Math.ceil(displayCount / ITEMS_PER_PAGE)}
+              pageCount={notFound ? 1 : Math.ceil(displayCount / ITEMS_PER_PAGE)}
               marginPagesDisplayed={1}
               pageRangeDisplayed={5}
               previousLabel={<FontAwesomeIcon icon={faChevronLeft} />} 
