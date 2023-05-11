@@ -4,10 +4,8 @@ import {
   useSubmit,
   useNavigation,
   useNavigate,
-  Form,
   json,
   useActionData, 
-  useParams
 } from "react-router-dom";
 import ProductContext from "../../store/product-context";
 import { InputGroup, DropdownButton, Dropdown } from "react-bootstrap";
@@ -25,7 +23,8 @@ const ProductLayout = ({
   userId,
   isOwnAccount,
   alreadyPurchased, 
-  productId
+  productId,
+  getReviewsByFilter
 }) => {
   const navigation = useNavigation();
   const navigate = useNavigate();
@@ -50,7 +49,7 @@ const ProductLayout = ({
   const rating3Ref = useRef(null);
   const rating4Ref = useRef(null);
   const rating5Ref = useRef(null);
-
+  
   // show the review window or hide it
   const [showAddReviewWindow, setShowAddReviewWindow] = useState(false);
 
@@ -77,12 +76,13 @@ const ProductLayout = ({
 
     // if this if statement triggers then the lines thereafter wont execute.
     if (!response.ok) {
+      console.log("set show review is being set to false")
       setShowReview(false);
+      setAlreadyReviewed(true);
+      return;
     }
 
-    const canReview = await response.json();
-    console.log(canReview);
-    setShowReview(canReview);
+    setShowReview(true);
   };
 
   // check that the user can actually post a review
@@ -141,6 +141,8 @@ const ProductLayout = ({
     // if this if statement triggers then the lines thereafter wont execute.
     if (!response.ok) {
       setShowReview(false);
+      setAlreadyReviewed(true)
+      return;
     }
 
     setShowReview(true);
@@ -241,16 +243,18 @@ const ProductLayout = ({
     });
 
     if (!response.ok){
-        // backend throws 422 when data entered in form is invalid
-        if (response.status === 422){
-            return response;
-        }
+      console.log("the response for the review handler is incorrect", 246)
+      // backend throws 422 when data entered in form is invalid
+      if (response.status === 422){
+          return response;
+      }
 
-        throw json({ message: "Could not save review."}, { status: 500 });
+      throw json({ message: "Could not save review."}, { status: 500 });
     }
 
+    console.log("the response for the review handler is fine", 255)
     // redirect the user after submitting 
-    navigate(".");
+    getReviewsByFilter('most_recent');
     closeAddReviewWindowHandler();
   }
 
@@ -296,13 +300,15 @@ const ProductLayout = ({
   const [a_title, setTitle] = useState("Sort by: Most recent");
 
   const handleSelect = (eventKey) => {
-    if (eventKey === "recent") {
+    if (eventKey === "most_recent") {
       setTitle("Sort by: Most recent");
-    } else if (eventKey === "highrate") {
+    } else if (eventKey === "highest_rating") {
       setTitle("Sort by: Highest rate");
-    } else if (eventKey === "lowrate") {
+    } else if (eventKey === "lowest_rating") {
       setTitle("Sort by: Lowest rate");
     }
+
+    getReviewsByFilter(eventKey);
   };
   const sold = product.amountSold; // Replace this variable with the actual number of sales
 
@@ -536,6 +542,7 @@ const ProductLayout = ({
               </p>
               <h1>&#x2605; {avg_rating}</h1>
             </div>
+            {alreadyReviewed && <div><p style={{ color: 'red' }}>You can't review this product.</p></div>}
             <div className="p_inline">
               {ifpurchased === "purchased" && (
                 <div>
@@ -566,13 +573,13 @@ const ProductLayout = ({
                     onSelect={handleSelect}
                     className="p_dropdownbutton dropdown-toggle"
                   >
-                    <Dropdown.Item href="#/recent" eventKey="recent">
+                    <Dropdown.Item href="#/recent" eventKey="most_recent">
                       Sort by: Most recent
                     </Dropdown.Item>
-                    <Dropdown.Item href="#/highrate" eventKey="highrate">
+                    <Dropdown.Item href="#/highrate" eventKey="highest_rating">
                       Sort by: Highest rate
                     </Dropdown.Item>
-                    <Dropdown.Item href="#/lowrate" eventKey="lowrate">
+                    <Dropdown.Item href="#/lowrate" eventKey="lowest_rating">
                       Sort by: Lowest rate
                     </Dropdown.Item>
                   </DropdownButton>
