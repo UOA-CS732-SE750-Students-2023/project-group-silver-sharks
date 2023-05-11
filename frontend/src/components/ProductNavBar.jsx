@@ -1,12 +1,30 @@
 // frontend/src/components/ProductNavBar.jsx
-import React, { useState, useEffect } from 'react';
-import { Navbar, Button, Nav, Form, InputGroup, DropdownButton, Dropdown } from 'react-bootstrap';
-import './ProductNavBar.css'; 
+import React, { useState, useEffect } from "react";
+import {
+  Navbar,
+  Button,
+  Nav,
+  Form,
+  InputGroup,
+  DropdownButton,
+  Dropdown,
+} from "react-bootstrap";
+import "./ProductNavBar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMagnifyingGlass, faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import {
+  faMagnifyingGlass,
+  faChevronDown,
+} from "@fortawesome/free-solid-svg-icons";
 
-const ProductNavBar = ({ setSearchCategory, setFilter, setSearchTerm, notFound, displayCount, category }) => {
-  const [selectedCategory, setSelectedCategory] = useState('Images');
+const ProductNavBar = ({
+  setSearchCategory,
+  setFilter,
+  setSearchTerm,
+  notFound,
+  displayCount,
+  category,
+}) => {
+  const [selectedCategory, setSelectedCategory] = useState("Images");
 
   useEffect(() => {
     setSelectedCategory(category);
@@ -20,49 +38,55 @@ const ProductNavBar = ({ setSearchCategory, setFilter, setSearchTerm, notFound, 
   // };
 
   const searchIconStyle = {
-    position: 'absolute',
-    right: '35px',
-    top: '50%',
-    transform: 'translateY(-50%)',
-    cursor: 'pointer',
+    position: "absolute",
+    right: "35px",
+    top: "50%",
+    transform: "translateY(-50%)",
+    cursor: "pointer",
     zIndex: 100,
   };
 
   const categoryHandler = (event) => {
     const buttonText = event.target.innerHTML;
-    const formattedCategory = buttonText.charAt(0) + buttonText.slice(1).toLowerCase();
+    const formattedCategory =
+      buttonText.charAt(0) + buttonText.slice(1).toLowerCase();
     setSearchCategory(formattedCategory);
     setSelectedCategory(formattedCategory);
   };
 
   const searchChangeHandler = (event) => {
     setSearchTerm(event.target.value);
-  }
+  };
 
-  const [p_title, setTitle] = useState('Sort by :\u00A0\u00A0\u00A0Default');
+  const [p_title, setTitle] = useState("Sort by :\u00A0\u00A0\u00A0Featured");
 
   const filterChangeHandler = (event) => {
     setFilter(event);
-    const ek=`${event}`
-    if(ek==='priceLowToHigh'){
+    const ek = `${event}`;
+    if (ek === "priceLowToHigh") {
       setTitle(`Price: Low to High`);
     }
-    if(ek==='priceHighToLow'){
+    if (ek === "priceHighToLow") {
       setTitle(`Price: High to Low`);
     }
-    if(ek==='popularity'){
+    if (ek === "popularity") {
+      setTitle(`Sort by :\u00A0\u00A0\u00A0Popularity`);
+    }
+    if (ek === "rating") {
+      setTitle(`Sort by :\u00A0\u00A0\u00A0Highest Rated`);
+    }
+    if (ek === "default") {
       setTitle(`Sort by :\u00A0\u00A0\u00A0Featured`);
     }
-    if(ek==='default'){
-      setTitle(`Sort by :\u00A0\u00A0\u00A0Default`);
-    }
-  }
-  
+  };
 
   return (
     <div className="gray-background-style">
       <>
-        <Form className="d-flex justify-content-center mb-3" style={{ position: 'relative' }}>
+        <Form
+          className="d-flex justify-content-center mb-3"
+          style={{ position: "relative" }}
+        >
           <div className="input-group container-of-input">
             <input
               type="search"
@@ -72,7 +96,7 @@ const ProductNavBar = ({ setSearchCategory, setFilter, setSearchTerm, notFound, 
               onChange={searchChangeHandler}
               // style={searchInputStyle}
             />
-            <FontAwesomeIcon icon={faMagnifyingGlass} style={searchIconStyle}/>
+            <FontAwesomeIcon icon={faMagnifyingGlass} style={searchIconStyle} />
           </div>
         </Form>
         <Navbar expand="lg" className="gray-background-style">
@@ -83,12 +107,18 @@ const ProductNavBar = ({ setSearchCategory, setFilter, setSearchTerm, notFound, 
                 <Button
                   onClick={categoryHandler}
                   className={`nav-link nav-button-style ${
-                    !notFound && selectedCategory === 'Images' ? 'nav-button-selected-style' : ''
+                    !notFound && selectedCategory === "Images"
+                      ? "nav-button-selected-style"
+                      : ""
                   }`}
-                  onMouseEnter={(e) => (e.target.style.backgroundColor = '#348B81')}
+                  onMouseEnter={(e) =>
+                    (e.target.style.backgroundColor = "#348B81")
+                  }
                   onMouseLeave={(e) =>
                     (e.target.style.backgroundColor =
-                      selectedCategory === 'Images' ? 'transparent' : 'transparent')
+                      selectedCategory === "Images"
+                        ? "transparent"
+                        : "transparent")
                   }
                 >
                   IMAGES
@@ -98,12 +128,18 @@ const ProductNavBar = ({ setSearchCategory, setFilter, setSearchTerm, notFound, 
                 <Button
                   onClick={categoryHandler}
                   className={`nav-link nav-button-style ${
-                    !notFound && selectedCategory === 'Videos' ? 'nav-button-selected-style' : ''
+                    !notFound && selectedCategory === "Videos"
+                      ? "nav-button-selected-style"
+                      : ""
                   }`}
-                  onMouseEnter={(e) => (e.target.style.backgroundColor = '#348B81')}
+                  onMouseEnter={(e) =>
+                    (e.target.style.backgroundColor = "#348B81")
+                  }
                   onMouseLeave={(e) =>
                     (e.target.style.backgroundColor =
-                      selectedCategory === 'Videos' ? 'transparent' : 'transparent')
+                      selectedCategory === "Videos"
+                        ? "transparent"
+                        : "transparent")
                   }
                 >
                   VIDEOS
@@ -113,12 +149,18 @@ const ProductNavBar = ({ setSearchCategory, setFilter, setSearchTerm, notFound, 
                 <Button
                   onClick={categoryHandler}
                   className={`nav-link nav-button-style ${
-                    !notFound && selectedCategory === 'Music' ? 'nav-button-selected-style' : ''
+                    !notFound && selectedCategory === "Music"
+                      ? "nav-button-selected-style"
+                      : ""
                   }`}
-                  onMouseEnter={(e) => (e.target.style.backgroundColor = '#348B81')}
+                  onMouseEnter={(e) =>
+                    (e.target.style.backgroundColor = "#348B81")
+                  }
                   onMouseLeave={(e) =>
                     (e.target.style.backgroundColor =
-                      selectedCategory === 'Music' ? 'transparent' : 'transparent')
+                      selectedCategory === "Music"
+                        ? "transparent"
+                        : "transparent")
                   }
                 >
                   MUSIC
@@ -128,12 +170,18 @@ const ProductNavBar = ({ setSearchCategory, setFilter, setSearchTerm, notFound, 
                 <Button
                   onClick={categoryHandler}
                   className={`nav-link nav-button-style ${
-                    !notFound && selectedCategory === 'Services' ? 'nav-button-selected-style' : ''
+                    !notFound && selectedCategory === "Services"
+                      ? "nav-button-selected-style"
+                      : ""
                   }`}
-                  onMouseEnter={(e) => (e.target.style.backgroundColor = '#348B81')}
+                  onMouseEnter={(e) =>
+                    (e.target.style.backgroundColor = "#348B81")
+                  }
                   onMouseLeave={(e) =>
                     (e.target.style.backgroundColor =
-                      selectedCategory === 'Services' ? 'transparent' : 'transparent')
+                      selectedCategory === "Services"
+                        ? "transparent"
+                        : "transparent")
                   }
                 >
                   SERVICES
@@ -146,7 +194,11 @@ const ProductNavBar = ({ setSearchCategory, setFilter, setSearchTerm, notFound, 
         <div className="d-flex justify-content-between align-items-center my-2 min-max-input-container-style">
           <div>
             <span>
-              <h4 className="black-text-style">{!notFound ? `Showing ${displayCount} results` : "Showing 0 results"}</h4>
+              <h4 className="black-text-style">
+                {!notFound
+                  ? `Showing ${displayCount} results`
+                  : "Showing 0 results"}
+              </h4>
             </span>
           </div>
           <div className="drop-down-container-style">
@@ -161,16 +213,21 @@ const ProductNavBar = ({ setSearchCategory, setFilter, setSearchTerm, notFound, 
                       className="dropdown-chevron-icon"
                     />
                   </>
-                } 
+                }
                 id="sort-dropdown"
                 align="end"
                 className="custom-dropdown-btn-style dropdown-toggle"
                 onSelect={filterChangeHandler}
               >
-                <Dropdown.Item eventKey="priceLowToHigh">Price: Low to High</Dropdown.Item>
-                <Dropdown.Item eventKey="priceHighToLow">Price: High to Low</Dropdown.Item>
-                <Dropdown.Item eventKey="popularity">Featured</Dropdown.Item>
-                <Dropdown.Item eventKey="default">Default</Dropdown.Item>
+                <Dropdown.Item eventKey="default">Featured</Dropdown.Item>
+                <Dropdown.Item eventKey="popularity">Popularity</Dropdown.Item>
+                <Dropdown.Item eventKey="priceLowToHigh">
+                  Price: Low to High
+                </Dropdown.Item>
+                <Dropdown.Item eventKey="priceHighToLow">
+                  Price: High to Low
+                </Dropdown.Item>
+                <Dropdown.Item eventKey="rating">Highest Rated</Dropdown.Item>
               </DropdownButton>
             </InputGroup>
           </div>
@@ -181,4 +238,3 @@ const ProductNavBar = ({ setSearchCategory, setFilter, setSearchTerm, notFound, 
 };
 
 export default ProductNavBar;
-
