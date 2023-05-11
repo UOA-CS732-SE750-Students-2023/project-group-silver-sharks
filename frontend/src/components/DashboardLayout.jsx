@@ -38,7 +38,7 @@ const DashboardLayout = ({ user }) => {
         <div className='d_background'>
             <div className='d_fdiv'> 
                 <button onClick={navigateViewMyProfile}>View my profile</button>
-                <h1 className='d_accde'>Account details</h1>
+                <h2 className='d_accde'>Account details</h2>
                 <div className='d_tablecontainer'>
                     <table className="table table-borderless">
                         <tbody>
@@ -58,7 +58,7 @@ const DashboardLayout = ({ user }) => {
                     </table>
                 </div>
 
-                <h1 className='d_accde'>Actions</h1>
+                <h2 className='d_accde'>Actions</h2>
                 <div className='d_linkcontainer'>
                     <div>
                         <button onClick={navigateDeleteAccount}>Delete account</button>
