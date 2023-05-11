@@ -124,14 +124,6 @@
         "645b761e402c2fa1d2147555",
         "645b762e402c2fa1d2147582"
       ]
-    },
-    {
-      "_id": "109761511246582815438",
-      "firstName": "Silver",
-      "lastName": "Sharks",
-      "email": "sharketplace@gmail.com",
-      "accountType": "admin",
-      "username": "SharkBot"
     }
   ],
   "Products": [
