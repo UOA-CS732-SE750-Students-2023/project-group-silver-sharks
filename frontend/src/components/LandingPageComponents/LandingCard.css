@@ -12,6 +12,10 @@
     margin-bottom: -3px;
 }
 
+.cards-item-img:hover {
+    transform: scale(1.1);
+}
+
 @media screen and (max-width: 980px) {
     .cards-item {
         width: 265px;
