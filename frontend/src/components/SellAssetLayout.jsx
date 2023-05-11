@@ -82,20 +82,6 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
     // reset the error message
     setError(false);
 
-    // print all the data returned from the form
-    console.log("after form submission !!!");
-    console.log(enteredTitle, 56);
-    console.log(enteredDescription, 57);
-    console.log(price, 58);
-    console.log(category, 59);
-    console.log(coverImage, 60);
-    console.log(files, 61);
-    console.log(priority, 62);
-    console.log("END");
-
-    // print the user id that will be needed to create the product in the backend
-    console.log(userId, 65);
-
     const productData = {
       name: enteredTitle,
       description: enteredDescription,
@@ -183,27 +169,7 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
 
     //
 
-    // second post request to submit the cover image
-    const coverImageFormData = new FormData();
-    coverImageFormData.append("files", coverImage);
-
-    const coverImageResponse = await fetch(
-      "http://localhost:3000/upload-coverimage/" + newProduct._id,
-      {
-        method: "POST",
-        body: coverImageFormData,
-      }
-    );
-
-    if (!coverImageResponse.ok) {
-      throw json(
-        {
-          message:
-            "Could not successfully submit the cover image for the sell assets action.",
-        },
-        { status: 500 }
-      );
-    }
+    let statusCode;
 
     if (category !== "Services") {
       // third post request to upload the actual art files
@@ -231,6 +197,7 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
       if (!fileResponse.ok) {
         if (fileResponse.status === 415){
           setError(true);
+          return;
         }
 
         throw json(
@@ -241,6 +208,30 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
           { status: 500 }
         );
       }
+    }
+
+    console.log("CODE GETS TO HERE", 213);
+    
+    // second post request to submit the cover image
+    const coverImageFormData = new FormData();
+    coverImageFormData.append("files", coverImage);
+
+    const coverImageResponse = await fetch(
+      "http://localhost:3000/upload-coverimage/" + newProduct._id,
+      {
+        method: "POST",
+        body: coverImageFormData,
+      }
+    );
+
+    if (!coverImageResponse.ok) {
+      throw json(
+        {
+          message:
+            "Could not successfully submit the cover image for the sell assets action.",
+        },
+        { status: 500 }
+      );
     }
 
     navigate("/store/product/" + newProduct._id);

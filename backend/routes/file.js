@@ -98,6 +98,7 @@ fileRouter.post(
       await fs.promises.unlink(
         "./public/uploads/" + productId + "-coverimage" + fileType
       );
+      await Product.findByIdAndDelete(req.params.productId);
       return res
         .status(StatusCodes.UNSUPPORTED_MEDIA_TYPE)
         .json({ message: "Unsupported file type" });
@@ -150,7 +151,7 @@ fileRouter.post(
             );
             counter++;
           }
-
+          await Product.findByIdAndDelete(req.params.productId);
           return res
             .status(StatusCodes.UNSUPPORTED_MEDIA_TYPE)
             .json({ message: "Unsupported file type" });
@@ -175,7 +176,7 @@ fileRouter.post(
             );
             counter++;
           }
-
+          await Product.findByIdAndDelete(req.params.productId);
           return res
             .status(StatusCodes.UNSUPPORTED_MEDIA_TYPE)
             .json({ message: "Unsupported file type" });
@@ -200,6 +201,7 @@ fileRouter.post(
             );
             counter++;
           }
+          await Product.findByIdAndDelete(req.params.productId);
           return res
             .status(StatusCodes.UNSUPPORTED_MEDIA_TYPE)
             .json({ message: "Unsupported file type" });
