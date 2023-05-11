@@ -231,7 +231,7 @@ productRouter.delete("/products/:productId", isLoggedIn, async (req, res) => {
     const deletedProduct = await deleteProduct(productId);
 
     // delete all reviews for product
-    ProductReview.deleteMany({ product: productId });
+    await ProductReview.deleteMany({ product: productId });
 
     // delete product from account's purchased products
     try {
