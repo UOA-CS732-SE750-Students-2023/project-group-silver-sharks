@@ -39,7 +39,7 @@ align-items: center;
   padding-bottom: 20px;
 }
 
-.landing-page-logo {
+.u-landing-page-logo {
   width: 100%;
   float: left;
   font-size: 30px;
@@ -65,11 +65,12 @@ align-items: center;
   border: 2px solid #348B81;
   color: white;
 }
-.landing-page-desc{
-  padding-top: 4.5%;
+.u-landing-page-desc{
+  padding-top: 4%;
 }
-.landing-page-desc b{
+.u-landing-page-desc b{
   font-size: 30px;
+  /* line-height:36px; */
   color: #FFFFFF;
 }
 
