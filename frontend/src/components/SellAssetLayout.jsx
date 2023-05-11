@@ -414,11 +414,12 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
               ) : (
                 <div
                 >
+                  <div>
                   <Link to={'/store/profile'} style={{ color: "black" }}>
                     Stripe is not linked to your account! Please set up your
                     Stripe authentication.
                   </Link>
-                  
+                  </div>
                   <Button
                     disabled
                     variant="primary"
