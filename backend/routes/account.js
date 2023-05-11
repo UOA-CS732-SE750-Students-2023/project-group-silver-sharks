@@ -105,7 +105,7 @@ accountRouter.get("/account", isLoggedIn, async (req, res) => {
 accountRouter.get("/account/id/:id", isLoggedIn, async (req, res) => {
   const id = req.params.id === "0" ? req.user.id : req.params.id;
   const account = await getAccountById(id);
-  console.log(account,108);
+  console.log(account, 108);
   return res.status(StatusCodes.OK).json(account);
 });
 
@@ -182,6 +182,35 @@ accountRouter.delete("/account", isLoggedIn, async (req, res) => {
     if (!account) {
       return res.status(404).json({ message: "Account not found" });
     }
+
+    // Deleting reviews and fixing average rating
+    const reviewsToDelete = await ProductReview.find({ account: req.user.id });
+
+    for (const review of reviewsToDelete) {
+      await ProductReview.deleteOne({ _id: review._id });
+
+      const product = await Product.findById(review.product);
+      if (product) {
+        product.reviews = product.reviews.filter(
+          (reviewId) => reviewId.toString() !== review._id.toString()
+        );
+
+        if (product.reviews.length > 0) {
+          let totalRating = 0;
+          for (const reviewId of product.reviews) {
+            const productReview = await ProductReview.findById(reviewId);
+            if (productReview) {
+              totalRating += productReview.rating;
+            }
+          }
+          product.averageRating = totalRating / product.reviews.length;
+        } else {
+          product.averageRating = 0;
+        }
+        await product.save();
+      }
+    }
+    // End of deleting reviews/fixing average rating
 
     if (account.sellingProducts && account.sellingProducts.length > 0) {
       for (const productId of account.sellingProducts) {
@@ -265,6 +294,37 @@ accountRouter.delete(
       if (!account) {
         return res.status(404).json({ message: "Account not found" });
       }
+
+      // Start of new modifications
+      const reviewsToDelete = await ProductReview.find({
+        account: req.params.id,
+      });
+
+      for (const review of reviewsToDelete) {
+        await ProductReview.deleteOne({ _id: review._id });
+
+        const product = await Product.findById(review.product);
+        if (product) {
+          product.reviews = product.reviews.filter(
+            (reviewId) => reviewId.toString() !== review._id.toString()
+          );
+
+          if (product.reviews.length > 0) {
+            let totalRating = 0;
+            for (const reviewId of product.reviews) {
+              const productReview = await ProductReview.findById(reviewId);
+              if (productReview) {
+                totalRating += productReview.rating;
+              }
+            }
+            product.averageRating = totalRating / product.reviews.length;
+          } else {
+            product.averageRating = 0;
+          }
+          await product.save();
+        }
+      }
+      // End of new modifications
 
       if (account.sellingProducts && account.sellingProducts.length > 0) {
         for (const productId of account.sellingProducts) {

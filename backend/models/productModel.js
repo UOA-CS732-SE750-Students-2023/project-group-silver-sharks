@@ -29,7 +29,7 @@ const productSchema = new Schema(
       default: 0,
     },
     averageRating: {
-      type: Number,
+      type: mongoose.Schema.Types.Decimal128,
       default: 0,
     },
     reviews: [
