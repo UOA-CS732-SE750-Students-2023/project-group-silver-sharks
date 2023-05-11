@@ -41,8 +41,14 @@
 .sell-asset-title h4 {
   margin-left: 9%; 
   margin-top: 30px;
-  font-family: 'Poppins';
   font-style: normal;
+  font-family: Poppins;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 36px;
+  letter-spacing: 0em;
+  text-align: left;
+
 }
 
 .form-group {
