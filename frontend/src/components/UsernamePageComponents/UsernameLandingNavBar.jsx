@@ -13,11 +13,11 @@ function LandingNavBar() {
       <div className = 'landing-page-bg'>
         <div className="landing-page-navbar-wrapper">
           <div className="sign-in-row">
-            <div className="landing-page-logo"><b>SHARKET</b>PLACE</div>
+            <div className="u-landing-page-logo"><b>SHARKET</b>PLACE</div>
             <div className="landing-page-sign-in"><button className="sign-in-button" onClick={signInHandler}>Sign In</button></div>
           </div>
           <hr className='landing-page-navbar-line'/>
-          <div className='landing-page-desc'>
+          <div className='u-landing-page-desc'>
             <b>The world's premier<br/><span>digital marketplace</span>.</b>
           </div>
           {/* <div className="landing-page-search-bar-wrapper">
