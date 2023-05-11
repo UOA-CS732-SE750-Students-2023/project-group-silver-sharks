@@ -1,15 +1,23 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import '@testing-library/jest-dom'
 import { MemoryRouter } from "react-router-dom";
 import PurchaseLayout from '../components/profile-nav/ProfileComponents/PurchaseLayout';
 import fetchMock from 'jest-fetch-mock';
+global.URL.createObjectURL = jest.fn();
 
 fetchMock.enableMocks();
 
 beforeEach(() => {
   fetch.resetMocks();
+  URL.createObjectURL.mockReset();
+  jest.spyOn(console, 'log').mockImplementation(() => {});
 });
+
+afterEach(() => {
+  console.log.mockRestore();
+});
+
 
 describe('Test PurchaseLayout component', () => {
   const purchasedAssets = [
@@ -36,20 +44,23 @@ describe('Test PurchaseLayout component', () => {
   });
   
 
-  it('triggers download function', () => {
+  it('triggers download function', async () => {
     fetch.mockResponseOnce(JSON.stringify({ data: '12345' }));
-
+  
     render(
       <MemoryRouter>
         <PurchaseLayout purchasedAssets={purchasedAssets} />
       </MemoryRouter>
     );
-
+  
     const downloadButtons = screen.getAllByText('Download files');
-    fireEvent.click(downloadButtons[0]);
-
+    await act(async () => {
+      fireEvent.click(downloadButtons[0]);
+    });
+  
     expect(fetch).toHaveBeenCalledTimes(1);
+    expect(URL.createObjectURL).toHaveBeenCalled();
   });
+  
 
-  // ... 这里可以添加更多的测试案例，例如检查导航功能等
 });
