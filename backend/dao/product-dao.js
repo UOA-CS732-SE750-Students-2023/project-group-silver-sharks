@@ -19,7 +19,8 @@ const getAllProducts = async () => {
 // retrieve products from the database with pagination
 // both page and limit need to be integers
 const getPaginatedProducts = async (page, limit, sortBy) => {
-  let sortCriteria = { priority: -1 };
+  let sortCriteria = { priority: -1, _id: 1 };
+
 
   if (sortBy === "priceLowToHigh") {
     sortCriteria = { price: 1 };
@@ -41,7 +42,8 @@ const getPaginatedProducts = async (page, limit, sortBy) => {
 };
 
 const getPaginatedCategories = async (page, limit, userCategory, sortBy) => {
-  let sortCriteria = { priority: -1 };
+  let sortCriteria = { priority: -1, _id: 1 };
+
 
   if (sortBy === "priceLowToHigh") {
     sortCriteria = { price: 1 };
@@ -115,7 +117,8 @@ const getProductsMatchingSearchTerm = async (
   limit,
   sortBy
 ) => {
-  let sortCriteria = { priority: -1 };
+  let sortCriteria = { priority: -1, _id: 1 };
+
 
   if (sortBy === "priceLowToHigh") {
     sortCriteria = { price: 1 };
