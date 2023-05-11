@@ -13,9 +13,10 @@ const ProductPage = () => {
 
     const productId = params.productid;
 
+    const [reviews, setReviews] = useState(data[2]);
+
     const product = data[0];
     const author = data[1];
-    const reviews = data[2]; 
     const loggedInUser = data[3];
 
     console.log(loggedInUser, 22)
@@ -23,6 +24,33 @@ const ProductPage = () => {
     console.log(author, 24)
 
     console.log(reviews, 26)
+
+    console.log(productId, 27);
+
+    // get reviews by filter selected in the layout 
+    const getReviewsByFilter = async (filter) => {
+        console.log(filter, 31);
+
+        const response = await fetch("http://localhost:3000/products/pid/" + productId + "/reviews?sortBy=" + filter);
+
+        // throwing will send the data to the error page
+        if (!response.ok){
+            throw json({ message: 'Could not fetch details for product.'}, {
+                status: 500,
+            });
+        }
+
+        const filteredReviews = await response.json();
+
+        console.log(filteredReviews, 46);
+        setReviews(filteredReviews);
+    }
+
+    // check the length of the reviews to conditionally render the reviews filter 
+    let showReviewFilter = true;
+    if (reviews.length === 0){  
+        showReviewFilter = false;
+    }
     
     let userType = "normal";
 
@@ -33,16 +61,29 @@ const ProductPage = () => {
         userType = "admin";
     }
 
+    // check whether the product is listed by the user
     if (author._id === loggedInUser._id){
         isOwnAccount = true;
     }
 
+    // check whether the product has already been bought by the user
+    let alreadyPurchased = false; 
+
+    console.log(loggedInUser.productsPurchased);
+
+    loggedInUser.productsPurchased.forEach((purchased) => {
+        if (purchased._id === product._id){
+            alreadyPurchased = true;
+        }
+    });
+
+    console.log("already purchased: " + alreadyPurchased, 52);
 
     console.log("user type: " + userType)
 
     return (
         <>
-            <ProductLayout product={product} author={author} reviews={reviews} userType={userType} userId={loggedInUser._id} isOwnAccount={isOwnAccount} />
+            <ProductLayout product={product} showReviewFilter={showReviewFilter} author={author} reviews={reviews} userType={userType} userId={loggedInUser._id} isOwnAccount={isOwnAccount} alreadyPurchased={alreadyPurchased} productId={productId} getReviewsByFilter={getReviewsByFilter}/>
         </>
     );
 }
@@ -131,8 +172,6 @@ export const loader = async ({request,params}) => {
 };
 
 export const action = async ({request,params}) => {
-    // getting the form data from request argument 
-    const formData = await request.formData();
 
     // get the id of the product 
     const productId = params.productid;
@@ -141,64 +180,19 @@ export const action = async ({request,params}) => {
     const method = request.method;
 
     // check whether the request is a delete or a post
+    console.log("inside the delete part of the action", 110)
 
-    if (method === 'DELETE'){ 
-
-        console.log("inside the delete part of the action", 110)
-
-        const response = await fetch("http://localhost:3000/products/" + productId, {
-            method: method,
-        });
-
-        if (!response.ok){ 
-            throw json({ message: 'Could not delete product.'}, { status: 500 });
-        }
-
-        console.log("product deleted action", 118)
-
-        // redirect to the product search page
-        return redirect('/store/product-search');
-    }
-
-    console.log("----------------------------------------------------")
-    console.log("The product id is: ");
-    console.log(productId)
-    console.log("----------------------------------------------------")
-    
-    const reviewData = {
-        text: formData.get('review'), 
-        rating: +formData.get('rating')
-    };
-
-    console.log("----------------------------------------------------")
-    console.log("this is the review object being posted to backend");
-    console.log(reviewData);
-    console.log("----------------------------------------------------")
-    
-    const url = "http://localhost:3000/products/pid/" + productId + "/review";
-    console.log(url)
-
-    const response = await fetch(url, {
+    const response = await fetch("http://localhost:3000/products/" + productId, {
         method: method,
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(reviewData)
     });
-  
-    if (!response.ok){
-        // backend throws 422 when data entered in form is invalid
-        if (response.status === 422){
-            return response;
-        }
-  
-        throw json({ message: "Could not save review."}, { status: 500 });
+
+    if (!response.ok){ 
+        throw json({ message: 'Could not delete product.'}, { status: 500 });
     }
-  
-    // redirect the user after submitting 
-    return { 
-        outcome: "success", 
-        message: "review added successfully"
-    };
+
+    console.log("product deleted action", 118)
+
+    // redirect to the product search page
+    return redirect('/store/product-search');
 };
 

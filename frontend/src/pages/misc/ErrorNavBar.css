@@ -1,0 +1,125 @@
+/*Nav bar*/
+.landing-page-bg {
+    position: static;
+    width: 100%;
+    height: 40vh;
+    background: linear-gradient(180deg, #000000 0%, #001614 50.52%, #000000 100%);
+    /* background: linear-gradient(#000000, #00251e, #00231d, #000000, #000000); */
+    display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	
+}
+
+.landing-page-navbar-wrapper {
+    width: 100%;
+    display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+/* .landing-page-navbar-wrapper > * {
+    color: white;
+} */
+
+.landing-page-navbar-line {
+    width: 80%;
+    border: none;
+    border-top: 1.5px solid white;
+    margin: 0;
+    opacity: 100%;
+    color: white;
+}
+
+.sign-in-row {
+    display: flex;
+    width: 80%;
+    padding-bottom: 20px;
+}
+
+.landing-page-logo {
+    width: 100%;
+    float: left;
+    font-size: 30px;
+    color: #FFFFFF;
+}
+.landing-page-sign-in {
+    display: flex;	
+}
+
+.sign-in-button {
+    background-color: transparent;
+    color: white;
+    border-radius: 50px;
+    border: 2px solid #FFFFFF;
+    padding: 6px 0 6px 0;
+    width: 8em;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.sign-in-button:hover{
+    background-color:#348B81;
+    border: 2px solid #348B81;
+    color: white;
+}
+.landing-page-desc{
+    padding-top: 1em;
+}
+.landing-page-desc b{
+    font-size: 30px;
+    color: #FFFFFF;
+}
+
+span {
+    color: #348B81;
+}
+
+.landing-page-search-bar-wrapper {
+    align-items: center;
+    justify-content: center;
+    padding-top: 2em;
+    position: relative;
+    display: inline-block;
+}
+.landing-page-search-bar {
+    caret-color: white;
+    width: 300px;
+    height: 40px;
+    border: 2px solid white;
+    border-radius: 50px;
+    background-color: transparent;
+    padding-bottom: 3px;
+    border-radius: 20px;
+    padding-left: 1em;
+    /* padding-right: 2em; */
+    outline: none;
+}
+.landing-page-search-bar::placeholder {
+    color: #FFFFFF;
+    font-family: Poppins;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+  }
+.landing-page-search-bar:focus::placeholder {
+    color: transparent;
+}
+.landing-page-search-bar:focus {
+    outline: none;
+}
+.landing-page-search-icon {
+    color: #FFFFFF;
+    position: absolute;
+    size:1em;
+    right: 0;
+    margin-top: 0.3em;
+    padding-top: 6px;
+    padding-right: 0.3em;
+    margin-right: 0.3em;
+    
+}

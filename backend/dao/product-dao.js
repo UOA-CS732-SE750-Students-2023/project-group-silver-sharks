@@ -19,12 +19,16 @@ const getAllProducts = async () => {
 // retrieve products from the database with pagination
 // both page and limit need to be integers
 const getPaginatedProducts = async (page, limit, sortBy) => {
-  let sortCriteria = { priority: -1 };
+  let sortCriteria = { priority: -1, _id: 1 }; // Featured
 
   if (sortBy === "priceLowToHigh") {
-    sortCriteria = { price: 1 };
+    sortCriteria = { price: 1, _id: 1 };
   } else if (sortBy === "priceHighToLow") {
-    sortCriteria = { price: -1 };
+    sortCriteria = { price: -1, _id: 1 };
+  } else if (sortBy === "popularity") {
+    sortCriteria = { amountSold: -1, _id: 1 };
+  } else if (sortBy === "rating") {
+    sortCriteria = { averageRating: -1, _id: 1 };
   }
 
   const products = await Product.find()
@@ -41,12 +45,16 @@ const getPaginatedProducts = async (page, limit, sortBy) => {
 };
 
 const getPaginatedCategories = async (page, limit, userCategory, sortBy) => {
-  let sortCriteria = { priority: -1 };
+  let sortCriteria = { priority: -1, _id: 1 }; // Featured
 
   if (sortBy === "priceLowToHigh") {
-    sortCriteria = { price: 1 };
+    sortCriteria = { price: 1, _id: 1 };
   } else if (sortBy === "priceHighToLow") {
-    sortCriteria = { price: -1 };
+    sortCriteria = { price: -1, _id: 1 };
+  } else if (sortBy === "popularity") {
+    sortCriteria = { amountSold: -1, _id: 1 };
+  } else if (sortBy === "rating") {
+    sortCriteria = { averageRating: -1, _id: 1 };
   }
 
   const products = await Product.find({ category: { $eq: userCategory } })
@@ -115,12 +123,16 @@ const getProductsMatchingSearchTerm = async (
   limit,
   sortBy
 ) => {
-  let sortCriteria = { priority: -1 };
+  let sortCriteria = { priority: -1, _id: 1 }; // Featured
 
   if (sortBy === "priceLowToHigh") {
-    sortCriteria = { price: 1 };
+    sortCriteria = { price: 1, _id: 1 };
   } else if (sortBy === "priceHighToLow") {
-    sortCriteria = { price: -1 };
+    sortCriteria = { price: -1, _id: 1 };
+  } else if (sortBy === "popularity") {
+    sortCriteria = { amountSold: -1, _id: 1 };
+  } else if (sortBy === "rating") {
+    sortCriteria = { averageRating: -1, _id: 1 };
   }
   // { "authors": { "$regex": "Alex", "$options": "i" } }
   const products = await Product.find({
@@ -168,20 +180,22 @@ const deleteProduct = async (productId) => {
     return null;
   }
 
-  // delete product cover image file
-  const coverImagePath = "./public/uploads/" + deletedProduct.coverImage;
-  fs.unlinkSync(coverImagePath);
+  if (process.env.NODE_ENV != "backend-test") {
+    // delete product cover image file
+    const coverImagePath = "./public/uploads/" + deletedProduct.coverImage;
+    fs.unlinkSync(coverImagePath);
 
-  // delete product download files
-  const downloadFiles = deletedProduct.files;
+    // delete product download files
+    const downloadFiles = deletedProduct.files;
 
-  for (const file of downloadFiles) {
-    const currentPath = "./public/downloadFiles/" + file;
-    console.log(path);
-    fs.unlinkSync(currentPath);
+    for (const file of downloadFiles) {
+      const currentPath = "./public/downloadFiles/" + file;
+      console.log(path);
+      fs.unlinkSync(currentPath);
+    }
+
+    console.log("Files removed successfully");
   }
-
-  console.log("Files removed successfully");
 
   return deletedProduct;
 };
