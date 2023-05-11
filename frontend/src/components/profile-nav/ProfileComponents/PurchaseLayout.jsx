@@ -49,7 +49,7 @@ const PurchaseLayout = ({ purchasedAssets }) => {
         <div className="purchase-assets">
           <h2>Purchased Assets</h2>
           <div className="p-assets-container">
-            <p>Showing {purchasedAssets.length} purchased assets</p>
+            <p style={{fontWeight: "600"}}>Showing {purchasedAssets.length} purchased assets</p>
             <div className="p-sco">
               {purchasedAssets.map((asset, index) => (
                 <div className="asset-item" key={index}>
@@ -65,7 +65,8 @@ const PurchaseLayout = ({ purchasedAssets }) => {
                       gap: imageHeight ? `${imageHeight * 0.02}px` : "1px",
                     }}
                   >
-                    <h3>{asset.name}</h3>
+                    {/* <h3>{asset.name}</h3> */}
+                    <button onClick={() => navigate(`/store/product/${asset._id}`)}>{asset.name}</button>
                     <p>Price: ${asset.price.toFixed(2)}</p>
                     <p>Category: {asset.category}</p>
                     {asset.category !== 'Services' && <button onClick={() => downloadFile(asset._id, asset.name)}>Download files</button>}
