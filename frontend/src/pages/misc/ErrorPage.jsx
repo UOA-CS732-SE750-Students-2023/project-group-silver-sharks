@@ -4,6 +4,7 @@ import Footer from '../../components/Footer/Footer';
 import ErrorNavBar from './ErrorNavBar';
 import PageContent from './PageContent';
 
+
 const ErrorPage = () => { 
     // hook can be used to extract information about the error
     const error = useRouteError();
