@@ -24,7 +24,8 @@ const ProductLayout = ({
   isOwnAccount,
   alreadyPurchased, 
   productId,
-  getReviewsByFilter
+  getReviewsByFilter,
+  showReviewFilter
 }) => {
   const navigation = useNavigation();
   const navigate = useNavigate();
@@ -556,7 +557,7 @@ const ProductLayout = ({
                   </button>
                 </div>
               )}
-              <div>
+              {showReviewFilter && <div>
                 <InputGroup>
                   <DropdownButton
                     variant="outline-secondary"
@@ -585,7 +586,7 @@ const ProductLayout = ({
                     </Dropdown.Item>
                   </DropdownButton>
                 </InputGroup>
-              </div>
+              </div>}
             </div>
           </div>
           {reviews.map((review, index) => (

@@ -15,7 +15,6 @@ const ProductPage = () => {
 
     const [reviews, setReviews] = useState(data[2]);
 
-
     const product = data[0];
     const author = data[1];
     const loggedInUser = data[3];
@@ -47,7 +46,11 @@ const ProductPage = () => {
         setReviews(filteredReviews);
     }
 
-
+    // check the length of the reviews to conditionally render the reviews filter 
+    let showReviewFilter = true;
+    if (reviews.length === 0){  
+        showReviewFilter = false;
+    }
     
     let userType = "normal";
 
@@ -80,7 +83,7 @@ const ProductPage = () => {
 
     return (
         <>
-            <ProductLayout product={product} author={author} reviews={reviews} userType={userType} userId={loggedInUser._id} isOwnAccount={isOwnAccount} alreadyPurchased={alreadyPurchased} productId={productId} getReviewsByFilter={getReviewsByFilter}/>
+            <ProductLayout product={product} showReviewFilter={showReviewFilter} author={author} reviews={reviews} userType={userType} userId={loggedInUser._id} isOwnAccount={isOwnAccount} alreadyPurchased={alreadyPurchased} productId={productId} getReviewsByFilter={getReviewsByFilter}/>
         </>
     );
 }

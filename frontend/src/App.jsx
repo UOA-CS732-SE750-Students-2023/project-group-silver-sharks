@@ -37,7 +37,7 @@ import { action as ClearCartAction } from './pages/StripePage';
 import { loader as MessagesLoader } from './pages/profile/MessagesPage';
 
 const router = createBrowserRouter([
-  {path:'/', element: <RootPage />, children: [
+  {path:'/', element: <RootPage />, errorElement: <ErrorPage />,children: [
     {index: true, element: <LandingPage />},
     {path: 'username', element: <UsernamePage />},
     {path: 'login', element: <LoginPage />, action: loginAction},
