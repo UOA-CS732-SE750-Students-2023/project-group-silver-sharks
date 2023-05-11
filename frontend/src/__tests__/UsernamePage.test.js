@@ -20,10 +20,10 @@ function render(ui, { route = '/' } = {}) {
 describe('Test UsernamePage component', () => {
   it('renders UsernamePage components', () => {
     render(<UsernamePage />);
-
-/*     expect(screen.getByText(/SHARKETPLACE/i)).toBeInTheDocument();
- */    expect(screen.getByText(/Please select a username/i)).toBeInTheDocument();
+  
+    expect(screen.getByText(/Please select a username/i)).toBeInTheDocument();
   });
+  
 
   it('handles form submission', async () => {
     fetch.mockResponseOnce(JSON.stringify({ data: '12345' }));
