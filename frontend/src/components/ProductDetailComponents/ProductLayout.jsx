@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import ProductContext from "../../store/product-context";
 import { InputGroup, DropdownButton, Dropdown } from "react-bootstrap";
+import moment from 'moment';
 import "./ProductLayout.css";
 import "./AddReviewForm.css";
 import "./EditProductWindow.css";
@@ -358,6 +359,24 @@ const ProductLayout = ({
     navigate("/store/profile/messages");
   };
 
+  const convertToDaysAgo = (isoDate) => {
+    console.log("DATE FROM REVIEW " + isoDate)
+    const date = moment(isoDate);
+    const now = moment();
+    const daysAgo = now.diff(date, 'days');
+    if (daysAgo === 0) {
+      const hoursAgo = now.diff(date, 'hours');
+      if (hoursAgo === 0) {return `now`;}
+      else if (hoursAgo === 1) {return `1 hour ago`;}
+      return `${hoursAgo} hours ago`;
+    }
+    else if (daysAgo === 1) { 
+      return `1 day ago`;
+    }
+    return `${daysAgo} days ago`;
+  };
+  
+
   return (
     <div className="product-layout">
       {showAddReviewWindow && (
@@ -604,7 +623,7 @@ const ProductLayout = ({
                       <p>&#x2605; {review.rating}</p>
                     </div>
                     <div className="col-sm-8">
-                      <p>3 days ago</p>
+                      <p>{convertToDaysAgo(review.createdAt)}</p>
                     </div>
                   </div>
                 </div>
