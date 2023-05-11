@@ -15,7 +15,7 @@ const LandingLayout = () => {
   useEffect(() => {
     const onScroll = () => {
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const newOpacity = Math.min(scrollTop / 750 + 0.1, 1);
+      const newOpacity = Math.min(scrollTop / 750, 1);
       setOpacity(newOpacity);
       setScrollPosition(scrollTop);
     };
@@ -24,9 +24,14 @@ const LandingLayout = () => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const translateY = scrollPosition * 0.8; // Adjust the multiplier to control the speed of the upward movement
-  const textOpacity = 1 - scrollPosition / 800; // Adjust the divisor to control the speed of the text and button opacity reduction
+  // Get Started section
+  const translateYDown = scrollPosition * 0.8;
+  const textOpacityGetStarted = 1 - scrollPosition / 800; // Text reveals fullly at 800 px down
   
+  // Sell your talent section
+  const translateYUp = Math.min(-scrollPosition * 0.2 + 900, 0);
+  const textOpacitySellThese = (scrollPosition - 400) / 800; // Text only reveals if user has scrolled 400 px down, and maxes at 800 px
+
   // Initialise particle engine
   const particlesInit = useCallback(async (engine) => {
     console.log(engine);
@@ -50,8 +55,8 @@ const LandingLayout = () => {
         <div
           className="landing-page-main-wrapper"
           style={{
-            transform: `translateY(${translateY}px)`,
-            opacity: `${Math.max(textOpacity, 0)}`,
+            transform: `translateY(${translateYDown}px)`,
+            opacity: `${Math.max(textOpacityGetStarted, 0)}`,
           }}
         >
           <div className="landing-page-logo">Welcome to <br/><b>SHARKET</b>PLACE</div>
@@ -65,6 +70,7 @@ const LandingLayout = () => {
             options={{
               fullScreen: { enable: false },
                 background: {
+                  opacity: 0,
                   color: {
                     value: "#000000",
                   },
@@ -93,14 +99,15 @@ const LandingLayout = () => {
                   },
                },
                 particles: {
+                  opacity: 0.1,
                   color: {
-                    value: "#92ff8c",
+                    value: "#648962",
                   },
                   links: {
-                    color: "#085e00",
+                    color: "#126a0a",
                     distance: 150,
                     enable: true,
-                    opacity: 0.4,
+                    opacity: 0.2,
                     width: 1,
                   },
                   collisions: {
@@ -119,12 +126,9 @@ const LandingLayout = () => {
                   number: {
                     density: {
                       enable: true,
-                      area: 800,
+                      area: 500, // Number of particles per area unit aka density
                     },
-                    value: 100,
-                  },
-                  opacity: {
-                    value: 0.3,
+                    value: 20, // Number of particles per area
                   },
                   shape: {
                     type: "circle",
@@ -136,8 +140,18 @@ const LandingLayout = () => {
                 detectRetina: true
             }}
           />
+          <div
+          className="landing-page-desc-wrapper"
+          style={{
+            transform: `translateY(${translateYUp}px)`,
+            opacity: `${Math.max(textOpacitySellThese, 0)}`,
+            }}
+          >
+            <div className="landing-page-desc">Buy and Sell your <span>TALENT</span></div>
+          </div>
           <div className="landing-page-card-wrapper">
             <LandingCard
+              onClick={navigateSignupHandler}
               src="/LandingPageImages/Images.png"
               title="Images"
               text="Elevate your digital projects with stunning images produced by talented artists."
