@@ -25,6 +25,9 @@ Sharketplace is a full-stack web application that allows users to buy and sell d
 - **Socket.io**: Chat/private messaging functionality
 - **Stripe**: Allowing users to make and accept payments
 - **Google OAuth2 & Passport.js**: Handling sign-in and authentication
+- **Bootstrap**: For frontent styling
+- **Recat Paginate**: Library for pagination
+- **React tsParticles**: Library for particle effect on landing page
 - **Moment.js**: Library for formatting timestamps
 
 ## Run locally
