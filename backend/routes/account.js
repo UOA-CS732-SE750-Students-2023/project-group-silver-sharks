@@ -219,7 +219,7 @@ accountRouter.delete("/account", isLoggedIn, async (req, res) => {
           const deletedProduct = await Product.findByIdAndRemove(productId);
 
           // delete all reviews for product
-          ProductReview.deleteMany({ product: productId });
+          await ProductReview.deleteMany({ product: productId });
 
           // delete product from account's purchased products
           try {
@@ -333,7 +333,7 @@ accountRouter.delete(
             const deletedProduct = await Product.findByIdAndRemove(productId);
 
             // delete all reviews for product
-            ProductReview.deleteMany({ product: productId });
+            await ProductReview.deleteMany({ product: productId });
 
             // delete product from account's purchased products
             try {
