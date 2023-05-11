@@ -175,7 +175,7 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
     <>
       <div className="messages-container">
         <div className="header">
-          <h2>Direct messages</h2>
+          <h3>Direct messages</h3>
         </div>
         <div className="chat-area">
           <div className="tab" style={{ overflow: "auto", maxHeight: "700px" }}>

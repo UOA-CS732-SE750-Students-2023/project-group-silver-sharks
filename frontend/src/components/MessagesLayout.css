@@ -77,18 +77,8 @@
 
 
 }
-
 .header {
   margin-bottom: 10px;
-  color: #333;
-  margin-bottom: 20px;
-  font-weight: bold;
-  font-family: 'Poppins';
-  /* font-size: 24px;
-  font-weight: 600;
-  line-height: 36px;
-  letter-spacing: 0em;
-  text-align: left; */
 }
 
 .messages-container {
