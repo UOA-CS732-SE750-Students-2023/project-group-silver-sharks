@@ -312,6 +312,7 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
                   onChange={filesChangeHandler}
                   multiple
                   className="file-input"
+                  required
                 />
               </div>
             )}

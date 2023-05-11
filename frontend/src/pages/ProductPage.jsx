@@ -13,9 +13,11 @@ const ProductPage = () => {
 
     const productId = params.productid;
 
+    const [reviews, setReviews] = useState(data[2]);
+
+
     const product = data[0];
     const author = data[1];
-    const reviews = data[2]; 
     const loggedInUser = data[3];
 
     console.log(loggedInUser, 22)
@@ -24,7 +26,28 @@ const ProductPage = () => {
 
     console.log(reviews, 26)
 
-    console.log(productId, 27)
+    console.log(productId, 27);
+
+    // get reviews by filter selected in the layout 
+    const getReviewsByFilter = async (filter) => {
+        console.log(filter, 31);
+
+        const response = await fetch("http://localhost:3000/products/pid/" + productId + "/reviews?sortBy=" + filter);
+
+        // throwing will send the data to the error page
+        if (!response.ok){
+            throw json({ message: 'Could not fetch details for product.'}, {
+                status: 500,
+            });
+        }
+
+        const filteredReviews = await response.json();
+
+        console.log(filteredReviews, 46);
+        setReviews(filteredReviews);
+    }
+
+
     
     let userType = "normal";
 
@@ -57,7 +80,7 @@ const ProductPage = () => {
 
     return (
         <>
-            <ProductLayout product={product} author={author} reviews={reviews} userType={userType} userId={loggedInUser._id} isOwnAccount={isOwnAccount} alreadyPurchased={alreadyPurchased} productId={productId}/>
+            <ProductLayout product={product} author={author} reviews={reviews} userType={userType} userId={loggedInUser._id} isOwnAccount={isOwnAccount} alreadyPurchased={alreadyPurchased} productId={productId} getReviewsByFilter={getReviewsByFilter}/>
         </>
     );
 }
