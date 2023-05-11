@@ -28,22 +28,6 @@ const ProductNavBar = ({ setSearchCategory, setFilter, setSearchTerm, notFound, 
     zIndex: 100,
   };
 
-  const minpriceChangeHandler = (event) => {
-    const inputPrice = event.target.value;
-    if (inputPrice >= 0) {
-      setPrice(inputPrice);
-    }else{
-      event.target.value = 0; 
-    }
-  };
-  const maxpriceChangeHandler = (event) => {
-    const inputPrice = event.target.value;
-    if (inputPrice >= 0) {
-      setPrice(inputPrice);
-    }else{
-      event.target.value = 0; 
-    }
-  };
   const categoryHandler = (event) => {
     const buttonText = event.target.innerHTML;
     const formattedCategory = buttonText.charAt(0) + buttonText.slice(1).toLowerCase();
@@ -152,38 +136,6 @@ const ProductNavBar = ({ setSearchCategory, setFilter, setSearchTerm, notFound, 
             </Nav>
           </Navbar.Collapse>
         </Navbar>
-        
-        <div className="d-flex justify-content-start my-2 min-max-input-container-style">
-          <div className="d-flex flex-column me-1">
-            <label htmlFor="min-price" className="form-label">
-              Min price
-            </label>
-            <input
-              type="number"
-              className="form-control min-max-input-style"
-              id="min-price"
-              aria-label="Min price"
-              onChange={minpriceChangeHandler}
-              min="0"
-            />
-          </div>
-          <div className="d-flex flex-column">
-            <label htmlFor="max-price" className="form-label">
-              Max price
-            </label>
-            <div className="d-flex align-items-center">
-              <input
-                type="number"
-                className="form-control min-max-input-style"
-                id="max-price"
-                aria-label="Max price"
-                onChange={maxpriceChangeHandler}
-                min="0"
-              />
-              <FontAwesomeIcon icon={faMagnifyingGlass} style={{ fontSize: '1.5rem', marginLeft: '15px' }}/>
-            </div>
-          </div>
-        </div>
 
         <div className="d-flex justify-content-between align-items-center my-2 min-max-input-container-style">
           <div>
