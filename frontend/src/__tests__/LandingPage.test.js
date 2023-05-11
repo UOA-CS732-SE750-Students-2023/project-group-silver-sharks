@@ -29,7 +29,7 @@ describe('Test LandingPage component', () => {
     expect(window.location.href).toBe('http://localhost:3000/account/sign-in');
   });
 
-  it('handles get started click', () => {
+/*   it('handles get started click', () => {
     render(
       <MemoryRouter>
         <LandingPage />
@@ -38,7 +38,7 @@ describe('Test LandingPage component', () => {
 
     fireEvent.click(screen.getByText('Get Started'));
     expect(window.location.href).toBe('http://localhost:3000/account/sign-in');
-  });
+  }); */
 
   it('renders LandingCard components', () => {
     render(

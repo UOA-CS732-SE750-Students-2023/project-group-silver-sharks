@@ -1,18 +1,27 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
-import ErrorPage from '../pages/misc/ErrorPage';
+import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom'
-describe('Test ErrorPage', () => {
-  it('Check error message', () => {
-    const text = 'Error has occurred';
-    const { getByText } = render(<ErrorPage />);
-    expect(getByText(text)).toBeInTheDocument();
-  });
+import { MemoryRouter } from "react-router-dom";
+import ErrorPage from '../pages/misc/ErrorPage';
 
-  it('Check error message', () => {
-    const text = 'Describe what the error is';
-    const { getByText } = render(<ErrorPage />);
-    expect(getByText(text)).toBeInTheDocument();
-  });
+// Mock react-router-dom hook
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useRouteError: () => ({
+    message: 'Mock error message',
+    status: 404,
+  }),
+}));
 
+describe('Test ErrorPage component', () => {
+  it('renders ErrorPage and displays error message', () => {
+    render(
+      <MemoryRouter>
+        <ErrorPage />
+      </MemoryRouter>
+    );
+
+    expect(screen.getByText('Resource Not Found')).toBeInTheDocument();
+    expect(screen.getByText('Mock error message')).toBeInTheDocument();
+  });
 });
