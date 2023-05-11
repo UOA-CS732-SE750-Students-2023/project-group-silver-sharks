@@ -32,7 +32,9 @@
     "react-router-dom": "^6.11.1",
     "react-scripts": "5.0.1",
     "react-scroll-to-bottom": "^4.2.0",
+    "react-tsparticles": "^2.9.3",
     "socket.io-client": "^4.6.1",
+    "tsparticles": "^2.9.3",
     "url": "^0.11.0",
     "url-search-params": "^1.1.0"
   },

@@ -2,20 +2,31 @@
     width: 100%;
     background-color: white;
     display: flex;
-    flex: 1;
+    flex-direction: column;
     margin: 0 1rem;
+    border-radius: 30px;
+    
 }
+
+.cards-item:hover {
+    transform: scale(1.1);
+    transition-duration: 0.2s;
+    cursor: pointer;
+}
+
+img {
+    border: 2px;
+    color: white;
+    border-top-left-radius: 28px;
+    border-top-right-radius: 28px;
+}
+
 .cards-item-info > * {
     color: black;
     text-decoration: none;
     padding: 1rem;
-    margin-bottom: -3px;
+    margin-bottom: -5px;
 }
-
-.cards-item-link:hover {
-    text-decoration: none;
-}
-
 @media screen and (max-width: 980px) {
     .cards-item {
         width: 265px;

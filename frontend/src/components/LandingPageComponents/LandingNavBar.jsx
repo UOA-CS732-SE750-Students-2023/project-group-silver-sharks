@@ -28,6 +28,7 @@ function LandingNavBar() {
             <SearchIcon className='landing-page-search-icon'/> */}
           </div>
         </div>
+        
       </div>
     </>
   );
