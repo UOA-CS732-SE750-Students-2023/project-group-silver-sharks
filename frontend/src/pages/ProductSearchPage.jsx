@@ -42,6 +42,7 @@ const ProductSearchPage = () => {
   const filterHandler = async (filter) => {
     setIsSearchStore(false);
     setFilter(filter);
+    setPageNumber(1);
     const response = await handleItemsChange(1, undefined, filter, false, undefined)
 
     setChangeState((previous => !previous));
