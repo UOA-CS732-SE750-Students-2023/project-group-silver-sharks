@@ -539,7 +539,7 @@ const ProductLayout = ({
                   </p>
                 </div>
               </div>
-              <p>&#x2605; {avg_rating.toFixed(1)}</p>
+              <p>&#x2605; {totalAmount > 0 ? average_ra.toFixed(1) : "Not available"}</p>
               <div className="product-buttons">
                 <div className="d-flex justify-content-between">
                   <div>
@@ -592,7 +592,7 @@ const ProductLayout = ({
               <p>
                 {totalAmount}&nbsp;{reviewnumber}
               </p>
-              <h1>&#x2605; {avg_rating.toFixed(1)}</h1>
+              <h1>&#x2605; {totalAmount > 0 ? average_ra.toFixed(1) : "Not available"}</h1>
             </div>
             <div className="p_inline">
               {ifpurchased === "purchased" && (
