@@ -25,6 +25,12 @@
   margin-left: 10%;
 } */
 
+.error-message {
+  display: flex;
+  color: red;
+  font-weight: 400;
+  justify-content: center;
+}
 
 
 /* .form-container {

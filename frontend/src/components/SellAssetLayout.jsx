@@ -5,6 +5,7 @@ import {
   Form,
   json,
   redirect,
+  Link,
 } from "react-router-dom";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import "./SellAssetLayout.css";
@@ -21,6 +22,7 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
   const [files, setFiles] = useState([]);
   const [category, setCategory] = useState("Images");
   const [price, setPrice] = useState(0);
+  const [error, setError] = useState(false);
   const [renderAddFiles, setRenderAddFiles] = useState(true);
   const stripe = useStripe();
   const elements = useElements();
@@ -76,6 +78,9 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
 
   const submitHandler = async (event) => {
     event.preventDefault();
+
+    // reset the error message
+    setError(false);
 
     // print all the data returned from the form
     console.log("after form submission !!!");
@@ -224,6 +229,10 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
       );
 
       if (!fileResponse.ok) {
+        if (fileResponse.status === 415){
+          setError(true);
+        }
+
         throw json(
           {
             message:
@@ -236,7 +245,9 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
 
     navigate("/store/product/" + newProduct._id);
   };
+  
   console.log("STRIPE USER ID IN SELL ASSET: " + userStripeId);
+
   return (
     <Container fluid className="container-fluid">
       <Row className="mt-5"></Row>
@@ -279,6 +290,7 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
               />
               <span className="required-star-des">*</span>
             </div>
+            {error && <div className="error-message">Incorrect File type being uploaded</div>}
             <div className="upload-container">
               <p>Add Cover image</p>
               <input
@@ -415,10 +427,11 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
                     width: "40%",
                   }}
                 >
-                  <i>
+                  <Link to={'/store/profile'} style={{ color: "black" }}>
                     Stripe is not linked to your account! Please set up your
                     Stripe authentication.
-                  </i>
+                  </Link>
+                  
                   <Button
                     disabled
                     variant="primary"

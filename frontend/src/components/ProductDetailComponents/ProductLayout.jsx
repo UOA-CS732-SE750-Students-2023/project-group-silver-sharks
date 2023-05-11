@@ -6,6 +6,8 @@ import {
   useNavigate,
   Form,
   json,
+  useActionData, 
+  useParams
 } from "react-router-dom";
 import ProductContext from "../../store/product-context";
 import { InputGroup, DropdownButton, Dropdown } from "react-bootstrap";
@@ -22,13 +24,17 @@ const ProductLayout = ({
   userType,
   userId,
   isOwnAccount,
-  alreadyPurchased
+  alreadyPurchased, 
+  productId
 }) => {
   const navigation = useNavigation();
   const navigate = useNavigate();
   const isSubmitting = navigation.state === "submitting";
   const [letAddToCart, setLetAddToCart] = useState(false);
   const [addToCartText, setAddToCartText] = useState("Add to cart");
+  const [alreadyReviewed, setAlreadyReviewed] = useState(false);
+  const submitData = useActionData();
+  const [error, setError] = useState(false);
 
   // trigger an action programmatically
   const submit = useSubmit();
@@ -38,6 +44,12 @@ const ProductLayout = ({
   const nameInputRef = useRef();
   const descriptionInputRef = useRef();
   const priceInputRef = useRef();
+  const textInputRef = useRef(); 
+  const rating1Ref = useRef(null);
+  const rating2Ref = useRef(null);
+  const rating3Ref = useRef(null);
+  const rating4Ref = useRef(null);
+  const rating5Ref = useRef(null);
 
   // show the review window or hide it
   const [showAddReviewWindow, setShowAddReviewWindow] = useState(false);
@@ -65,7 +77,7 @@ const ProductLayout = ({
 
     // if this if statement triggers then the lines thereafter wont execute.
     if (!response.ok) {
-      throw new Error("Something went wrong!");
+      setShowReview(false);
     }
 
     const canReview = await response.json();
@@ -120,21 +132,18 @@ const ProductLayout = ({
   const avg_rating = totalAmount > 0 ? average_ra : "Not available";
 
   const addReviewWindowHandler = async () => {
+
+    console.log("addreviewwindowhandler", 136);
     const response = await fetch(
       "http://localhost:3000/products/pid/" + product._id + "/can-review"
     );
 
     // if this if statement triggers then the lines thereafter wont execute.
     if (!response.ok) {
-      throw new Error("Something went wrong!");
+      setShowReview(false);
     }
 
-    const canReview = await response.json();
-
-    if (!canReview) {
-      setShowReview(canReview);
-      return;
-    }
+    setShowReview(true);
 
     setShowAddReviewWindow(true);
   };
@@ -185,6 +194,65 @@ const ProductLayout = ({
     // reload the page so the cart gets updated
     window.location.reload();
   };
+
+  const getSelectedValue = () => {
+    const radioRefs = [rating1Ref, rating2Ref, rating3Ref, rating4Ref, rating5Ref];
+
+    for (const radioRef of radioRefs) {
+      if (radioRef.current.checked) {
+        return radioRef.current.value;
+      }
+    }
+
+    return null;
+  };
+
+  const addReviewSubmitHandler = async (event) => {
+    event.preventDefault();
+    // reset the error message 
+    setError(false);
+
+    // get the form data
+    const text = textInputRef.current.value;
+    const rating = getSelectedValue();
+
+    console.log("text: ", text, 222);
+    console.log("rating: ", rating, 223);
+
+    if (!rating){
+      // display error message
+      setError(true);
+      return;
+    }
+
+    const reviewData = {
+      text: text, 
+      rating: +rating
+    }
+    
+    const url = "http://localhost:3000/products/pid/" + productId + "/review";
+
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(reviewData)
+    });
+
+    if (!response.ok){
+        // backend throws 422 when data entered in form is invalid
+        if (response.status === 422){
+            return response;
+        }
+
+        throw json({ message: "Could not save review."}, { status: 500 });
+    }
+
+    // redirect the user after submitting 
+    navigate(".");
+    closeAddReviewWindowHandler();
+  }
 
   const editProductSubmitHandler = async (event) => {
     event.preventDefault();
@@ -294,31 +362,33 @@ const ProductLayout = ({
             className="add-review-container"
             onClick={(e) => e.stopPropagation()}
           >
-            <Form method="POST">
+            <form onSubmit={addReviewSubmitHandler}>
               <h2>Add Review</h2>
+              {error && <div><p style={{ color: "red" }}>Please select a value for both fields.</p></div>}
               <textarea
                 calssName="edit-review"
                 rows="4"
                 placeholder="Your review"
                 id="review"
                 name="review"
+                ref={textInputRef}
               ></textarea>
               <div className="rating-container">
                 <label htmlFor="rating">Rating</label>
                 <div className="star-rating">
-                  <input type="radio" id="rating5" name="rating" value="5" />
+                  <input type="radio" id="rating5" name="rating" value="5" ref={rating5Ref} />
                   <label htmlFor="rating5"></label>
 
-                  <input type="radio" id="rating4" name="rating" value="4" />
+                  <input type="radio" id="rating4" name="rating" value="4" ref={rating4Ref} />
                   <label htmlFor="rating4"></label>
 
-                  <input type="radio" id="rating3" name="rating" value="3" />
+                  <input type="radio" id="rating3" name="rating" value="3" ref={rating3Ref} />
                   <label htmlFor="rating3"></label>
 
-                  <input type="radio" id="rating2" name="rating" value="2" />
+                  <input type="radio" id="rating2" name="rating" value="2" ref={rating2Ref} />
                   <label htmlFor="rating2"></label>
 
-                  <input type="radio" id="rating1" name="rating" value="1" />
+                  <input type="radio" id="rating1" name="rating" value="1" ref={rating1Ref} />
                   <label htmlFor="rating1"></label>
                 </div>
               </div>
@@ -335,7 +405,7 @@ const ProductLayout = ({
               >
                 Cancel
               </button>
-            </Form>
+            </form>
           </div>
         </div>
       )}
@@ -543,59 +613,3 @@ const ProductLayout = ({
 };
 
 export default ProductLayout;
-
-/* import React, { useState, useContext } from 'react';
-import { Link } from "react-router-dom";
-import ProductContext from '../../store/product-context';
-
-const ProductLayout = ({ product, author, reviews }) => { 
-    const productCtx = useContext(ProductContext);
-
-    const addReviewWindowHandler = () => {    
-        // give the add review window the product id
-        productCtx.showReview();
-    }
-
-    console.log("-----------------------------------------")
-    console.log(reviews)
-    console.log("-----------------------------------------")
-
-
-
-    return (
-        <div>
-            <h1>{product.name}</h1>
-            <p>{product.description}</p>
-            <p>{`Price: ${product.price}`}</p>
-            <Link to={`/store/author/${author._id}`}><p style={{ color: '#000000' }}>{author.username}</p></Link>
-            <img src={'http://localhost:3000/uploads/' + product.coverImage} width="100px" height="100px"/>
-            {reviews.map((review) => (
-            <li key={review._id} >
-                    <span>
-                        <h3>Review:</h3>
-                        <p>{review.text}</p>
-                    </span>
-                    <br />
-                    <span>
-                        <h3>Rating:</h3>
-                        <p>{review.rating}</p>
-                    </span>
-                    <br />
-                    <span>
-                        <h3>Review By</h3>
-                        <Link to={"/store/author/" + review.account._id}><p style={{ color: '#000000' }}>{review.account.username}</p></Link>
-                    </span>
-                    <hr />
-            </li>
-            ))}
-
-            <button onClick={addReviewWindowHandler}>Add Review</button>
-        </div>
-    );
-}
-
-export default ProductLayout;
-
-// <Link to={`/store/author/${author._id}`}><p>{author.username}</p></Link>
-
- */
