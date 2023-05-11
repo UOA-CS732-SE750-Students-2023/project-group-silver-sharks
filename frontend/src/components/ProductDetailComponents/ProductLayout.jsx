@@ -528,12 +528,14 @@ const ProductLayout = ({
           <div className="product-right">
             <p>Description:</p>
             <p>{product.description}</p>
+            <p className="p-hint-right">You can only review products that you have purchased.</p>
           </div>
         </div>
       </div>
 
       <div className="reviews-container">
         <h2>Reviews</h2>
+        <div className="p-hint">{alreadyReviewed && <div><p style={{ color: 'red' }}>You can't review this product.</p></div>}</div>
         <div className="product-reviews">
           <div className="p_headofreview d-flex justify-content-between">
             <div>
@@ -542,7 +544,6 @@ const ProductLayout = ({
               </p>
               <h1>&#x2605; {avg_rating}</h1>
             </div>
-            {alreadyReviewed && <div><p style={{ color: 'red' }}>You can't review this product.</p></div>}
             <div className="p_inline">
               {ifpurchased === "purchased" && (
                 <div>

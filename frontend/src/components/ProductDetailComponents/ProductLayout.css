@@ -156,7 +156,7 @@
   background-color: #fff;
   padding: 25px;
   border-radius: 4px;
-  margin-top: 40px;
+  /* margin-top: 10px; */
 }
 
 .p_headofreview{
@@ -344,4 +344,14 @@
   background-color: #5e5e5e;
   border: 2px solid #5e5e5e;
   cursor: not-allowed;
+}
+.p-hint{
+  margin:10px 10%;
+}
+.p-hint-right{
+  margin-top: 35px;
+  color: #363535;
+  font-size: 25px;
+  font-weight: 600;
+  line-height: 24px;
 }
