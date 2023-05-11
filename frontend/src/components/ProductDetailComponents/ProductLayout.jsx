@@ -5,7 +5,7 @@ import {
   useNavigation,
   useNavigate,
   json,
-  useActionData, 
+  useActionData,
 } from "react-router-dom";
 import ProductContext from "../../store/product-context";
 import { InputGroup, DropdownButton, Dropdown } from "react-bootstrap";
@@ -22,10 +22,10 @@ const ProductLayout = ({
   userType,
   userId,
   isOwnAccount,
-  alreadyPurchased, 
+  alreadyPurchased,
   productId,
   getReviewsByFilter,
-  showReviewFilter
+  showReviewFilter,
 }) => {
   const navigation = useNavigation();
   const navigate = useNavigate();
@@ -44,13 +44,13 @@ const ProductLayout = ({
   const nameInputRef = useRef();
   const descriptionInputRef = useRef();
   const priceInputRef = useRef();
-  const textInputRef = useRef(); 
+  const textInputRef = useRef();
   const rating1Ref = useRef(null);
   const rating2Ref = useRef(null);
   const rating3Ref = useRef(null);
   const rating4Ref = useRef(null);
   const rating5Ref = useRef(null);
-  
+
   // show the review window or hide it
   const [showAddReviewWindow, setShowAddReviewWindow] = useState(false);
 
@@ -77,7 +77,7 @@ const ProductLayout = ({
 
     // if this if statement triggers then the lines thereafter wont execute.
     if (!response.ok) {
-      console.log("set show review is being set to false")
+      console.log("set show review is being set to false");
       setShowReview(false);
       setAlreadyReviewed(true);
       return;
@@ -91,34 +91,36 @@ const ProductLayout = ({
     checkCanReview().catch((error) => {
       console.log(error);
     });
-    
+
     if (alreadyPurchased) {
-      setAddToCartText("Purchased"); 
+      setAddToCartText("Purchased");
       setLetAddToCart(false);
     }
 
-    if (isOwnAccount){
-      setAddToCartText("Listed by you"); 
+    if (isOwnAccount) {
+      setAddToCartText("Listed by you");
       setLetAddToCart(false);
     }
 
     let inCart = false;
 
-    checkItemInCart().then((output) => {
-      console.log("inside the return")
-      console.log("output: ", output, 96) 
-        
-      if (output){
-        setAddToCartText("In Cart"); 
-        setLetAddToCart(false);
-      }
-    }).catch((error) => {
-      console.log('Error:', error);
-    });
+    checkItemInCart()
+      .then((output) => {
+        console.log("inside the return");
+        console.log("output: ", output, 96);
 
-    if (!inCart && !isOwnAccount && !alreadyPurchased){
+        if (output) {
+          setAddToCartText("In Cart");
+          setLetAddToCart(false);
+        }
+      })
+      .catch((error) => {
+        console.log("Error:", error);
+      });
+
+    if (!inCart && !isOwnAccount && !alreadyPurchased) {
       setAddToCartText("Add to cart");
-      setLetAddToCart(true); 
+      setLetAddToCart(true);
     }
   }, []);
 
@@ -133,7 +135,6 @@ const ProductLayout = ({
   const avg_rating = totalAmount > 0 ? average_ra : "Not available";
 
   const addReviewWindowHandler = async () => {
-
     console.log("addreviewwindowhandler", 136);
     const response = await fetch(
       "http://localhost:3000/products/pid/" + product._id + "/can-review"
@@ -142,7 +143,7 @@ const ProductLayout = ({
     // if this if statement triggers then the lines thereafter wont execute.
     if (!response.ok) {
       setShowReview(false);
-      setAlreadyReviewed(true)
+      setAlreadyReviewed(true);
       return;
     }
 
@@ -175,7 +176,6 @@ const ProductLayout = ({
   };
 
   const addToCartHandler = async () => {
-
     // making the GET request to the backend to add to cart
     //"/account/cart/pid/:pid"
 
@@ -199,7 +199,13 @@ const ProductLayout = ({
   };
 
   const getSelectedValue = () => {
-    const radioRefs = [rating1Ref, rating2Ref, rating3Ref, rating4Ref, rating5Ref];
+    const radioRefs = [
+      rating1Ref,
+      rating2Ref,
+      rating3Ref,
+      rating4Ref,
+      rating5Ref,
+    ];
 
     for (const radioRef of radioRefs) {
       if (radioRef.current.checked) {
@@ -212,7 +218,7 @@ const ProductLayout = ({
 
   const addReviewSubmitHandler = async (event) => {
     event.preventDefault();
-    // reset the error message 
+    // reset the error message
     setError(false);
 
     // get the form data
@@ -222,42 +228,42 @@ const ProductLayout = ({
     console.log("text: ", text, 222);
     console.log("rating: ", rating, 223);
 
-    if (!rating){
+    if (!rating) {
       // display error message
       setError(true);
       return;
     }
 
     const reviewData = {
-      text: text, 
-      rating: +rating
-    }
-    
+      text: text,
+      rating: +rating,
+    };
+
     const url = "http://localhost:3000/products/pid/" + productId + "/review";
 
     const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(reviewData)
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(reviewData),
     });
 
-    if (!response.ok){
-      console.log("the response for the review handler is incorrect", 246)
+    if (!response.ok) {
+      console.log("the response for the review handler is incorrect", 246);
       // backend throws 422 when data entered in form is invalid
-      if (response.status === 422){
-          return response;
+      if (response.status === 422) {
+        return response;
       }
 
-      throw json({ message: "Could not save review."}, { status: 500 });
+      throw json({ message: "Could not save review." }, { status: 500 });
     }
 
-    console.log("the response for the review handler is fine", 255)
-    // redirect the user after submitting 
-    getReviewsByFilter('most_recent');
+    console.log("the response for the review handler is fine", 255);
+    // redirect the user after submitting
+    getReviewsByFilter("most_recent");
     closeAddReviewWindowHandler();
-  }
+  };
 
   const editProductSubmitHandler = async (event) => {
     event.preventDefault();
@@ -371,7 +377,13 @@ const ProductLayout = ({
           >
             <form onSubmit={addReviewSubmitHandler}>
               <h2>Add Review</h2>
-              {error && <div><p style={{ color: "red" }}>Please select a value for both fields.</p></div>}
+              {error && (
+                <div>
+                  <p style={{ color: "red" }}>
+                    Please select a value for both fields.
+                  </p>
+                </div>
+              )}
               <textarea
                 calssName="edit-review"
                 rows="4"
@@ -383,19 +395,49 @@ const ProductLayout = ({
               <div className="rating-container">
                 <label htmlFor="rating">Rating</label>
                 <div className="star-rating">
-                  <input type="radio" id="rating5" name="rating" value="5" ref={rating5Ref} />
+                  <input
+                    type="radio"
+                    id="rating5"
+                    name="rating"
+                    value="5"
+                    ref={rating5Ref}
+                  />
                   <label htmlFor="rating5"></label>
 
-                  <input type="radio" id="rating4" name="rating" value="4" ref={rating4Ref} />
+                  <input
+                    type="radio"
+                    id="rating4"
+                    name="rating"
+                    value="4"
+                    ref={rating4Ref}
+                  />
                   <label htmlFor="rating4"></label>
 
-                  <input type="radio" id="rating3" name="rating" value="3" ref={rating3Ref} />
+                  <input
+                    type="radio"
+                    id="rating3"
+                    name="rating"
+                    value="3"
+                    ref={rating3Ref}
+                  />
                   <label htmlFor="rating3"></label>
 
-                  <input type="radio" id="rating2" name="rating" value="2" ref={rating2Ref} />
+                  <input
+                    type="radio"
+                    id="rating2"
+                    name="rating"
+                    value="2"
+                    ref={rating2Ref}
+                  />
                   <label htmlFor="rating2"></label>
 
-                  <input type="radio" id="rating1" name="rating" value="1" ref={rating1Ref} />
+                  <input
+                    type="radio"
+                    id="rating1"
+                    name="rating"
+                    value="1"
+                    ref={rating1Ref}
+                  />
                   <label htmlFor="rating1"></label>
                 </div>
               </div>
@@ -520,7 +562,9 @@ const ProductLayout = ({
                     </h2>
                   </div>
                   <div>
-                    <button onClick={addToCartHandler} disabled={!letAddToCart}>{addToCartText}</button>
+                    <button onClick={addToCartHandler} disabled={!letAddToCart}>
+                      {addToCartText}
+                    </button>
                   </div>
                 </div>
               </div>
@@ -529,14 +573,19 @@ const ProductLayout = ({
           <div className="product-right">
             <p>Description:</p>
             <p>{product.description}</p>
-            <p className="p-hint-right">You can only review products that you have purchased.</p>
           </div>
         </div>
       </div>
 
       <div className="reviews-container">
         <h2>Reviews</h2>
-        <div className="p-hint">{alreadyReviewed && <div><p style={{ color: 'red' }}>You can't review this product.</p></div>}</div>
+        <div className="p-hint">
+          {alreadyReviewed && (
+            <div>
+              <p style={{ color: "red" }}>You can't review this product.</p>
+            </div>
+          )}
+        </div>
         <div className="product-reviews">
           <div className="p_headofreview d-flex justify-content-between">
             <div>
@@ -557,36 +606,41 @@ const ProductLayout = ({
                   </button>
                 </div>
               )}
-              {showReviewFilter && <div>
-                <InputGroup>
-                  <DropdownButton
-                    variant="outline-secondary"
-                    title={
-                      <span className="dropdown-title">
-                        {a_title}
-                        <FontAwesomeIcon
-                          icon={faChevronDown}
-                          className="dropdown-chevron-icon"
-                        />
-                      </span>
-                    }
-                    id="sort-dropdown"
-                    align="end"
-                    onSelect={handleSelect}
-                    className="p_dropdownbutton dropdown-toggle"
-                  >
-                    <Dropdown.Item href="#/recent" eventKey="most_recent">
-                      Sort by: Most recent
-                    </Dropdown.Item>
-                    <Dropdown.Item href="#/highrate" eventKey="highest_rating">
-                      Sort by: Highest rate
-                    </Dropdown.Item>
-                    <Dropdown.Item href="#/lowrate" eventKey="lowest_rating">
-                      Sort by: Lowest rate
-                    </Dropdown.Item>
-                  </DropdownButton>
-                </InputGroup>
-              </div>}
+              {showReviewFilter && (
+                <div>
+                  <InputGroup>
+                    <DropdownButton
+                      variant="outline-secondary"
+                      title={
+                        <span className="dropdown-title">
+                          {a_title}
+                          <FontAwesomeIcon
+                            icon={faChevronDown}
+                            className="dropdown-chevron-icon"
+                          />
+                        </span>
+                      }
+                      id="sort-dropdown"
+                      align="end"
+                      onSelect={handleSelect}
+                      className="p_dropdownbutton dropdown-toggle"
+                    >
+                      <Dropdown.Item href="#/recent" eventKey="most_recent">
+                        Sort by: Most recent
+                      </Dropdown.Item>
+                      <Dropdown.Item
+                        href="#/highrate"
+                        eventKey="highest_rating"
+                      >
+                        Sort by: Highest rate
+                      </Dropdown.Item>
+                      <Dropdown.Item href="#/lowrate" eventKey="lowest_rating">
+                        Sort by: Lowest rate
+                      </Dropdown.Item>
+                    </DropdownButton>
+                  </InputGroup>
+                </div>
+              )}
             </div>
           </div>
           {reviews.map((review, index) => (

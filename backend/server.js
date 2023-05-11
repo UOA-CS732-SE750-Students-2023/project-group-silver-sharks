@@ -29,6 +29,8 @@ app.use((req, res, next) => {
   next();
 });
 connectDB();
+
+// UNCOMMENT THIS LINE IF YOU WANT TO REPOPULATE DATABASE USING JSON FILE
 //importDataFromFile();
 
 app.use(productRouter);

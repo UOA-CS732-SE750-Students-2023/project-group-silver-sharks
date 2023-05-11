@@ -402,12 +402,22 @@ productRouter.post(
 
       product.reviews.push(review);
 
-      if (product.averageRating) {
-        product.averageRating =
-          (product.averageRating * product.reviews.length + rating) /
-          (product.reviews.length + 1);
+      let reviewsCount = product.reviews.length;
+
+      if (
+        product.averageRating !== null &&
+        product.averageRating !== undefined
+      ) {
+        let oldAverage = parseFloat(product.averageRating.toString());
+        let newAverage =
+          (oldAverage * (reviewsCount - 1) + rating) / reviewsCount;
+        product.averageRating = mongoose.Types.Decimal128.fromString(
+          newAverage.toString()
+        );
       } else {
-        product.averageRating = rating;
+        product.averageRating = mongoose.Types.Decimal128.fromString(
+          rating.toString()
+        );
       }
 
       await product.save();
@@ -416,62 +426,6 @@ productRouter.post(
     } catch (err) {
       console.log(err);
       return res.status(500).json({ error: "Invalid ID" });
-    }
-  }
-);
-
-// ENDPOINT: Delete review for a specific product
-productRouter.delete(
-  "/products/pid/:pid/review",
-  isLoggedIn,
-  async (req, res) => {
-    try {
-      const productId = req.params.pid;
-      const reviewId = req.body.reviewId;
-
-      const product = await Product.findById(productId).populate("reviews");
-      if (!product) {
-        return res.status(404).json({ error: "Product not found" });
-      }
-
-      const review = await ProductReview.findById(reviewId);
-      if (!review) {
-        return res.status(404).json({ error: "Review not found" });
-      }
-
-      if (
-        String(review.account) !== String(req.user._id) &&
-        req.user.accountType !== "admin"
-      ) {
-        return res
-          .status(401)
-          .json({ error: "You are not authorized to delete this review" });
-      }
-
-      const index = product.reviews.findIndex(
-        (r) => String(r._id) === String(reviewId)
-      );
-      if (index >= 0) {
-        product.reviews.splice(index, 1);
-
-        if (product.reviews.length > 0) {
-          product.averageRating =
-            product.reviews.reduce((sum, r) => sum + r.rating, 0) /
-            product.reviews.length;
-        } else {
-          product.averageRating = null;
-        }
-
-        await product.save();
-      }
-
-      console.log(review);
-      await ProductReview.findOneAndDelete({ _id: reviewId });
-
-      return res.status(200).json({ success: true });
-    } catch (err) {
-      console.error(err);
-      return res.status(500).json({ error: "Server Error" });
     }
   }
 );
