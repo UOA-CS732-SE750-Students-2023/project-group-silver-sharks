@@ -30,7 +30,7 @@ const ProfileNavBar = (props) => {
     const navigateMessagesHandler = () => {
         navigate('/store/profile/messages');
     }
-    const user = useRouteLoaderData('username-loader');
+    const user = props.user || {};
 
 
     //the number of unread messages
