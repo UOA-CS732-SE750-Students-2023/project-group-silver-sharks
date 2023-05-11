@@ -421,11 +421,6 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
                 </div>
               ) : (
                 <div
-                  style={{
-                    display: "flex",
-                    "flex-direction": "column",
-                    width: "40%",
-                  }}
                 >
                   <Link to={'/store/profile'} style={{ color: "black" }}>
                     Stripe is not linked to your account! Please set up your
