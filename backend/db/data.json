@@ -11,7 +11,12 @@
         "644caf3d41e8d663a938864e",
         "644caf6741e8d663a9388655",
         "644caf8141e8d663a938865c",
-        "644e3f327b9865addb7b3f14"
+        "644e3f327b9865addb7b3f14",
+        "645a3741d20c8c276b87ccd5",
+        "645a3783b0850c23d901d7d1",
+        "645a4208560310e7e8e06725",
+        "645a44cc3fd52091fea557cf",
+        "645a44ee5aa53872e55d290e"
       ]
     },
     {
@@ -19,14 +24,26 @@
       "firstName": "Nilay",
       "lastName": "Setiya",
       "email": "nset793@aucklanduni.ac.nz",
-      "accountType": "normal",
+      "accountType": "admin",
       "username": "Nilay",
       "sellingProducts": [
         "644ea31b70a8647e3e32eefd",
         "644ea5f52459804f9fd26b3a",
         "644ea78fe3c6082891a73f71",
-        "644ea8c5e3c6082891a73fc2"
+        "644ea8c5e3c6082891a73fc2",
+        "645a382a560310e7e8e05a62",
+        "645a42b183a0116e16cbd65b",
+        "645a42d7560310e7e8e0680b"
       ]
+    },
+    {
+      "_id": "109761511246582815438",
+      "firstName": "Admin",
+      "lastName": "SharketPlace",
+      "email": "SharketPlace@gmail.com",
+      "accountType": "admin",
+      "username": "SharketPlace",
+      "stripeId": "acct_1N5lDnCYHACaDnCs"
     },
     {
       "_id": "115762580670597246231",
@@ -34,7 +51,23 @@
       "lastName": "Anees",
       "email": "iane056@aucklanduni.ac.nz",
       "accountType": "normal",
-      "username": "Ibrahim"
+      "username": "Ibrahim2"
+    },
+    {
+      "_id": "118069059652555688591",
+      "firstName": "Ibrahim",
+      "lastName": "Anees",
+      "email": "ibrahimanees2002@gmail.com",
+      "accountType": "admin",
+      "username": "Ibrahim",
+      "sellingProducts": [
+        "6459b5945af5d604f7458bca",
+        "6459b8408287e3296b73f755",
+        "6459b8878287e3296b73f783",
+        "645a43a950f323a88021c65e",
+        "645a450b3fd52091fea55838",
+        "645a45493fd52091fea55867"
+      ]
     },
     {
       "_id": "102770690999467255961",
@@ -42,7 +75,16 @@
       "lastName": "Huang",
       "email": "yhua972@aucklanduni.ac.nz",
       "accountType": "normal",
-      "username": "Janet"
+      "username": "Janet",
+      "sellingProducts": [
+        "6459bc495af5d604f7458fa5",
+        "6459f4f0fd65a43d4087fb21",
+        "645a3857db7cea723b0629a4",
+        "645a38e1560310e7e8e05b1c",
+        "645a46b55aa53872e55d2b3a",
+        "645a47d35aa53872e55d2c0f",
+        "645a4b20a12305c52c7eb68a"
+      ]
     },
     {
       "_id": "102236187957599377142",
@@ -50,15 +92,38 @@
       "lastName": "Li",
       "email": "liyuzhuo90@gmail.com",
       "accountType": "admin",
-      "username": "Lucas"
+      "username": "Lucas",
+      "sellingProducts": [
+        "6459f4f8fd65a43d4087fb35",
+        "6459f5bffd65a43d4087fba3",
+        "645a4b8ca12305c52c7eb7eb"
+      ]
+    },
+    {
+      "_id": "108534135006980824413",
+      "firstName": "Yuzhuo",
+      "lastName": "Li",
+      "email": "yil708@aucklanduni.ac.nz",
+      "accountType": "admin",
+      "username": "Lucas2"
     },
     {
       "_id": "115597168327745249591",
       "firstName": "Bryan",
       "lastName": "Liu",
       "email": "bliu631@aucklanduni.ac.nz",
-      "accountType": "normal",
-      "username": "Brydawg"
+      "accountType": "admin",
+      "username": "Brydawg",
+      "sellingProducts": [
+        "6459f71efd65a43d4087fc33",
+        "6459f8bdfd65a43d4087fc65",
+        "6459f908fd65a43d4087fcb6",
+        "645a417c560310e7e8e0669c",
+        "645a4207db7cea723b062a27",
+        "645b7612402c2fa1d2147528",
+        "645b761e402c2fa1d2147555",
+        "645b762e402c2fa1d2147582"
+      ]
     }
   ],
   "Products": [
@@ -78,90 +143,502 @@
     },
     {
       "_id": "644caf6741e8d663a9388655",
-      "category": "Videos",
-      "name": "Naruto Running",
-      "description": "Are you a fan of Naruto? Do you want to experience the thrill of running like a ninja? Then you need our video of Naruto running! This high-quality video features a skilled cosplayer dressed in a Naruto costume, running with the iconic Naruto run that fans of the series know and love. The video is shot in stunning high definition, capturing every detail of the runner's costume and movements. With our video of Naruto running, you can experience the thrill of feeling like a ninja without leaving your home. Use the video for cosplay inspiration, as a fun addition to your social media profiles, or simply to enjoy as a fan of the series. Our video is available for purchase as a digital download, so you can watch it anytime, anywhere. And with our affordable prices, you won't have to break the bank to add this exciting video to your collection. Order now and experience the thrill of Naruto running for yourself with our high-quality video!",
+      "category": "Images",
+      "name": "Manchester United Photos",
+      "description": "Experience the excitement of Manchester United like never before with our collection of stunning photos capturing the team in action! From the roar of the crowd to the skillful play on the field, these photos transport you straight to the heart of the game. Featuring some of United's most iconic matches and players, these photos are the perfect way to show your support for one of the greatest football clubs in history. Our high-quality prints are available in a range of sizes to suit your needs and preferences. Whether you want to hang them on your wall or display them on your desk, these photos are the perfect way to keep the spirit of Manchester United close at hand.",
       "author": "101628246745447861849",
-      "price": 12,
-      "priority": 2,
-      "coverImage": "644caf6741e8d663a9388655-coverimage.jpeg",
+      "price": 15,
+      "priority": 1,
+      "coverImage": "644caf6741e8d663a9388655-coverimage.png",
       "files": [
-        "644caf6741e8d663a9388655-1-downloadFile.mp4"
+        "644caf6741e8d663a9388655-1-downloadFile.jpg",
+        "644caf6741e8d663a9388655-2-downloadFile.jpg",
+        "644caf6741e8d663a9388655-3-downloadFile.jpg"
       ]
     },
     {
       "_id": "644caf8141e8d663a938865c",
-      "category": "Music",
-      "name": "Naruto Soundtrack",
-      "description": "Are you a fan of the iconic anime series Naruto? Do you love the memorable music that accompanies the epic battles, emotional moments, and thrilling adventures of the series? Then you need our Naruto soundtrack! Our soundtrack features all of the unforgettable music from the series, including the iconic opening and ending themes, battle music, and emotional ballads that have become synonymous with the series. Each track is a masterpiece of composition, bringing the world of Naruto to life with its evocative melodies and themes. Whether you're a long-time fan of the series or a newcomer to the world of Naruto, our soundtrack is a must-have addition to your collection. With over an hour of music spanning the entire series, you can relive your favorite moments and immerse yourself in the world of the series whenever you want. Our Naruto soundtrack is available for purchase as a digital download or physical CD, so you can choose the format that best suits your needs. And with our affordable prices, you can add this essential piece of Naruto merchandise to your collection without breaking the bank. Order now and add the unforgettable music of Naruto to your collection today!",
+      "category": "Images",
+      "name": "Snowy Scenery Photos",
+      "description": "Get ready to be transported to a winter wonderland with our stunning collection of snowy scenery photos! These breathtaking images capture the beauty and tranquility of winter landscapes, from snow-capped mountains to frosty forests and icy lakes. Whether you're a nature lover or just love the serene beauty of snowy scenery, these photos are the perfect way to bring the magic of winter into your home. Our high-quality prints are available in a range of sizes to suit your needs and preferences. Whether you want to create a cozy winter vibe in your living room or add a touch of nature to your office, these photos are the perfect way to do it. Each photo is professionally printed using state-of-the-art technology, ensuring stunning clarity, vibrant colors, and a long-lasting finish. Whether you're looking for a gift for someone special or just want to treat yourself to some beautiful art, these photos are sure to impress.",
       "author": "101628246745447861849",
-      "price": 25,
+      "price": 40,
       "priority": 1,
       "coverImage": "644caf8141e8d663a938865c-coverimage.jpg",
       "files": [
-        "644caf8141e8d663a938865c-1-downloadFile.mp3"
+        "644caf8141e8d663a938865c-1-downloadFile.jpg",
+        "644caf8141e8d663a938865c-2-downloadFile.jpg",
+        "644caf8141e8d663a938865c-3-downloadFile.jpg",
+        "644caf8141e8d663a938865c-4-downloadFile.jpg"
       ]
     },
     {
       "_id": "644e3f327b9865addb7b3f14",
-      "category": "Services",
-      "name": "Custom Naruto Game - PyGame",
-      "description": "Introducing our custom Naruto game created with PyGame, the Python library for game development. Our game is a unique and exciting experience for fans of the popular anime series, featuring beloved characters, iconic locations, and thrilling gameplay. Our PyGame-powered Naruto game is a one-of-a-kind experience that immerses players in the world of the series. Play as your favorite characters, battle fierce enemies, and explore the rich and detailed world of Naruto in stunning detail. What makes our game truly unique is that it is completely customizable. We can work with you to create a custom Naruto game tailored to your specific preferences and needs. Whether you want to add your own characters, locations, or gameplay elements, we can help bring your vision to life. Our custom Naruto game is the perfect addition to any fan's collection, a fun and engaging way to experience the series like never before. And with our affordable prices and flexible customization options, you won't have to break the bank to get the game of your dreams. Order now and experience the thrill of a custom Naruto game created with PyGame!",
+      "category": "Images",
+      "name": "Jungle Scenery Photos",
+      "description": "Step into the wild and immerse yourself in the lush beauty of our collection of jungle scenery photos! These stunning images capture the vibrant colors and exotic flora and fauna of some of the world's most breathtaking rainforests. Whether you're a nature lover, an adventurer, or just love the idea of exploring the unknown, these photos are the perfect way to bring the magic of the jungle into your home. Our high-quality prints are available in a range of sizes to suit your needs and preferences, making them the perfect addition to any room. So why wait? Browse our collection of jungle scenery photos today and let your imagination run wild!",
       "author": "101628246745447861849",
-      "price": 169,
-      "priority": 3,
-      "coverImage": "644e3f327b9865addb7b3f14-coverimage.png"
+      "price": 40,
+      "priority": 1,
+      "coverImage": "644e3f327b9865addb7b3f14-coverimage.jpg",
+      "files": [
+        "644e3f327b9865addb7b3f14-1-downloadFile.jpg",
+        "644e3f327b9865addb7b3f14-2-downloadFile.jpg"
+      ]
     },
     {
       "_id": "644ea31b70a8647e3e32eefd",
       "category": "Images",
-      "name": "High Quality Anime Gifs",
-      "description": "Introducing our collection of high-quality anime GIFs, featuring stunning and vibrant animations from your favorite anime series. Each GIF is carefully crafted to capture the essence and style of the series, bringing your favorite characters and moments to life in stunning detail. Our anime GIFs are perfect for use in social media posts, blogs, websites, or any other type of online content. Use them to add some personality and flair to your online presence, or to express your love for your favorite anime series to your followers and friends. What makes our anime GIFs truly special is their exceptional quality. Each GIF is created using high-quality images and animation techniques, resulting in a beautiful and eye-catching animation that stands out from the crowd. Our collection of anime GIFs includes a wide range of series and characters, so you can find the perfect GIF to suit your needs. And with our affordable prices, you can collect multiple GIFs without breaking the bank. Order now and add some stunning and high-quality anime GIFs to your collection today!",
+      "name": "Desert Photos",
+      "description": "Get ready to be transported to a world of endless horizons and breathtaking landscapes with our collection of stunning desert scenery photos! These captivating images capture the raw beauty and timeless majesty of some of the world's most iconic deserts, from the windswept dunes of the Sahara to the rugged mesas of the American Southwest. Whether you're a lover of nature, a traveler, or simply seeking inspiration, these photos are the perfect way to bring the magic of the desert into your home. With a range of sizes available, our high-quality prints are the perfect addition to any room or office. So why wait? Browse our collection of desert scenery photos today and embark on a journey of discovery!",
       "author": "100953959910033868204",
-      "price": 16,
-      "priority": 2,
-      "coverImage": "644ea31b70a8647e3e32eefd-coverimage.gif",
+      "price": 30,
+      "priority": 1,
+      "coverImage": "644ea31b70a8647e3e32eefd-coverimage.jpg",
       "files": [
-        "644ea31b70a8647e3e32eefd-1-downloadFile.gif",
-        "644ea31b70a8647e3e32eefd-2-downloadFile.gif",
-        "644ea31b70a8647e3e32eefd-3-downloadFile.gif"
+        "644ea31b70a8647e3e32eefd-1-downloadFile.jpg",
+        "644ea31b70a8647e3e32eefd-2-downloadFile.jpg"
       ]
     },
     {
       "_id": "644ea5f52459804f9fd26b3a",
-      "category": "Videos",
-      "name": "Beautiful Anime Scenery",
-      "description": "Introducing our collection of videos featuring beautiful anime scenery, showcasing stunning and immersive artwork inspired by your favorite anime series. Each video is a breathtaking and relaxing experience, transporting you to the world of your favorite anime series in stunning detail. Our videos feature a wide range of scenes and series, from tranquil landscapes and cityscapes to breathtaking nature and architectural marvels. Each scene is captured with exceptional quality, showcasing vivid colors and stunning detail that capture the beauty and mood of the artwork. Our videos are perfect for use as ambient videos, background footage, or simply as a way to relax and enjoy the stunning beauty of your favorite anime series. Use them to create a relaxing and immersive atmosphere in your home, office, or other spaces, or as a way to unwind and de-stress after a long day. What makes our anime scenery videos truly special is their exceptional quality. Each video is shot in stunning high definition, capturing every detail and color of the artwork in stunning clarity and depth. Order now and experience the breathtaking beauty of anime scenery in stunning high definition with our collection of videos.",
+      "category": "Images",
+      "name": "Hand Drawn Footballers",
+      "description": "Celebrate the artistry and skill of some of the greatest footballers of all time with our collection of hand-drawn footballer drawings! These stunning pieces of art capture the grace, power, and athleticism of some of the world's most iconic players, from Cristiano Ronaldo to Lionel Messi and beyond. Each drawing is painstakingly crafted by hand, ensuring a level of detail and authenticity that is unmatched by any digital reproduction. Whether you're a football fanatic or simply appreciate great art, these drawings are the perfect way to show your love for the game. With a range of sizes available, our high-quality prints are the perfect addition to any sports room, office, or living space. So why wait? Browse our collection of footballer drawings today and own a piece of football history!",
       "author": "100953959910033868204",
-      "price": 22,
+      "price": 100,
       "priority": 1,
       "coverImage": "644ea5f52459804f9fd26b3a-coverimage.jpg",
       "files": [
-        "644ea5f52459804f9fd26b3a-1-downloadFile.mp4"
+        "644ea5f52459804f9fd26b3a-1-downloadFile.jpg",
+        "644ea5f52459804f9fd26b3a-2-downloadFile.jpg",
+        "644ea5f52459804f9fd26b3a-3-downloadFile.jpg",
+        "644ea5f52459804f9fd26b3a-4-downloadFile.jpg"
       ]
     },
     {
       "_id": "644ea78fe3c6082891a73f71",
-      "category": "Music",
-      "name": "Peaceful Anime Music",
-      "description": "Introducing our collection of peaceful anime music, featuring soothing and relaxing compositions inspired by your favorite anime series. Each track is a beautiful and tranquil experience, perfect for relaxing, studying, or simply enjoying the beauty of the music. Our peaceful anime music collection features a wide range of styles and moods, from soft piano ballads to tranquil orchestral compositions. Each track is carefully crafted to evoke a sense of peace and tranquility, transporting you to a peaceful and beautiful world. Our music is perfect for use as background music, meditation, or simply as a way to unwind and relax after a long day. Use it to create a peaceful and relaxing atmosphere in your home, office, or other spaces, or as a way to help you focus and concentrate while studying or working. What makes our peaceful anime music truly special is its exceptional quality. Each track is composed and recorded by talented musicians and producers, resulting in a beautiful and high-quality audio experience that is truly exceptional. Order now and experience the peace and tranquility of anime-inspired music with our collection of peaceful anime music tracks.",
+      "category": "Images",
+      "name": "Digital Art",
+      "description": "Looking for a unique piece of art that reflects your individuality and style? Look no further than our collection of custom digital art! Our talented artists will work with you to create a one-of-a-kind piece that captures your vision and brings it to life in stunning detail. From portraits to landscapes to abstract designs, our custom digital art is the perfect way to add a personal touch to any room or office. With a range of sizes and styles available, our high-quality prints are the perfect addition to any decor. So why wait? Browse our collection of custom digital art today and let us create a masterpiece just for you!",
       "author": "100953959910033868204",
-      "price": 5,
-      "priority": 3,
+      "price": 25,
+      "priority": 2,
       "coverImage": "644ea78fe3c6082891a73f71-coverimage.jpg",
       "files": [
-        "644ea78fe3c6082891a73f71-1-downloadFile.mp3"
+        "644ea78fe3c6082891a73f71-1-downloadFile.jpg",
+        "644ea78fe3c6082891a73f71-2-downloadFile.jpg"
       ]
     },
     {
       "_id": "644ea8c5e3c6082891a73fc2",
-      "category": "Services",
-      "name": "Conversion rate optimization for e-commerce websites",
-      "description": "Introducing our conversion rate optimization (CRO) services for e-commerce websites, designed to help businesses improve their online sales and revenue. Our CRO services are tailored to the unique needs of each client, providing a comprehensive and effective solution to improve the effectiveness of their e-commerce website. Our team of experienced and skilled professionals will work closely with you to analyze your website's performance and identify areas for improvement. We will then develop and implement a customized strategy to optimize your website's design, functionality, and user experience, with the goal of increasing conversions and maximizing revenue. Our CRO services include a wide range of techniques and strategies, including website design and layout optimization, A/B testing, user experience optimization, and more. We use data-driven insights and industry best practices to ensure that our strategies are effective and tailored to your specific business needs. By choosing our CRO services, you can improve the effectiveness of your e-commerce website and increase your online sales and revenue. Our services are affordable, flexible, and scalable, making them ideal for businesses of all sizes and budgets. Order now and start optimizing your e-commerce website for maximum conversions and revenue!",
+      "category": "Images",
+      "name": "Useful PNG icons",
+      "description": "Looking for the perfect icon to add to your website, app, or digital project? Look no further than our collection of useful PNG icons! These high-quality icons are designed to help you communicate your message clearly and effectively, with a range of styles and designs to suit any need. Whether you're looking for icons for social media, e-commerce, or business, our collection has got you covered. Each icon is available in a range of sizes and formats, making them easy to use and integrate into your digital projects. So why wait? Browse our collection of useful PNG icons today and take your digital projects to the next level!",
       "author": "100953959910033868204",
-      "price": 799,
+      "price": 3,
+      "priority": 1,
+      "coverImage": "644ea8c5e3c6082891a73fc2-coverimage.jpg",
+      "files": [
+        "644ea8c5e3c6082891a73fc2-1-downloadFile.png",
+        "644ea8c5e3c6082891a73fc2-2-downloadFile.png"
+      ]
+    },
+    {
+      "_id": "6459b5945af5d604f7458bca",
+      "category": "Images",
+      "name": "Waterfall Photos",
+      "description": "Escape to the beauty and serenity of nature with our stunning collection of waterfall photos! These breathtaking images capture the power and majesty of some of the world's most iconic waterfalls, from Niagara Falls to Victoria Falls and beyond. Whether you're a nature lover, a traveler, or simply seeking inspiration, these photos are the perfect way to bring the magic of the waterfall into your home. Our high-quality prints are available in a range of sizes to suit your needs and preferences, making them the perfect addition to any room or office. So why wait? Browse our collection of waterfall photos today and experience the beauty of nature in all its glory!",
+      "author": "118069059652555688591",
+      "price": 95,
+      "priority": 1,
+      "coverImage": "6459b5945af5d604f7458bca-coverimage.jpg",
+      "files": [
+        "6459b5945af5d604f7458bca-1-downloadFile.jpg",
+        "6459b5945af5d604f7458bca-2-downloadFile.jpg",
+        "6459b5945af5d604f7458bca-3-downloadFile.jpg",
+        "6459b5945af5d604f7458bca-4-downloadFile.jpg"
+      ]
+    },
+    {
+      "_id": "6459b8408287e3296b73f755",
+      "category": "Images",
+      "name": "Fortnite Art",
+      "description": "Buy some amazing custom-made fortnite art!",
+      "author": "118069059652555688591",
+      "price": 8,
+      "priority": 1,
+      "coverImage": "6459b8408287e3296b73f755-coverimage.jpg",
+      "files": [
+        "6459b8408287e3296b73f755-1-downloadFile.jpg",
+        "6459b8408287e3296b73f755-2-downloadFile.jpg"
+      ]
+    },
+    {
+      "_id": "6459b8878287e3296b73f783",
+      "category": "Images",
+      "name": "Photos of Jadon Sancho",
+      "description": "Celebrate the electrifying talent of football superstar Jadon Sancho with our stunning collection of photos! These captivating images capture the skill, speed, and passion of one of the world's most exciting players, from his dazzling footwork to his lightning-fast runs down the pitch. Whether you're a fan of Sancho or simply appreciate great football, these photos are the perfect way to show your support for one of the game's brightest stars. Our high-quality prints are available in a range of sizes to suit your needs and preferences, making them the perfect addition to any sports room, office, or living space. So why wait? Browse our collection of Jadon Sancho photos today and own a piece of football history!",
+      "author": "118069059652555688591",
+      "price": 75,
+      "priority": 1,
+      "coverImage": "6459b8878287e3296b73f783-coverimage.jpg",
+      "files": [
+        "6459b8878287e3296b73f783-1-downloadFile.jpg",
+        "6459b8878287e3296b73f783-2-downloadFile.jpg"
+      ]
+    },
+    {
+      "_id": "6459bc495af5d604f7458fa5",
+      "category": "Images",
+      "name": "Photos of Jude Bellingham",
+      "description": "Experience the rise of football's next big thing with our stunning collection of photos featuring Jude Bellingham! These captivating images capture the talent, intensity, and determination of one of the game's most exciting young players, from his powerful strikes to his fearless tackles. Whether you're a fan of Bellingham or simply appreciate great football, these photos are the perfect way to show your support for the next generation of footballing talent. Our high-quality prints are available in a range of sizes to suit your needs and preferences, making them the perfect addition to any sports room, office, or living space. So why wait? Browse our collection of Jude Bellingham photos today and be a part of footballing history in the making!",
+      "author": "102770690999467255961",
+      "price": 75,
+      "priority": 1,
+      "coverImage": "6459bc495af5d604f7458fa5-coverimage.jpg",
+      "files": [
+        "6459bc495af5d604f7458fa5-1-downloadFile.jpg",
+        "6459bc495af5d604f7458fa5-2-downloadFile.jpg"
+      ]
+    },
+    {
+      "_id": "6459f4f0fd65a43d4087fb21",
+      "category": "Images",
+      "name": "African Scenery",
+      "description": "Embark on a journey of discovery and wonder with our stunning collection of photos featuring the breathtaking scenery of Africa! These captivating images capture the vibrant colors, diverse landscapes, and exotic wildlife of this amazing continent, from the towering peaks of Kilimanjaro to the sprawling savannahs of the Serengeti. Whether you're a nature lover, an adventurer, or simply seeking inspiration, these photos are the perfect way to bring the magic of Africa into your home. Our high-quality prints are available in a range of sizes to suit your needs and preferences, making them the perfect addition to any room or office. So why wait? Browse our collection of African scenery photos today and experience the beauty of this amazing continent for yourself!",
+      "author": "102770690999467255961",
+      "price": 34,
+      "priority": 1,
+      "coverImage": "6459f4f0fd65a43d4087fb21-coverimage.jpg",
+      "files": [
+        "6459f4f0fd65a43d4087fb21-1-downloadFile.jpg",
+        "6459f4f0fd65a43d4087fb21-2-downloadFile.jpg"
+      ]
+    },
+    {
+      "_id": "6459f4f8fd65a43d4087fb35",
+      "category": "Images",
+      "name": "Hand Drawn Football Club Logos",
+      "description": "Celebrate the history and legacy of some of the world's most beloved football clubs with our collection of hand-drawn football club logos! These stunning pieces of art capture the essence and identity of each club, from the iconic crest of Manchester United to the bold emblem of Barcelona FC. Each logo is meticulously crafted by hand, ensuring a level of detail and authenticity that is unmatched by any digital reproduction. Whether you're a die-hard fan of one of these clubs or simply appreciate great design, these logos are the perfect way to show your support for some of the game's most storied teams. With a range of sizes available, our high-quality prints are the perfect addition to any sports room, office, or living space. So why wait? Browse our collection of hand-drawn football club logos today and own a piece of football history!",
+      "author": "102236187957599377142",
+      "price": 125,
       "priority": 2,
-      "coverImage": "644ea8c5e3c6082891a73fc2-coverimage.png"
+      "coverImage": "6459f4f8fd65a43d4087fb35-coverimage.jpg",
+      "files": [
+        "6459f4f8fd65a43d4087fb35-1-downloadFile.jpg",
+        "6459f4f8fd65a43d4087fb35-2-downloadFile.jpg"
+      ]
+    },
+    {
+      "_id": "6459f5bffd65a43d4087fba3",
+      "category": "Images",
+      "name": "Anime GIFs",
+      "description": "Immerse yourself in the captivating world of anime with our stunning collection of anime GIF photos! These eye-catching images bring to life the characters and storylines of some of the most beloved anime series, from Naruto to Dragon Ball Z and beyond. Each GIF is expertly crafted to capture the essence and energy of each character, whether it's Naruto unleashing his Rasengan or Goku powering up for a Kamehameha. Whether you're a die-hard anime fan or simply appreciate great animation, these photos are the perfect way to show your love for this amazing art form. With a range of sizes available, our high-quality prints are the perfect addition to any room or office. So why wait? Browse our collection of anime GIF photos today and experience the magic of anime like never before!",
+      "author": "102236187957599377142",
+      "price": 22,
+      "priority": 2,
+      "coverImage": "6459f5bffd65a43d4087fba3-coverimage.gif",
+      "files": [
+        "6459f5bffd65a43d4087fba3-1-downloadFile.gif",
+        "6459f5bffd65a43d4087fba3-2-downloadFile.gif"
+      ]
+    },
+    {
+      "_id": "6459f71efd65a43d4087fc33",
+      "category": "Images",
+      "name": "Food GIFs",
+      "description": "Indulge your senses and tantalize your taste buds with our mouth-watering collection of food GIF photos! These stunning images showcase some of the most delectable dishes and treats from around the world, from succulent steaks to luscious cakes and everything in between. Each GIF is expertly crafted to capture the vibrant colors, textures, and flavors of each dish, whether it's a sizzling burger or a refreshing smoothie. Whether you're a foodie or simply appreciate great photography, these photos are the perfect way to bring the magic of food into your home. With a range of sizes available, our high-quality prints are the perfect addition to any kitchen, dining room, or restaurant. So why wait? Browse our collection of food GIF photos today and satisfy your cravings in style!",
+      "author": "115597168327745249591",
+      "price": 20,
+      "priority": 1,
+      "coverImage": "6459f71efd65a43d4087fc33-coverimage.gif",
+      "files": [
+        "6459f71efd65a43d4087fc33-1-downloadFile.gif",
+        "6459f71efd65a43d4087fc33-2-downloadFile.gif"
+      ]
+    },
+    {
+      "_id": "6459f8bdfd65a43d4087fc65",
+      "category": "Images",
+      "name": "Aesthetic GIFs",
+      "description": "Experience the beauty and creativity of aesthetic art with our stunning collection of aesthetic GIF photos! These captivating images showcase the power of design and color, from soothing pastels to bold and vibrant hues. Each GIF is expertly crafted to capture the essence of aesthetic style, whether it's a minimalist line drawing or a complex kaleidoscope of patterns and shapes. Whether you're a lover of art, design, or simply seeking inspiration, these photos are the perfect way to bring the magic of aesthetic into your home. With a range of sizes available, our high-quality prints are the perfect addition to any room or office. So why wait? Browse our collection of aesthetic GIF photos today and elevate your space to a new level of beauty and style!",
+      "author": "115597168327745249591",
+      "price": 7,
+      "priority": 1,
+      "coverImage": "6459f8bdfd65a43d4087fc65-coverimage.gif",
+      "files": [
+        "6459f8bdfd65a43d4087fc65-1-downloadFile.gif",
+        "6459f8bdfd65a43d4087fc65-2-downloadFile.gif"
+      ]
+    },
+    {
+      "_id": "6459f908fd65a43d4087fcb6",
+      "category": "Images",
+      "name": "Furniture Pictures",
+      "description": "Really basic pictures of furniture - hope you enjoy!",
+      "author": "115597168327745249591",
+      "price": 8,
+      "priority": 1,
+      "coverImage": "6459f908fd65a43d4087fcb6-coverimage.jpg",
+      "files": [
+        "6459f908fd65a43d4087fcb6-1-downloadFile.jpg",
+        "6459f908fd65a43d4087fcb6-2-downloadFile.jpg"
+      ]
+    },
+    {
+      "_id": "645a3741d20c8c276b87ccd5",
+      "category": "Videos",
+      "name": "Earth Spinning Video",
+      "description": "Take a journey through space and time with our stunning video clip of Earth spinning! This captivating footage captures the beauty and majesty of our planet in motion, from the swirling clouds to the vast oceans and beyond. Whether you're a space enthusiast, a nature lover, or simply seeking inspiration, this video clip is the perfect way to experience the wonder of our planet.",
+      "author": "101628246745447861849",
+      "price": 20,
+      "priority": 2,
+      "coverImage": "645a3741d20c8c276b87ccd5-coverimage.jpg",
+      "files": [
+        "645a3741d20c8c276b87ccd5-1-downloadFile.mp4"
+      ]
+    },
+    {
+      "_id": "645a3783b0850c23d901d7d1",
+      "category": "Videos",
+      "name": "Video of a Cat",
+      "description": "Delight in the playful antics of our feline friend with our adorable video clip of a cat! This heartwarming footage captures the charm and grace of these beloved animals, from their silky fur to their cute meows and purrs. Whether you're a cat lover or simply appreciate great video content, this clip is the perfect way to brighten up your day.",
+      "author": "101628246745447861849",
+      "price": 14,
+      "priority": 2,
+      "coverImage": "645a3783b0850c23d901d7d1-coverimage.jpg",
+      "files": [
+        "645a3783b0850c23d901d7d1-1-downloadFile.mp4"
+      ]
+    },
+    {
+      "_id": "645a382a560310e7e8e05a62",
+      "category": "Videos",
+      "name": "Butterfly - Great video!",
+      "description": "Get up close and personal with one of nature's most beautiful creatures with our stunning video clip of a butterfly! This mesmerizing footage captures the delicate beauty and intricate patterns of these majestic insects, from their fluttering wings to their graceful movements. Whether you're a nature lover or simply appreciate great video content, this clip is the perfect way to immerse yourself in the beauty of the natural world.",
+      "author": "100953959910033868204",
+      "price": 2,
+      "priority": 1,
+      "coverImage": "645a382a560310e7e8e05a62-coverimage.jpg",
+      "files": [
+        "645a382a560310e7e8e05a62-1-downloadFile.mp4"
+      ]
+    },
+    {
+      "_id": "645a3857db7cea723b0629a4",
+      "category": "Videos",
+      "name": "Two videos of flowers",
+      "description": "Lose yourself in the soothing rhythm of our two video clips of flowers swaying in the breeze! These calming footage captures the gentle movement and vibrant colors of some of the most beautiful flowers in the world, from the blooming tulips to the swaying poppies. Whether you're looking to create a relaxing atmosphere in your home or office, these clips are the perfect addition to any decor.",
+      "author": "102770690999467255961",
+      "price": 60,
+      "priority": 1,
+      "coverImage": "645a3857db7cea723b0629a4-coverimage.jpg",
+      "files": [
+        "645a3857db7cea723b0629a4-1-downloadFile.mp4",
+        "645a3857db7cea723b0629a4-2-downloadFile.jpg"
+      ]
+    },
+    {
+      "_id": "645a38e1560310e7e8e05b1c",
+      "category": "Videos",
+      "name": "Typing Video",
+      "description": "Dive into the world of technology with our mesmerizing video clip of keyboard typing! This dynamic footage captures the fast-paced rhythm and precision of typing on a keyboard, from the click of the keys to the movement of the fingers. Whether you're a tech enthusiast or simply appreciate great video content, this clip is the perfect way to immerse yourself in the digital world.",
+      "author": "102770690999467255961",
+      "price": 6,
+      "priority": 1,
+      "coverImage": "645a38e1560310e7e8e05b1c-coverimage.jpg",
+      "files": [
+        "645a38e1560310e7e8e05b1c-1-downloadFile.mp4"
+      ]
+    },
+    {
+      "_id": "645a417c560310e7e8e0669c",
+      "category": "Videos",
+      "name": "Goldfish (video)",
+      "description": "Add a touch of serenity and beauty to your space with our calming video clip of a goldfish swimming! This mesmerizing footage captures the gentle movement and vibrant colors of these beloved fish, from their shimmering scales to their graceful movements. Whether you're looking to create a relaxing atmosphere in your home or office, this clip is the perfect addition to any decor.",
+      "author": "115597168327745249591",
+      "price": 35,
+      "priority": 1,
+      "coverImage": "645a417c560310e7e8e0669c-coverimage.jpg",
+      "files": [
+        "645a417c560310e7e8e0669c-1-downloadFile.mp4"
+      ]
+    },
+    {
+      "_id": "645a4207db7cea723b062a27",
+      "category": "Videos",
+      "name": "Coding Video",
+      "description": "Experience the beauty and complexity of coding with our fascinating video clip of blurred coding! This dynamic footage captures the fast-paced rhythm and precision of coding, from the movement of the cursor to the scrolling lines of code. Whether you're a tech enthusiast or simply appreciate great video content, this clip is the perfect way to immerse yourself in the world of coding and technology.",
+      "author": "115597168327745249591",
+      "price": 14,
+      "priority": 1,
+      "coverImage": "645a4207db7cea723b062a27-coverimage.jpg",
+      "files": [
+        "645a4207db7cea723b062a27-1-downloadFile.mp4"
+      ]
+    },
+    {
+      "_id": "645a4208560310e7e8e06725",
+      "category": "Music",
+      "name": "Calming Music",
+      "description": "Relax and unwind with our calming music audio file! This soothing composition is designed to help you find peace and tranquility, with gentle melodies and soft harmonies that will help you escape the stresses of daily life. Whether you're looking to meditate, unwind after a long day, or simply enjoy some relaxing music, this audio file is the perfect addition to your collection.",
+      "author": "101628246745447861849",
+      "price": 15,
+      "priority": 1,
+      "coverImage": "645a4208560310e7e8e06725-coverimage.jpg",
+      "files": [
+        "645a4208560310e7e8e06725-1-downloadFile.mp3"
+      ]
+    },
+    {
+      "_id": "645a42b183a0116e16cbd65b",
+      "category": "Music",
+      "name": "EPIC: A freestyle beat",
+      "description": "Feel the power and energy of our epic freestyle beat audio file! This dynamic composition is designed to get your blood pumping and your feet moving, with driving rhythms and intense beats that will ignite your passion and creativity. Whether you're a rapper, a dancer, or simply a lover of great beats, this audio file is the perfect way to add some fire to your music collection.",
+      "author": "100953959910033868204",
+      "price": 250,
+      "priority": 3,
+      "coverImage": "645a42b183a0116e16cbd65b-coverimage.jpg",
+      "files": [
+        "645a42b183a0116e16cbd65b-1-downloadFile.mp3"
+      ]
+    },
+    {
+      "_id": "645a42d7560310e7e8e0680b",
+      "category": "Music",
+      "name": "HARD: A freestyle beat",
+      "description": "Embrace the raw intensity of our hard freestyle beat audio file! This edgy composition is designed to push the boundaries and challenge your limits, with hard-hitting rhythms and aggressive beats that will test your skills and inspire your creativity. Whether you're a rapper, a DJ, or simply a lover of cutting-edge music, this audio file is the perfect way to add some edge to your collection.",
+      "author": "100953959910033868204",
+      "price": 250,
+      "priority": 3,
+      "coverImage": "645a42d7560310e7e8e0680b-coverimage.jpg",
+      "files": [
+        "645a42d7560310e7e8e0680b-1-downloadFile.mp3"
+      ]
+    },
+    {
+      "_id": "645a43a950f323a88021c65e",
+      "category": "Music",
+      "name": "Guitar melody music",
+      "description": "Experience the beauty and versatility of the guitar with our guitar melody audio file! This mesmerizing composition is designed to showcase the rich tones and intricate melodies of this beloved instrument, with soaring notes and delicate harmonies that will take your breath away. Whether you're a guitarist, a music lover, or simply appreciate great audio content, this audio file is the perfect addition to your collection.",
+      "author": "118069059652555688591",
+      "price": 20,
+      "priority": 1,
+      "coverImage": "645a43a950f323a88021c65e-coverimage.jpg",
+      "files": [
+        "645a43a950f323a88021c65e-1-downloadFile.mp3"
+      ]
+    },
+    {
+      "_id": "645a44cc3fd52091fea557cf",
+      "category": "Services",
+      "name": "Financial Audit Service",
+      "description": "Take control of your finances with our professional financial audit service! Our team of experts will conduct a comprehensive analysis of your financial statements and transactions, identifying areas for improvement and offering actionable insights and recommendations to help you achieve your financial goals.",
+      "author": "101628246745447861849",
+      "price": 1000,
+      "priority": 3,
+      "coverImage": "645a44cc3fd52091fea557cf-coverimage.jpg"
+    },
+    {
+      "_id": "645a44ee5aa53872e55d290e",
+      "category": "Services",
+      "name": "Software Solutions Consulting",
+      "description": "Unlock the full potential of your technology with our software solutions consulting service! Our team of experienced consultants will work with you to understand your needs and goals, and develop a customized plan to optimize your software and technology systems, increasing efficiency, productivity, and profitability.",
+      "author": "101628246745447861849",
+      "price": 750,
+      "priority": 2,
+      "coverImage": "645a44ee5aa53872e55d290e-coverimage.png"
+    },
+    {
+      "_id": "645a450b3fd52091fea55838",
+      "category": "Services",
+      "name": "Naruto hand drawings",
+      "description": "Bring your favorite Naruto characters to life with our hand-drawn Naruto drawings service! Our talented artists will create stunning illustrations of your favorite characters, from Naruto himself to Sasuke, Sakura, and beyond. Whether you're a fan of the anime or simply appreciate great art, our Naruto drawings are the perfect addition to your collection.",
+      "author": "118069059652555688591",
+      "price": 20,
+      "priority": 1,
+      "coverImage": "645a450b3fd52091fea55838-coverimage.jpg"
+    },
+    {
+      "_id": "645a45493fd52091fea55867",
+      "category": "Services",
+      "name": "Fantasy football advice",
+      "description": "Dominate your fantasy football league with our expert fantasy football advice service! Our team of seasoned analysts will provide in-depth analysis, rankings, and recommendations to help you draft the perfect team, make informed trades, and stay ahead of the competition.",
+      "author": "118069059652555688591",
+      "price": 25,
+      "priority": 2,
+      "coverImage": "645a45493fd52091fea55867-coverimage.jpg"
+    },
+    {
+      "_id": "645a46b55aa53872e55d2b3a",
+      "category": "Services",
+      "name": "Coding coaching",
+      "description": "Learn the secrets of coding and software development with our coding coaching service! Our experienced instructors will work with you one-on-one to develop your skills and knowledge, offering personalized guidance and support to help you reach your full potential as a coder.",
+      "author": "102770690999467255961",
+      "price": 200,
+      "priority": 1,
+      "coverImage": "645a46b55aa53872e55d2b3a-coverimage.jpg"
+    },
+    {
+      "_id": "645a47d35aa53872e55d2c0f",
+      "category": "Services",
+      "name": "YouTube Thumbnails",
+      "description": "Make your YouTube videos stand out with our customized YouTube thumbnail design service! Our talented designers will create eye-catching and engaging thumbnails that will grab your viewers' attention and entice them to click on your videos.",
+      "author": "102770690999467255961",
+      "price": 15,
+      "priority": 1,
+      "coverImage": "645a47d35aa53872e55d2c0f-coverimage.jpg"
+    },
+    {
+      "_id": "645a4b20a12305c52c7eb68a",
+      "category": "Services",
+      "name": "Photo Editing Service",
+      "description": "Take your photos to the next level with our professional photo editing service! Our experienced editors will enhance your photos, fixing common issues like lighting, color, and composition, and adding special effects and filters to create stunning visual masterpieces.",
+      "author": "102770690999467255961",
+      "price": 32,
+      "priority": 1,
+      "coverImage": "645a4b20a12305c52c7eb68a-coverimage.jpg"
+    },
+    {
+      "_id": "645a4b8ca12305c52c7eb7eb",
+      "category": "Services",
+      "name": "Financial advice",
+      "description": "Get the financial guidance you need with our professional financial advice service! Our team of experts will provide personalized recommendations and insights to help you manage your finances, make informed investments, and achieve your financial goals.",
+      "author": "102236187957599377142",
+      "price": 200,
+      "priority": 1,
+      "coverImage": "645a4b8ca12305c52c7eb7eb-coverimage.jpg"
+    },
+    {
+      "_id": "645b7612402c2fa1d2147528",
+      "category": "Services",
+      "name": "Hand drawings",
+      "description": "Add a personal touch to your space with our hand-drawn drawings service! I will create unique and captivating illustrations, from portraits to landscapes to abstract designs, that will bring a touch of beauty and inspiration to your home or office.",
+      "author": "115597168327745249591",
+      "price": 10,
+      "priority": 1,
+      "coverImage": "645b7612402c2fa1d2147528-coverimage.jpg"
+    },
+    {
+      "_id": "645b761e402c2fa1d2147555",
+      "category": "Services",
+      "name": "Website design",
+      "description": "Build a stunning website that reflects your unique brand and vision with our website design service! Our team of experienced designers and developers will work with you to create a customized website that is both functional and beautiful, optimized for maximum performance and user experience.",
+      "author": "115597168327745249591",
+      "price": 350,
+      "priority": 2,
+      "coverImage": "645b761e402c2fa1d2147555-coverimage.jpg"
+    },
+    {
+      "_id": "645b762e402c2fa1d2147582",
+      "category": "Services",
+      "name": "Cybersecurity consulting",
+      "description": "Protect your business from cyber threats with our cybersecurity consulting service! Our team of experts will conduct a comprehensive assessment of your IT systems and infrastructure, identifying vulnerabilities and offering customized solutions to protect your business from cyber attacks and data breaches.",
+      "author": "115597168327745249591",
+      "price": 1200,
+      "priority": 3,
+      "coverImage": "645b762e402c2fa1d2147582-coverimage.jpg"
     }
   ]
 }

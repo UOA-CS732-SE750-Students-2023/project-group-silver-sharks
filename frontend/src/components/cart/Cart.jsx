@@ -105,7 +105,7 @@ const Cart = (props) => {
                     </div>
                 </div>
                 <div className="d-flex justify-content-end">
-                    <button onClick={checkoutClick} disabled={isCartEmpty} className={`${classes.btt}`}>Checkout</button>
+                    <button onClick={checkoutClick} disabled={isCartEmpty} className={`${classes.btt} ${isCartEmpty ? classes.disabled : ''}`}>Checkout</button>
                 </div>
             </div>
         </Modal>

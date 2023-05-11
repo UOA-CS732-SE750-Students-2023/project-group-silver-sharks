@@ -5,14 +5,15 @@ import {
   Form,
   json,
   redirect,
+  Link,
 } from "react-router-dom";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import "./SellAssetLayout.css";
 import ChatHolder from "./ChatHolder";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
-import axios from 'axios';
-import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import axios from "axios";
+import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 
 const SellAssetLayout = ({ userId, userStripeId }) => {
   const [enteredTitle, setEnteredTitle] = useState("");
@@ -21,17 +22,18 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
   const [files, setFiles] = useState([]);
   const [category, setCategory] = useState("Images");
   const [price, setPrice] = useState(0);
+  const [error, setError] = useState(false);
+  const [renderAddFiles, setRenderAddFiles] = useState(true);
   const stripe = useStripe();
   const elements = useElements();
   const priorityPrice = [0, 1000, 3000]; // In cents
 
   // Admin User
   const adminId = "109761511246582815438"; // SharketPlace Admin
-  const adminStripeId = "acct_1N5lDnCYHACaDnCs"
-  
+  const adminStripeId = "acct_1N5lDnCYHACaDnCs";
+
   // Add for priority
   const [priority, setPriority] = useState(1);
-
 
   // data returned from the post request -> if there are any errors or a response it will be in here
   const data = useActionData();
@@ -51,20 +53,34 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
     setCoverImage(coverImageFile);
   };
 
+  
   const filesChangeHandler = (event) => {
     setFiles(event.target.files);
   };
+  
 
   const priceChangeHandler = (event) => {
-    setPrice(event.target.value);
+    const inputPrice = event.target.value;
+    if (inputPrice >= 0) {
+      setPrice(inputPrice);
+    }
   };
 
   const categoryChangeHandler = (event) => {
     setCategory(event.target.value);
+
+    if (event.target.value === "Services") {
+      setRenderAddFiles(false);
+    } else {
+      setRenderAddFiles(true);
+    }
   };
 
   const submitHandler = async (event) => {
     event.preventDefault();
+
+    // reset the error message
+    setError(false);
 
     // print all the data returned from the form
     console.log("after form submission !!!");
@@ -99,42 +115,42 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
         // objects in cart, Stripe will throw customer detachment error.
         const cardElement = elements.getElement(CardElement);
         const { error, paymentMethod } = await stripe.createPaymentMethod({
-            type: 'card',
-            card: cardElement,
-        });
-        
-        console.log("Creating payment to admin...")
-        console.log("Payment Details")
-        console.log(adminId)
-        console.log(priorityPrice[priority - 1])
-        console.log(adminStripeId)
-        console.log(paymentMethod.id)
-        const response = await axios.post('/create-payment-intent', { 
-          userId: adminId, 
-          amount: priorityPrice[priority - 1], // Dictate the price depending on priority value
-          connectedAccountId: adminStripeId,
-          paymentMethodId: paymentMethod.id
+          type: "card",
+          card: cardElement,
         });
 
-        console.log("Payment Details")
+        console.log("Creating payment to admin...");
+        console.log("Payment Details");
+        console.log(adminId);
+        console.log(priorityPrice[priority - 1]);
+        console.log(adminStripeId);
+        console.log(paymentMethod.id);
+        const response = await axios.post("/create-payment-intent", {
+          userId: adminId,
+          amount: priorityPrice[priority - 1], // Dictate the price depending on priority value
+          connectedAccountId: adminStripeId,
+          paymentMethodId: paymentMethod.id,
+        });
+
+        console.log("Payment Details");
 
         const clientSecret = response.data;
 
         const paymentResult = await stripe.confirmCardPayment(clientSecret, {
-            payment_method: paymentMethod.id,
+          payment_method: paymentMethod.id,
         });
 
-        console.log("Checking payment error..")
+        console.log("Checking payment error..");
         if (paymentResult.error) {
-            console.error('[error]', paymentResult.error);
+          console.error("[error]", paymentResult.error);
         } else {
-          if (paymentResult.paymentIntent.status === 'succeeded') {
-            console.log('Payment successful');
+          if (paymentResult.paymentIntent.status === "succeeded") {
+            console.log("Payment successful");
             navigate("/store/product/" + newProduct._id);
           }
         }
       } catch (err) {
-         console.error(err.message);       
+        console.error(err.message);
       }
     }
     const textResponse = await fetch(
@@ -142,7 +158,7 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
       {
         method: "POST",
         headers: {
-          "Content-Type": "application/json", 
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(productData),
       }
@@ -189,42 +205,49 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
       );
     }
 
-    // third post request to upload the actual art files
-    const productFiles = document.getElementById("multiple-files");
-    console.log("line 130", productFiles.files.length);
-    console.log("line 131", productFiles.files);
-    const productFilesFormData = new FormData();
+    if (category !== "Services") {
+      // third post request to upload the actual art files
+      const productFiles = document.getElementById("multiple-files");
+      console.log("line 130", productFiles.files.length);
+      console.log("line 131", productFiles.files);
+      const productFilesFormData = new FormData();
 
-    for (let i = 0; i < productFiles.files.length; i++) {
-      productFilesFormData.append("files", productFiles.files[i]);
-    }
-
-    console.log(productFiles.files[0], 117);
-
-    console.log(productFilesFormData, 112);
-
-    const fileResponse = await fetch(
-      "http://localhost:3000/upload-downloadfiles/" + newProduct._id,
-      {
-        method: "POST",
-        body: productFilesFormData,
+      for (let i = 0; i < productFiles.files.length; i++) {
+        productFilesFormData.append("files", productFiles.files[i]);
       }
-    );
 
-    if (!fileResponse.ok) {
-      throw json(
+      console.log(productFiles.files[0], 117);
+
+      console.log(productFilesFormData, 112);
+
+      const fileResponse = await fetch(
+        "http://localhost:3000/upload-downloadfiles/" + newProduct._id,
         {
-          message:
-            "Could not successfully submit the product files for the sell assets action.",
-        },
-        { status: 500 }
+          method: "POST",
+          body: productFilesFormData,
+        }
       );
+
+      if (!fileResponse.ok) {
+        if (fileResponse.status === 415){
+          setError(true);
+        }
+
+        throw json(
+          {
+            message:
+              "Could not successfully submit the product files for the sell assets action.",
+          },
+          { status: 500 }
+        );
+      }
     }
 
     navigate("/store/product/" + newProduct._id);
-
   };
+  
   console.log("STRIPE USER ID IN SELL ASSET: " + userStripeId);
+
   return (
     <Container fluid className="container-fluid">
       <Row className="mt-5"></Row>
@@ -234,7 +257,11 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
             {/* <h4 className="mt-4">Sell an asset</h4> */}
             <h4>Sell an asset</h4>
           </div>
-          <form  className="sell-assets" enctype='multipart/form-data' onSubmit={submitHandler}>
+          <form
+            className="sell-assets"
+            enctype="multipart/form-data"
+            onSubmit={submitHandler}
+          >
             <div className="form-group">
               <label htmlFor="title">Title</label>
               <input
@@ -263,32 +290,32 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
               />
               <span className="required-star-des">*</span>
             </div>
+            {error && <div className="error-message">Incorrect File type being uploaded</div>}
             <div className="upload-container">
               <p>Add Cover image</p>
-              <label htmlFor="cover-image" className="file-label">Browse</label>
               <input
                 type="file"
                 name="cover-image"
                 id="cover-image"
                 onChange={coverImageChangeHandler}
-                multiple
+                required
                 className="file-input"
-                style={{ display: "none" }}
               />
             </div>
-            <div className="upload-container">
-              <p>Add product files</p>
-              <label htmlFor="multiple-files" className="file-label">Browse</label>
-              <input
-                type="file"
-                name="files"
-                id="multiple-files"
-                onChange={filesChangeHandler}
-                multiple
-                className="file-input"
-                style={{ display: "none" }}
-              />
-            </div>
+            {renderAddFiles && (
+              <div className="upload-container">
+                <p>Add product files</p>
+                <input
+                  type="file"
+                  name="files"
+                  id="multiple-files"
+                  onChange={filesChangeHandler}
+                  multiple
+                  className="file-input"
+                  required
+                />
+              </div>
+            )}
             <div className="form-group">
               <label htmlFor="price">Price</label>
               <input
@@ -301,6 +328,7 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
                 onChange={priceChangeHandler}
                 required
                 style={{ width: "8%", borderRadius: '10px' }}
+                min="0"
               />
               <span className="required-star-price">*</span>
             </div>
@@ -336,7 +364,6 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
                     checked={priority === 1}
                     onChange={(e) => setPriority(Number(e.target.value))}
                   />
-                  
                 </div>
                 <div className="col-sm-2">
                   <label htmlFor="high">High ($10)</label>
@@ -359,21 +386,19 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
                     checked={priority === 3}
                     onChange={(e) => setPriority(Number(e.target.value))}
                   />
-                  
                 </div>
               </div>
             </div>
-            { priority === 1 ? (
-              <>
-              </>
-              ) : (
+            {priority === 1 ? (
+              <></>
+            ) : (
               <>
                 Make your payment here.
                 <div className="card-element-container">
-                    <CardElement />
+                  <CardElement />
                 </div>
               </>
-            )} 
+            )}
             <div className="list-asset-wrapper">
               {/* <Button
                 variant="secondary"
@@ -384,56 +409,47 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
                 Cancel
               </Button> */}
               {/** If there is no Stripe ID associated with user, the user is prompted to create one. */}
+
               { userStripeId ? (
-                <div style={{
-                  "display": "flex",
-                  "flex-direction": "column",
-                  "width": "40%"
-                }}>
-                <Button
-                variant="primary"
-                type="submit"
-                className="mt-4"
-                style={{ 
-                  backgroundColor: "#348B81", 
-                  border: "none", 
-                  borderRadius: "25px",
-                  padding: "10px 30px",
-                }}
-                >
-                  List asset
-                </Button>
-              </div>
+                <div>
+                  <Button
+                  variant="primary"
+                  type="submit"
+                  className="mt-4"
+                  >
+                    List asset
+                  </Button>
+                </div>
               ) : (
-                <div style={{
-                  "display": "flex",
-                  "flex-direction": "column",
-                  "width": "40%"
-                }}>
-                <i>Stripe is not linked to your account! Please set up your Stripe authentication.</i>
-                <Button
-                disabled
-                variant="primary"
-                type="submit"
-                className="mt-4"
-                style={{ 
-                  backgroundColor: "#348B81", 
-                  border: "none", 
-                  borderRadius: "25px",
-                  padding: "10px 30px",
-                }}
+                <div
                 >
-                  List asset
-                </Button>
-              </div>
-              )} 
+                  <Link to={'/store/profile'} style={{ color: "black" }}>
+                    Stripe is not linked to your account! Please set up your
+                    Stripe authentication.
+                  </Link>
+                  
+                  <Button
+                    disabled
+                    variant="primary"
+                    type="submit"
+                    className="mt-4"
+                    style={{
+                      backgroundColor: "#348B81",
+                      border: "none",
+                      borderRadius: "25px",
+                      padding: "10px 30px",
+                    }}
+                  >
+                    List asset
+                  </Button>
+                </div>
+              )}
             </div>
           </form>
-        </Col>       
+        </Col>
       </Row>
     </Container>
   );
 };
-
 
 export default SellAssetLayout;

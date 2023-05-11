@@ -105,7 +105,7 @@ accountRouter.get("/account", isLoggedIn, async (req, res) => {
 accountRouter.get("/account/id/:id", isLoggedIn, async (req, res) => {
   const id = req.params.id === "0" ? req.user.id : req.params.id;
   const account = await getAccountById(id);
-  console.log(account);
+  console.log(account,108);
   return res.status(StatusCodes.OK).json(account);
 });
 

@@ -161,13 +161,7 @@ const PaymentForm = ({ cartContentsData }) => {
                                 <div className="p-asset-name-category">
                                     <h3>{product.name}</h3>
                                     <p>Category: {product.category}</p>
-                                </div>
-                                <div className="p-asset-price-sold">
                                     <p>Price: ${product.price.toFixed(2)}</p>
-                                    <p>{product.amountSold} sold</p>
-                                </div>
-                                <div className="p-asset-total">
-                                    <p>${(product.price * product.amountSold).toFixed(2)}</p>
                                 </div>
                             </div>
                         ))}

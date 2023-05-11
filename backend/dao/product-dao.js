@@ -19,16 +19,13 @@ const getAllProducts = async () => {
 // retrieve products from the database with pagination
 // both page and limit need to be integers
 const getPaginatedProducts = async (page, limit, sortBy) => {
-  let sortCriteria = { priority: -1 };
+  let sortCriteria = { priority: -1, _id: 1 };
+
 
   if (sortBy === "priceLowToHigh") {
-    sortCriteria = { price: 1 };
+    sortCriteria = { price: 1, _id: 1 };
   } else if (sortBy === "priceHighToLow") {
-    sortCriteria = { price: -1 };
-  } else if (sortBy === "popularity") {
-    sortCriteria = { priority: -1, amountSold: -1 };
-  }else if (sortBy === "default") {
-    sortCriteria = { priority: -1 };
+    sortCriteria = { price: -1, _id: 1 };
   }
 
   const products = await Product.find()
@@ -45,16 +42,13 @@ const getPaginatedProducts = async (page, limit, sortBy) => {
 };
 
 const getPaginatedCategories = async (page, limit, userCategory, sortBy) => {
-  let sortCriteria = { priority: -1 };
+  let sortCriteria = { priority: -1, _id: 1 };
+
 
   if (sortBy === "priceLowToHigh") {
-    sortCriteria = { price: 1 };
+    sortCriteria = { price: 1, _id: 1 };
   } else if (sortBy === "priceHighToLow") {
-    sortCriteria = { price: -1 };
-  } else if (sortBy === "popularity") {
-    sortCriteria = { priority: -1, amountSold: -1 };
-  }else if (sortBy === "default") {
-    sortCriteria = { priority: -1 };
+    sortCriteria = { price: -1, _id: 1 };
   }
 
   const products = await Product.find({ category: { $eq: userCategory } })
@@ -123,16 +117,13 @@ const getProductsMatchingSearchTerm = async (
   limit,
   sortBy
 ) => {
-  let sortCriteria = { priority: -1 };
+  let sortCriteria = { priority: -1, _id: 1 };
+
 
   if (sortBy === "priceLowToHigh") {
-    sortCriteria = { price: 1 };
+    sortCriteria = { price: 1, _id: 1 };
   } else if (sortBy === "priceHighToLow") {
-    sortCriteria = { price: -1 };
-  } else if (sortBy === "popularity") {
-    sortCriteria = { priority: -1, amountSold: -1 };
-  }else if (sortBy === "default") {
-    sortCriteria = { priority: -1 };
+    sortCriteria = { price: -1, _id: 1 };
   }
   // { "authors": { "$regex": "Alex", "$options": "i" } }
   const products = await Product.find({
