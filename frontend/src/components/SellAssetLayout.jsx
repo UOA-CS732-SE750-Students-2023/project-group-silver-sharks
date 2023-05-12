@@ -225,6 +225,7 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
             enctype="multipart/form-data"
             onSubmit={submitHandler}
           >
+            {/* Title */}
             <div className="form-group">
               <label htmlFor="title">Title</label>
               <input
@@ -239,6 +240,7 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
               />
               <span className="required-star">*</span>
             </div>
+            {/* Description */}
             <div className="form-group">
               <label htmlFor="description">Description</label>
               <textarea
@@ -253,7 +255,9 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
               />
               <span className="required-star-des">*</span>
             </div>
+            {/* Error message */}
             {error && <div className="error-message">Incorrect File type being uploaded</div>}
+            {/* Cover Image */}
             <div className="upload-container">
               <p>Add Cover image</p>
               <input
@@ -265,6 +269,7 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
                 className="file-input"
               />
             </div>
+            {/* Product Files */}
             {renderAddFiles && (
               <div className="upload-container">
                 <p>Add product files</p>
@@ -279,6 +284,7 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
                 />
               </div>
             )}
+            {/* Price */}
             <div className="form-group">
               <label htmlFor="price">Price</label>
               <input
@@ -295,6 +301,7 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
               />
               <span className="required-star-price">*</span>
             </div>
+            {/* Category */}
             <div className="form-group">
               <label htmlFor="category">Category</label>
               <div className="select-container">
@@ -313,7 +320,7 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
                 </div>
               </div>
             </div>
-
+            {/* Priority */}
             <div className="form-group">
               <label htmlFor="priority">Priority</label>
               <div className="s_inputStyling row">

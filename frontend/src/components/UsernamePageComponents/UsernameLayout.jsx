@@ -5,14 +5,16 @@ import "./UsernameLayout.css";
 function UsernameLayout() {
   const navigate = useNavigate();
 
-  const [error, setError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [formUsername, setFormUsername] = useState("");;
+  const [error, setError] = useState(false); // Tracks if an error occurred
+  const [errorMessage, setErrorMessage] = useState(""); // Stores the error message
+  const [formUsername, setFormUsername] = useState("");; // Stores the username entered in the form
 
+  // Event handler for username input changes
   const usernameHandler = (event) => {
     setFormUsername(event.target.value);
   };
 
+  // Event handler for form submission
   const submitHandler = async (event) => {
 
     // remove the error message 
@@ -22,6 +24,7 @@ function UsernameLayout() {
     await redirectUserNameHandler(formUsername);
   };
 
+  // Function to handle redirection based on the entered username
   const redirectUserNameHandler = async (enteredUsername) => {
     const payload = {
       username: enteredUsername,
@@ -43,6 +46,7 @@ function UsernameLayout() {
         setError(true);
         setErrorMessage("Username already exists.");
       } else { 
+        // Throw an error if the response status is not 409 or 410
         throw json(
             { message: "Could not post username" },
             {
