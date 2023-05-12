@@ -29,10 +29,12 @@ const PaginationBar = ({
 
   const totalPages = Math.ceil(itemsLength / itemsPerPage);
 
+  // Handle page change
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
 
+  // Generate an array of page numbers based on the current page
   const generatePageNumbers = () => {
     const visiblePages = 5;
     let pages = [];
@@ -86,6 +88,8 @@ const PaginationBar = ({
                 &lt;
               </button>
             </li>
+
+            {/* Page numbers */}
             {pages.map((page, index) => (
               <li key={page} className={`page-item ${currentPage === page ? 'active' : ''}`}>
                 <button

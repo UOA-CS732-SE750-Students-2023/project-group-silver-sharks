@@ -7,13 +7,15 @@ import "../components/PaginationBar.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 
-
+// Base URL for API requests
 const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? "";
 
+// Styling for the gray background
 const grayBackgroundStyle = {
   backgroundColor: "#F1F1F1",
 };
 
+// Number of items to display per page
 const ITEMS_PER_PAGE = 6;
 
 const ProductSearchPage = () => {
@@ -30,6 +32,7 @@ const ProductSearchPage = () => {
   const [isSearchStore, setIsSearchStore] = useState(false);
   const [changeState, setChangeState] = useState(false);
 
+  // Handler for category changes
   const categoryHandler = async (category) => {
     setIsSearchStore(false);
     setCategory(category);
@@ -39,6 +42,7 @@ const ProductSearchPage = () => {
     setChangeState((previous => !previous));
   };
 
+  // Handler for filter changes
   const filterHandler = async (filter) => {
     setIsSearchStore(false);
     setFilter(filter);
@@ -48,11 +52,13 @@ const ProductSearchPage = () => {
     setChangeState((previous => !previous));
   };
 
+  // Handler for page number changes
   const pageNumberHandler = async (currentPageNumber, searchTerm, isSearch) => {
     setPageNumber(currentPageNumber);
     const response = await handleItemsChange(currentPageNumber, undefined, undefined, isSearch, searchTerm);
   }
 
+  // Handler for searching by phrase
   const searchByPhraseHandler = async (searchTerm) => {
     setStoredSearchTerm(searchTerm)
     setIsSearchStore(true);
@@ -64,6 +70,7 @@ const ProductSearchPage = () => {
     setChangeState((previous => !previous));
   }
 
+  // Handler for changing the items displayed
   const handleItemsChange = async (currentPageNumber, specifiedCategory, specifiedFilter, isSearch, enteredSearchTerm) => {
     setNotFound(false);
     
@@ -147,7 +154,7 @@ const ProductSearchPage = () => {
     <>
       <div style={grayBackgroundStyle}>
         <ProductNavBar
-          setSearchCategory={categoryHandler}
+          setSearchCategory={categoryHandler} 
           setFilter={filterHandler}
           setSearchTerm={searchByPhraseHandler}
           notFound={notFound}
@@ -160,13 +167,14 @@ const ProductSearchPage = () => {
             <ReactPaginate
               breakLabel="..."
               nextLabel={<FontAwesomeIcon icon={faChevronRight} />}
+              // Sets the onPageChange event handler to call the pageNumberHandler function with appropriate parameters
               onPageChange={(data) =>
                 pageNumberHandler(data.selected + 1, storedSearchTerm, isSearchStore)
               }
               pageCount={notFound ? 1 : Math.ceil(displayCount / ITEMS_PER_PAGE)}
               marginPagesDisplayed={1}
               pageRangeDisplayed={5}
-              previousLabel={<FontAwesomeIcon icon={faChevronLeft} />} 
+              previousLabel={<FontAwesomeIcon icon={faChevronLeft} />} // Sets the previousLabel as a FontAwesomeIcon component
               renderOnZeroPageCount={null}
               initialPage={0}
               forcePage={pageNumber - 1}

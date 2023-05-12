@@ -15,7 +15,7 @@ const StoreDisplayLayout = (props) => {
     </div>
   );
 
-  // Add for priority
+  // Convert priority value to corresponding color
   const priorityToColor = (priority) => {
     switch (priority) {
       case 3:
@@ -30,6 +30,7 @@ const StoreDisplayLayout = (props) => {
   const [authors, setAuthors] = useState({});
 
   useEffect(() => {
+    // Fetch authors' data
     const fetchAuthors = async () => {
       const authorPromises = props.items.map(async (item) => {
         const response = await fetch(
@@ -50,8 +51,10 @@ const StoreDisplayLayout = (props) => {
 
   return (
     <div style={cardcon}>
+      {/* Render search results if not empty */}
       {!props.notFound && (
         <ul className="row list-unstyled">
+          {/* Iterate through items and render a card for each */}
           {props.items.map((item) => (
             <li key={item._id} className="col-sm-4">
               <Card priority={item.priority}>
@@ -69,6 +72,7 @@ const StoreDisplayLayout = (props) => {
                   <div className={`${classes.contentcontainer}`}>
                     <div className="row">
                       <div className={`${classes.productcontainer} col-md-8`}>
+                        {/* Link to the product's details page */}
                         <Link
                           id="productLink"
                           to={`/store/product/${item._id}`}
@@ -92,6 +96,7 @@ const StoreDisplayLayout = (props) => {
                     </div>
                     <div className="d-flex justify-content-between">
                       <div>
+                        {/* Link to the author's page */}
                         <Link
                           to={`/store/author/${item.author}`}
                           style={{ color: "black" }}

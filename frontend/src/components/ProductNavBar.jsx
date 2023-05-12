@@ -38,6 +38,7 @@ const ProductNavBar = ({
     zIndex: 100,
   };
 
+  // Handle category selection
   const categoryHandler = (event) => {
     const buttonText = event.target.innerHTML;
     const formattedCategory =
@@ -46,12 +47,14 @@ const ProductNavBar = ({
     setSelectedCategory(formattedCategory);
   };
 
+  // Handle search term change
   const searchChangeHandler = (event) => {
     setSearchTerm(event.target.value);
   };
 
   const [p_title, setTitle] = useState("Sort by :\u00A0\u00A0\u00A0Featured");
 
+  // Handle filter selection
   const filterChangeHandler = (event) => {
     setFilter(event);
     const ek = `${event}`;
