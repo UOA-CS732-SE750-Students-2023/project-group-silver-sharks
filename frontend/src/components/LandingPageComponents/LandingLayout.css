@@ -74,18 +74,14 @@
   color: white; /* Change the text color to white when hovering */
 }
 
-.landing-page-desc {
+.landing-page-desc-talent {
     color: white;
     font-size: 72px;
     font-weight: 400;
-    padding-top: 200px;
+    padding-top: 100px;
 }
 .landing-page-desc-wrapper {
     margin-top: 150px;
-}
-span {
-    color: #348B81;
-    font-weight: 800;
 }
 
 .wordContainer {
@@ -101,7 +97,6 @@ span {
 .word.show {
     opacity: 1;
 }
-  
 
 .landing-page-card-container {
     display: flex;
@@ -122,31 +117,83 @@ span {
     position: relative;
 }
 
-.card-wrapper {
+/** Slide Animation**/
+.landing-cycle-main-text-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+@keyframes CycleWords {
+    0% { opacity: 0; }
+    8% { opacity: 1;}
+    17% { opacity: 1;}
+    25% { opacity: 0;}
+}
+.landing-cycle-main-text span {
+    animation: CycleWords 6s ease-out infinite 0s;
+    opacity: 0;
+    overflow: hidden;
+}
+.landing-cycle-main-text span:nth-child(2) {
+    animation-delay: 1.5s;
+}
+.landing-cycle-main-text span:nth-child(3) {
+    animation-delay: 3s;
+}
+.landing-cycle-main-text span:nth-child(4) {
+    animation-delay: 4.5s;
+}
+.landing-animate-students {
+    color: #beffca;
+    opacity: 100%;
     position: absolute;
-}
-
-/*** CAROUSEL STYLING ***/
-.carousel .control-prev, .carousel .control-next {
-    transform: translateY(-50%);
-    top: 50%;
-}
-  
-.carousel .control-prev {
+    top: 0;
     left: 0;
-    margin-left: 15px; /* Adjust as needed */
-}
-  
-.carousel .control-next {
     right: 0;
-    margin-right: 15px; /* Adjust as needed */
+    bottom: 0;
+    margin: auto;
+    text-align: center;
 }
-  
-.carousel-wrapper {
-    max-width: 18rem;
-    margin: 0 auto;
+.landing-animate-employers {
+    color: #6bc99d;
+    opacity: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    text-align: center;
 }
-  
+.landing-animate-industries {
+    color: #50cf5c;
+    opacity: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    text-align: center;
+}
+.landing-animate-people {
+    color: #348B81;
+    opacity: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    text-align: center;
+}
+.landing-cycle-main-text{
+    text-align: center;
+    font-size: 72px;
+    font-weight: 600;
+    position: relative;
+}
 
 
 @media screen and (max-width: 980px) {

@@ -5,13 +5,6 @@
     flex-direction: column;
     margin: 0 1rem;    
 }
-
-.cards-item:hover {
-    transform: scale(1.1);
-    transition-duration: 0.2s;
-    cursor: pointer;
-}
-
 img {
     border: 2px;
     color: white;

@@ -3,12 +3,13 @@ import './LandingLayout.css';
 import LandingCard from './LandingCard';
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
-import { Carousel } from 'react-responsive-carousel';
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { Card } from 'react-bootstrap';
 
 
 const LandingLayout = ({popularMediaList}) => {
+
+  const [text, setText] = useState('Buy');
+    const [animationClass, setAnimationClass] = useState('');
+
 
   console.log("POPULAR MEDIA image products LIST IS IN LAYOUT COMPONENT");
   console.log(popularMediaList.imageProducts);
@@ -38,7 +39,7 @@ const LandingLayout = ({popularMediaList}) => {
   
   // Sell your talent section
   const translateYUp = Math.min(-scrollPosition * 0.2 + 900, 0);
-  const textOpacitySellThese = (scrollPosition - 400) / 800; // Text only reveals if user has scrolled 400 px down, and maxes at 800 px
+  const textOpacitySellThese = (scrollPosition - 400) / 700; // Text only reveals if user has scrolled 400 px down, and maxes at 700 px
 
   // Initialise particle engine
   const particlesInit = useCallback(async (engine) => {
@@ -154,8 +155,16 @@ const LandingLayout = ({popularMediaList}) => {
             transform: `translateY(${translateYUp}px)`,
             opacity: `${Math.max(textOpacitySellThese, 0)}`,
             }}
-          >
-            <div className="landing-page-desc">Buy and Sell your <span>TALENT</span></div>
+          > 
+          <div className="landing-cycle-main-text-wrapper">
+            <div className="landing-cycle-main-text">
+              <span className="landing-animate-students">DISCOVER</span>
+              <span className="landing-animate-employers">SHOW</span>
+              <span className="landing-animate-industries">ACCELERATE</span>
+              <span className="landing-animate-people">BUY</span>
+              <div className="landing-page-desc-talent">YOUR TALENT</div>
+            </div>
+          </div>
           </div>
           <div className="landing-page-card-wrapper">
             <LandingCard
@@ -181,23 +190,6 @@ const LandingLayout = ({popularMediaList}) => {
             />
           </div>
         </div>
-        <div className="carousel-container">
-          <Carousel showThumbs={false}>
-              {(popularMediaList.imageProducts).map((item, index) => (
-                  <div key={index}>
-                      <Card style={{ width: '18rem' }}>
-                          <Card.Img variant="top" src={`http://localhost:3000/uploads/${item.coverImage}`} />
-                          <Card.Body>
-                              <Card.Title>{item.name}</Card.Title>
-                              <Card.Text>
-                                  Number Sold: {item.amountSold}
-                              </Card.Text>
-                          </Card.Body>
-                      </Card>
-                  </div>
-              ))}
-            </Carousel>
-          </div>
       </div>
     </>
   );
