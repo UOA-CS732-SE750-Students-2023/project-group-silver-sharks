@@ -128,6 +128,7 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
         }
       } catch (err) {
         console.error(err.message);
+        setSubmitting(false);
       }
     }
     const textResponse = await fetch(
@@ -142,6 +143,7 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
     );
 
     if (!textResponse.ok) {
+      setSubmitting(false);
       throw json(
         {
           message:
@@ -152,8 +154,6 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
     }
 
     const newProduct = await textResponse.json();
-
-    let statusCode;
 
     if (category !== "Services") {
       // third post request to upload the actual art files
@@ -175,9 +175,10 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
       if (!fileResponse.ok) {
         if (fileResponse.status === 415){
           setError(true);
+          setSubmitting(false);
           return;
         }
-
+        setSubmitting(false);
         throw json(
           {
             message:
@@ -201,6 +202,7 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
     );
 
     if (!coverImageResponse.ok) {
+      setSubmitting(false);
       throw json(
         {
           message:
