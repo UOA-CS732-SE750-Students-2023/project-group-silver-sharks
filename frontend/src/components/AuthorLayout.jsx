@@ -16,7 +16,7 @@ const AuthorLayout = ({
   const submit = useSubmit();
   const navigate = useNavigate();
   // checking the account type of the user
-  const isAdmin = userAccountType === "admin";
+  const isAdmin = (userAccountType === "admin");
 
   let averageRatingTemp = 0;
   

@@ -122,6 +122,9 @@ export const action = async ({params, request}) => {
 
   console.log("cart item deleted successfully")
 
+  // reload the page so the page gets updated
+  window.location.reload();
+
   return redirect('/store/product/' + productId);
 };
   
