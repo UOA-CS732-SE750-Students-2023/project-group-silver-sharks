@@ -8,7 +8,7 @@ import {
   getCartContents,
 } from "../dao/account-dao.js";
 
-import { ReasonPhrases, StatusCodes } from "http-status-codes";
+import { StatusCodes } from "http-status-codes";
 import passport from "passport";
 import session from "express-session";
 import { Account } from "../models/accountModel.js";
@@ -64,7 +64,6 @@ accountRouter.post("/account/username", async (req, res) => {
   try {
     const { username } = req.body;
     const alreadyExists = await Account.findOne({ username });
-    console.log(req.body.username);
     if (alreadyExists) {
       res.status(410).send("Username already exists");
     } else if (!/^[a-zA-Z0-9_]+$/.test(req.body.username)) {
@@ -80,7 +79,6 @@ accountRouter.post("/account/username", async (req, res) => {
       res.send({ message: "Username added successfully" });
     }
   } catch (err) {
-    console.log(err);
     res
       .status(500)
       .send({ message: "Unable to add username: ensure you are logged in" });
@@ -105,7 +103,6 @@ accountRouter.get("/account", isLoggedIn, async (req, res) => {
 accountRouter.get("/account/id/:id", isLoggedIn, async (req, res) => {
   const id = req.params.id === "0" ? req.user.id : req.params.id;
   const account = await getAccountById(id);
-  console.log(account, 108);
   return res.status(StatusCodes.OK).json(account);
 });
 
@@ -227,7 +224,6 @@ accountRouter.delete("/account", isLoggedIn, async (req, res) => {
               { productsPurchased: { $in: [productId] } },
               { $pull: { productsPurchased: productId } }
             );
-            console.log(`Removed product ${productId} from all accounts.`);
           } catch (error) {
             console.error(
               "Error while removing product from purchased products:",
@@ -241,7 +237,6 @@ accountRouter.delete("/account", isLoggedIn, async (req, res) => {
               { sellingProducts: { $in: [productId] } },
               { $pull: { sellingProducts: productId } }
             );
-            console.log(`Removed product ${productId} from all accounts.`);
           } catch (error) {
             console.error(
               "Error while removing product from selling products:",
@@ -255,7 +250,7 @@ accountRouter.delete("/account", isLoggedIn, async (req, res) => {
               .send("Error deleting one of the user's products");
           }
         } catch (error) {
-          console.log(error);
+          console.error(error);
         }
       }
     }
@@ -341,7 +336,6 @@ accountRouter.delete(
                 { productsPurchased: { $in: [productId] } },
                 { $pull: { productsPurchased: productId } }
               );
-              console.log(`Removed product ${productId} from all accounts.`);
             } catch (error) {
               console.error(
                 "Error while removing product from purchased products:",
@@ -355,7 +349,6 @@ accountRouter.delete(
                 { sellingProducts: { $in: [productId] } },
                 { $pull: { sellingProducts: productId } }
               );
-              console.log(`Removed product ${productId} from all accounts.`);
             } catch (error) {
               console.error(
                 "Error while removing product from selling products:",
@@ -369,7 +362,7 @@ accountRouter.delete(
                 .send("Error deleting one of the user's products");
             }
           } catch (error) {
-            console.log(error);
+            console.error(error);
           }
         }
       }
@@ -475,7 +468,7 @@ accountRouter.get("/account/cart/pid/:pid", isLoggedIn, async (req, res) => {
 
     res.status(200).json({ message: "Product added to cart" });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res
       .status(500)
       .json({ message: "Server error: product id may be invalid" });
@@ -517,7 +510,7 @@ accountRouter.delete("/account/cart/pid/:pid", isLoggedIn, async (req, res) => {
 
     res.status(200).json({ message: "Product removed from cart" });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res
       .status(500)
       .json({ message: "Server error: product id may be invalid" });
@@ -546,7 +539,7 @@ accountRouter.delete("/account/cart/clear", isLoggedIn, async (req, res) => {
 
     res.status(200).json({ message: "All products removed from cart" });
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.status(500).json({
       message: "Server error: Something went wrong with deleting from cart",
     });

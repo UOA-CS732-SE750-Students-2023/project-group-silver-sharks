@@ -3,7 +3,6 @@ import { Account } from "../models/accountModel.js";
 import { Room } from "../models/roomModel.js";
 import { Message } from "../models/messageModel.js";
 import fs from "fs";
-import path from "path";
 import mongoose from "mongoose";
 
 // return all products in the database
@@ -16,8 +15,7 @@ const getAllProducts = async () => {
   return { products, count };
 };
 
-// retrieve products from the database with pagination
-// both page and limit need to be integers
+// gets paginated products from the database regardless of category
 const getPaginatedProducts = async (page, limit, sortBy) => {
   let sortCriteria = { priority: -1, _id: 1 }; // Featured
 
@@ -36,16 +34,15 @@ const getPaginatedProducts = async (page, limit, sortBy) => {
     .skip((page - 1) * limit)
     .limit(limit);
 
-  console.log(products);
-
   // determine the number of results being returned
   const count = await Product.countDocuments({});
 
   return { products, count };
 };
 
+// gets paginated products for a specific category
 const getPaginatedCategories = async (page, limit, userCategory, sortBy) => {
-  let sortCriteria = { priority: -1, _id: 1 }; // Featured
+  let sortCriteria = { priority: -1, _id: 1 }; // Featured products
 
   if (sortBy === "priceLowToHigh") {
     sortCriteria = { price: 1, _id: 1 };
@@ -62,8 +59,6 @@ const getPaginatedCategories = async (page, limit, userCategory, sortBy) => {
     .skip((page - 1) * limit)
     .limit(limit);
 
-  console.log(`filtered products by ${userCategory} : ` + products);
-
   // determine the number of results being returned
   const count = await Product.countDocuments({
     category: { $eq: userCategory },
@@ -72,27 +67,25 @@ const getPaginatedCategories = async (page, limit, userCategory, sortBy) => {
   return { products, count };
 };
 
+// adds a new account to the database
 const addProduct = async (product) => {
   const newProduct = new Product(product);
-  console.log(newProduct);
   await newProduct.save();
   return newProduct;
 };
 
+// adds new product to account's selling products when product is listed
 const registerProductWithAccount = async (product, accountId) => {
   // get the account instance
   const account = await Account.findById(accountId).populate("sellingProducts");
 
-  console.log(account.sellingProducts);
-
   // register the product with the account
   account.sellingProducts.push(product);
-
-  console.log(account);
 
   await account.save();
 };
 
+// adds new product to account's purchased products when product is bought
 const registerBuyingProductWithAccount = async (productId, accountId) => {
   // get account instance
   const account = await Account.findById(accountId).populate(
@@ -101,22 +94,17 @@ const registerBuyingProductWithAccount = async (productId, accountId) => {
 
   // get product instance and increment amount sold
   const product = await Product.findById(productId);
-  console.log(product);
   const oldAmountSold = product.amountSold;
-  console.log(oldAmountSold);
   const newAmountSold = oldAmountSold + 1;
-  console.log(newAmountSold);
   product.amountSold = newAmountSold;
-  console.log(product);
   await product.save();
-
-  console.log(account.productsPurchased);
 
   account.productsPurchased.push(product);
 
   await account.save();
 };
 
+// gets paginated products matching a search term
 const getProductsMatchingSearchTerm = async (
   searchTerm,
   page,
@@ -142,8 +130,6 @@ const getProductsMatchingSearchTerm = async (
     .skip((page - 1) * limit)
     .limit(limit);
 
-  console.log("products match search query" + products);
-
   // determine the number of results being returned
   const count = await Product.countDocuments({
     name: { $regex: searchTerm, $options: "i" },
@@ -152,10 +138,12 @@ const getProductsMatchingSearchTerm = async (
   return { products, count };
 };
 
+// gets product by ID
 const getProductById = async (id) => {
   return await Product.findById(id).populate("author");
 };
 
+// update's details of an existing product
 const updateProduct = async (productId, updatedProductData) => {
   const existingProduct = await Product.findById(productId);
 
@@ -173,6 +161,7 @@ const updateProduct = async (productId, updatedProductData) => {
   return existingProduct;
 };
 
+// deletes specific product by ID
 const deleteProduct = async (productId) => {
   const deletedProduct = await Product.findByIdAndRemove(productId);
 
@@ -197,13 +186,12 @@ const deleteProduct = async (productId) => {
         fs.unlinkSync(currentPath);
       }
     }
-
-    console.log("Files removed successfully");
   }
 
   return deletedProduct;
 };
 
+// sends automated message to seller once their product is bought
 const sendSharkbotMessage = async (sellerId, productId, requestingUserId) => {
   try {
     // Checking that product Id is valid
@@ -260,6 +248,7 @@ const sendSharkbotMessage = async (sellerId, productId, requestingUserId) => {
   }
 };
 
+// gets products to be shown on the landing page
 const getLandingPageProducts = async () => {
   let finalResults = {};
   const fields = "name price coverImage amountSold";

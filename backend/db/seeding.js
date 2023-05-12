@@ -3,19 +3,16 @@ import { Product } from "../models/productModel.js";
 import fs from "fs";
 import path from "path";
 import util from "util";
-import { rimraf } from "rimraf";
 import { ProductReview } from "../models/productReviewModel.js";
 import { Message } from "../models/messageModel.js";
 import { Room } from "../models/roomModel.js";
 
 const mkdir = util.promisify(fs.mkdir);
 const readdir = util.promisify(fs.readdir);
-const rmdir = util.promisify(fs.rmdir);
 const stat = util.promisify(fs.stat);
 const copyFile = util.promisify(fs.copyFile);
-const unlink = util.promisify(fs.unlink);
-const rimrafAsync = util.promisify(rimraf);
 
+// fuction to delete an existing folder and its contents
 function deleteFolder(folderPath) {
   fs.readdir(folderPath, (err, files) => {
     if (err) throw err;
@@ -28,6 +25,7 @@ function deleteFolder(folderPath) {
   });
 }
 
+// function to copy an existing folder and its contents
 async function copyFolder(source, destination) {
   try {
     await mkdir(destination, { recursive: true });
@@ -44,15 +42,12 @@ async function copyFolder(source, destination) {
         await copyFile(srcPath, destPath);
       }
     }
-
-    console.log(
-      `Folder '${source}' has been copied to '${destination}' successfully.`
-    );
   } catch (error) {
     console.error(`Error while copying folder: ${error.message}`);
   }
 }
 
+// add fresh new data to the database from JSON file
 async function importDataFromFile() {
   // Cleanup previous data
   await Account.deleteMany({});
@@ -71,7 +66,6 @@ async function importDataFromFile() {
 
   // Read data from JSON file
   const data = JSON.parse(fs.readFileSync("./db/data.json", "utf-8"));
-  console.log(data);
 
   // Import accounts
   for (const accountData of data.Accounts) {
@@ -85,11 +79,11 @@ async function importDataFromFile() {
     await product.save();
   }
 
-    //Import product reviews
-    for (const productReviewData of data.ProductReviews) {
-      const productReview = new ProductReview(productReviewData);
-      await productReview.save();
-    }
+  //Import product reviews
+  for (const productReviewData of data.ProductReviews) {
+    const productReview = new ProductReview(productReviewData);
+    await productReview.save();
+  }
 
   // Import messages
   for (const messageData of data.Messages) {

@@ -33,6 +33,7 @@ connectDB();
 // UNCOMMENT THIS LINE IF YOU WANT TO REPOPULATE DATABASE USING JSON FILE
 //importDataFromFile();
 
+// Set up endpoint routers
 app.use(productRouter);
 app.use(accountRouter);
 app.use(authRouter);
@@ -59,6 +60,7 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
+// Socket IO functionaity for messaging
 io.on("connection", (socket) => {
   console.log(`User Connected: ${socket.id}`);
 

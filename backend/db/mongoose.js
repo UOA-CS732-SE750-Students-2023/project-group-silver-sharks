@@ -3,6 +3,7 @@ dotenv.config();
 
 import mongoose, { connect } from "mongoose";
 
+// function to connect to the main database
 const connectDB = async () => {
   try {
     await mongoose.connect(process.env.DB_URL, {
