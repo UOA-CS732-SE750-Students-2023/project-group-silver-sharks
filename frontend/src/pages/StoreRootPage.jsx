@@ -92,6 +92,7 @@ export const loader = async () => {
 
 export const action = async ({params, request}) => {
 
+
   const formData = await request.formData();
 
   const productId =  formData.get('id'); 
@@ -107,6 +108,9 @@ export const action = async ({params, request}) => {
           status: 500,
       });
   }
+
+  // reload the page so the page gets updated
+  window.location.reload();
 
   return redirect('/store/product/' + productId);
 };
