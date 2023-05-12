@@ -21,6 +21,9 @@ const AuthorPage = () => {
         isOwnAccount = true;
     }
 
+    // determing if the logged in user is admin or not
+
+
     /*
     const whovisit=()=>{
         if(current_aid===authorpage_aid){
@@ -77,11 +80,6 @@ export const loader = async ({request,params}) => {
         // react router will extract data from promise
     const author = await response.json();
 
-    console.log("################################################")
-    console.log("from inside the author page loader: ")
-    console.log(author)
-    console.log("################################################")
-
     accountsData.push(author);
 
     return accountsData;
@@ -90,10 +88,33 @@ export const loader = async ({request,params}) => {
 
 export const action = async ({ params, request }) => {
 
+    // logic for determining the redirect following the deletion of the account in question
+    const formData = await request.formData();
+
+    let redirectLandingPage = false;  
+
+    const isAdmin =  formData.get('isAdmin'); 
+    const isOwnAccount = formData.get('isOwnAccount');
+
+    if (isAdmin && isOwnAccount){
+        console.log("redirect to the landing page", 112);
+        redirectLandingPage = true;
+    }
+
+    if (isAdmin && !isOwnAccount){
+        console.log("redirect to the product search page", 117);
+        redirectLandingPage = false;
+    }
+
+    if (!isAdmin && isOwnAccount){
+        console.log("redirect to the landing page", 121);
+        redirectLandingPage = true;
+    }
+
+    // get the account id of the account to be deleted from the url
     const authorId = params.aid;
 
-    // deleting other accounts as a admin from the author page
-
+    // delete the account
     const response = await fetch('http://localhost:3000/account/id/' + authorId, {
         method: request.method,
     });
@@ -104,5 +125,10 @@ export const action = async ({ params, request }) => {
 
     console.log("account successfully deleted", 100);
 
-    return redirect('/');
+
+    if (redirectLandingPage){
+        return redirect('/');
+    }
+
+    return redirect('/store/product-search');
 }
