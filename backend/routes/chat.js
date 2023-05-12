@@ -1,12 +1,7 @@
 import express from "express";
-import { StatusCodes } from "http-status-codes";
 import passport from "passport";
 import session from "express-session";
 import { Room } from "../models/roomModel.js";
-import { Account } from "../models/accountModel.js";
-import { Product } from "../models/productModel.js";
-import mongoose from "mongoose";
-import { Message } from "../models/messageModel.js";
 
 const chatRouter = new express.Router();
 
@@ -59,9 +54,10 @@ chatRouter.post("/chat", isLoggedIn, async (req, res) => {
   res.status(200).json({ roomId: room._id });
 });
 
-// 2. GET /chat/rooms
-// Gets all of the current user’s rooms, ordered by most recently updated
-
+/**
+ * 2. GET /chat/rooms
+ * Gets all of the current user’s rooms, ordered by most recently updated
+ * */
 chatRouter.get("/chat/rooms", isLoggedIn, async (req, res) => {
   const rooms = await Room.find({
     $or: [{ account1: req.user.id }, { account2: req.user.id }],
