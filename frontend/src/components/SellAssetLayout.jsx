@@ -2,14 +2,11 @@ import React, { useState } from "react";
 import {
   useNavigate,
   useActionData,
-  Form,
   json,
-  redirect,
   Link,
 } from "react-router-dom";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import "./SellAssetLayout.css";
-import ChatHolder from "./ChatHolder";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
@@ -27,6 +24,7 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
   const stripe = useStripe();
   const elements = useElements();
   const priorityPrice = [0, 1000, 3000]; // In cents
+  const [submitting, setSubmitting] = useState(false);
 
   // Admin User
   const adminId = "109761511246582815438"; // SharketPlace Admin
@@ -81,6 +79,9 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
 
     // reset the error message
     setError(false);
+
+    // enable the submitting state variable to disable the list asset button
+    setSubmitting(true);
 
     const productData = {
       name: enteredTitle,
@@ -152,6 +153,8 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
 
     const newProduct = await textResponse.json();
 
+    //
+
     let statusCode;
 
     if (category !== "Services") {
@@ -186,7 +189,7 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
         );
       }
     }
-
+    
     // second post request to submit the cover image
     const coverImageFormData = new FormData();
     coverImageFormData.append("files", coverImage);
@@ -209,8 +212,12 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
       );
     }
 
+    // disable the submitting state variable to enable the list asset button
+    setSubmitting(false);
+
     navigate("/store/product/" + newProduct._id);
   };
+
 
   return (
     <Container fluid className="container-fluid">
@@ -218,6 +225,7 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
       <Row>
         <Col className="sell-asset-title">
           <div>
+            {/* <h4 className="mt-4">Sell an asset</h4> */}
             <h4>Sell an asset</h4>
           </div>
           <form
@@ -225,7 +233,6 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
             enctype="multipart/form-data"
             onSubmit={submitHandler}
           >
-            {/* Title */}
             <div className="form-group">
               <label htmlFor="title">Title</label>
               <input
@@ -240,7 +247,6 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
               />
               <span className="required-star">*</span>
             </div>
-            {/* Description */}
             <div className="form-group">
               <label htmlFor="description">Description</label>
               <textarea
@@ -255,9 +261,7 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
               />
               <span className="required-star-des">*</span>
             </div>
-            {/* Error message */}
             {error && <div className="error-message">Incorrect File type being uploaded</div>}
-            {/* Cover Image */}
             <div className="upload-container">
               <p>Add Cover image</p>
               <input
@@ -269,7 +273,6 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
                 className="file-input"
               />
             </div>
-            {/* Product Files */}
             {renderAddFiles && (
               <div className="upload-container">
                 <p>Add product files</p>
@@ -284,7 +287,6 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
                 />
               </div>
             )}
-            {/* Price */}
             <div className="form-group">
               <label htmlFor="price">Price</label>
               <input
@@ -301,7 +303,6 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
               />
               <span className="required-star-price">*</span>
             </div>
-            {/* Category */}
             <div className="form-group">
               <label htmlFor="category">Category</label>
               <div className="select-container">
@@ -320,7 +321,7 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
                 </div>
               </div>
             </div>
-            {/* Priority */}
+
             <div className="form-group">
               <label htmlFor="priority">Priority</label>
               <div className="s_inputStyling row">
@@ -376,8 +377,9 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
                   variant="primary"
                   type="submit"
                   className="mt-4"
+                  disabled={submitting}
                   >
-                    List asset
+                    {submitting ? 'Submitting...' : 'List asset'}
                   </Button>
                 </div>
               ) : (
