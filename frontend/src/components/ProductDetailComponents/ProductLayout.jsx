@@ -403,6 +403,7 @@ const ProductLayout = ({
                 id="review"
                 name="review"
                 ref={textInputRef}
+                required
               ></textarea>
               <div className="rating-container">
                 <label htmlFor="rating">Rating</label>
