@@ -38,7 +38,7 @@ import { loader as MessagesLoader } from './pages/profile/MessagesPage';
 
 const router = createBrowserRouter([
   {path:'/', element: <RootPage />, errorElement: <ErrorPage />,children: [
-    {index: true, element: <LandingPage />},
+    {index: true, element: <LandingPage/>},
     {path: 'username', element: <UsernamePage />},
     {path: 'login', element: <LoginPage />, action: loginAction},
     {path: 'signup', element: <SignupPage />, action: signupAction},

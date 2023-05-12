@@ -4,7 +4,9 @@ import LandingCard from './LandingCard';
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 
+
 const LandingLayout = () => {
+
   const navigateSignupHandler = () => {
     window.location.href = 'http://localhost:3000/account/sign-in';
   };
@@ -31,7 +33,7 @@ const LandingLayout = () => {
   
   // Sell your talent section
   const translateYUp = Math.min(-scrollPosition * 0.2 + 900, 0);
-  const textOpacitySellThese = (scrollPosition - 400) / 800; // Text only reveals if user has scrolled 400 px down, and maxes at 800 px
+  const textOpacitySellThese = (scrollPosition - 400) / 700; // Text only reveals if user has scrolled 400 px down, and maxes at 700 px
 
   // Initialise particle engine
   const particlesInit = useCallback(async (engine) => {
@@ -147,12 +149,19 @@ const LandingLayout = () => {
             transform: `translateY(${translateYUp}px)`,
             opacity: `${Math.max(textOpacitySellThese, 0)}`,
             }}
-          >
-            <div className="landing-page-desc">Buy and Sell your <span>TALENT</span></div>
+          > 
+          <div className="landing-cycle-main-text-wrapper">
+            <div className="landing-cycle-main-text">
+              <span className="landing-animate-students">DISCOVER</span>
+              <span className="landing-animate-employers">SHOW</span>
+              <span className="landing-animate-industries">ACCELERATE</span>
+              <span className="landing-animate-people">BUY</span>
+              <div className="landing-page-desc-talent">YOUR TALENT</div>
+            </div>
+          </div>
           </div>
           <div className="landing-page-card-wrapper">
             <LandingCard
-              onClick={navigateSignupHandler}
               src="/LandingPageImages/Images.png"
               title="Images"
               text="Elevate your digital projects with stunning images produced by talented artists."
