@@ -7,7 +7,6 @@ import classes from '../pages/ui/Card.module.css'
 import './AuthorLayout.css'
 
 const AuthorLayoutUserview = ({ author }) => { 
-    //假设这些商品都是aid=xxx的
     const DUMMY_DATA = [
         {   
             pid: 1,
@@ -89,7 +88,6 @@ const AuthorLayoutUserview = ({ author }) => {
         },
         
     ];
-    //统计该用户一共有多少个items
     const totalItems = DUMMY_DATA.length;
     const itemText = totalItems > 1 ? 'assets' : 'asset';
 

@@ -12,8 +12,6 @@ const AuthorPage = () => {
     const userId = data[0]._id;
     const authorPageId = params.aid;
 
-    console.log("author id from the url: ", params.aid, 13); 
-
     let isOwnAccount = false; 
 
     console.log("user Id" + userId, 19); 
@@ -23,8 +21,6 @@ const AuthorPage = () => {
     if (userId === authorPageId){
         isOwnAccount = true;
     }
-
-    console.log("is own account: ", isOwnAccount, 27)
     
     return (
         <div>
@@ -93,6 +89,7 @@ export const action = async ({ params, request }) => {
     if (!response.ok){
         throw json({ message: 'Could not delete this account.'}, { status: 500 });
     }
+
 
     if (navigateLandingPage){
         return redirect('/');

@@ -71,14 +71,12 @@ const ProductLayout = ({
   };
 
   const checkCanReview = async () => {
-    console.log("can check review !!!");
     const response = await fetch(
       "http://localhost:3000/products/pid/" + product._id + "/can-review"
     );
 
     // if this if statement triggers then the lines thereafter wont execute.
     if (!response.ok) {
-      console.log("set show review is being set to false");
       setShowReview(false);
       setAlreadyReviewed(true);
       return;
@@ -108,7 +106,6 @@ const ProductLayout = ({
     checkItemInCart()
       .then((output) => {
         console.log("inside the return");
-        console.log("output: ", output, 96);
 
         if (output) {
           setAddToCartText("In Cart");
@@ -125,7 +122,7 @@ const ProductLayout = ({
     }
   }, []);
 
-  // const [ avg_rating, ca_avgrating ] = useState("Not available");
+
   //Calculate the number of reviews
   const totalAmount = reviews.length;
   const reviewnumber = totalAmount > 1 ? "reviews" : "review";
@@ -136,7 +133,6 @@ const ProductLayout = ({
   const avg_rating = totalAmount > 0 ? average_ra : "Not available";
 
   const addReviewWindowHandler = async () => {
-    console.log("addreviewwindowhandler", 136);
     const response = await fetch(
       "http://localhost:3000/products/pid/" + product._id + "/can-review"
     );
@@ -171,12 +167,14 @@ const ProductLayout = ({
 
     const responseData = await response.json();
 
-    console.log(responseData), 127;
+  
 
     return responseData.inCart;
   };
 
   const addToCartHandler = async () => {
+
+    // making the GET request to the backend to add to cart
 
     const response = await fetch(
       "http://localhost:3000/account/cart/pid/" + product._id
@@ -222,8 +220,7 @@ const ProductLayout = ({
     const text = textInputRef.current.value;
     const rating = getSelectedValue();
 
-    console.log("text: ", text, 222);
-    console.log("rating: ", rating, 223);
+
 
     if (!rating) {
       // display error message
@@ -247,7 +244,6 @@ const ProductLayout = ({
     });
 
     if (!response.ok) {
-      console.log("the response for the review handler is incorrect", 246);
       // backend throws 422 when data entered in form is invalid
       if (response.status === 422) {
         return response;
@@ -256,7 +252,6 @@ const ProductLayout = ({
       throw json({ message: "Could not save review." }, { status: 500 });
     }
 
-    console.log("the response for the review handler is fine", 255);
     // redirect the user after submitting
     getReviewsByFilter("most_recent");
     closeAddReviewWindowHandler();
@@ -269,9 +264,6 @@ const ProductLayout = ({
     const description = descriptionInputRef.current.value;
     const price = priceInputRef.current.value;
 
-    console.log(name, 92);
-    console.log(description, 93);
-    console.log(price, 97);
 
     const formData = {
       name: name,
@@ -294,7 +286,7 @@ const ProductLayout = ({
       throw json({ message: "Could not edit product" }, { status: 500 });
     }
 
-    console.log("edit event is successful");
+
 
     // reload the current page and close the modal
     navigate(".");
@@ -355,14 +347,12 @@ const ProductLayout = ({
 
     const roomId = await response.json();
 
-    console.log(roomId, 70);
 
     // navigate to the messages page
     navigate("/store/profile/messages");
   };
 
   const convertToDaysAgo = (isoDate) => {
-    console.log("DATE FROM REVIEW " + isoDate);
     const date = moment(isoDate);
     const now = moment();
     const daysAgo = now.diff(date, "days");

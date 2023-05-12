@@ -18,7 +18,6 @@ const ProfileNavBar = (props) => {
                 status: 500,
             });
         } else {
-            console.log(response)
             return navigate("/");
         }
     }

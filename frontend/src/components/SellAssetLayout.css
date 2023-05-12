@@ -5,9 +5,6 @@
   font-style: normal;
 }
 
-/* .sell-container {
-  margin: 100px;
-} */
 .sell-assets {
   margin: 0 90px 200px;
   background-color: #fff;
@@ -20,11 +17,6 @@
 
 }
 
-/* .sell-asset-title {
-  width: 80%;
-  margin-left: 10%;
-} */
-
 .error-message {
   display: flex;
   color: red;
@@ -32,12 +24,6 @@
   justify-content: center;
 }
 
-
-/* .form-container {
-  background-color: #fff;
-  margin-top: 40px;
-  padding: 35px;
-} */
 .sell-asset-title h4 {
   margin-left: 9%; 
   margin-top: 30px;
@@ -71,14 +57,6 @@
   outline: none;
   border-color: #348B81;
 }
-/* .form-group::before {
-  content: "*";
-  position: absolute;
-  top: 0;
-  right: -200px;
-  color: red;
-  font-size: 20px;
-} */
 
 .required-star {
   position: absolute;
@@ -120,11 +98,6 @@
   border-width: 2px;
 }
 
-
-/* .form-control .form-select {
-  width: 25%;
-} */
-
 .styled-select {
   font-family: Poppins;
   width: 100%;
@@ -146,19 +119,6 @@
   outline: none;
   border-color: #348B81;
 }
-
-/* .browse-button {
-  display: inline-block;
-  padding: 5px 10px;
-  border-radius: 15px;
-  cursor: pointer;
-  text-decoration: none;
-  border: 2px solid #000;
-}
-
-.btn {
-  border-radius: 15px;
-} */
 
 .file-input {
   background-color: #ffffff;
@@ -198,7 +158,6 @@
   color: #ffffff;
 }
 
-/* ... */
 .form-group label {
   display: block;
   margin-bottom: 5px;
@@ -211,7 +170,6 @@
   text-align: left;
 
 }
-/* ... */
 
 .select-container {
   position: relative;
@@ -235,11 +193,9 @@
 
 }
 .s_inputStyling input[type="radio"] {
-  /* 隐藏默认的单选按钮 */
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  /* 使用自定义的图标 */
   width: 27px;
   height: 27px;
   border-radius: 50%;
@@ -262,7 +218,6 @@
   background-color:#D9D9D9;
 }
 
-/* 选中状态 */
 .s_inputStyling input[type="radio"]:checked::before {
   background-color: #348B81;
 }
@@ -275,7 +230,6 @@
   width: 40%;
 }
 .s-buttoncontainer{
-  /* display: flex; */
   flex-direction: column;
   width:40%;
 

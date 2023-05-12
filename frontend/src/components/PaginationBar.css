@@ -1,7 +1,6 @@
 .pagination-container {
   display: flex;
   justify-content: center;
-  /* background-color: white; */
   padding: 1rem;
   margin-top: 1rem;
   padding-top: 45px;
@@ -71,13 +70,6 @@
   cursor: default;
   background-color: transparent;
 }
-
-/* .pagination .previous-label,
-.pagination .next-label {
-  font-weight: bold;
-} */
-
-
 
 .pagination .page-link:focus {
   outline: none;

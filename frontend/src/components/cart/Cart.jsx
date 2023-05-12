@@ -6,20 +6,14 @@ import classes from '../modal/Modal.module.css';
 import { useNavigate, useSubmit } from 'react-router-dom';
 
 
-
-// remember when using value from context, useState does not need to be used 
-// because when the cart data values change the component(s) that use them automatically 
-// rerender
-
 const Cart = (props) => { 
     const submit = useSubmit();
-    //const [isCartEmpty, setIsCartEmpty] = useState(false);
     let isCartEmpty = false;
 
     let currentCartItem;
 
 
-    console.log("cart: " + props.cartContents, 16)
+    
 
     if (props.cartContents.length === 0){ 
         isCartEmpty = true;
@@ -29,9 +23,7 @@ const Cart = (props) => {
 
 
     // check if the cart is empty or not 
-
     // if it is empty then render a display message
-    
     const navigate = useNavigate();
 
     const closeCartHandler = () => {
@@ -71,14 +63,16 @@ const Cart = (props) => {
                             </div>
                             
                             <div className={`${classes.intro_d}`}>
+                                {/* Display the name and category of the item */}
                                 <p className="text-nowrap text-truncate">{item.name}</p>
                                 <p className={`${classes.cate_color}`}>{item.category}</p>
                             </div>
-                            
+                            {/* Add a delete icon to each item */}
                             <DashCircle className={`${classes.icon}`}
                                 size={24} 
                                 onClick={(event) => deleteHandler(event, item._id)}/>
                             <div className={`${classes.price}`}>
+                                {/* Display the price of the item */}
                                 <h1>${Math.floor(item.price)}
                                     <span>{(item.price % 1).toFixed(2).split('.')[1]}</span>
                                 </h1>
@@ -89,7 +83,7 @@ const Cart = (props) => {
                 </ul>
 
                 <div className="border-top border-2"></div>
-
+                 {/* Display the subtotal and total price */}
                 <div className={`d-flex justify-content-end ${classes.bottom}`}>
                     <div className={`d-flex flex-column align-items-end ${classes.c_con}`}>
                         <h3>Sub-total</h3>
@@ -103,6 +97,7 @@ const Cart = (props) => {
                         
                     </div>
                 </div>
+                {/* Render the checkout button */}
                 <div className="d-flex justify-content-end">
                     <button onClick={checkoutClick} disabled={isCartEmpty} className={`${classes.btt} ${isCartEmpty ? classes.disabled : ''}`}>Checkout</button>
                 </div>

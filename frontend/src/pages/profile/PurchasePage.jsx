@@ -21,7 +21,6 @@ export const loader = async ({request,params}) => {
     if (!userResponse.ok) {
         
         if (userResponse.status === 401){
-            console.log("Not Authorized."); 
             return redirect("/");
         } 
 
@@ -47,8 +46,6 @@ export const loader = async ({request,params}) => {
     } 
 
     const purchasedProducts = await response.json(); 
-
-    console.log("purchased products: ", purchasedProducts.purchasedProducts, 48);
 
     return purchasedProducts.purchasedProducts;
 };

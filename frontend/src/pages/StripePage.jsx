@@ -10,9 +10,6 @@ const stripePromise = loadStripe(STRIPE_PUBLIC_KEY);
 function StripePage () {
   const cartData = useLoaderData(); 
 
-  console.log(cartData, 13);
-  
-
   // Must wrap all UI involved with Stripe with Elements tag
   return (
     <Elements stripe={stripePromise}>
@@ -36,9 +33,6 @@ export const loader = async ({request,params}) => {
 
   const cartContents = data.cartContents;
 
-  console.log("cartContent: ", data, 39);
-
-
   return cartContents;
 };
 
@@ -55,8 +49,6 @@ export const action = async ({request,params}) => {
   if (!response.ok){ 
       throw json({ message: 'Could not clear cart contents.'}, { status: 500 });
   }
-
-  console.log("cart cleared! from inside action", 76)
 
   // redirect to the current page
   return true;

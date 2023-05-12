@@ -15,6 +15,7 @@ const AuthorLayout = ({
 }) => {
   const submit = useSubmit();
   const navigate = useNavigate();
+
   // checking the account type of the user
   const isAdmin = (userAccountType === "admin");
 
@@ -27,9 +28,11 @@ const AuthorLayout = ({
 
 const averageRating2 = (averageRatingTemp / author.sellingProducts.length).toFixed(1);
 
+  // Calculating the total number of sellingProducts and assigning the appropriate text for the number of items
   const totalItems = author.sellingProducts.length;
   const itemText = totalItems > 1 ? "assets" : "asset";
 
+  // Defining a function to handle the selection of the sorting option
   const [a_title, setTitle] = useState("Sort by: Price: Low to High");
   const handleSelect = (eventKey) => {
     if (eventKey === "plth") {
@@ -38,7 +41,8 @@ const averageRating2 = (averageRatingTemp / author.sellingProducts.length).toFix
       setTitle("Sort by: Price: High to Low");
     }
   };
-
+  
+  // Defining a function to handle the deletion of an account
   const deleteAccountHandler = () => {
     const proceed = window.confirm("Are you sure?");
 
@@ -74,7 +78,7 @@ const averageRating2 = (averageRatingTemp / author.sellingProducts.length).toFix
 
     const roomId = await response.json();
 
-    console.log(roomId, 70);
+    
 
     // navigate to the messages page
     navigate("/store/profile/messages");
@@ -98,7 +102,7 @@ const averageRating2 = (averageRatingTemp / author.sellingProducts.length).toFix
                 <button onClick={deleteAccountHandler}>Delete Account</button>
               </div>
             )}
-            {/* <button className='a_message'>Message</button> */}
+            
           </div>
         </div>
         <div className="a_tablecontainer">
@@ -108,7 +112,7 @@ const averageRating2 = (averageRatingTemp / author.sellingProducts.length).toFix
                 <td>Average Rating</td>
                 <td>{averageRating2}</td>
               </tr>
-              {/* 另外一个页面删除 */}
+              
               <tr>
                 <td>Assets Sold</td>
                 <td>{totalItems}</td>
@@ -119,7 +123,7 @@ const averageRating2 = (averageRatingTemp / author.sellingProducts.length).toFix
                   <p className="text-wrap">{author.email}</p>
                 </td>
               </tr>
-              {/* 结束删除 */}
+              
             </tbody>
           </table>
         </div>
@@ -165,7 +169,7 @@ const averageRating2 = (averageRatingTemp / author.sellingProducts.length).toFix
 
                       <div className="d-flex justify-content-between">
                         <div>
-                          {/* <p className="text-nowrap text-truncate">{item.description}</p> */}
+                          
                         </div>
                         <div>
                           <h5>{item.category}</h5>
@@ -195,7 +199,3 @@ const averageRating2 = (averageRatingTemp / author.sellingProducts.length).toFix
 
 export default AuthorLayout;
 
-/*
-
-    {item.reviews.length > 0 ? item.averageRating.toFixed(1) : "Not available"}
-*/

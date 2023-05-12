@@ -18,24 +18,25 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
   const [isFirstClick, setIsFirstClick] = useState(true);
 
 
-
+  
   useEffect(() => {
     fetchAllRoomsMessages();
   }, [rooms, otherUsername, ownUsername.loggedInId]);
 
   useEffect(() => {
-    // 找到当前活动聊天窗口在 messagesData 数组中的索引
+    // Find the index of the current active chat window in the messagesData array
     const activeIndex = messagesData.findIndex(chat => chat._id === activeRoom);
 
-    // 检查索引是否有效
+    // Check if the index is valid
     if (activeIndex !== -1) {
-        // 确保 chatWindows.current[activeIndex] 存在
+        // Ensure that chatWindows.current[activeIndex] exists
         if (chatWindows.current[activeIndex]) {
-            // 滚动到底部
+            // Scroll to the bottom
             chatWindows.current[activeIndex].scrollTop = chatWindows.current[activeIndex].scrollHeight;
         }
     }
-  }, [messagesData, activeRoom]); // 当 messagesData 或 activeRoom 发生变化时，触发该 useEffect
+  }, [messagesData, activeRoom]); // Trigger this useEffect when messagesData or activeRoom changes
+
 
 
 
@@ -68,8 +69,6 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
 
   const refreshChatHandler = () => {
     fetchAllRoomsMessages();
-
-    console.log("completed", 45);
   }
 
   const openChatWindow = async (index, roomId) => {
@@ -118,8 +117,10 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
   };
 
   const displayDate = (date) => {
+    // Convert the date string to a Date object
     const newDate = new Date(date);
     if(isNaN(newDate)) return null; // check if date is valid
+    // Return the formatted date string
     return `${newDate.getDate().toString().padStart(2, "0")}/${(newDate.getMonth() + 1).toString().padStart(2, "0")}/${newDate.getFullYear().toString().slice(-2)}`;
   };
   
@@ -127,6 +128,7 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
     const current = new Date(currentDate);
     const previous = new Date(prevDate);
   
+    // Compare the day, month, and year of the current and previous dates
     return current.getDate() !== previous.getDate() ||
       current.getMonth() !== previous.getMonth() ||
       current.getFullYear() !== previous.getFullYear();
@@ -139,6 +141,7 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
     }
     const lastMessage = chat.messages[chat.messages.length - 1].message;
     const maxLength = 25;
+    // Truncate the message if it exceeds the maximum length
     return lastMessage.length > maxLength
       ? lastMessage.slice(0, maxLength) + "..."
       : lastMessage;
@@ -153,6 +156,7 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
   
     const isToday = (date) => {
       const today = new Date();
+      // Compare the day, month, and year of the date with the current day, month, and year
       return (
         date.getDate() === today.getDate() &&
         date.getMonth() === today.getMonth() &&
@@ -160,6 +164,7 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
       );
     };
   
+    // Format the date string based on whether it is today or not
     return isToday(lastMessageDate)
       ? lastMessageDate.toLocaleString("en-US", {
           hour: "numeric",
@@ -188,11 +193,6 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
                 style={{ color: "black" }}
                 onClick={() => openChatWindow(index, room._id)}
               >
-                {/* {otherUsername[index].otherUsername}
-                <br />
-                <span style={{ color: "#616161", fontSize: "14px" }}>
-                  {getLastMessage(room._id)}
-                </span> */}
                 <div style={{ display: "flex", justifyContent: "space-between" }}>
                   <div>
                     {otherUsername[index].otherUsername}

@@ -106,12 +106,6 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
           card: cardElement,
         });
 
-        console.log("Creating payment to admin...");
-        console.log("Payment Details");
-        console.log(adminId);
-        console.log(priorityPrice[priority - 1]);
-        console.log(adminStripeId);
-        console.log(paymentMethod.id);
         const response = await axios.post("/create-payment-intent", {
           userId: adminId,
           amount: priorityPrice[priority - 1], // Dictate the price depending on priority value
@@ -119,20 +113,16 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
           paymentMethodId: paymentMethod.id,
         });
 
-        console.log("Payment Details");
-
         const clientSecret = response.data;
 
         const paymentResult = await stripe.confirmCardPayment(clientSecret, {
           payment_method: paymentMethod.id,
         });
 
-        console.log("Checking payment error..");
         if (paymentResult.error) {
           console.error("[error]", paymentResult.error);
         } else {
           if (paymentResult.paymentIntent.status === "succeeded") {
-            console.log("Payment successful");
             navigate("/store/product/" + newProduct._id);
           }
         }
@@ -163,29 +153,16 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
 
     const newProduct = await textResponse.json();
 
-    console.log("***************************************************");
-    console.log(newProduct._id);
-    console.log(newProduct.name);
-    console.log("***************************************************");
-
-    //
-
     let statusCode;
 
     if (category !== "Services") {
       // third post request to upload the actual art files
       const productFiles = document.getElementById("multiple-files");
-      console.log("line 130", productFiles.files.length);
-      console.log("line 131", productFiles.files);
       const productFilesFormData = new FormData();
 
       for (let i = 0; i < productFiles.files.length; i++) {
         productFilesFormData.append("files", productFiles.files[i]);
       }
-
-      console.log(productFiles.files[0], 117);
-
-      console.log(productFilesFormData, 112);
 
       const fileResponse = await fetch(
         "http://localhost:3000/upload-downloadfiles/" + newProduct._id,
@@ -211,8 +188,6 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
       }
     }
 
-    console.log("CODE GETS TO HERE", 213);
-    
     // second post request to submit the cover image
     const coverImageFormData = new FormData();
     coverImageFormData.append("files", coverImage);
@@ -241,14 +216,12 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
     navigate("/store/product/" + newProduct._id);
   };
 
-
   return (
     <Container fluid className="container-fluid">
       <Row className="mt-5"></Row>
       <Row>
         <Col className="sell-asset-title">
           <div>
-            {/* <h4 className="mt-4">Sell an asset</h4> */}
             <h4>Sell an asset</h4>
           </div>
           <form
@@ -256,6 +229,7 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
             enctype="multipart/form-data"
             onSubmit={submitHandler}
           >
+            {/* Title */}
             <div className="form-group">
               <label htmlFor="title">Title</label>
               <input
@@ -270,6 +244,7 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
               />
               <span className="required-star">*</span>
             </div>
+            {/* Description */}
             <div className="form-group">
               <label htmlFor="description">Description</label>
               <textarea
@@ -284,7 +259,9 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
               />
               <span className="required-star-des">*</span>
             </div>
+            {/* Error message */}
             {error && <div className="error-message">Incorrect File type being uploaded</div>}
+            {/* Cover Image */}
             <div className="upload-container">
               <p>Add Cover image</p>
               <input
@@ -296,6 +273,7 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
                 className="file-input"
               />
             </div>
+            {/* Product Files */}
             {renderAddFiles && (
               <div className="upload-container">
                 <p>Add product files</p>
@@ -310,6 +288,7 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
                 />
               </div>
             )}
+            {/* Price */}
             <div className="form-group">
               <label htmlFor="price">Price</label>
               <input
@@ -326,6 +305,7 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
               />
               <span className="required-star-price">*</span>
             </div>
+            {/* Category */}
             <div className="form-group">
               <label htmlFor="category">Category</label>
               <div className="select-container">
@@ -344,7 +324,7 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
                 </div>
               </div>
             </div>
-
+            {/* Priority */}
             <div className="form-group">
               <label htmlFor="priority">Priority</label>
               <div className="s_inputStyling row">
@@ -394,16 +374,6 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
               </>
             )}
             <div className="list-asset-wrapper">
-              {/* <Button
-                variant="secondary"
-                type="button"
-                className="mt-4 me-2"
-                onClick={cancelHandler}
-              >
-                Cancel
-              </Button> */}
-              {/** If there is no Stripe ID associated with user, the user is prompted to create one. */}
-
               { userStripeId ? (
                 <div>
                   <Button

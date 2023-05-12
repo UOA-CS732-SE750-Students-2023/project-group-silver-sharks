@@ -7,9 +7,6 @@ const PurchaseLayout = ({ purchasedAssets }) => {
   const imageRef = useRef();
   const navigate = useNavigate();
 
-  console.log("+++++++++++++++++++++++++++++++++++++++");
-  console.log("purchased assets in purchase layout: " + purchasedAssets, 9);
-  console.log("+++++++++++++++++++++++++++++++++++++++");
 
   useEffect(() => {
     if (imageRef.current) {
@@ -65,7 +62,7 @@ const PurchaseLayout = ({ purchasedAssets }) => {
                       gap: imageHeight ? `${imageHeight * 0.02}px` : "1px",
                     }}
                   >
-                    {/* <h3>{asset.name}</h3> */}
+                    
                     <button onClick={() => navigate(`/store/product/${asset._id}`)}>{asset.name}</button>
                     <p>Price: ${asset.price.toFixed(2)}</p>
                     <p>Category: {asset.category}</p>
@@ -82,6 +79,5 @@ const PurchaseLayout = ({ purchasedAssets }) => {
   );
 };
 
-//<a href={`/review/${asset.pid}`}>Review</a>
 
 export default PurchaseLayout;

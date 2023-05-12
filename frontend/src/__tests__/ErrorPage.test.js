@@ -16,6 +16,7 @@ jest.mock('react-router-dom', () => ({
 describe('Test ErrorPage component', () => {
   it('renders ErrorPage and displays error message', () => {
     render(
+      // Wrap ErrorPage component in MemoryRouter to simulate routing
       <MemoryRouter>
         <ErrorPage />
       </MemoryRouter>

@@ -113,7 +113,6 @@
 
 .actions {
   display: flex;
-  /* margin-top: 10px; */
 }
 
 .action-icon {
@@ -142,18 +141,13 @@
 }
 .chatHolder-actions-container {
   height: 15%;
-  /* position: absolute; */
-  /* bottom: 0;  */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* width: 100%; */
   background: white;
   padding: 5px; 
   margin: 25px 10px 10px 10px;
 }
-
-
 
 
 /*  Chrome, Edge, Safari  */
