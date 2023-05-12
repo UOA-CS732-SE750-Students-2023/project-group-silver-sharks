@@ -16,27 +16,15 @@ const AuthorPage = () => {
 
     let isOwnAccount = false; 
 
+    console.log("user Id" + userId, 19); 
+    console.log("author id" + params.aid, 20)
+
     // if it is the authors own page then dont render the message 
     if (userId === authorPageId){
         isOwnAccount = true;
     }
 
-    /*
-    const whovisit=()=>{
-        if(current_aid===authorpage_aid){
-            setRole('admin')
-        }
-        else{
-            setRole('user')
-        }
-
-    }
-    */
-
-    /*
-        {role === 'admin' && <AuthorLayout author={authorData}/>}
-        {role === 'user' && <AuthorLayoutUserview author={authorData}/>}
-    */
+    console.log("is own account: ", isOwnAccount, 27)
     
     return (
         <div>
@@ -77,11 +65,6 @@ export const loader = async ({request,params}) => {
         // react router will extract data from promise
     const author = await response.json();
 
-    console.log("################################################")
-    console.log("from inside the author page loader: ")
-    console.log(author)
-    console.log("################################################")
-
     accountsData.push(author);
 
     return accountsData;
@@ -92,7 +75,16 @@ export const action = async ({ params, request }) => {
 
     const authorId = params.aid;
 
-    // deleting other accounts as a admin from the author page
+    const data = await request.formData();
+
+    const isAdmin = data.get("isAdmin") === 'true';
+    const isOwnAccount = data.get("isOwnAccount") === 'true';   
+
+    let navigateLandingPage = true;
+
+    if (isAdmin && !isOwnAccount){
+        navigateLandingPage = false;
+    }
 
     const response = await fetch('http://localhost:3000/account/id/' + authorId, {
         method: request.method,
@@ -102,7 +94,9 @@ export const action = async ({ params, request }) => {
         throw json({ message: 'Could not delete this account.'}, { status: 500 });
     }
 
-    console.log("account successfully deleted", 100);
-
-    return redirect('/');
+    if (navigateLandingPage){
+        return redirect('/');
+    } 
+        
+    return redirect('/store/product-search');
 }

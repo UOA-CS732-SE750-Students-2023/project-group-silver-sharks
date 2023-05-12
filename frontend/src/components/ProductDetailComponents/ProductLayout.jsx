@@ -177,10 +177,6 @@ const ProductLayout = ({
   };
 
   const addToCartHandler = async () => {
-    // making the GET request to the backend to add to cart
-    //"/account/cart/pid/:pid"
-
-    console.log("product id: " + product._id, 95);
 
     const response = await fetch(
       "http://localhost:3000/account/cart/pid/" + product._id
