@@ -3,8 +3,13 @@ import './LandingLayout.css';
 import LandingCard from './LandingCard';
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
+import { Carousel, Card } from 'react-bootstrap';
 
-const LandingLayout = () => {
+const LandingLayout = ({popularMediaList}) => {
+
+  console.log("POPULAR MEDIA LIST IS IN LAYOUT COMPONENT");
+  console.log(popularMediaList);
+
   const navigateSignupHandler = () => {
     window.location.href = 'http://localhost:3000/account/sign-in';
   };
@@ -172,6 +177,21 @@ const LandingLayout = () => {
               text="Find a wide range of professional services which are tailored to your needs."
             />
           </div>
+          <Carousel>
+            {popularMediaList.map((item, index) => (
+                <Carousel.Item key={index}>
+                    <Card style={{ width: '18rem' }}>
+                        <Card.Img variant="top" src={`http://localhost:3000/uploads/${item.coverImage}`} />
+                        <Card.Body>
+                            <Card.Title>{item.name}</Card.Title>
+                            <Card.Text>
+                                Number Sold: {item.amountSold}
+                            </Card.Text>
+                        </Card.Body>
+                    </Card>
+                </Carousel.Item>
+            ))}
+        </Carousel>
         </div>
       </div>
     </>

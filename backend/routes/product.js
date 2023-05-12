@@ -26,6 +26,7 @@ import { Account } from "../models/accountModel.js";
 
 const productRouter = new express.Router();
 
+// Gets three most popular media from each category
 productRouter.get("/products/landing-page", async (req, res) => {
   try {
     const products = await getLandingPageProducts();

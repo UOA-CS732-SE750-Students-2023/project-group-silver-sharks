@@ -3,9 +3,7 @@
     background-color: white;
     display: flex;
     flex-direction: column;
-    margin: 0 1rem;
-    border-radius: 30px;
-    
+    margin: 0 1rem;    
 }
 
 .cards-item:hover {
@@ -17,8 +15,6 @@
 img {
     border: 2px;
     color: white;
-    border-top-left-radius: 28px;
-    border-top-right-radius: 28px;
 }
 
 .cards-item-info > * {

@@ -35,10 +35,11 @@ import { loader as sellingAssetsLoader } from './pages/profile/SellingPage';
 import { action as sellingPageAction } from './pages/profile/SellingPage';
 import { action as ClearCartAction } from './pages/StripePage';
 import { loader as MessagesLoader } from './pages/profile/MessagesPage';
+import { loader as LandingPageLoader } from './pages/LandingPage';
 
 const router = createBrowserRouter([
   {path:'/', element: <RootPage />, errorElement: <ErrorPage />,children: [
-    {index: true, element: <LandingPage />},
+    {index: true, element: <LandingPage/>, loader: LandingPageLoader},
     {path: 'username', element: <UsernamePage />},
     {path: 'login', element: <LoginPage />, action: loginAction},
     {path: 'signup', element: <SignupPage />, action: signupAction},
