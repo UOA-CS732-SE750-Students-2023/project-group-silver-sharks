@@ -4,6 +4,7 @@ import './UsernameLandingNavBar.css';
 
 function LandingNavBar() {
 
+  // Function to handle the sign-in button click
   function signInHandler() {
     window.location.href = "http://localhost:3000/account/sign-in";
   }
