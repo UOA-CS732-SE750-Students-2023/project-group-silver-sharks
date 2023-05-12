@@ -260,6 +260,24 @@ it("change product details", (done) => {
     });
 });
 
+it("change product details not found", (done) => {
+  request(app)
+    .put("/products/000000000000000000000007")
+    .send(editedData)
+    .set("Content-Type", "application/json")
+    .set("Accept", "application/json")
+    .expect(404)
+    .end(async (err, res) => {
+      if (err) {
+        return done(err);
+      }
+
+      const response = res.text;
+      expect(response).toBe("Product not found");
+      return done();
+    });
+});
+
 it("get products for specific category", (done) => {
   request(app)
     .get("/products/filter?category=Images")
