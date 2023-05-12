@@ -66,12 +66,34 @@
     /* Add of frontend fixes */
     color: rgb(255, 255, 255); /* Change the text color to white */
     transition: background-color 0.3s, border-color 0.3s, color 0.3s; /* Add transition for hover effect */
-
 }
+
 .description-button:hover {
   background-color: #348B81;
   border-color: #348B81;
   color: white; /* Change the text color to white when hovering */
+}
+
+.get-started-button {
+    margin-top: 20px;
+    border-radius: 40px;
+    background-color: transparent;
+    border-color: rgb(255, 255, 255);
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-size: 30px;
+    width: 15vw;
+    box-shadow: none;
+    border-style: solid;
+    /* Add of frontend fixes */
+    color: rgb(255, 255, 255); /* Change the text color to white */
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s; /* Add transition for hover effect */
+}
+
+.get-started-button:hover {
+    background-color: #348B81;
+    border-color: #348B81;
+    color: white; /* Change the text color to white when hovering */
 }
 
 .landing-page-desc-talent {

@@ -5,14 +5,7 @@ import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 
 
-const LandingLayout = ({popularMediaList}) => {
-
-  const [text, setText] = useState('Buy');
-    const [animationClass, setAnimationClass] = useState('');
-
-
-  console.log("POPULAR MEDIA image products LIST IS IN LAYOUT COMPONENT");
-  console.log(popularMediaList.imageProducts);
+const LandingLayout = () => {
 
   const navigateSignupHandler = () => {
     window.location.href = 'http://localhost:3000/account/sign-in';
@@ -168,7 +161,6 @@ const LandingLayout = ({popularMediaList}) => {
           </div>
           <div className="landing-page-card-wrapper">
             <LandingCard
-              onClick={navigateSignupHandler}
               src="/LandingPageImages/Images.png"
               title="Images"
               text="Elevate your digital projects with stunning images produced by talented artists."
