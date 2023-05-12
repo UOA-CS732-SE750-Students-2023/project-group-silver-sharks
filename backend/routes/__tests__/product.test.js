@@ -12,6 +12,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(productRouter);
 
+// add dummy products
 const product1 = {
   _id: new mongoose.Types.ObjectId("000000000000000000000001"),
   category: "Images",
@@ -55,6 +56,7 @@ const product4 = {
 
 const products = [product1, product2, product3, product4];
 
+// add dummy accounts
 const account1 = {
   _id: "000000000000000000000010",
   username: "BobsPizzeria",
@@ -92,6 +94,7 @@ const newProduct = {
   price: 10,
 };
 
+// add dummy reviews
 const productReview1 = {
   _id: "000000000000000000000100",
   text: "Very nice pizza",
@@ -120,6 +123,7 @@ beforeAll(async () => {
   );
 });
 
+// add fresh data before each test
 beforeEach(async () => {
   for (const element of products) {
     const prod = new Product(element);
@@ -137,6 +141,7 @@ beforeEach(async () => {
   }
 });
 
+// clean up data after each test
 afterEach(async () => {
   await Product.deleteMany({});
   await Account.deleteMany({});

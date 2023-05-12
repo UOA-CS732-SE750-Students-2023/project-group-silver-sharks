@@ -5,6 +5,7 @@ import { Account } from "../models/accountModel.js";
 
 const authRouter = new express.Router();
 
+// Middle-ware function to ensure authentication of endpoints
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated()) {
     if (req.user.username) {
@@ -23,10 +24,10 @@ authRouter.use(
 authRouter.use(passport.initialize());
 authRouter.use(passport.session());
 
+// Google Auth
 authRouter.get(
   "/auth/google/callback",
   passport.authenticate("google", {
-    //successRedirect: process.env.NODE_ENV === "production" ? "/store/product-search" : "http://localhost:5173/store/product-search",
     successRedirect: "/store/product-search",
     failureRedirect: "/auth/google/failure",
   })
@@ -39,7 +40,5 @@ authRouter.get("/auth/protected", isLoggedIn, (req, res) => {
 authRouter.get("/auth/google/failure", (req, res) => {
   res.send("Failed to authenticate..");
 });
-
-
 
 export default authRouter;

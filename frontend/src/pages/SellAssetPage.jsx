@@ -9,7 +9,6 @@ const SellAssetPage = () => {
     const stripePromise = loadStripe(STRIPE_PUBLIC_KEY);  
 
     const { userId, userStripeId} = useLoaderData();
-    console.log("Stripe User ID on page jsx file: " + userStripeId);
 
     return (
         <Elements stripe={stripePromise}>
@@ -35,28 +34,6 @@ export const loader = async ({request,params}) => {
     // react router will extract data from promise
     const user = await response.json();
 
-    console.log("################################################")
-    console.log("this is the username and userid fetched from the backend")
-    console.log(user.username + " " + user._id + " Stripe: " + user.stripeId);
-    console.log("################################################")
-
-    console.log("HERE");
-    
-    
-    /**************** */
-    // Get popular media response DELETE LATER
-    const popularResponse = await fetch('http://localhost:3000/products/landing-page');
-              
-    if (!popularResponse.ok) {
-        throw new Error(`HTTP error! cannot get cart: ${popularResponse.status}`);
-    }
-  
-    const data = await popularResponse.json();
-    console.log("Popular medias dejsonised: ");
-    console.log(data);
-    /***************** */
-
-
     return {
         userId: user._id, 
         userStripeId: user.stripeId
@@ -78,12 +55,6 @@ export const action = async ({request,params}) => {
     // react router will extract data from promise
     const user = await response.json();
 
-    console.log("################################################")
-    console.log("this is the username and userid fetched from the backend")
-    console.log(user.username + " " + user._id);
-    console.log("################################################")
-
-
     // getting the form data from request argument 
     const formData = await request.formData();
     const sellingProductData = {
@@ -92,10 +63,6 @@ export const action = async ({request,params}) => {
         category: formData.get("category"),
         price: +formData.get('price')
     };
-
-    console.log("**************************************************");
-    console.log(sellingProductData);
-    console.log("**************************************************");
     
 
     // getting the http method from the request argument
@@ -116,19 +83,12 @@ export const action = async ({request,params}) => {
 
     const newProduct = await textResponse.json()
 
-    console.log("***************************************************")
-    console.log(newProduct._id);
-    console.log(newProduct.name);
-    console.log("***************************************************")
-
     // second post request to submit the cover image
     const coverImageFormData = new FormData();
 
     // get the references 
     const coverImage = document.getElementById("cover-image");
     const files = document.getElementById("files");
-
-    console.log(files)
 
 
     for (let i=0; i < coverImage.files.length; i++){
@@ -143,8 +103,6 @@ export const action = async ({request,params}) => {
     if (!fileResponse.ok){
         throw json({ message: "Could not successfully submit the cover image for the sell assets action."}, { status: 500 });
     }
-    
-    console.log("Progressing past the cover image file upload !!!");
 
     // third post request to submit the listed product files
     
@@ -162,8 +120,6 @@ export const action = async ({request,params}) => {
     if (!filesResponse.ok){
         throw json({ message: "Could not successfully submit the files for the sell assets action."}, { status: 500 });
     }
-
-    console.log("Progressing past the multiple files upload !!!");
    
     return redirect('/store/product-search');
 };

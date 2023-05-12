@@ -1,7 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
 import {
-  getAllProducts,
   getPaginatedProducts,
   addProduct,
   getPaginatedCategories,
@@ -17,7 +16,7 @@ import {
 
 import { registerAccountWithProduct } from "../dao/account-dao.js";
 
-import { ReasonPhrases, StatusCodes } from "http-status-codes";
+import { StatusCodes } from "http-status-codes";
 import { Product } from "../models/productModel.js";
 import { ProductReview } from "../models/productReviewModel.js";
 import passport from "passport";
@@ -26,11 +25,12 @@ import { Account } from "../models/accountModel.js";
 
 const productRouter = new express.Router();
 
-// Gets three most popular media from each category
+/**
+ * 1. GET - Gets three most popular media from each category
+ */
 productRouter.get("/products/landing-page", async (req, res) => {
   try {
     const products = await getLandingPageProducts();
-    console.log("final products", products);
     return res.status(StatusCodes.OK).json(products);
   } catch (err) {
     console.error(err);
@@ -73,15 +73,16 @@ productRouter.use(
 productRouter.use(passport.initialize());
 productRouter.use(passport.session());
 
-// endpoint 1: GET - paginated products
+/**
+ * Endpoint 2: GET - Paginated products regardless of category
+ * Query Params: Page, Limit, and SortBy
+ */
 productRouter.get("/products", isLoggedIn, async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 10;
   const sortBy = req.query.sortBy || "default";
-  console.log("Getting paginated products!");
 
   try {
-    // If the cache key doesn't exist, get the data and cache it
     const { products, count } = await getPaginatedProducts(page, limit, sortBy);
 
     if (count === 0) {
@@ -95,9 +96,11 @@ productRouter.get("/products", isLoggedIn, async (req, res) => {
   }
 });
 
-// endpoint 2: POST - adding product
-// NOTE: the product needs to be registered with a user
-// path param userId
+/**
+ * Endpoint 3: POST - Add product to sell
+ * Request Body: Product data in JSON format
+ * Path Params: UserID
+ */
 productRouter.post("/products/sell/:userId", isLoggedIn, async (req, res) => {
   const userId = req.params.userId;
   const product = req.body;
@@ -109,8 +112,6 @@ productRouter.post("/products/sell/:userId", isLoggedIn, async (req, res) => {
     // register the product with the account
     await registerProductWithAccount(newProduct, userId);
 
-    console.log(userId);
-
     // register the account with the product
     await registerAccountWithProduct(userId, newProduct._id);
 
@@ -119,12 +120,14 @@ productRouter.post("/products/sell/:userId", isLoggedIn, async (req, res) => {
       .header("Location", `/products/${newProduct._id}`)
       .json(newProduct);
   } catch (error) {
-    console.log(error);
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error");
   }
 });
 
-// endpoint 3: PUT - editing product
+/**
+ * Endpoint 4: PUT - Edit product details
+ * Request Body: Details to replace in JSON format
+ */
 productRouter.put("/products/:productId", isLoggedIn, async (req, res) => {
   try {
     const productId = req.params.productId;
@@ -138,13 +141,14 @@ productRouter.put("/products/:productId", isLoggedIn, async (req, res) => {
       return res.status(StatusCodes.NOT_FOUND).send("Product not found");
     }
   } catch (error) {
-    console.log(error);
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error");
   }
 });
 
-// endpoint 4: GET filter by category
-// query param ?category=<category>&page=<page>&limit=<limit>
+/**
+ * Endpoint 5: GET - Get paginated products filtered by category
+ * Query Params: Page, Limit, Category, SortBy
+ */
 productRouter.get("/products/filter", isLoggedIn, async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 10;
@@ -165,14 +169,14 @@ productRouter.get("/products/filter", isLoggedIn, async (req, res) => {
 
     return res.status(StatusCodes.OK).json([products, count]);
   } catch (error) {
-    console.log(error);
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error");
   }
 });
 
-// endpoint 5: GET product by
-// query param ?search=<search>&page=<page>&limit=<limit>
-// search only works for product.name
+/**
+ * Endpoint 6: GET - Get products matching search term
+ * Query Params: Page, Limit, Search, SortBy
+ */
 productRouter.get("/products/search", isLoggedIn, async (req, res) => {
   // retrieving the query params
   const page = parseInt(req.query.page) || 1;
@@ -195,19 +199,20 @@ productRouter.get("/products/search", isLoggedIn, async (req, res) => {
 
     return res.status(StatusCodes.OK).json([products, count]);
   } catch (error) {
-    console.log(error);
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error");
   }
 });
 
-// endpoint 6: GET single product by id
+/**
+ * Endpoint 7: GET - Get single product by ID
+ * Path Params: ProductID
+ */
 productRouter.get("/products/:id", isLoggedIn, async (req, res) => {
   // retrieving the path params
   const id = req.params.id;
 
   // check if the id is actually valid
   const isValid = mongoose.isValidObjectId(id);
-  console.log(isValid);
   if (!isValid) {
     return res.status(StatusCodes.BAD_REQUEST).send("Invalid Product ID");
   }
@@ -215,20 +220,20 @@ productRouter.get("/products/:id", isLoggedIn, async (req, res) => {
   try {
     const product = await getProductById(id);
 
-    console.log(product);
-
     if (!product) {
       return res.status(StatusCodes.NOT_FOUND).send("Product Not Found");
     }
 
     return res.status(StatusCodes.OK).json(product);
   } catch (error) {
-    console.log(error);
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error");
   }
 });
 
-// endpoint 7: DELETE - removing a product
+/**
+ * Endpoint 8: DELETE - Remove a product
+ * Path Params: ProductID
+ */
 productRouter.delete("/products/:productId", isLoggedIn, async (req, res) => {
   try {
     const productId = req.params.productId;
@@ -248,7 +253,6 @@ productRouter.delete("/products/:productId", isLoggedIn, async (req, res) => {
         { productsPurchased: { $in: [productId] } },
         { $pull: { productsPurchased: productId } }
       );
-      console.log(`Removed product ${productId} from all accounts.`);
     } catch (error) {
       console.error(
         "Error while removing product from purchased products:",
@@ -262,7 +266,6 @@ productRouter.delete("/products/:productId", isLoggedIn, async (req, res) => {
         { sellingProducts: { $in: [productId] } },
         { $pull: { sellingProducts: productId } }
       );
-      console.log(`Removed product ${productId} from all accounts.`);
     } catch (error) {
       console.error(
         "Error while removing product from selling products:",
@@ -276,21 +279,21 @@ productRouter.delete("/products/:productId", isLoggedIn, async (req, res) => {
         .json({ message: "Product deleted successfully" });
     }
   } catch (error) {
-    console.log(error);
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send("Server Error");
   }
 });
 
-// endpoint 8: POST - buy product
+/**
+ * Endpoint 9: POST - Buy products
+ * Request Body: List of products being bought
+ * Query Params: AccountID
+ */
 productRouter.post("/products/buy/", isLoggedIn, async (req, res) => {
   try {
-    // const accountId = req.user._id;
     const accountId = req.query.accountId;
     const products = req.body;
-    console.log("Line 256 Request body, there are the products: " + req.body);
 
     for (const product of products) {
-      console.log("Product ID is: " + product._id);
       const productId = product._id;
       await registerBuyingProductWithAccount(productId, accountId);
       if (process.env.NODE_ENV !== "backend-test") {
@@ -307,10 +310,10 @@ productRouter.post("/products/buy/", isLoggedIn, async (req, res) => {
   }
 });
 
-// ENDPOINT: Get Reviews for a specific product
-// sorting query param -> ?sortBy=<>
-// ur review for the product is always on top
-// can only review if it has been purchased by user and can only review once
+/**
+ * Endpoint 10: GET - Gets reviews for a specific product
+ * Path Params: ProductID
+ */
 productRouter.get(
   "/products/pid/:pid/reviews",
   isLoggedIn,
@@ -361,7 +364,11 @@ productRouter.get(
   }
 );
 
-// ENDPOINT: Add review for a specific product
+/**
+ * Endpoint 11: POST - Add review for a specific product
+ * Request Body: Review data in JSON format
+ * Path Params: ProductID
+ */
 productRouter.post(
   "/products/pid/:pid/review",
   isLoggedIn,
@@ -411,6 +418,7 @@ productRouter.post(
 
       let reviewsCount = product.reviews.length;
 
+      // Calculate new average rating
       if (
         product.averageRating !== null &&
         product.averageRating !== undefined
@@ -431,12 +439,15 @@ productRouter.post(
 
       return res.json(review);
     } catch (err) {
-      console.log(err);
       return res.status(500).json({ error: "Invalid ID" });
     }
   }
 );
 
+/**
+ * Endpoint 12: GET - Check if an account is eligible to review a product
+ * Path Params: ProductID
+ */
 // ENDPOINT: Can add review - true or false
 productRouter.get(
   "/products/pid/:pid/can-review",

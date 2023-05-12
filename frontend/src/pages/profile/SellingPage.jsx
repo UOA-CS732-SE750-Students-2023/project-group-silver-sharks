@@ -22,7 +22,6 @@ export const loader = async ({request,params}) => {
     if (!userResponse.ok) {
         
         if (userResponse.status === 401){
-            console.log("Not Authorized."); 
             return redirect("/");
         } 
 
@@ -49,8 +48,6 @@ export const loader = async ({request,params}) => {
 
     const sellingProducts = await response.json(); 
 
-    console.log("selling Products: ", sellingProducts.sellingProducts, 49);
-
     return sellingProducts.sellingProducts;
 };
 
@@ -59,8 +56,6 @@ export const action = async ({request,params}) => {
     const formData = await request.formData();
 
     const productId = formData.get("id");
-
-    console.log("inside the selling page action", 63)
 
     // getting the http method from the request argument
     const method = request.method;
@@ -74,8 +69,6 @@ export const action = async ({request,params}) => {
     if (!response.ok){ 
         throw json({ message: 'Could not delete product.'}, { status: 500 });
     }
-
-    console.log("product deleted action", 118)
 
     // redirect to the current page
     return redirect('.');

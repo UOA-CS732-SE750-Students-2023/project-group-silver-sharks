@@ -4,19 +4,23 @@ import { Navbar, Nav, Button } from 'react-bootstrap';
 
 const ProfileNavBar = () => {
   const location = useLocation();
-
+  
+  // Check if a nav link is active
   const isNavLinkActive = (path) => {
     return location.pathname === path;
   };
 
+  // Define the style for active and inactive nav links
   const navLinkStyle = (path) => {
     return isNavLinkActive(path) ? { fontWeight: 'bold', color: '#333' } : {color: '#555'};
   };
 
+  // Define the style for the gray background
   const grayBackgroundStyle = {
     backgroundColor: '#F1F1F1',
   };
 
+  // Define the base style for buttons
   const buttonBaseStyle = {
     fontFamily: 'Poppins',
     fontStyle: 'normal',
@@ -28,6 +32,7 @@ const ProfileNavBar = () => {
     transition: '0.1s',
   };
 
+  // Define the style for buttons on hover
   const buttonHoverStyle = {
     backgroundColor: '#348B81',
     color: 'white',

@@ -10,7 +10,7 @@ fetchMock.enableMocks();
 beforeEach(() => {
   fetch.resetMocks();
 });
-
+// Define a custom render function that uses react-testing-library's render and wraps it in a BrowserRouter component
 function render(ui, { route = '/' } = {}) {
   window.history.pushState({}, 'Test page', route)
 
@@ -18,6 +18,7 @@ function render(ui, { route = '/' } = {}) {
 }
 
 describe('Test UsernamePage component', () => {
+  // Test that the UsernamePage component renders properly
   it('renders UsernamePage components', () => {
     render(<UsernamePage />);
   
@@ -29,7 +30,7 @@ describe('Test UsernamePage component', () => {
     fetch.mockResponseOnce(JSON.stringify({ data: '12345' }));
 
     render(<UsernamePage />);
-
+    // Find the username input field and submit button and simulate a form submission
     const usernameInput = screen.getByPlaceholderText('Username');
     const submitButton = screen.getByRole('button', { name: /Set username/i });
 

@@ -1,7 +1,3 @@
-/* .card{
-
-} */
-
 .card .storepagecard{
   background-color:white;
   flex-direction: row;
@@ -31,8 +27,8 @@
   background-color: #616161;
 }
 .card img {
-  height: 100%; /* 图片高度设置为100%以填满父容器 */
-  width: 100%; /* 图片宽度自适应 */
+  height: 100%; 
+  width: 100%; 
   object-fit: cover;
   
 }
@@ -42,7 +38,6 @@
   white-space: nowrap;
 }
 .card .productcontainer p {
-  /* max-width: 350px; */
   width: 100%;
   padding: 0.2rem;
   text-decoration: underline;

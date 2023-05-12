@@ -12,9 +12,8 @@ const PaymentForm = ({ cartContentsData }) => {
     const submit = useSubmit();
 
     const calculateTotalPrice = () => {
-        return cartContentsData.reduce((total, cartContentsData) => total + cartContentsData.price, 0); // TODO
+        return cartContentsData.reduce((total, cartContentsData) => total + cartContentsData.price, 0); 
     };
-    //const TotalPriceInCents = (calculateTotalPrice() / 100).toFixed(2)
 
     const clearCartHandler = () => {
         submit(null, { method: 'DELETE' });
@@ -34,7 +33,6 @@ const PaymentForm = ({ cartContentsData }) => {
         if (!userResponse.ok) {
             
             if (userResponse.status === 401){
-                console.log("Not Authorized."); 
                 return redirect("/");
             } 
 
@@ -47,14 +45,10 @@ const PaymentForm = ({ cartContentsData }) => {
         } 
 
         const user = await userResponse.json();
-        console.log("Line 61 User ID : " + user._id);
 
         try {
             // Get each cart item's author
             const cartAuthorIds = cartContentsData.map(cart => cart.author);
-
-            console.log("LIST OF CART AUTHORS:")
-            console.log(cartAuthorIds, 57);
             
             for (const cartContent of cartContentsData) {
                 
@@ -68,14 +62,8 @@ const PaymentForm = ({ cartContentsData }) => {
                         card: cardElement,
                     });
 
-                    console.log("Author:");
-                    console.log(cartContent.author);
-
                     const authorResponse = (await fetch('http://localhost:3000/account/id/' + cartContent.author));
                     const author = await authorResponse.json();
-
-                    console.log("Author Response:");
-                    console.log(author);
 
                     const price = cartContent.price * 100;
                     const response = await axios.post('/create-payment-intent', { 
@@ -98,7 +86,6 @@ const PaymentForm = ({ cartContentsData }) => {
                     } else {
                         if (paymentResult.paymentIntent.status !== 'succeeded') {
                             // show error on screen
-                            console.log('Payment not successful');
                             return;
                         }
                     }
@@ -124,7 +111,6 @@ const PaymentForm = ({ cartContentsData }) => {
             }
 
             const newProduct = await buyProductResponse.json()
-            console.log("Line 94: " + newProduct.message);
 
             // Clear the cart contents
             clearCartHandler();
@@ -145,9 +131,6 @@ const PaymentForm = ({ cartContentsData }) => {
                     <ul className="cart-list">
                     <div className="p-selling-scroll-container">
                         {cartContentsData.map((product, index) => (
-                            // <li key={index} className='p_productselling'>
-                            // {product.name} - ${product.price}
-                            // </li>
                             <div className="p-asset-item" key={index}>
                                 <div className="p-asset-image">
                                     <img src={"http://localhost:3000/uploads/" + product.coverImage} alt={product.name} />
@@ -161,7 +144,7 @@ const PaymentForm = ({ cartContentsData }) => {
                         ))}
                     </div>
                     </ul>
-                    <h3>Total: ${calculateTotalPrice()}</h3> {/* Display total price here */}
+                    <h3>Total: ${calculateTotalPrice()}</h3>
                 </div>
                 <div className="payment-container">
                     <h2 className="form-title">Complete your payment</h2>

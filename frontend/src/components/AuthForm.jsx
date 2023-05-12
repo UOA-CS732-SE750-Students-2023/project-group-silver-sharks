@@ -8,6 +8,7 @@ const AuthForm = ({ operation }) => {
 
     return (
         <Form method="POST">
+        {/* Create a form and specify the form submission method as POST */}
             <p>
                 <label htmlFor="username">Username</label>
                 <input id="username" type="text" name="username" required />

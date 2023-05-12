@@ -16,11 +16,9 @@
     line-height: 36px;
     letter-spacing: 0em;
     text-align: left;
-    /* margin-left: 10px; */
 }
 .a_message{
     margin-left: 5px;
-    /* display: inline; */
     font-family: Poppins;
     font-size: 16px;
     font-weight: 400;
@@ -49,9 +47,7 @@
     color: aliceblue;
 
 }
-/* .a_forcontainbutton{
-    display: inline;
-} */
+
 .a_forcontainlink button{
     vertical-align: top;
     display: inline;
@@ -107,7 +103,6 @@
     color:#616161;
 }
 .a_cardpart{
-    /* margin: 80px 0px 20px 0px; */
     margin: 80px 0px 0px 0px;
 }
 .a_cardpart h2{

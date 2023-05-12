@@ -1,4 +1,3 @@
-// frontend/src/components/ProductNavBar.jsx
 import React, { useState, useEffect } from "react";
 import {
   Navbar,
@@ -29,13 +28,6 @@ const ProductNavBar = ({
   useEffect(() => {
     setSelectedCategory(category);
   }, [category]);
-  // const searchInputStyle = {
-  //   borderRadius: '25px',
-  //   border: '2px solid black',
-  //   paddingRight: '40px',
-  //   paddingLeft: '20px',
-  //   backgroundColor:'#F1F1F1',
-  // };
 
   const searchIconStyle = {
     position: "absolute",
@@ -46,6 +38,7 @@ const ProductNavBar = ({
     zIndex: 100,
   };
 
+  // Handle category selection
   const categoryHandler = (event) => {
     const buttonText = event.target.innerHTML;
     const formattedCategory =
@@ -54,12 +47,14 @@ const ProductNavBar = ({
     setSelectedCategory(formattedCategory);
   };
 
+  // Handle search term change
   const searchChangeHandler = (event) => {
     setSearchTerm(event.target.value);
   };
 
   const [p_title, setTitle] = useState("Sort by :\u00A0\u00A0\u00A0Featured");
 
+  // Handle filter selection
   const filterChangeHandler = (event) => {
     setFilter(event);
     const ek = `${event}`;
@@ -94,7 +89,6 @@ const ProductNavBar = ({
               placeholder="Search for a digital asset"
               aria-label="Search"
               onChange={searchChangeHandler}
-              // style={searchInputStyle}
             />
             <FontAwesomeIcon icon={faMagnifyingGlass} style={searchIconStyle} />
           </div>

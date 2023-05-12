@@ -10,8 +10,6 @@ const StoreRootPage = () => {
 
   const cartContents = data[1];
 
-  console.log(Array.isArray(cartContents), 13);
-
   const [displayCart, setDisplayCart] = useState(false);
   const [displayProfileNav, setDisplayProfileNav] = useState(false);
 
@@ -58,7 +56,6 @@ export const loader = async () => {
   if (!userResponse.ok) {
      
       if (userResponse.status === 401){
-          console.log("Not Authorized."); 
           return redirect("/");
       } 
 
@@ -88,12 +85,6 @@ export const loader = async () => {
   // react router will extract data from promise
   const cartContents = await cartData.json();
 
-
-  console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-  console.log("The users cart contents fetched in the loader are: "); 
-  console.log(cartContents, 90);
-  console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-
   responseData.push(cartContents.cartContents);
 
   return responseData;
@@ -101,12 +92,9 @@ export const loader = async () => {
 
 export const action = async ({params, request}) => {
 
-
   const formData = await request.formData();
 
   const productId =  formData.get('id'); 
-
-  console.log("product id is: " + productId, 107);  
 
   //"/products/:productId"
 
@@ -119,8 +107,6 @@ export const action = async ({params, request}) => {
           status: 500,
       });
   }
-
-  console.log("cart item deleted successfully")
 
   // reload the page so the page gets updated
   window.location.reload();

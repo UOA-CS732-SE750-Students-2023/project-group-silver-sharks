@@ -8,6 +8,7 @@ import './Footer.css';
 const Footer = () => { 
 
     return (
+        // Footer wrapper containing the bottom border and logo row
         <>
             <div className='footer-wrapper'>
                 <hr className='footer-line'/>

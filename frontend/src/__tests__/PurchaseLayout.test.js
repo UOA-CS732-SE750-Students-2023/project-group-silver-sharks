@@ -4,10 +4,11 @@ import '@testing-library/jest-dom'
 import { MemoryRouter } from "react-router-dom";
 import PurchaseLayout from '../components/profile-nav/ProfileComponents/PurchaseLayout';
 import fetchMock from 'jest-fetch-mock';
+// mock global URL.createObjectURL function to be able to spy on it
 global.URL.createObjectURL = jest.fn();
 
 fetchMock.enableMocks();
-
+// reset mocks and spy on console.log function before each test case
 beforeEach(() => {
   fetch.resetMocks();
   URL.createObjectURL.mockReset();
@@ -32,7 +33,7 @@ describe('Test PurchaseLayout component', () => {
         <PurchaseLayout purchasedAssets={purchasedAssets} />
       </MemoryRouter>
     );
-  
+    // assert that heading and asset information is displayed correctly
     const headingElements = screen.getAllByText(/Purchased Assets/i);
     expect(headingElements.length).toBeGreaterThan(0);
   
@@ -52,7 +53,7 @@ describe('Test PurchaseLayout component', () => {
         <PurchaseLayout purchasedAssets={purchasedAssets} />
       </MemoryRouter>
     );
-  
+    // simulate click on download button
     const downloadButtons = screen.getAllByText('Download files');
     await act(async () => {
       fireEvent.click(downloadButtons[0]);

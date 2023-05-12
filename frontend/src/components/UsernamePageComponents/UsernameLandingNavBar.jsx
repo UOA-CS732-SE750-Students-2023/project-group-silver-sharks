@@ -4,6 +4,7 @@ import './UsernameLandingNavBar.css';
 
 function LandingNavBar() {
 
+  // Function to handle the sign-in button click
   function signInHandler() {
     window.location.href = "http://localhost:3000/account/sign-in";
   }
@@ -20,13 +21,6 @@ function LandingNavBar() {
           <div className='u-landing-page-desc'>
             <b>The world's premier<br/><span>digital marketplace</span>.</b>
           </div>
-          {/* <div className="landing-page-search-bar-wrapper">
-          <input
-            className="landing-page-search-bar"
-            type="search"
-            placeholder="Search for a digital asset"/>
-            <SearchIcon className='landing-page-search-icon'/>
-          </div> */}
         </div>
       </div>
     </>
