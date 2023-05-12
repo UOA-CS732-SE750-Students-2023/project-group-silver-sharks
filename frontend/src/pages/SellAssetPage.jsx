@@ -33,19 +33,6 @@ export const loader = async ({request,params}) => {
     }
     // react router will extract data from promise
     const user = await response.json();
-    
-    
-    /**************** */
-    // Get popular media response DELETE LATER
-    const popularResponse = await fetch('http://localhost:3000/products/landing-page');
-              
-    if (!popularResponse.ok) {
-        throw new Error(`HTTP error! cannot get cart: ${popularResponse.status}`);
-    }
-  
-    const data = await popularResponse.json();
-
-    /***************** */
 
     return {
         userId: user._id, 

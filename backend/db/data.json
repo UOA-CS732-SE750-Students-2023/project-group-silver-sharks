@@ -7,13 +7,6 @@
       "email": "jsan956@aucklanduni.ac.nz",
       "accountType": "admin",
       "username": "Jazzy",
-      "productsPurchased": [
-        "644ea78fe3c6082891a73f71",
-        "6459f5bffd65a43d4087fba3",
-        "6459f4f8fd65a43d4087fb35",
-        "645a42b183a0116e16cbd65b",
-        "645b762e402c2fa1d2147582"
-      ],
       "sellingProducts": [
         "644caf3d41e8d663a938864e",
         "644caf6741e8d663a9388655",
@@ -33,13 +26,6 @@
       "email": "nset793@aucklanduni.ac.nz",
       "accountType": "admin",
       "username": "Nilay",
-      "productsPurchased": [
-        "644caf6741e8d663a9388655",
-        "645a38e1560310e7e8e05b1c",
-        "645a43a950f323a88021c65e",
-        "6459f71efd65a43d4087fc33",
-        "6459bc495af5d604f7458fa5"
-      ],
       "sellingProducts": [
         "644ea31b70a8647e3e32eefd",
         "644ea5f52459804f9fd26b3a",
@@ -74,13 +60,6 @@
       "email": "ibrahimanees2002@gmail.com",
       "accountType": "admin",
       "username": "Ibrahim",
-      "productsPurchased": [
-        "6459f5bffd65a43d4087fba3",
-        "6459f4f8fd65a43d4087fb35",
-        "645a4207db7cea723b062a27",
-        "645a4208560310e7e8e06725",
-        "645b762e402c2fa1d2147582"
-      ],
       "sellingProducts": [
         "6459b5945af5d604f7458bca",
         "6459b8408287e3296b73f755",
@@ -97,13 +76,6 @@
       "email": "yhua972@aucklanduni.ac.nz",
       "accountType": "normal",
       "username": "Janet",
-      "productsPurchased": [
-        "6459f5bffd65a43d4087fba3",
-        "644ea78fe3c6082891a73f71",
-        "645a4208560310e7e8e06725",
-        "645a3783b0850c23d901d7d1",
-        "645a450b3fd52091fea55838"
-      ],
       "sellingProducts": [
         "6459bc495af5d604f7458fa5",
         "6459f4f0fd65a43d4087fb21",
@@ -133,14 +105,7 @@
       "lastName": "Li",
       "email": "yil708@aucklanduni.ac.nz",
       "accountType": "admin",
-      "username": "Lucas2",
-      "productsPurchased": [
-        "644ea78fe3c6082891a73f71",
-        "644caf3d41e8d663a938864e",
-        "645a3741d20c8c276b87ccd5",
-        "645a382a560310e7e8e05a62",
-        "645a44ee5aa53872e55d290e"
-      ]
+      "username": "Lucas2"
     },
     {
       "_id": "115597168327745249591",
@@ -149,13 +114,6 @@
       "email": "bliu631@aucklanduni.ac.nz",
       "accountType": "admin",
       "username": "Brydawg",
-      "productsPurchased": [
-        "645a44cc3fd52091fea557cf",
-        "645a42d7560310e7e8e0680b",
-        "645a3783b0850c23d901d7d1",
-        "645a3857db7cea723b0629a4",
-        "6459b5945af5d604f7458bca"
-      ],
       "sellingProducts": [
         "6459f71efd65a43d4087fc33",
         "6459f8bdfd65a43d4087fc65",
@@ -177,9 +135,7 @@
       "author": "101628246745447861849",
       "price": 10,
       "amountSold": 3,
-      "averageRating": 4,
       "priority": 1,
-      "reviews": ["645dd94581a77addf772d038"],
       "coverImage": "644caf3d41e8d663a938864e-coverimage.png",
       "files": [
         "644caf3d41e8d663a938864e-1-downloadFile.jpg",
@@ -194,10 +150,8 @@
       "author": "101628246745447861849",
       "price": 15,
       "amountSold": 7,
-      "averageRating": 1,
       "priority": 1,
       "coverImage": "644caf6741e8d663a9388655-coverimage.png",
-      "reviews": ["645dd6176b13f3be00365da6"],
       "files": [
         "644caf6741e8d663a9388655-1-downloadFile.jpg",
         "644caf6741e8d663a9388655-2-downloadFile.jpg",
@@ -274,13 +228,7 @@
       "author": "100953959910033868204",
       "price": 25,
       "amountSold": 19,
-      "averageRating": 4.6666667,
       "priority": 2,
-      "reviews": [
-        "645dd6da7abe439f15b34077",
-        "645dd85b17a3ad1201ab90a7",
-        "645dd93381a77addf772cfe5"
-      ],
       "coverImage": "644ea78fe3c6082891a73f71-coverimage.jpg",
       "files": [
         "644ea78fe3c6082891a73f71-1-downloadFile.jpg",
@@ -310,9 +258,7 @@
       "author": "118069059652555688591",
       "price": 95,
       "amountSold": 33,
-      "averageRating": 5,
       "priority": 1,
-      "reviews": ["645ddaef39d885158327b0b1"],
       "coverImage": "6459b5945af5d604f7458bca-coverimage.jpg",
       "files": [
         "6459b5945af5d604f7458bca-1-downloadFile.jpg",
@@ -356,10 +302,7 @@
       "description": "Experience the rise of football's next big thing with our stunning collection of photos featuring Jude Bellingham! These captivating images capture the talent, intensity, and determination of one of the game's most exciting young players, from his powerful strikes to his fearless tackles. Whether you're a fan of Bellingham or simply appreciate great football, these photos are the perfect way to show your support for the next generation of footballing talent. Our high-quality prints are available in a range of sizes to suit your needs and preferences, making them the perfect addition to any sports room, office, or living space. So why wait? Browse our collection of Jude Bellingham photos today and be a part of footballing history in the making!",
       "author": "102770690999467255961",
       "price": 75,
-      "amountSold": 66,
-      "averageRating": 5,
       "priority": 1,
-      "reviews": ["645dd6656b13f3be00365efe"],
       "coverImage": "6459bc495af5d604f7458fa5-coverimage.jpg",
       "files": [
         "6459bc495af5d604f7458fa5-1-downloadFile.jpg",
@@ -388,12 +331,7 @@
       "author": "102236187957599377142",
       "price": 125,
       "amountSold": 6,
-      "averageRating": 1.5,
       "priority": 2,
-      "reviews": [
-        "645dd6fc7abe439f15b34123",
-        "645dd793746b34b2dfbeec84"
-      ],
       "coverImage": "6459f4f8fd65a43d4087fb35-coverimage.jpg",
       "files": [
         "6459f4f8fd65a43d4087fb35-1-downloadFile.jpg",
@@ -408,13 +346,7 @@
       "author": "102236187957599377142",
       "price": 22,
       "amountSold": 11,
-      "averageRating": 3.33333333,
       "priority": 3,
-      "reviews": [
-        "645dd6e77abe439f15b340cd",
-        "645dd784746b34b2dfbeec2a",
-        "645dd84617a3ad1201ab904c"
-      ],
       "coverImage": "6459f5bffd65a43d4087fba3-coverimage.gif",
       "files": [
         "6459f5bffd65a43d4087fba3-1-downloadFile.gif",
@@ -428,10 +360,7 @@
       "description": "Indulge your senses and tantalize your taste buds with our mouth-watering collection of food GIF photos! These stunning images showcase some of the most delectable dishes and treats from around the world, from succulent steaks to luscious cakes and everything in between. Each GIF is expertly crafted to capture the vibrant colors, textures, and flavors of each dish, whether it's a sizzling burger or a refreshing smoothie. Whether you're a foodie or simply appreciate great photography, these photos are the perfect way to bring the magic of food into your home. With a range of sizes available, our high-quality prints are the perfect addition to any kitchen, dining room, or restaurant. So why wait? Browse our collection of food GIF photos today and satisfy your cravings in style!",
       "author": "115597168327745249591",
       "price": 20,
-      "amountSold": 14,
-      "averageRating": 3,
       "priority": 1,
-      "reviews": ["645dd6496b13f3be00365ea8"],
       "coverImage": "6459f71efd65a43d4087fc33-coverimage.gif",
       "files": [
         "6459f71efd65a43d4087fc33-1-downloadFile.gif",
@@ -475,11 +404,11 @@
       "author": "101628246745447861849",
       "price": 20,
       "amountSold": 12,
-      "averageRating": 3,
       "priority": 2,
-      "reviews": ["645dd95881a77addf772d08b"],
       "coverImage": "645a3741d20c8c276b87ccd5-coverimage.jpg",
-      "files": ["645a3741d20c8c276b87ccd5-1-downloadFile.mp4"]
+      "files": [
+        "645a3741d20c8c276b87ccd5-1-downloadFile.mp4"
+      ]
     },
     {
       "_id": "645a3783b0850c23d901d7d1",
@@ -489,14 +418,11 @@
       "author": "101628246745447861849",
       "price": 14,
       "amountSold": 104,
-      "averageRating": 4.5,
       "priority": 2,
-      "reviews": [
-        "645dd88517a3ad1201ab9159",
-        "645ddac639d885158327b05d"
-      ],
       "coverImage": "645a3783b0850c23d901d7d1-coverimage.jpg",
-      "files": ["645a3783b0850c23d901d7d1-1-downloadFile.mp4"]
+      "files": [
+        "645a3783b0850c23d901d7d1-1-downloadFile.mp4"
+      ]
     },
     {
       "_id": "645a382a560310e7e8e05a62",
@@ -506,11 +432,11 @@
       "author": "100953959910033868204",
       "price": 2,
       "amountSold": 2,
-      "averageRating": 4,
       "priority": 1,
-      "reviews": ["645dd97081a77addf772d0de"],
       "coverImage": "645a382a560310e7e8e05a62-coverimage.jpg",
-      "files": ["645a382a560310e7e8e05a62-1-downloadFile.mp4"]
+      "files": [
+        "645a382a560310e7e8e05a62-1-downloadFile.mp4"
+      ]
     },
     {
       "_id": "645a3857db7cea723b0629a4",
@@ -519,10 +445,7 @@
       "description": "Lose yourself in the soothing rhythm of our two video clips of flowers swaying in the breeze! These calming footage captures the gentle movement and vibrant colors of some of the most beautiful flowers in the world, from the blooming tulips to the swaying poppies. Whether you're looking to create a relaxing atmosphere in your home or office, these clips are the perfect addition to any decor.",
       "author": "102770690999467255961",
       "price": 60,
-      "amountSold": 2,
-      "averageRating": 5,
       "priority": 1,
-      "reviews": ["645ddada39d885158327b087"],
       "coverImage": "645a3857db7cea723b0629a4-coverimage.jpg",
       "files": [
         "645a3857db7cea723b0629a4-1-downloadFile.mp4",
@@ -536,12 +459,11 @@
       "description": "Dive into the world of technology with our mesmerizing video clip of keyboard typing! This dynamic footage captures the fast-paced rhythm and precision of typing on a keyboard, from the click of the keys to the movement of the fingers. Whether you're a tech enthusiast or simply appreciate great video content, this clip is the perfect way to immerse yourself in the digital world.",
       "author": "102770690999467255961",
       "price": 6,
-      "amountSold": 2,
-      "averageRating": 5,
       "priority": 1,
-      "reviews": ["645dd62a6b13f3be00365dfc"],
       "coverImage": "645a38e1560310e7e8e05b1c-coverimage.jpg",
-      "files": ["645a38e1560310e7e8e05b1c-1-downloadFile.mp4"]
+      "files": [
+        "645a38e1560310e7e8e05b1c-1-downloadFile.mp4"
+      ]
     },
     {
       "_id": "645a417c560310e7e8e0669c",
@@ -553,7 +475,9 @@
       "price": 35,
       "priority": 1,
       "coverImage": "645a417c560310e7e8e0669c-coverimage.jpg",
-      "files": ["645a417c560310e7e8e0669c-1-downloadFile.mp4"]
+      "files": [
+        "645a417c560310e7e8e0669c-1-downloadFile.mp4"
+      ]
     },
     {
       "_id": "645a4207db7cea723b062a27",
@@ -561,13 +485,12 @@
       "name": "Coding Video",
       "description": "Experience the beauty and complexity of coding with our fascinating video clip of blurred coding! This dynamic footage captures the fast-paced rhythm and precision of coding, from the movement of the cursor to the scrolling lines of code. Whether you're a tech enthusiast or simply appreciate great video content, this clip is the perfect way to immerse yourself in the world of coding and technology.",
       "author": "115597168327745249591",
-      "amountSold": 2,
-      "averageRating": 4,
       "price": 14,
       "priority": 1,
-      "reviews": ["645dd7a8746b34b2dfbeed0f"],
       "coverImage": "645a4207db7cea723b062a27-coverimage.jpg",
-      "files": ["645a4207db7cea723b062a27-1-downloadFile.mp4"]
+      "files": [
+        "645a4207db7cea723b062a27-1-downloadFile.mp4"
+      ]
     },
     {
       "_id": "645a4208560310e7e8e06725",
@@ -577,14 +500,11 @@
       "author": "101628246745447861849",
       "price": 15,
       "amountSold": 30,
-      "averageRating": 4,
       "priority": 1,
-      "reviews": [
-        "645dd7c4746b34b2dfbeed9b",
-        "645dd87217a3ad1201ab9102"
-      ],
       "coverImage": "645a4208560310e7e8e06725-coverimage.jpg",
-      "files": ["645a4208560310e7e8e06725-1-downloadFile.mp3"]
+      "files": [
+        "645a4208560310e7e8e06725-1-downloadFile.mp3"
+      ]
     },
     {
       "_id": "645a42b183a0116e16cbd65b",
@@ -594,11 +514,11 @@
       "author": "100953959910033868204",
       "price": 250,
       "amountSold": 10,
-      "averageRating": 5,
       "priority": 3,
-      "reviews": ["645dd70a7abe439f15b3417a"],
       "coverImage": "645a42b183a0116e16cbd65b-coverimage.jpg",
-      "files": ["645a42b183a0116e16cbd65b-1-downloadFile.mp3"]
+      "files": [
+        "645a42b183a0116e16cbd65b-1-downloadFile.mp3"
+      ]
     },
     {
       "_id": "645a42d7560310e7e8e0680b",
@@ -607,12 +527,11 @@
       "description": "Embrace the raw intensity of our hard freestyle beat audio file! This edgy composition is designed to push the boundaries and challenge your limits, with hard-hitting rhythms and aggressive beats that will test your skills and inspire your creativity. Whether you're a rapper, a DJ, or simply a lover of cutting-edge music, this audio file is the perfect way to add some edge to your collection.",
       "author": "100953959910033868204",
       "price": 250,
-      "amountSold": 1,
-      "averageRating": 1,
       "priority": 3,
-      "reviews": ["645ddab739d885158327b02f"],
       "coverImage": "645a42d7560310e7e8e0680b-coverimage.jpg",
-      "files": ["645a42d7560310e7e8e0680b-1-downloadFile.mp3"]
+      "files": [
+        "645a42d7560310e7e8e0680b-1-downloadFile.mp3"
+      ]
     },
     {
       "_id": "645a43a950f323a88021c65e",
@@ -621,12 +540,11 @@
       "description": "Experience the beauty and versatility of the guitar with our guitar melody audio file! This mesmerizing composition is designed to showcase the rich tones and intricate melodies of this beloved instrument, with soaring notes and delicate harmonies that will take your breath away. Whether you're a guitarist, a music lover, or simply appreciate great audio content, this audio file is the perfect addition to your collection.",
       "author": "118069059652555688591",
       "price": 20,
-      "amountSold": 2,
-      "averageRating": 5,
       "priority": 1,
-      "reviews": ["645dd6376b13f3be00365e52"],
       "coverImage": "645a43a950f323a88021c65e-coverimage.jpg",
-      "files": ["645a43a950f323a88021c65e-1-downloadFile.mp3"]
+      "files": [
+        "645a43a950f323a88021c65e-1-downloadFile.mp3"
+      ]
     },
     {
       "_id": "645a44cc3fd52091fea557cf",
@@ -636,9 +554,7 @@
       "author": "101628246745447861849",
       "price": 1000,
       "amountSold": 22,
-      "averageRating": 5,
       "priority": 3,
-      "reviews": ["645ddaa439d885158327b005"],
       "coverImage": "645a44cc3fd52091fea557cf-coverimage.jpg"
     },
     {
@@ -647,11 +563,8 @@
       "name": "Software Solutions Consulting",
       "description": "Unlock the full potential of your technology with our software solutions consulting service! Our team of experienced consultants will work with you to understand your needs and goals, and develop a customized plan to optimize your software and technology systems, increasing efficiency, productivity, and profitability.",
       "author": "101628246745447861849",
-      "amountSold": 18,
-      "averageRating": 4,
       "price": 750,
       "priority": 2,
-      "reviews": ["645dd98781a77addf772d131"],
       "coverImage": "645a44ee5aa53872e55d290e-coverimage.png"
     },
     {
@@ -662,9 +575,7 @@
       "author": "118069059652555688591",
       "price": 20,
       "amountSold": 2,
-      "averageRating": 4,
       "priority": 1,
-      "reviews": ["645dd89a17a3ad1201ab91b0"],
       "coverImage": "645a450b3fd52091fea55838-coverimage.jpg"
     },
     {
@@ -748,12 +659,7 @@
       "author": "115597168327745249591",
       "price": 1200,
       "amountSold": 9,
-      "averageRating": 2.5,
       "priority": 3,
-      "reviews": [
-        "645dd7197abe439f15b341d0",
-        "645dd7d3746b34b2dfbeedf5"
-      ],
       "coverImage": "645b762e402c2fa1d2147582-coverimage.jpg"
     }
   ],
@@ -835,281 +741,11 @@
       "_id": "645ceecf69efe970431140cd",
       "account1": "101628246745447861849",
       "account2": "100953959910033868204",
-      "messages": ["645ceee369efe970431140f3"],
+      "messages": [
+        "645ceee369efe970431140f3"
+      ],
       "createdAt": "2023-05-11T13:34:07.030+00:00",
       "updatedAt": "2023-05-11T13:34:28.042+00:00"
-    }
-  ],
-  "ProductReviews": [
-    {
-      "_id": "645dd6176b13f3be00365da6",
-      "text": "Fumbled finals",
-      "rating": 1,
-      "product": "644caf6741e8d663a9388655",
-      "account": "100953959910033868204",
-      "createdAt": "2023-05-12T06:00:55.799+00:00",
-      "updatedAt": "2023-05-12T06:00:55.799+00:00"
-    },
-    {
-      "_id": "645dd62a6b13f3be00365dfc",
-      "text": "asmr heaven",
-      "rating": 5,
-      "product": "645a38e1560310e7e8e05b1c",
-      "account": "100953959910033868204",
-      "createdAt": "2023-05-12T06:01:14.437+00:00",
-      "updatedAt": "2023-05-12T06:01:14.437+00:00"
-    },
-    {
-      "_id": "645dd6376b13f3be00365e52",
-      "text": "eargasm",
-      "rating": 5,
-      "product": "645a43a950f323a88021c65e",
-      "account": "100953959910033868204",
-      "createdAt": "2023-05-12T06:01:27.835+00:00",
-      "updatedAt": "2023-05-12T06:01:27.835+00:00"
-    },
-    {
-      "_id": "645dd6496b13f3be00365ea8",
-      "text": "made me hungry",
-      "rating": 3,
-      "product": "6459f71efd65a43d4087fc33",
-      "account": "100953959910033868204",
-      "createdAt": "2023-05-12T06:01:45.255+00:00",
-      "updatedAt": "2023-05-12T06:01:45.255+00:00"
-    },
-    {
-      "_id": "645dd6656b13f3be00365efe",
-      "text": "england's future fr fr",
-      "rating": 5,
-      "product": "6459bc495af5d604f7458fa5",
-      "account": "100953959910033868204",
-      "createdAt": "2023-05-12T06:02:13.936+00:00",
-      "updatedAt": "2023-05-12T06:02:13.936+00:00"
-    },
-    {
-      "_id": "645dd6da7abe439f15b34077",
-      "text": "10/10 gave me epilepsy!",
-      "rating": 5,
-      "product": "644ea78fe3c6082891a73f71",
-      "account": "101628246745447861849",
-      "createdAt": "2023-05-12T06:04:10.012+00:00",
-      "updatedAt": "2023-05-12T06:04:10.012+00:00"
-    },
-    {
-      "_id": "645dd6e77abe439f15b340cd",
-      "text": "Terrible anime!",
-      "rating": 1,
-      "product": "6459f5bffd65a43d4087fba3",
-      "account": "101628246745447861849",
-      "createdAt": "2023-05-12T06:04:23.068+00:00",
-      "updatedAt": "2023-05-12T06:04:23.068+00:00"
-    },
-    {
-      "_id": "645dd6fc7abe439f15b34123",
-      "text": "choked the league lol",
-      "rating": 1,
-      "product": "6459f4f8fd65a43d4087fb35",
-      "account": "101628246745447861849",
-      "createdAt": "2023-05-12T06:04:44.691+00:00",
-      "updatedAt": "2023-05-12T06:04:44.691+00:00"
-    },
-    {
-      "_id": "645dd70a7abe439f15b3417a",
-      "text": "biggest scam!",
-      "rating": 5,
-      "product": "645a42b183a0116e16cbd65b",
-      "account": "101628246745447861849",
-      "createdAt": "2023-05-12T06:04:58.644+00:00",
-      "updatedAt": "2023-05-12T06:04:58.644+00:00"
-    },
-    {
-      "_id": "645dd7197abe439f15b341d0",
-      "text": "security is a high priority!",
-      "rating": 1,
-      "product": "645b762e402c2fa1d2147582",
-      "account": "101628246745447861849",
-      "createdAt": "2023-05-12T06:05:13.484+00:00",
-      "updatedAt": "2023-05-12T06:05:13.484+00:00"
-    },
-    {
-      "_id": "645dd784746b34b2dfbeec2a",
-      "text": "amazing",
-      "rating": 5,
-      "product": "6459f5bffd65a43d4087fba3",
-      "account": "118069059652555688591",
-      "createdAt": "2023-05-12T06:07:00.578+00:00",
-      "updatedAt": "2023-05-12T06:07:00.578+00:00"
-    },
-    {
-      "_id": "645dd793746b34b2dfbeec84",
-      "text": "scammed me",
-      "rating": 2,
-      "product": "6459f4f8fd65a43d4087fb35",
-      "account": "118069059652555688591",
-      "createdAt": "2023-05-12T06:07:15.561+00:00",
-      "updatedAt": "2023-05-12T06:07:15.561+00:00"
-    },
-    {
-      "_id": "645dd7a8746b34b2dfbeed0f",
-      "text": "nice nice",
-      "rating": 4,
-      "product": "645a4207db7cea723b062a27",
-      "account": "118069059652555688591",
-      "createdAt": "2023-05-12T06:07:36.871+00:00",
-      "updatedAt": "2023-05-12T06:07:36.871+00:00"
-    },
-    {
-      "_id": "645dd7c4746b34b2dfbeed9b",
-      "text": "average",
-      "rating": 3,
-      "product": "645a4208560310e7e8e06725",
-      "account": "118069059652555688591",
-      "createdAt": "2023-05-12T06:08:04.475+00:00",
-      "updatedAt": "2023-05-12T06:08:04.475+00:00"
-    },
-    {
-      "_id": "645dd7d3746b34b2dfbeedf5",
-      "text": "Service was amazing!!",
-      "rating": 4,
-      "product": "645b762e402c2fa1d2147582",
-      "account": "118069059652555688591",
-      "createdAt": "2023-05-12T06:08:19.824+00:00",
-      "updatedAt": "2023-05-12T06:08:19.824+00:00"
-    },
-    {
-      "_id": "645dd84617a3ad1201ab904c",
-      "text": "nice",
-      "rating": 4,
-      "product": "6459f5bffd65a43d4087fba3",
-      "account": "102770690999467255961",
-      "createdAt": "2023-05-12T06:10:14.019+00:00",
-      "updatedAt": "2023-05-12T06:10:14.019+00:00"
-    },
-    {
-      "_id": "645dd85b17a3ad1201ab90a7",
-      "text": "nice",
-      "rating": 5,
-      "product": "644ea78fe3c6082891a73f71",
-      "account": "102770690999467255961",
-      "createdAt": "2023-05-12T06:10:35.389+00:00",
-      "updatedAt": "2023-05-12T06:10:35.389+00:00"
-    },
-    {
-      "_id": "645dd87217a3ad1201ab9102",
-      "text": "nice",
-      "rating": 5,
-      "product": "645a4208560310e7e8e06725",
-      "account": "102770690999467255961",
-      "createdAt": "2023-05-12T06:10:58.681+00:00",
-      "updatedAt": "2023-05-12T06:10:58.681+00:00"
-    },
-    {
-      "_id": "645dd88517a3ad1201ab9159",
-      "text": "lovely cats",
-      "rating": 5,
-      "product": "645a3783b0850c23d901d7d1",
-      "account": "102770690999467255961",
-      "createdAt": "2023-05-12T06:11:17.119+00:00",
-      "updatedAt": "2023-05-12T06:11:17.119+00:00"
-    },
-    {
-      "_id": "645dd89a17a3ad1201ab91b0",
-      "text": "good work",
-      "rating": 4,
-      "product": "645a450b3fd52091fea55838",
-      "account": "102770690999467255961",
-      "createdAt": "2023-05-12T06:11:38.469+00:00",
-      "updatedAt": "2023-05-12T06:11:38.469+00:00"
-    },
-    {
-      "_id": "645dd93381a77addf772cfe5",
-      "text": "good art",
-      "rating": 4,
-      "product": "644ea78fe3c6082891a73f71",
-      "account": "108534135006980824413",
-      "createdAt": "2023-05-12T06:14:11.495+00:00",
-      "updatedAt": "2023-05-12T06:14:11.495+00:00"
-    },
-    {
-      "_id": "645dd94581a77addf772d038",
-      "text": "good",
-      "rating": 4,
-      "product": "644caf3d41e8d663a938864e",
-      "account": "108534135006980824413",
-      "createdAt": "2023-05-12T06:14:29.126+00:00",
-      "updatedAt": "2023-05-12T06:14:29.126+00:00"
-    },
-    {
-      "_id": "645dd95881a77addf772d08b",
-      "text": "green eart",
-      "rating": 3,
-      "product": "645a3741d20c8c276b87ccd5",
-      "account": "108534135006980824413",
-      "createdAt": "2023-05-12T06:14:48.283+00:00",
-      "updatedAt": "2023-05-12T06:14:48.283+00:00"
-    },
-    {
-      "_id": "645dd97081a77addf772d0de",
-      "text": "what a butterfly",
-      "rating": 4,
-      "product": "645a382a560310e7e8e05a62",
-      "account": "108534135006980824413",
-      "createdAt": "2023-05-12T06:15:12.587+00:00",
-      "updatedAt": "2023-05-12T06:15:12.587+00:00"
-    },
-    {
-      "_id": "645dd98781a77addf772d131",
-      "text": "not cheap",
-      "rating": 4,
-      "product": "645a44ee5aa53872e55d290e",
-      "account": "108534135006980824413",
-      "createdAt": "2023-05-12T06:15:35.612+00:00",
-      "updatedAt": "2023-05-12T06:15:35.612+00:00"
-    },
-    {
-      "_id": "645ddaa439d885158327b005",
-      "text": "Tax evasion leshgo",
-      "rating": 5,
-      "product": "645a44cc3fd52091fea557cf",
-      "account": "115597168327745249591",
-      "createdAt": "2023-05-12T06:20:20.807+00:00",
-      "updatedAt": "2023-05-12T06:20:20.807+00:00"
-    },
-    {
-      "_id": "645ddab739d885158327b02f",
-      "text": "you wrap like a leaky faucet",
-      "rating": 1,
-      "product": "645a42d7560310e7e8e0680b",
-      "account": "115597168327745249591",
-      "createdAt": "2023-05-12T06:20:39.808+00:00",
-      "updatedAt": "2023-05-12T06:20:39.808+00:00"
-    },
-    {
-      "_id": "645ddac639d885158327b05d",
-      "text": "good dog",
-      "rating": 4,
-      "product": "645a3783b0850c23d901d7d1",
-      "account": "115597168327745249591",
-      "createdAt": "2023-05-12T06:20:54.899+00:00",
-      "updatedAt": "2023-05-12T06:20:54.899+00:00"
-    },
-    {
-      "_id": "645ddada39d885158327b087",
-      "text": "good flower",
-      "rating": 5,
-      "product": "645a3857db7cea723b0629a4",
-      "account": "115597168327745249591",
-      "createdAt": "2023-05-12T06:21:14.903+00:00",
-      "updatedAt": "2023-05-12T06:21:14.903+00:00"
-    },
-    {
-      "_id": "645ddaef39d885158327b0b1",
-      "text": "my dad drowned in this waterfall :((((",
-      "rating": 5,
-      "product": "6459b5945af5d604f7458bca",
-      "account": "115597168327745249591",
-      "createdAt": "2023-05-12T06:21:35.974+00:00",
-      "updatedAt": "2023-05-12T06:21:35.974+00:00"
     }
   ]
 }

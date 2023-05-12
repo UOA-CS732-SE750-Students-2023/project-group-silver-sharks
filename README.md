@@ -20,9 +20,6 @@ Sharketplace is a full-stack web application that allows users to buy and sell d
 - Product reviews: Users that have purchased a product can review the product out of five stars and leave a comment. Reviews can be sorted.
 - Frontend and backend testing
 - Seeding for populating database
-## Notes 
-- To demo the Socket IO messaging functionality, open the application on one normal Google Chrome browser window and on one incognito window. Or you can open one instance on separate browsers, e.g). Google Chrome and Firefox. This is required because of interference from browser cache. Because the application does not use Peer to Peer Socket IO, the web socket connections from clients are routed through the server. Which would be required in a production environment for liability and security purposes. 
-- The application backend is not currently deployed and all files are stored locally on the server and statically hosted from the 'public' folder of the backend. Which means that files uploaded from one device running the application will not be visible on another instance of the application running on another device unless the files in the 'public' folder are synced as well. This would not present an issue in a production environment because the backend server would be deployed and all clients would be uploading to and accessing from the same server.
 ## Technologies used
 - **MERN stack**
 - **Socket.io**: Chat/private messaging functionality

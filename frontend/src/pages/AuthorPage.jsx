@@ -14,9 +14,6 @@ const AuthorPage = () => {
 
     let isOwnAccount = false; 
 
-    console.log("user Id" + userId, 19); 
-    console.log("author id" + params.aid, 20)
-
     // if it is the authors own page then dont render the message 
     if (userId === authorPageId){
         isOwnAccount = true;
@@ -71,16 +68,7 @@ export const action = async ({ params, request }) => {
 
     const authorId = params.aid;
 
-    const data = await request.formData();
-
-    const isAdmin = data.get("isAdmin") === 'true';
-    const isOwnAccount = data.get("isOwnAccount") === 'true';   
-
-    let navigateLandingPage = true;
-
-    if (isAdmin && !isOwnAccount){
-        navigateLandingPage = false;
-    }
+    // deleting other accounts as a admin from the author page
 
     const response = await fetch('http://localhost:3000/account/id/' + authorId, {
         method: request.method,
@@ -90,11 +78,5 @@ export const action = async ({ params, request }) => {
         throw json({ message: 'Could not delete this account.'}, { status: 500 });
     }
 
-
-    if (navigateLandingPage){
-        return redirect('/');
-    } 
-        
-    return redirect('/store/product-search');
-
+    return redirect('/');
 }

@@ -18,6 +18,7 @@ const AuthorLayout = ({
   // checking the account type of the author
   const isAdmin = userAccountType === "admin";
 
+
   let averageRatingTemp = 0;
   
   author.sellingProducts.forEach((item) => {
@@ -46,7 +47,7 @@ const averageRating2 = (averageRatingTemp / author.sellingProducts.length).toFix
     const proceed = window.confirm("Are you sure?");
 
     if (proceed) {
-      submit({ isAdmin: isAdmin, isOwnAccount: isOwnAccount }, { method: "DELETE" });
+      submit(null, { method: "DELETE" });
     }
   };
 

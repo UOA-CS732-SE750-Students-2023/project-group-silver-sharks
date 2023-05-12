@@ -85,12 +85,6 @@ async function importDataFromFile() {
     await product.save();
   }
 
-    //Import product reviews
-    for (const productReviewData of data.ProductReviews) {
-      const productReview = new ProductReview(productReviewData);
-      await productReview.save();
-    }
-
   // Import messages
   for (const messageData of data.Messages) {
     const message = new Message(messageData);
