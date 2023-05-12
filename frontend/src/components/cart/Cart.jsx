@@ -6,20 +6,14 @@ import classes from '../modal/Modal.module.css';
 import { useNavigate, useSubmit } from 'react-router-dom';
 
 
-
-// remember when using value from context, useState does not need to be used 
-// because when the cart data values change the component(s) that use them automatically 
-// rerender
-
 const Cart = (props) => { 
     const submit = useSubmit();
-    //const [isCartEmpty, setIsCartEmpty] = useState(false);
     let isCartEmpty = false;
 
     let currentCartItem;
 
 
-    console.log("cart: " + props.cartContents, 16)
+    
 
     if (props.cartContents.length === 0){ 
         isCartEmpty = true;
@@ -29,9 +23,7 @@ const Cart = (props) => {
 
 
     // check if the cart is empty or not 
-
     // if it is empty then render a display message
-    
     const navigate = useNavigate();
 
     const closeCartHandler = () => {

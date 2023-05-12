@@ -6,16 +6,6 @@
     height: 100vh;
     z-index: 20;
 }
-/* .modal{
-    top: 20vh;
-    position: absolute;
-    color:aliceblue;
-    background:linear-gradient(180deg, #000000 0%, #001614 48.96%, #000000 100%, #000000 100%);
-    padding: 1rem;
-    border-radius: 20px;
-    z-index: 30;
-    animation: slide-down 300ms ease-out forwards;
-}  */
 .modal .cartcontainer{
     width:30%;
     top: 18vh;
@@ -43,9 +33,6 @@
 .modal h2{
     height: 24px;
     width: 211px;
-    /* left: 728px; */
-    /* top: 295px; */
-    /* border-radius: nullpx; */
     font-size: 16px;
 
     font-family: 'Poppins';
@@ -154,24 +141,18 @@
     background-color:#F48686;
     border-radius:50%;
     margin-top:-30px;
-    /* margin-left: 12px; */
     color:black;
 }
 .modal .icon:hover{
     cursor: pointer; 
 }
 .modal .price{
-    /* width:30px; */
-    /* display: inline-block; */
     position: relative;
     top: -10px; 
     display: inline;
-    /* vertical-align:top; */
     line-height: 30px;
 }
 .modal .price h1{
-    /* width:30px; */
-    /* overflow-wrap: break-word; */
     margin-left: 25px;
     display: inline;
     font-family: Poppins;
@@ -180,7 +161,6 @@
     line-height: 36px;
     letter-spacing: 0em;
     text-align: right;
-    /* vertical-align:bottom; */
 }
 .modal .price span{
     vertical-align: super;

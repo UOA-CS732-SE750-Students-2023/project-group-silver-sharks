@@ -17,10 +17,6 @@ const ModalOverlay = (props) => {
     );
 }
 
-/*
-    To ensure that the modal divs arent nested within the landing page DOM elements, 
-    we will make use of React Portal for the modal window.
-*/
 
 const portalElement = document.getElementById('overlays_2');
 

@@ -16,7 +16,6 @@
 }
 
 .purchase-assets {
-  /* margin: 0 90px 200px; */
   width: 82%;
   margin-left: 9%;
   margin-bottom: 20%;
@@ -68,8 +67,6 @@
 }
 
 .asset-image img {
-  /* max-width: 100%;
-  height: auto; */
   height: 100%;
   width: 100%; 
   object-fit: cover;
