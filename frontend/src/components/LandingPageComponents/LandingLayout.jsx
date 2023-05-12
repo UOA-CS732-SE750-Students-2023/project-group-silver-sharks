@@ -3,12 +3,15 @@ import './LandingLayout.css';
 import LandingCard from './LandingCard';
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
-import { Carousel, Card } from 'react-bootstrap';
+import { Carousel } from 'react-responsive-carousel';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Card } from 'react-bootstrap';
+
 
 const LandingLayout = ({popularMediaList}) => {
 
-  console.log("POPULAR MEDIA LIST IS IN LAYOUT COMPONENT");
-  console.log(popularMediaList);
+  console.log("POPULAR MEDIA image products LIST IS IN LAYOUT COMPONENT");
+  console.log(popularMediaList.imageProducts);
 
   const navigateSignupHandler = () => {
     window.location.href = 'http://localhost:3000/account/sign-in';
@@ -177,22 +180,24 @@ const LandingLayout = ({popularMediaList}) => {
               text="Find a wide range of professional services which are tailored to your needs."
             />
           </div>
-          <Carousel>
-            {popularMediaList.map((item, index) => (
-                <Carousel.Item key={index}>
-                    <Card style={{ width: '18rem' }}>
-                        <Card.Img variant="top" src={`http://localhost:3000/uploads/${item.coverImage}`} />
-                        <Card.Body>
-                            <Card.Title>{item.name}</Card.Title>
-                            <Card.Text>
-                                Number Sold: {item.amountSold}
-                            </Card.Text>
-                        </Card.Body>
-                    </Card>
-                </Carousel.Item>
-            ))}
-        </Carousel>
         </div>
+        <div className="carousel-container">
+          <Carousel showThumbs={false}>
+              {(popularMediaList.imageProducts).map((item, index) => (
+                  <div key={index}>
+                      <Card style={{ width: '18rem' }}>
+                          <Card.Img variant="top" src={`http://localhost:3000/uploads/${item.coverImage}`} />
+                          <Card.Body>
+                              <Card.Title>{item.name}</Card.Title>
+                              <Card.Text>
+                                  Number Sold: {item.amountSold}
+                              </Card.Text>
+                          </Card.Body>
+                      </Card>
+                  </div>
+              ))}
+            </Carousel>
+          </div>
       </div>
     </>
   );

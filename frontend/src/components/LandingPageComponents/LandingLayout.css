@@ -125,6 +125,27 @@ span {
 .card-wrapper {
     position: absolute;
 }
+
+/*** CAROUSEL STYLING ***/
+.carousel .control-prev, .carousel .control-next {
+    transform: translateY(-50%);
+    top: 50%;
+}
+  
+.carousel .control-prev {
+    left: 0;
+    margin-left: 15px; /* Adjust as needed */
+}
+  
+.carousel .control-next {
+    right: 0;
+    margin-right: 15px; /* Adjust as needed */
+}
+  
+.carousel-wrapper {
+    max-width: 18rem;
+    margin: 0 auto;
+}
   
 
 
