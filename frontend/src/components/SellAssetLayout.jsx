@@ -2,14 +2,11 @@ import React, { useState } from "react";
 import {
   useNavigate,
   useActionData,
-  Form,
   json,
-  redirect,
   Link,
 } from "react-router-dom";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import "./SellAssetLayout.css";
-import ChatHolder from "./ChatHolder";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
@@ -27,6 +24,7 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
   const stripe = useStripe();
   const elements = useElements();
   const priorityPrice = [0, 1000, 3000]; // In cents
+  const [submitting, setSubmitting] = useState(false);
 
   // Admin User
   const adminId = "109761511246582815438"; // SharketPlace Admin
@@ -81,6 +79,9 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
 
     // reset the error message
     setError(false);
+
+    // enable the submitting state variable to disable the list asset button
+    setSubmitting(true);
 
     const productData = {
       name: enteredTitle,
@@ -208,6 +209,9 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
         { status: 500 }
       );
     }
+
+    // disable the submitting state variable to enable the list asset button
+    setSubmitting(false);
 
     navigate("/store/product/" + newProduct._id);
   };
@@ -376,8 +380,9 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
                   variant="primary"
                   type="submit"
                   className="mt-4"
+                  disabled={submitting}
                   >
-                    List asset
+                    {submitting ? 'Submitting...' : 'List asset'}
                   </Button>
                 </div>
               ) : (

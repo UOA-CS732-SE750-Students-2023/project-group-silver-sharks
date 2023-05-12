@@ -65,26 +65,44 @@
     /* Add of frontend fixes */
     color: rgb(255, 255, 255); /* Change the text color to white */
     transition: background-color 0.3s, border-color 0.3s, color 0.3s; /* Add transition for hover effect */
-
 }
+
 .description-button:hover {
   background-color: #348B81;
   border-color: #348B81;
   color: white; /* Change the text color to white when hovering */
 }
 
-.landing-page-desc {
+.get-started-button {
+    margin-top: 20px;
+    border-radius: 40px;
+    background-color: transparent;
+    border-color: rgb(255, 255, 255);
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-size: 30px;
+    width: 15vw;
+    box-shadow: none;
+    border-style: solid;
+    /* Add of frontend fixes */
+    color: rgb(255, 255, 255); /* Change the text color to white */
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s; /* Add transition for hover effect */
+}
+
+.get-started-button:hover {
+    background-color: #348B81;
+    border-color: #348B81;
+    color: white; /* Change the text color to white when hovering */
+}
+
+.landing-page-desc-talent {
     color: white;
     font-size: 72px;
     font-weight: 400;
-    padding-top: 200px;
+    padding-top: 100px;
 }
 .landing-page-desc-wrapper {
     margin-top: 150px;
-}
-span {
-    color: #348B81;
-    font-weight: 800;
 }
 
 .wordContainer {
@@ -100,7 +118,6 @@ span {
 .word.show {
     opacity: 1;
 }
-  
 
 .landing-page-card-container {
     display: flex;
@@ -121,10 +138,83 @@ span {
     position: relative;
 }
 
-.card-wrapper {
-    position: absolute;
+/** Slide Animation**/
+.landing-cycle-main-text-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
-  
+@keyframes CycleWords {
+    0% { opacity: 0; }
+    8% { opacity: 1;}
+    17% { opacity: 1;}
+    25% { opacity: 0;}
+}
+.landing-cycle-main-text span {
+    animation: CycleWords 6s ease-out infinite 0s;
+    opacity: 0;
+    overflow: hidden;
+}
+.landing-cycle-main-text span:nth-child(2) {
+    animation-delay: 1.5s;
+}
+.landing-cycle-main-text span:nth-child(3) {
+    animation-delay: 3s;
+}
+.landing-cycle-main-text span:nth-child(4) {
+    animation-delay: 4.5s;
+}
+.landing-animate-students {
+    color: #beffca;
+    opacity: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    text-align: center;
+}
+.landing-animate-employers {
+    color: #6bc99d;
+    opacity: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    text-align: center;
+}
+.landing-animate-industries {
+    color: #50cf5c;
+    opacity: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    text-align: center;
+}
+.landing-animate-people {
+    color: #348B81;
+    opacity: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    text-align: center;
+}
+.landing-cycle-main-text{
+    text-align: center;
+    font-size: 72px;
+    font-weight: 600;
+    position: relative;
+}
 
 
 @media screen and (max-width: 980px) {
