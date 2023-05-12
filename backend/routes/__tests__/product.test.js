@@ -20,6 +20,7 @@ const product1 = {
   price: 25,
   amountSold: 5,
   averageRating: 5,
+  reviews: ["000000000000000000000100", "000000000000000000000200"],
 };
 
 const product2 = {
@@ -307,6 +308,23 @@ it("get products for specific category", (done) => {
     });
 });
 
+it("gets product for category not found", (done) => {
+  request(app)
+    .get("/products/filter?category=NotFoundCategory")
+    .send()
+    .expect(404)
+    .end(async (err, res) => {
+      if (err) {
+        return done(err);
+      }
+
+      const response = res.text;
+      expect(response).toBe("No Products Were Found");
+
+      return done();
+    });
+});
+
 it("get products matching search term", (done) => {
   request(app)
     .get("/products/search?search=Video")
@@ -343,6 +361,23 @@ it("get products matching search term", (done) => {
     });
 });
 
+it("gets product for search term found", (done) => {
+  request(app)
+    .get("/products/filter?search=NotFound")
+    .send()
+    .expect(404)
+    .end(async (err, res) => {
+      if (err) {
+        return done(err);
+      }
+
+      const response = res.text;
+      expect(response).toBe("No Products Were Found");
+
+      return done();
+    });
+});
+
 it("get specific product by id", (done) => {
   request(app)
     .get("/products/000000000000000000000001")
@@ -367,6 +402,40 @@ it("get specific product by id", (done) => {
     });
 });
 
+it("gets product by id not found", (done) => {
+  request(app)
+    .get("/products/000000000000000000000007")
+    .send()
+    .expect(404)
+    .end(async (err, res) => {
+      if (err) {
+        return done(err);
+      }
+
+      const response = res.text;
+      expect(response).toBe("Product Not Found");
+
+      return done();
+    });
+});
+
+it("gets product by id invalid id", (done) => {
+  request(app)
+    .get("/products/invalidid")
+    .send()
+    .expect(400)
+    .end(async (err, res) => {
+      if (err) {
+        return done(err);
+      }
+
+      const response = res.text;
+      expect(response).toBe("Invalid Product ID");
+
+      return done();
+    });
+});
+
 it("delete product", (done) => {
   request(app)
     .delete("/products/000000000000000000000001")
@@ -383,6 +452,23 @@ it("delete product", (done) => {
       // check if product has been removed from database
       const product = await Product.findById("000000000000000000000001");
       expect(product).toBeNull();
+
+      return done();
+    });
+});
+
+it("deletes product id not found", (done) => {
+  request(app)
+    .delete("/products/000000000000000000000007")
+    .send()
+    .expect(404)
+    .end(async (err, res) => {
+      if (err) {
+        return done(err);
+      }
+
+      const response = res.text;
+      expect(response).toBe("Product Not Found");
 
       return done();
     });
@@ -435,6 +521,23 @@ it("get reviews for a product", (done) => {
     });
 });
 
+it("product id not found for review", (done) => {
+  request(app)
+    .get("/products/pid/000000000000000000000007/reviews")
+    .send()
+    .expect(404)
+    .end(async (err, res) => {
+      if (err) {
+        return done(err);
+      }
+
+      const response = res.body;
+      expect(response.error).toBe("Product not found");
+
+      return done();
+    });
+});
+
 const newReview = {
   text: "Great product!",
   rating: 5,
@@ -473,6 +576,109 @@ it("adds a review for a specific product", (done) => {
     });
 });
 
+it("adds a review for an already reviewed product", (done) => {
+  request(app)
+    .post("/products/pid/000000000000000000000001/review")
+    .set("x-user-id", "000000000000000000000020")
+    .set("productsPurchased", [
+      { _id: "000000000000000000000001" },
+      { _id: "000000000000000000000002" },
+      { _id: "000000000000000000000003" },
+    ])
+    .send(newReview)
+    .expect(400)
+    .end(async (err, res) => {
+      if (err) {
+        return done(err);
+      }
+
+      const response = res.body;
+
+      expect(response.error).toBe("You already reviewed this product");
+
+      return done();
+    });
+});
+
+const invalidReview = {
+  text: "Great product!",
+  rating: 7,
+};
+
+it("adds review with invalid rating", (done) => {
+  request(app)
+    .post("/products/pid/000000000000000000000003/review")
+    .set("x-user-id", "000000000000000000000020")
+    .set("productsPurchased", [
+      { _id: "000000000000000000000001" },
+      { _id: "000000000000000000000002" },
+      { _id: "000000000000000000000003" },
+    ])
+    .send(invalidReview)
+    .expect(400)
+    .end(async (err, res) => {
+      if (err) {
+        return done(err);
+      }
+
+      const response = res.body;
+
+      expect(response.error).toBe("Invalid rating value");
+
+      return done();
+    });
+});
+
+it("adds review for product that doesn't exist", (done) => {
+  request(app)
+    .post("/products/pid/000000000000000000000007/review")
+    .set("x-user-id", "000000000000000000000020")
+    .set("productsPurchased", [
+      { _id: "000000000000000000000001" },
+      { _id: "000000000000000000000002" },
+      { _id: "000000000000000000000003" },
+    ])
+    .send(newReview)
+    .expect(404)
+    .end(async (err, res) => {
+      if (err) {
+        return done(err);
+      }
+
+      const response = res.body;
+
+      expect(response.error).toBe("Product not found");
+
+      return done();
+    });
+});
+
+it("adds review for product that is not purchased", (done) => {
+  request(app)
+    .post("/products/pid/000000000000000000000004/review")
+    .set("x-user-id", "000000000000000000000020")
+    .set("productsPurchased", [
+      { _id: "000000000000000000000001" },
+      { _id: "000000000000000000000002" },
+      { _id: "000000000000000000000003" },
+    ])
+    .send(newReview)
+    .expect(401)
+    .end(async (err, res) => {
+      if (err) {
+        return done(err);
+      }
+
+      const response = res.body;
+
+      expect(response.error).toBe(
+        "You can only review products that you have purchased"
+      );
+
+      return done();
+    });
+});
+
 it("checks if an account can add a review", (done) => {
   request(app)
     .get("/products/pid/000000000000000000000002/can-review")
@@ -492,6 +698,78 @@ it("checks if an account can add a review", (done) => {
       const response = res.body;
 
       expect(response).toBe(true);
+
+      return done();
+    });
+});
+
+it("checks if an account can add a review - product doesn't exist", (done) => {
+  request(app)
+    .get("/products/pid/000000000000000000000007/can-review")
+    .set("x-user-id", "000000000000000000000020")
+    .set("productsPurchased", [
+      { _id: "000000000000000000000001" },
+      { _id: "000000000000000000000002" },
+      { _id: "000000000000000000000003" },
+    ])
+    .send()
+    .expect(404)
+    .end(async (err, res) => {
+      if (err) {
+        return done(err);
+      }
+
+      const response = res.body;
+
+      expect(response.error).toBe("Product not found");
+
+      return done();
+    });
+});
+
+it("checks if an account can add a review - product not purchased", (done) => {
+  request(app)
+    .get("/products/pid/000000000000000000000004/can-review")
+    .set("x-user-id", "000000000000000000000020")
+    .set("productsPurchased", [
+      { _id: "000000000000000000000001" },
+      { _id: "000000000000000000000002" },
+      { _id: "000000000000000000000003" },
+    ])
+    .send()
+    .expect(401)
+    .end(async (err, res) => {
+      if (err) {
+        return done(err);
+      }
+
+      const response = res.body;
+
+      expect(response).toBe(false);
+
+      return done();
+    });
+});
+
+it("checks if an account can add a review - product already reviewed", (done) => {
+  request(app)
+    .get("/products/pid/000000000000000000000001/can-review")
+    .set("x-user-id", "000000000000000000000020")
+    .set("productsPurchased", [
+      { _id: "000000000000000000000001" },
+      { _id: "000000000000000000000002" },
+      { _id: "000000000000000000000003" },
+    ])
+    .send()
+    .expect(401)
+    .end(async (err, res) => {
+      if (err) {
+        return done(err);
+      }
+
+      const response = res.body;
+
+      expect(response).toBe(false);
 
       return done();
     });
