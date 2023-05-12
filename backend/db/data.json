@@ -7,6 +7,13 @@
       "email": "jsan956@aucklanduni.ac.nz",
       "accountType": "admin",
       "username": "Jazzy",
+      "productsPurchased": [
+        "644ea78fe3c6082891a73f71",
+        "6459f5bffd65a43d4087fba3",
+        "6459f4f8fd65a43d4087fb35",
+        "645a42b183a0116e16cbd65b",
+        "645b762e402c2fa1d2147582"
+      ],
       "sellingProducts": [
         "644caf3d41e8d663a938864e",
         "644caf6741e8d663a9388655",
@@ -26,6 +33,13 @@
       "email": "nset793@aucklanduni.ac.nz",
       "accountType": "admin",
       "username": "Nilay",
+      "productsPurchased": [
+        "644caf6741e8d663a9388655",
+        "645a38e1560310e7e8e05b1c",
+        "645a43a950f323a88021c65e",
+        "6459f71efd65a43d4087fc33",
+        "6459bc495af5d604f7458fa5"
+      ],
       "sellingProducts": [
         "644ea31b70a8647e3e32eefd",
         "644ea5f52459804f9fd26b3a",
@@ -60,6 +74,13 @@
       "email": "ibrahimanees2002@gmail.com",
       "accountType": "admin",
       "username": "Ibrahim",
+      "productsPurchased": [
+        "6459f5bffd65a43d4087fba3",
+        "6459f4f8fd65a43d4087fb35",
+        "645a4207db7cea723b062a27",
+        "645a4208560310e7e8e06725",
+        "645b762e402c2fa1d2147582"
+      ],
       "sellingProducts": [
         "6459b5945af5d604f7458bca",
         "6459b8408287e3296b73f755",
@@ -76,6 +97,13 @@
       "email": "yhua972@aucklanduni.ac.nz",
       "accountType": "normal",
       "username": "Janet",
+      "productsPurchased": [
+        "6459f5bffd65a43d4087fba3",
+        "644ea78fe3c6082891a73f71",
+        "645a4208560310e7e8e06725",
+        "645a3783b0850c23d901d7d1",
+        "645a450b3fd52091fea55838"
+      ],
       "sellingProducts": [
         "6459bc495af5d604f7458fa5",
         "6459f4f0fd65a43d4087fb21",
@@ -105,7 +133,14 @@
       "lastName": "Li",
       "email": "yil708@aucklanduni.ac.nz",
       "accountType": "admin",
-      "username": "Lucas2"
+      "username": "Lucas2",
+      "productsPurchased": [
+        "644ea78fe3c6082891a73f71",
+        "644caf3d41e8d663a938864e",
+        "645a3741d20c8c276b87ccd5",
+        "645a382a560310e7e8e05a62",
+        "645a44ee5aa53872e55d290e"
+      ]
     },
     {
       "_id": "115597168327745249591",
@@ -114,6 +149,13 @@
       "email": "bliu631@aucklanduni.ac.nz",
       "accountType": "admin",
       "username": "Brydawg",
+      "productsPurchased": [
+        "645a44cc3fd52091fea557cf",
+        "645a42d7560310e7e8e0680b",
+        "645a3783b0850c23d901d7d1",
+        "645a3857db7cea723b0629a4",
+        "6459b5945af5d604f7458bca"
+      ],
       "sellingProducts": [
         "6459f71efd65a43d4087fc33",
         "6459f8bdfd65a43d4087fc65",
@@ -134,7 +176,10 @@
       "description": "Introducing our collection of hand-drawn Naruto images, created by talented artists with a passion for the popular anime series. Each image is a unique and one-of-a-kind piece of art, capturing the iconic characters and moments from the beloved series. Whether you're a fan of Naruto, Sasuke, or any of the other memorable characters from the series, our collection has something for you. Each image is meticulously crafted with attention to detail, bringing the characters to life in a way that only hand-drawn art can. Our Naruto images make the perfect addition to any fan's collection or a unique gift for someone who loves the series. Hang them in your home, office, or dorm room to show off your love for the series and add some personality to your space. All of our hand-drawn Naruto images are available in a variety of sizes and formats, including posters, prints, and digital downloads, making it easy to find the perfect option for your needs. And with our affordable prices, you can collect multiple images without breaking the bank. Order now and add some hand-drawn Naruto art to your collection today!",
       "author": "101628246745447861849",
       "price": 10,
-      "priority": 3,
+      "amountSold": 3,
+      "averageRating": 4,
+      "priority": 1,
+      "reviews": ["645dd94581a77addf772d038"],
       "coverImage": "644caf3d41e8d663a938864e-coverimage.png",
       "files": [
         "644caf3d41e8d663a938864e-1-downloadFile.jpg",
@@ -148,8 +193,11 @@
       "description": "Experience the excitement of Manchester United like never before with our collection of stunning photos capturing the team in action! From the roar of the crowd to the skillful play on the field, these photos transport you straight to the heart of the game. Featuring some of United's most iconic matches and players, these photos are the perfect way to show your support for one of the greatest football clubs in history. Our high-quality prints are available in a range of sizes to suit your needs and preferences. Whether you want to hang them on your wall or display them on your desk, these photos are the perfect way to keep the spirit of Manchester United close at hand.",
       "author": "101628246745447861849",
       "price": 15,
+      "amountSold": 7,
+      "averageRating": 1,
       "priority": 1,
       "coverImage": "644caf6741e8d663a9388655-coverimage.png",
+      "reviews": ["645dd6176b13f3be00365da6"],
       "files": [
         "644caf6741e8d663a9388655-1-downloadFile.jpg",
         "644caf6741e8d663a9388655-2-downloadFile.jpg",
@@ -163,6 +211,7 @@
       "description": "Get ready to be transported to a winter wonderland with our stunning collection of snowy scenery photos! These breathtaking images capture the beauty and tranquility of winter landscapes, from snow-capped mountains to frosty forests and icy lakes. Whether you're a nature lover or just love the serene beauty of snowy scenery, these photos are the perfect way to bring the magic of winter into your home. Our high-quality prints are available in a range of sizes to suit your needs and preferences. Whether you want to create a cozy winter vibe in your living room or add a touch of nature to your office, these photos are the perfect way to do it. Each photo is professionally printed using state-of-the-art technology, ensuring stunning clarity, vibrant colors, and a long-lasting finish. Whether you're looking for a gift for someone special or just want to treat yourself to some beautiful art, these photos are sure to impress.",
       "author": "101628246745447861849",
       "price": 40,
+      "amountSold": 24,
       "priority": 1,
       "coverImage": "644caf8141e8d663a938865c-coverimage.jpg",
       "files": [
@@ -179,6 +228,7 @@
       "description": "Step into the wild and immerse yourself in the lush beauty of our collection of jungle scenery photos! These stunning images capture the vibrant colors and exotic flora and fauna of some of the world's most breathtaking rainforests. Whether you're a nature lover, an adventurer, or just love the idea of exploring the unknown, these photos are the perfect way to bring the magic of the jungle into your home. Our high-quality prints are available in a range of sizes to suit your needs and preferences, making them the perfect addition to any room. So why wait? Browse our collection of jungle scenery photos today and let your imagination run wild!",
       "author": "101628246745447861849",
       "price": 40,
+      "amountSold": 1,
       "priority": 1,
       "coverImage": "644e3f327b9865addb7b3f14-coverimage.jpg",
       "files": [
@@ -223,7 +273,14 @@
       "description": "Looking for a unique piece of art that reflects your individuality and style? Look no further than our collection of custom digital art! Our talented artists will work with you to create a one-of-a-kind piece that captures your vision and brings it to life in stunning detail. From portraits to landscapes to abstract designs, our custom digital art is the perfect way to add a personal touch to any room or office. With a range of sizes and styles available, our high-quality prints are the perfect addition to any decor. So why wait? Browse our collection of custom digital art today and let us create a masterpiece just for you!",
       "author": "100953959910033868204",
       "price": 25,
+      "amountSold": 19,
+      "averageRating": 4.6666667,
       "priority": 2,
+      "reviews": [
+        "645dd6da7abe439f15b34077",
+        "645dd85b17a3ad1201ab90a7",
+        "645dd93381a77addf772cfe5"
+      ],
       "coverImage": "644ea78fe3c6082891a73f71-coverimage.jpg",
       "files": [
         "644ea78fe3c6082891a73f71-1-downloadFile.jpg",
@@ -237,6 +294,7 @@
       "description": "Looking for the perfect icon to add to your website, app, or digital project? Look no further than our collection of useful PNG icons! These high-quality icons are designed to help you communicate your message clearly and effectively, with a range of styles and designs to suit any need. Whether you're looking for icons for social media, e-commerce, or business, our collection has got you covered. Each icon is available in a range of sizes and formats, making them easy to use and integrate into your digital projects. So why wait? Browse our collection of useful PNG icons today and take your digital projects to the next level!",
       "author": "100953959910033868204",
       "price": 3,
+      "amountSold": 6,
       "priority": 1,
       "coverImage": "644ea8c5e3c6082891a73fc2-coverimage.jpg",
       "files": [
@@ -251,7 +309,10 @@
       "description": "Escape to the beauty and serenity of nature with our stunning collection of waterfall photos! These breathtaking images capture the power and majesty of some of the world's most iconic waterfalls, from Niagara Falls to Victoria Falls and beyond. Whether you're a nature lover, a traveler, or simply seeking inspiration, these photos are the perfect way to bring the magic of the waterfall into your home. Our high-quality prints are available in a range of sizes to suit your needs and preferences, making them the perfect addition to any room or office. So why wait? Browse our collection of waterfall photos today and experience the beauty of nature in all its glory!",
       "author": "118069059652555688591",
       "price": 95,
+      "amountSold": 33,
+      "averageRating": 5,
       "priority": 1,
+      "reviews": ["645ddaef39d885158327b0b1"],
       "coverImage": "6459b5945af5d604f7458bca-coverimage.jpg",
       "files": [
         "6459b5945af5d604f7458bca-1-downloadFile.jpg",
@@ -295,7 +356,10 @@
       "description": "Experience the rise of football's next big thing with our stunning collection of photos featuring Jude Bellingham! These captivating images capture the talent, intensity, and determination of one of the game's most exciting young players, from his powerful strikes to his fearless tackles. Whether you're a fan of Bellingham or simply appreciate great football, these photos are the perfect way to show your support for the next generation of footballing talent. Our high-quality prints are available in a range of sizes to suit your needs and preferences, making them the perfect addition to any sports room, office, or living space. So why wait? Browse our collection of Jude Bellingham photos today and be a part of footballing history in the making!",
       "author": "102770690999467255961",
       "price": 75,
+      "amountSold": 66,
+      "averageRating": 5,
       "priority": 1,
+      "reviews": ["645dd6656b13f3be00365efe"],
       "coverImage": "6459bc495af5d604f7458fa5-coverimage.jpg",
       "files": [
         "6459bc495af5d604f7458fa5-1-downloadFile.jpg",
@@ -323,7 +387,13 @@
       "description": "Celebrate the history and legacy of some of the world's most beloved football clubs with our collection of hand-drawn football club logos! These stunning pieces of art capture the essence and identity of each club, from the iconic crest of Manchester United to the bold emblem of Barcelona FC. Each logo is meticulously crafted by hand, ensuring a level of detail and authenticity that is unmatched by any digital reproduction. Whether you're a die-hard fan of one of these clubs or simply appreciate great design, these logos are the perfect way to show your support for some of the game's most storied teams. With a range of sizes available, our high-quality prints are the perfect addition to any sports room, office, or living space. So why wait? Browse our collection of hand-drawn football club logos today and own a piece of football history!",
       "author": "102236187957599377142",
       "price": 125,
+      "amountSold": 6,
+      "averageRating": 1.5,
       "priority": 2,
+      "reviews": [
+        "645dd6fc7abe439f15b34123",
+        "645dd793746b34b2dfbeec84"
+      ],
       "coverImage": "6459f4f8fd65a43d4087fb35-coverimage.jpg",
       "files": [
         "6459f4f8fd65a43d4087fb35-1-downloadFile.jpg",
@@ -337,7 +407,14 @@
       "description": "Immerse yourself in the captivating world of anime with our stunning collection of anime GIF photos! These eye-catching images bring to life the characters and storylines of some of the most beloved anime series, from Naruto to Dragon Ball Z and beyond. Each GIF is expertly crafted to capture the essence and energy of each character, whether it's Naruto unleashing his Rasengan or Goku powering up for a Kamehameha. Whether you're a die-hard anime fan or simply appreciate great animation, these photos are the perfect way to show your love for this amazing art form. With a range of sizes available, our high-quality prints are the perfect addition to any room or office. So why wait? Browse our collection of anime GIF photos today and experience the magic of anime like never before!",
       "author": "102236187957599377142",
       "price": 22,
-      "priority": 2,
+      "amountSold": 11,
+      "averageRating": 3.33333333,
+      "priority": 3,
+      "reviews": [
+        "645dd6e77abe439f15b340cd",
+        "645dd784746b34b2dfbeec2a",
+        "645dd84617a3ad1201ab904c"
+      ],
       "coverImage": "6459f5bffd65a43d4087fba3-coverimage.gif",
       "files": [
         "6459f5bffd65a43d4087fba3-1-downloadFile.gif",
@@ -351,7 +428,10 @@
       "description": "Indulge your senses and tantalize your taste buds with our mouth-watering collection of food GIF photos! These stunning images showcase some of the most delectable dishes and treats from around the world, from succulent steaks to luscious cakes and everything in between. Each GIF is expertly crafted to capture the vibrant colors, textures, and flavors of each dish, whether it's a sizzling burger or a refreshing smoothie. Whether you're a foodie or simply appreciate great photography, these photos are the perfect way to bring the magic of food into your home. With a range of sizes available, our high-quality prints are the perfect addition to any kitchen, dining room, or restaurant. So why wait? Browse our collection of food GIF photos today and satisfy your cravings in style!",
       "author": "115597168327745249591",
       "price": 20,
+      "amountSold": 14,
+      "averageRating": 3,
       "priority": 1,
+      "reviews": ["645dd6496b13f3be00365ea8"],
       "coverImage": "6459f71efd65a43d4087fc33-coverimage.gif",
       "files": [
         "6459f71efd65a43d4087fc33-1-downloadFile.gif",
@@ -379,6 +459,7 @@
       "description": "Really basic pictures of furniture - hope you enjoy!",
       "author": "115597168327745249591",
       "price": 8,
+      "amountSold": 3,
       "priority": 1,
       "coverImage": "6459f908fd65a43d4087fcb6-coverimage.jpg",
       "files": [
@@ -393,11 +474,12 @@
       "description": "Take a journey through space and time with our stunning video clip of Earth spinning! This captivating footage captures the beauty and majesty of our planet in motion, from the swirling clouds to the vast oceans and beyond. Whether you're a space enthusiast, a nature lover, or simply seeking inspiration, this video clip is the perfect way to experience the wonder of our planet.",
       "author": "101628246745447861849",
       "price": 20,
+      "amountSold": 12,
+      "averageRating": 3,
       "priority": 2,
+      "reviews": ["645dd95881a77addf772d08b"],
       "coverImage": "645a3741d20c8c276b87ccd5-coverimage.jpg",
-      "files": [
-        "645a3741d20c8c276b87ccd5-1-downloadFile.mp4"
-      ]
+      "files": ["645a3741d20c8c276b87ccd5-1-downloadFile.mp4"]
     },
     {
       "_id": "645a3783b0850c23d901d7d1",
@@ -406,11 +488,15 @@
       "description": "Delight in the playful antics of our feline friend with our adorable video clip of a cat! This heartwarming footage captures the charm and grace of these beloved animals, from their silky fur to their cute meows and purrs. Whether you're a cat lover or simply appreciate great video content, this clip is the perfect way to brighten up your day.",
       "author": "101628246745447861849",
       "price": 14,
+      "amountSold": 104,
+      "averageRating": 4.5,
       "priority": 2,
+      "reviews": [
+        "645dd88517a3ad1201ab9159",
+        "645ddac639d885158327b05d"
+      ],
       "coverImage": "645a3783b0850c23d901d7d1-coverimage.jpg",
-      "files": [
-        "645a3783b0850c23d901d7d1-1-downloadFile.mp4"
-      ]
+      "files": ["645a3783b0850c23d901d7d1-1-downloadFile.mp4"]
     },
     {
       "_id": "645a382a560310e7e8e05a62",
@@ -419,11 +505,12 @@
       "description": "Get up close and personal with one of nature's most beautiful creatures with our stunning video clip of a butterfly! This mesmerizing footage captures the delicate beauty and intricate patterns of these majestic insects, from their fluttering wings to their graceful movements. Whether you're a nature lover or simply appreciate great video content, this clip is the perfect way to immerse yourself in the beauty of the natural world.",
       "author": "100953959910033868204",
       "price": 2,
+      "amountSold": 2,
+      "averageRating": 4,
       "priority": 1,
+      "reviews": ["645dd97081a77addf772d0de"],
       "coverImage": "645a382a560310e7e8e05a62-coverimage.jpg",
-      "files": [
-        "645a382a560310e7e8e05a62-1-downloadFile.mp4"
-      ]
+      "files": ["645a382a560310e7e8e05a62-1-downloadFile.mp4"]
     },
     {
       "_id": "645a3857db7cea723b0629a4",
@@ -432,7 +519,10 @@
       "description": "Lose yourself in the soothing rhythm of our two video clips of flowers swaying in the breeze! These calming footage captures the gentle movement and vibrant colors of some of the most beautiful flowers in the world, from the blooming tulips to the swaying poppies. Whether you're looking to create a relaxing atmosphere in your home or office, these clips are the perfect addition to any decor.",
       "author": "102770690999467255961",
       "price": 60,
+      "amountSold": 2,
+      "averageRating": 5,
       "priority": 1,
+      "reviews": ["645ddada39d885158327b087"],
       "coverImage": "645a3857db7cea723b0629a4-coverimage.jpg",
       "files": [
         "645a3857db7cea723b0629a4-1-downloadFile.mp4",
@@ -446,11 +536,12 @@
       "description": "Dive into the world of technology with our mesmerizing video clip of keyboard typing! This dynamic footage captures the fast-paced rhythm and precision of typing on a keyboard, from the click of the keys to the movement of the fingers. Whether you're a tech enthusiast or simply appreciate great video content, this clip is the perfect way to immerse yourself in the digital world.",
       "author": "102770690999467255961",
       "price": 6,
+      "amountSold": 2,
+      "averageRating": 5,
       "priority": 1,
+      "reviews": ["645dd62a6b13f3be00365dfc"],
       "coverImage": "645a38e1560310e7e8e05b1c-coverimage.jpg",
-      "files": [
-        "645a38e1560310e7e8e05b1c-1-downloadFile.mp4"
-      ]
+      "files": ["645a38e1560310e7e8e05b1c-1-downloadFile.mp4"]
     },
     {
       "_id": "645a417c560310e7e8e0669c",
@@ -458,12 +549,11 @@
       "name": "Goldfish (video)",
       "description": "Add a touch of serenity and beauty to your space with our calming video clip of a goldfish swimming! This mesmerizing footage captures the gentle movement and vibrant colors of these beloved fish, from their shimmering scales to their graceful movements. Whether you're looking to create a relaxing atmosphere in your home or office, this clip is the perfect addition to any decor.",
       "author": "115597168327745249591",
+      "amountSold": 14,
       "price": 35,
       "priority": 1,
       "coverImage": "645a417c560310e7e8e0669c-coverimage.jpg",
-      "files": [
-        "645a417c560310e7e8e0669c-1-downloadFile.mp4"
-      ]
+      "files": ["645a417c560310e7e8e0669c-1-downloadFile.mp4"]
     },
     {
       "_id": "645a4207db7cea723b062a27",
@@ -471,12 +561,13 @@
       "name": "Coding Video",
       "description": "Experience the beauty and complexity of coding with our fascinating video clip of blurred coding! This dynamic footage captures the fast-paced rhythm and precision of coding, from the movement of the cursor to the scrolling lines of code. Whether you're a tech enthusiast or simply appreciate great video content, this clip is the perfect way to immerse yourself in the world of coding and technology.",
       "author": "115597168327745249591",
+      "amountSold": 2,
+      "averageRating": 4,
       "price": 14,
       "priority": 1,
+      "reviews": ["645dd7a8746b34b2dfbeed0f"],
       "coverImage": "645a4207db7cea723b062a27-coverimage.jpg",
-      "files": [
-        "645a4207db7cea723b062a27-1-downloadFile.mp4"
-      ]
+      "files": ["645a4207db7cea723b062a27-1-downloadFile.mp4"]
     },
     {
       "_id": "645a4208560310e7e8e06725",
@@ -485,11 +576,15 @@
       "description": "Relax and unwind with our calming music audio file! This soothing composition is designed to help you find peace and tranquility, with gentle melodies and soft harmonies that will help you escape the stresses of daily life. Whether you're looking to meditate, unwind after a long day, or simply enjoy some relaxing music, this audio file is the perfect addition to your collection.",
       "author": "101628246745447861849",
       "price": 15,
+      "amountSold": 30,
+      "averageRating": 4,
       "priority": 1,
+      "reviews": [
+        "645dd7c4746b34b2dfbeed9b",
+        "645dd87217a3ad1201ab9102"
+      ],
       "coverImage": "645a4208560310e7e8e06725-coverimage.jpg",
-      "files": [
-        "645a4208560310e7e8e06725-1-downloadFile.mp3"
-      ]
+      "files": ["645a4208560310e7e8e06725-1-downloadFile.mp3"]
     },
     {
       "_id": "645a42b183a0116e16cbd65b",
@@ -498,11 +593,12 @@
       "description": "Feel the power and energy of our epic freestyle beat audio file! This dynamic composition is designed to get your blood pumping and your feet moving, with driving rhythms and intense beats that will ignite your passion and creativity. Whether you're a rapper, a dancer, or simply a lover of great beats, this audio file is the perfect way to add some fire to your music collection.",
       "author": "100953959910033868204",
       "price": 250,
+      "amountSold": 10,
+      "averageRating": 5,
       "priority": 3,
+      "reviews": ["645dd70a7abe439f15b3417a"],
       "coverImage": "645a42b183a0116e16cbd65b-coverimage.jpg",
-      "files": [
-        "645a42b183a0116e16cbd65b-1-downloadFile.mp3"
-      ]
+      "files": ["645a42b183a0116e16cbd65b-1-downloadFile.mp3"]
     },
     {
       "_id": "645a42d7560310e7e8e0680b",
@@ -511,11 +607,12 @@
       "description": "Embrace the raw intensity of our hard freestyle beat audio file! This edgy composition is designed to push the boundaries and challenge your limits, with hard-hitting rhythms and aggressive beats that will test your skills and inspire your creativity. Whether you're a rapper, a DJ, or simply a lover of cutting-edge music, this audio file is the perfect way to add some edge to your collection.",
       "author": "100953959910033868204",
       "price": 250,
+      "amountSold": 1,
+      "averageRating": 1,
       "priority": 3,
+      "reviews": ["645ddab739d885158327b02f"],
       "coverImage": "645a42d7560310e7e8e0680b-coverimage.jpg",
-      "files": [
-        "645a42d7560310e7e8e0680b-1-downloadFile.mp3"
-      ]
+      "files": ["645a42d7560310e7e8e0680b-1-downloadFile.mp3"]
     },
     {
       "_id": "645a43a950f323a88021c65e",
@@ -524,11 +621,12 @@
       "description": "Experience the beauty and versatility of the guitar with our guitar melody audio file! This mesmerizing composition is designed to showcase the rich tones and intricate melodies of this beloved instrument, with soaring notes and delicate harmonies that will take your breath away. Whether you're a guitarist, a music lover, or simply appreciate great audio content, this audio file is the perfect addition to your collection.",
       "author": "118069059652555688591",
       "price": 20,
+      "amountSold": 2,
+      "averageRating": 5,
       "priority": 1,
+      "reviews": ["645dd6376b13f3be00365e52"],
       "coverImage": "645a43a950f323a88021c65e-coverimage.jpg",
-      "files": [
-        "645a43a950f323a88021c65e-1-downloadFile.mp3"
-      ]
+      "files": ["645a43a950f323a88021c65e-1-downloadFile.mp3"]
     },
     {
       "_id": "645a44cc3fd52091fea557cf",
@@ -537,7 +635,10 @@
       "description": "Take control of your finances with our professional financial audit service! Our team of experts will conduct a comprehensive analysis of your financial statements and transactions, identifying areas for improvement and offering actionable insights and recommendations to help you achieve your financial goals.",
       "author": "101628246745447861849",
       "price": 1000,
+      "amountSold": 22,
+      "averageRating": 5,
       "priority": 3,
+      "reviews": ["645ddaa439d885158327b005"],
       "coverImage": "645a44cc3fd52091fea557cf-coverimage.jpg"
     },
     {
@@ -546,8 +647,11 @@
       "name": "Software Solutions Consulting",
       "description": "Unlock the full potential of your technology with our software solutions consulting service! Our team of experienced consultants will work with you to understand your needs and goals, and develop a customized plan to optimize your software and technology systems, increasing efficiency, productivity, and profitability.",
       "author": "101628246745447861849",
+      "amountSold": 18,
+      "averageRating": 4,
       "price": 750,
       "priority": 2,
+      "reviews": ["645dd98781a77addf772d131"],
       "coverImage": "645a44ee5aa53872e55d290e-coverimage.png"
     },
     {
@@ -557,7 +661,10 @@
       "description": "Bring your favorite Naruto characters to life with our hand-drawn Naruto drawings service! Our talented artists will create stunning illustrations of your favorite characters, from Naruto himself to Sasuke, Sakura, and beyond. Whether you're a fan of the anime or simply appreciate great art, our Naruto drawings are the perfect addition to your collection.",
       "author": "118069059652555688591",
       "price": 20,
+      "amountSold": 2,
+      "averageRating": 4,
       "priority": 1,
+      "reviews": ["645dd89a17a3ad1201ab91b0"],
       "coverImage": "645a450b3fd52091fea55838-coverimage.jpg"
     },
     {
@@ -577,6 +684,7 @@
       "description": "Learn the secrets of coding and software development with our coding coaching service! Our experienced instructors will work with you one-on-one to develop your skills and knowledge, offering personalized guidance and support to help you reach your full potential as a coder.",
       "author": "102770690999467255961",
       "price": 200,
+      "amountSold": 6,
       "priority": 1,
       "coverImage": "645a46b55aa53872e55d2b3a-coverimage.jpg"
     },
@@ -597,6 +705,7 @@
       "description": "Take your photos to the next level with our professional photo editing service! Our experienced editors will enhance your photos, fixing common issues like lighting, color, and composition, and adding special effects and filters to create stunning visual masterpieces.",
       "author": "102770690999467255961",
       "price": 32,
+      "amountSold": 5,
       "priority": 1,
       "coverImage": "645a4b20a12305c52c7eb68a-coverimage.jpg"
     },
@@ -617,6 +726,7 @@
       "description": "Add a personal touch to your space with our hand-drawn drawings service! I will create unique and captivating illustrations, from portraits to landscapes to abstract designs, that will bring a touch of beauty and inspiration to your home or office.",
       "author": "115597168327745249591",
       "price": 10,
+      "amountSold": 64,
       "priority": 1,
       "coverImage": "645b7612402c2fa1d2147528-coverimage.jpg"
     },
@@ -637,8 +747,369 @@
       "description": "Protect your business from cyber threats with our cybersecurity consulting service! Our team of experts will conduct a comprehensive assessment of your IT systems and infrastructure, identifying vulnerabilities and offering customized solutions to protect your business from cyber attacks and data breaches.",
       "author": "115597168327745249591",
       "price": 1200,
+      "amountSold": 9,
+      "averageRating": 2.5,
       "priority": 3,
+      "reviews": [
+        "645dd7197abe439f15b341d0",
+        "645dd7d3746b34b2dfbeedf5"
+      ],
       "coverImage": "645b762e402c2fa1d2147582-coverimage.jpg"
+    }
+  ],
+  "Messages": [
+    {
+      "_id": "645cee8e69efe9704311403b",
+      "content": "Hi Ibrahim",
+      "senderId": "101628246745447861849",
+      "receiverId": "118069059652555688591",
+      "createdAt": "2023-05-11T13:33:02.922+00:00",
+      "updatedAt": "2023-05-11T13:33:02.922+00:00"
+    },
+    {
+      "_id": "645cee9325139a3e5f725511",
+      "content": "yo",
+      "senderId": "118069059652555688591",
+      "receiverId": "101628246745447861849",
+      "createdAt": "2023-05-11T13:33:07.813+00:00",
+      "updatedAt": "2023-05-11T13:33:07.813+00:00"
+    },
+    {
+      "_id": "645ceeb169efe97043114044",
+      "content": "Im interested in your products.",
+      "senderId": "101628246745447861849",
+      "receiverId": "118069059652555688591",
+      "createdAt": "2023-05-11T13:33:37.843+00:00",
+      "updatedAt": "2023-05-11T13:33:37.843+00:00"
+    },
+    {
+      "_id": "645ceeb869efe97043114047",
+      "content": "Is that your own work?",
+      "senderId": "101628246745447861849",
+      "receiverId": "118069059652555688591",
+      "createdAt": "2023-05-11T13:33:44.951+00:00",
+      "updatedAt": "2023-05-11T13:33:44.951+00:00"
+    },
+    {
+      "_id": "645ceec425139a3e5f725520",
+      "content": "Yeah its mine",
+      "senderId": "118069059652555688591",
+      "receiverId": "101628246745447861849",
+      "createdAt": "2023-05-11T13:33:56.183+00:00",
+      "updatedAt": "2023-05-11T13:33:56.183+00:00"
+    },
+    {
+      "_id": "645ceee369efe970431140f3",
+      "content": "Hey there buddy. I wanted to make an enquiry regarding a product.",
+      "senderId": "101628246745447861849",
+      "receiverId": "100953959910033868204",
+      "createdAt": "2023-05-11T13:34:28.000+00:00",
+      "updatedAt": "2023-05-11T13:34:28.000+00:00"
+    },
+    {
+      "_id": "645ceef425139a3e5f72557f",
+      "content": "what did you want to buy?",
+      "senderId": "118069059652555688591",
+      "receiverId": "101628246745447861849",
+      "createdAt": "2023-05-11T13:34:44.852+00:00",
+      "updatedAt": "2023-05-11T13:34:44.852+00:00"
+    }
+  ],
+  "Rooms": [
+    {
+      "_id": "645cee8769efe97043114020",
+      "account1": "101628246745447861849",
+      "account2": "118069059652555688591",
+      "messages": [
+        "645cee8e69efe9704311403b",
+        "645cee9325139a3e5f725511",
+        "645ceeb169efe97043114044",
+        "645ceeb869efe97043114047",
+        "645ceec425139a3e5f725520",
+        "645ceef425139a3e5f72557f"
+      ],
+      "createdAt": "2023-05-11T13:32:55.182+00:00",
+      "updatedAt": "2023-05-11T13:34:44.898+00:00"
+    },
+    {
+      "_id": "645ceecf69efe970431140cd",
+      "account1": "101628246745447861849",
+      "account2": "100953959910033868204",
+      "messages": ["645ceee369efe970431140f3"],
+      "createdAt": "2023-05-11T13:34:07.030+00:00",
+      "updatedAt": "2023-05-11T13:34:28.042+00:00"
+    }
+  ],
+  "ProductReviews": [
+    {
+      "_id": "645dd6176b13f3be00365da6",
+      "text": "Fumbled finals",
+      "rating": 1,
+      "product": "644caf6741e8d663a9388655",
+      "account": "100953959910033868204",
+      "createdAt": "2023-05-12T06:00:55.799+00:00",
+      "updatedAt": "2023-05-12T06:00:55.799+00:00"
+    },
+    {
+      "_id": "645dd62a6b13f3be00365dfc",
+      "text": "asmr heaven",
+      "rating": 5,
+      "product": "645a38e1560310e7e8e05b1c",
+      "account": "100953959910033868204",
+      "createdAt": "2023-05-12T06:01:14.437+00:00",
+      "updatedAt": "2023-05-12T06:01:14.437+00:00"
+    },
+    {
+      "_id": "645dd6376b13f3be00365e52",
+      "text": "eargasm",
+      "rating": 5,
+      "product": "645a43a950f323a88021c65e",
+      "account": "100953959910033868204",
+      "createdAt": "2023-05-12T06:01:27.835+00:00",
+      "updatedAt": "2023-05-12T06:01:27.835+00:00"
+    },
+    {
+      "_id": "645dd6496b13f3be00365ea8",
+      "text": "made me hungry",
+      "rating": 3,
+      "product": "6459f71efd65a43d4087fc33",
+      "account": "100953959910033868204",
+      "createdAt": "2023-05-12T06:01:45.255+00:00",
+      "updatedAt": "2023-05-12T06:01:45.255+00:00"
+    },
+    {
+      "_id": "645dd6656b13f3be00365efe",
+      "text": "england's future fr fr",
+      "rating": 5,
+      "product": "6459bc495af5d604f7458fa5",
+      "account": "100953959910033868204",
+      "createdAt": "2023-05-12T06:02:13.936+00:00",
+      "updatedAt": "2023-05-12T06:02:13.936+00:00"
+    },
+    {
+      "_id": "645dd6da7abe439f15b34077",
+      "text": "10/10 gave me epilepsy!",
+      "rating": 5,
+      "product": "644ea78fe3c6082891a73f71",
+      "account": "101628246745447861849",
+      "createdAt": "2023-05-12T06:04:10.012+00:00",
+      "updatedAt": "2023-05-12T06:04:10.012+00:00"
+    },
+    {
+      "_id": "645dd6e77abe439f15b340cd",
+      "text": "Terrible anime!",
+      "rating": 1,
+      "product": "6459f5bffd65a43d4087fba3",
+      "account": "101628246745447861849",
+      "createdAt": "2023-05-12T06:04:23.068+00:00",
+      "updatedAt": "2023-05-12T06:04:23.068+00:00"
+    },
+    {
+      "_id": "645dd6fc7abe439f15b34123",
+      "text": "choked the league lol",
+      "rating": 1,
+      "product": "6459f4f8fd65a43d4087fb35",
+      "account": "101628246745447861849",
+      "createdAt": "2023-05-12T06:04:44.691+00:00",
+      "updatedAt": "2023-05-12T06:04:44.691+00:00"
+    },
+    {
+      "_id": "645dd70a7abe439f15b3417a",
+      "text": "biggest scam!",
+      "rating": 5,
+      "product": "645a42b183a0116e16cbd65b",
+      "account": "101628246745447861849",
+      "createdAt": "2023-05-12T06:04:58.644+00:00",
+      "updatedAt": "2023-05-12T06:04:58.644+00:00"
+    },
+    {
+      "_id": "645dd7197abe439f15b341d0",
+      "text": "security is a high priority!",
+      "rating": 1,
+      "product": "645b762e402c2fa1d2147582",
+      "account": "101628246745447861849",
+      "createdAt": "2023-05-12T06:05:13.484+00:00",
+      "updatedAt": "2023-05-12T06:05:13.484+00:00"
+    },
+    {
+      "_id": "645dd784746b34b2dfbeec2a",
+      "text": "amazing",
+      "rating": 5,
+      "product": "6459f5bffd65a43d4087fba3",
+      "account": "118069059652555688591",
+      "createdAt": "2023-05-12T06:07:00.578+00:00",
+      "updatedAt": "2023-05-12T06:07:00.578+00:00"
+    },
+    {
+      "_id": "645dd793746b34b2dfbeec84",
+      "text": "scammed me",
+      "rating": 2,
+      "product": "6459f4f8fd65a43d4087fb35",
+      "account": "118069059652555688591",
+      "createdAt": "2023-05-12T06:07:15.561+00:00",
+      "updatedAt": "2023-05-12T06:07:15.561+00:00"
+    },
+    {
+      "_id": "645dd7a8746b34b2dfbeed0f",
+      "text": "nice nice",
+      "rating": 4,
+      "product": "645a4207db7cea723b062a27",
+      "account": "118069059652555688591",
+      "createdAt": "2023-05-12T06:07:36.871+00:00",
+      "updatedAt": "2023-05-12T06:07:36.871+00:00"
+    },
+    {
+      "_id": "645dd7c4746b34b2dfbeed9b",
+      "text": "average",
+      "rating": 3,
+      "product": "645a4208560310e7e8e06725",
+      "account": "118069059652555688591",
+      "createdAt": "2023-05-12T06:08:04.475+00:00",
+      "updatedAt": "2023-05-12T06:08:04.475+00:00"
+    },
+    {
+      "_id": "645dd7d3746b34b2dfbeedf5",
+      "text": "Service was amazing!!",
+      "rating": 4,
+      "product": "645b762e402c2fa1d2147582",
+      "account": "118069059652555688591",
+      "createdAt": "2023-05-12T06:08:19.824+00:00",
+      "updatedAt": "2023-05-12T06:08:19.824+00:00"
+    },
+    {
+      "_id": "645dd84617a3ad1201ab904c",
+      "text": "nice",
+      "rating": 4,
+      "product": "6459f5bffd65a43d4087fba3",
+      "account": "102770690999467255961",
+      "createdAt": "2023-05-12T06:10:14.019+00:00",
+      "updatedAt": "2023-05-12T06:10:14.019+00:00"
+    },
+    {
+      "_id": "645dd85b17a3ad1201ab90a7",
+      "text": "nice",
+      "rating": 5,
+      "product": "644ea78fe3c6082891a73f71",
+      "account": "102770690999467255961",
+      "createdAt": "2023-05-12T06:10:35.389+00:00",
+      "updatedAt": "2023-05-12T06:10:35.389+00:00"
+    },
+    {
+      "_id": "645dd87217a3ad1201ab9102",
+      "text": "nice",
+      "rating": 5,
+      "product": "645a4208560310e7e8e06725",
+      "account": "102770690999467255961",
+      "createdAt": "2023-05-12T06:10:58.681+00:00",
+      "updatedAt": "2023-05-12T06:10:58.681+00:00"
+    },
+    {
+      "_id": "645dd88517a3ad1201ab9159",
+      "text": "lovely cats",
+      "rating": 5,
+      "product": "645a3783b0850c23d901d7d1",
+      "account": "102770690999467255961",
+      "createdAt": "2023-05-12T06:11:17.119+00:00",
+      "updatedAt": "2023-05-12T06:11:17.119+00:00"
+    },
+    {
+      "_id": "645dd89a17a3ad1201ab91b0",
+      "text": "good work",
+      "rating": 4,
+      "product": "645a450b3fd52091fea55838",
+      "account": "102770690999467255961",
+      "createdAt": "2023-05-12T06:11:38.469+00:00",
+      "updatedAt": "2023-05-12T06:11:38.469+00:00"
+    },
+    {
+      "_id": "645dd93381a77addf772cfe5",
+      "text": "good art",
+      "rating": 4,
+      "product": "644ea78fe3c6082891a73f71",
+      "account": "108534135006980824413",
+      "createdAt": "2023-05-12T06:14:11.495+00:00",
+      "updatedAt": "2023-05-12T06:14:11.495+00:00"
+    },
+    {
+      "_id": "645dd94581a77addf772d038",
+      "text": "good",
+      "rating": 4,
+      "product": "644caf3d41e8d663a938864e",
+      "account": "108534135006980824413",
+      "createdAt": "2023-05-12T06:14:29.126+00:00",
+      "updatedAt": "2023-05-12T06:14:29.126+00:00"
+    },
+    {
+      "_id": "645dd95881a77addf772d08b",
+      "text": "green eart",
+      "rating": 3,
+      "product": "645a3741d20c8c276b87ccd5",
+      "account": "108534135006980824413",
+      "createdAt": "2023-05-12T06:14:48.283+00:00",
+      "updatedAt": "2023-05-12T06:14:48.283+00:00"
+    },
+    {
+      "_id": "645dd97081a77addf772d0de",
+      "text": "what a butterfly",
+      "rating": 4,
+      "product": "645a382a560310e7e8e05a62",
+      "account": "108534135006980824413",
+      "createdAt": "2023-05-12T06:15:12.587+00:00",
+      "updatedAt": "2023-05-12T06:15:12.587+00:00"
+    },
+    {
+      "_id": "645dd98781a77addf772d131",
+      "text": "not cheap",
+      "rating": 4,
+      "product": "645a44ee5aa53872e55d290e",
+      "account": "108534135006980824413",
+      "createdAt": "2023-05-12T06:15:35.612+00:00",
+      "updatedAt": "2023-05-12T06:15:35.612+00:00"
+    },
+    {
+      "_id": "645ddaa439d885158327b005",
+      "text": "Tax evasion leshgo",
+      "rating": 5,
+      "product": "645a44cc3fd52091fea557cf",
+      "account": "115597168327745249591",
+      "createdAt": "2023-05-12T06:20:20.807+00:00",
+      "updatedAt": "2023-05-12T06:20:20.807+00:00"
+    },
+    {
+      "_id": "645ddab739d885158327b02f",
+      "text": "you wrap like a leaky faucet",
+      "rating": 1,
+      "product": "645a42d7560310e7e8e0680b",
+      "account": "115597168327745249591",
+      "createdAt": "2023-05-12T06:20:39.808+00:00",
+      "updatedAt": "2023-05-12T06:20:39.808+00:00"
+    },
+    {
+      "_id": "645ddac639d885158327b05d",
+      "text": "good dog",
+      "rating": 4,
+      "product": "645a3783b0850c23d901d7d1",
+      "account": "115597168327745249591",
+      "createdAt": "2023-05-12T06:20:54.899+00:00",
+      "updatedAt": "2023-05-12T06:20:54.899+00:00"
+    },
+    {
+      "_id": "645ddada39d885158327b087",
+      "text": "good flower",
+      "rating": 5,
+      "product": "645a3857db7cea723b0629a4",
+      "account": "115597168327745249591",
+      "createdAt": "2023-05-12T06:21:14.903+00:00",
+      "updatedAt": "2023-05-12T06:21:14.903+00:00"
+    },
+    {
+      "_id": "645ddaef39d885158327b0b1",
+      "text": "my dad drowned in this waterfall :((((",
+      "rating": 5,
+      "product": "6459b5945af5d604f7458bca",
+      "account": "115597168327745249591",
+      "createdAt": "2023-05-12T06:21:35.974+00:00",
+      "updatedAt": "2023-05-12T06:21:35.974+00:00"
     }
   ]
 }

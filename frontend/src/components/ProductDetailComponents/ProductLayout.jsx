@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 import ProductContext from "../../store/product-context";
 import { InputGroup, DropdownButton, Dropdown } from "react-bootstrap";
-import moment from 'moment';
+import moment from "moment";
 import "./ProductLayout.css";
 import "./AddReviewForm.css";
 import "./EditProductWindow.css";
@@ -177,10 +177,6 @@ const ProductLayout = ({
   };
 
   const addToCartHandler = async () => {
-    // making the GET request to the backend to add to cart
-    //"/account/cart/pid/:pid"
-
-    console.log("product id: " + product._id, 95);
 
     const response = await fetch(
       "http://localhost:3000/account/cart/pid/" + product._id
@@ -311,9 +307,9 @@ const ProductLayout = ({
     if (eventKey === "most_recent") {
       setTitle("Sort by: Most recent");
     } else if (eventKey === "highest_rating") {
-      setTitle("Sort by: Highest rate");
+      setTitle("Sort by: Highest rating");
     } else if (eventKey === "lowest_rating") {
-      setTitle("Sort by: Lowest rate");
+      setTitle("Sort by: Lowest rating");
     }
 
     getReviewsByFilter(eventKey);
@@ -366,22 +362,29 @@ const ProductLayout = ({
   };
 
   const convertToDaysAgo = (isoDate) => {
-    console.log("DATE FROM REVIEW " + isoDate)
+    console.log("DATE FROM REVIEW " + isoDate);
     const date = moment(isoDate);
     const now = moment();
-    const daysAgo = now.diff(date, 'days');
+    const daysAgo = now.diff(date, "days");
     if (daysAgo === 0) {
-      const hoursAgo = now.diff(date, 'hours');
-      if (hoursAgo === 0) {return `now`;}
-      else if (hoursAgo === 1) {return `1 hour ago`;}
+      const hoursAgo = now.diff(date, "hours");
+      if (hoursAgo === 0) {
+        const minutesAgo = now.diff(date, "minutes");
+        if (minutesAgo === 0) {
+          return `now`;
+        } else if (minutesAgo === 1) {
+          return `1 minute ago`;
+        }
+        return `${minutesAgo} minutes ago`;
+      } else if (hoursAgo === 1) {
+        return `1 hour ago`;
+      }
       return `${hoursAgo} hours ago`;
-    }
-    else if (daysAgo === 1) { 
+    } else if (daysAgo === 1) {
       return `1 day ago`;
     }
     return `${daysAgo} days ago`;
   };
-  
 
   return (
     <div className="product-layout">
@@ -558,7 +561,10 @@ const ProductLayout = ({
                   </p>
                 </div>
               </div>
-              <p>&#x2605; {totalAmount > 0 ? average_ra.toFixed(1) : "Not available"}</p>
+              <p>
+                &#x2605;{" "}
+                {totalAmount > 0 ? average_ra.toFixed(1) : "Not available"}
+              </p>
               <div className="product-buttons">
                 <div className="d-flex justify-content-between">
                   <div>
@@ -611,7 +617,10 @@ const ProductLayout = ({
               <p>
                 {totalAmount}&nbsp;{reviewnumber}
               </p>
-              <h1>&#x2605; {totalAmount > 0 ? average_ra.toFixed(1) : "Not available"}</h1>
+              <h1>
+                &#x2605;{" "}
+                {totalAmount > 0 ? average_ra.toFixed(1) : "Not available"}
+              </h1>
             </div>
             <div className="p_inline">
               {ifpurchased === "purchased" && (
@@ -645,16 +654,16 @@ const ProductLayout = ({
                       className="p_dropdownbutton dropdown-toggle"
                     >
                       <Dropdown.Item href="#/recent" eventKey="most_recent">
-                        Sort by: Most recent
+                        Most recent
                       </Dropdown.Item>
                       <Dropdown.Item
                         href="#/highrate"
                         eventKey="highest_rating"
                       >
-                        Sort by: Highest rate
+                        Highest rating
                       </Dropdown.Item>
                       <Dropdown.Item href="#/lowrate" eventKey="lowest_rating">
-                        Sort by: Lowest rate
+                        Lowest rating
                       </Dropdown.Item>
                     </DropdownButton>
                   </InputGroup>

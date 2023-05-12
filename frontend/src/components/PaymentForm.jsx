@@ -11,10 +11,6 @@ const PaymentForm = ({ cartContentsData }) => {
     const navigate = useNavigate();
     const submit = useSubmit();
 
-    console.log("++++++++++++++++++++++++++++++++++++++++++")
-    console.log(cartContentsData, 15);
-    console.log("++++++++++++++++++++++++++++++++++++++++++")
-
     const calculateTotalPrice = () => {
         return cartContentsData.reduce((total, cartContentsData) => total + cartContentsData.price, 0); // TODO
     };
@@ -32,13 +28,6 @@ const PaymentForm = ({ cartContentsData }) => {
         }
 
         setLoading(true);
-
-        // const cardElement = elements.getElement(CardElement);
-
-        // const { error, paymentMethod } = await stripe.createPaymentMethod({
-        //     type: 'card',
-        //     card: cardElement,
-        // });
 
         const userResponse = await fetch('http://localhost:3000/account/id/0');
 
@@ -65,7 +54,7 @@ const PaymentForm = ({ cartContentsData }) => {
             const cartAuthorIds = cartContentsData.map(cart => cart.author);
 
             console.log("LIST OF CART AUTHORS:")
-            console.log(cartAuthorIds);
+            console.log(cartAuthorIds, 57);
             
             for (const cartContent of cartContentsData) {
                 
@@ -103,26 +92,14 @@ const PaymentForm = ({ cartContentsData }) => {
                     });
 
                     if (paymentResult.error) {
+                        // show error on screen
                         console.error('[error]', paymentResult.error);
+                        return;
                     } else {
-                        if (paymentResult.paymentIntent.status === 'succeeded') {
-                            console.log('Payment successful');
-
-                            // call Product/buy endpoint to register the cart contents as being bought by the user
-                            const buyProductResponse = await fetch('http://localhost:3000/products/buy?accountId=' + user._id, {
-                                method: "POST",
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify(cartContentsData)
-                            });
-                        
-                            if (!buyProductResponse.ok){
-                                throw json({ message: "Could not successfully buy item."}, { status: 500 });
-                            }
-
-                            const newProduct = await buyProductResponse.json()
-                            console.log("Line 94: " + newProduct.message);
+                        if (paymentResult.paymentIntent.status !== 'succeeded') {
+                            // show error on screen
+                            console.log('Payment not successful');
+                            return;
                         }
                     }
                 } catch (error) {
@@ -131,6 +108,23 @@ const PaymentForm = ({ cartContentsData }) => {
                     return;
                 }
             }
+
+
+            // make the request to the backend 
+            const buyProductResponse = await fetch('http://localhost:3000/products/buy?accountId=' + user._id, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(cartContentsData)
+            });
+        
+            if (!buyProductResponse.ok){
+                throw json({ message: "Could not successfully buy item."}, { status: 500 });
+            }
+
+            const newProduct = await buyProductResponse.json()
+            console.log("Line 94: " + newProduct.message);
 
             // Clear the cart contents
             clearCartHandler();

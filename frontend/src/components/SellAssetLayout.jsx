@@ -2,14 +2,11 @@ import React, { useState } from "react";
 import {
   useNavigate,
   useActionData,
-  Form,
   json,
-  redirect,
   Link,
 } from "react-router-dom";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import "./SellAssetLayout.css";
-import ChatHolder from "./ChatHolder";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
@@ -27,6 +24,7 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
   const stripe = useStripe();
   const elements = useElements();
   const priorityPrice = [0, 1000, 3000]; // In cents
+  const [submitting, setSubmitting] = useState(false);
 
   // Admin User
   const adminId = "109761511246582815438"; // SharketPlace Admin
@@ -82,19 +80,8 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
     // reset the error message
     setError(false);
 
-    // print all the data returned from the form
-    console.log("after form submission !!!");
-    console.log(enteredTitle, 56);
-    console.log(enteredDescription, 57);
-    console.log(price, 58);
-    console.log(category, 59);
-    console.log(coverImage, 60);
-    console.log(files, 61);
-    console.log(priority, 62);
-    console.log("END");
-
-    // print the user id that will be needed to create the product in the backend
-    console.log(userId, 65);
+    // enable the submitting state variable to disable the list asset button
+    setSubmitting(true);
 
     const productData = {
       name: enteredTitle,
@@ -183,27 +170,7 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
 
     //
 
-    // second post request to submit the cover image
-    const coverImageFormData = new FormData();
-    coverImageFormData.append("files", coverImage);
-
-    const coverImageResponse = await fetch(
-      "http://localhost:3000/upload-coverimage/" + newProduct._id,
-      {
-        method: "POST",
-        body: coverImageFormData,
-      }
-    );
-
-    if (!coverImageResponse.ok) {
-      throw json(
-        {
-          message:
-            "Could not successfully submit the cover image for the sell assets action.",
-        },
-        { status: 500 }
-      );
-    }
+    let statusCode;
 
     if (category !== "Services") {
       // third post request to upload the actual art files
@@ -231,6 +198,7 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
       if (!fileResponse.ok) {
         if (fileResponse.status === 415){
           setError(true);
+          return;
         }
 
         throw json(
@@ -243,10 +211,36 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
       }
     }
 
+    console.log("CODE GETS TO HERE", 213);
+    
+    // second post request to submit the cover image
+    const coverImageFormData = new FormData();
+    coverImageFormData.append("files", coverImage);
+
+    const coverImageResponse = await fetch(
+      "http://localhost:3000/upload-coverimage/" + newProduct._id,
+      {
+        method: "POST",
+        body: coverImageFormData,
+      }
+    );
+
+    if (!coverImageResponse.ok) {
+      throw json(
+        {
+          message:
+            "Could not successfully submit the cover image for the sell assets action.",
+        },
+        { status: 500 }
+      );
+    }
+
+    // disable the submitting state variable to enable the list asset button
+    setSubmitting(false);
+
     navigate("/store/product/" + newProduct._id);
   };
-  
-  console.log("STRIPE USER ID IN SELL ASSET: " + userStripeId);
+
 
   return (
     <Container fluid className="container-fluid">
@@ -328,7 +322,7 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
                 onChange={priceChangeHandler}
                 required
                 style={{ width: "8%", borderRadius: '10px' }}
-                min="0"
+                min="1"
               />
               <span className="required-star-price">*</span>
             </div>
@@ -416,18 +410,20 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
                   variant="primary"
                   type="submit"
                   className="mt-4"
+                  disabled={submitting}
                   >
-                    List asset
+                    {submitting ? 'Submitting...' : 'List asset'}
                   </Button>
                 </div>
               ) : (
                 <div
                 >
+                  <div>
                   <Link to={'/store/profile'} style={{ color: "black" }}>
                     Stripe is not linked to your account! Please set up your
                     Stripe authentication.
                   </Link>
-                  
+                  </div>
                   <Button
                     disabled
                     variant="primary"

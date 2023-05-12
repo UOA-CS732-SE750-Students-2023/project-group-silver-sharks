@@ -5,6 +5,8 @@ import path from "path";
 import util from "util";
 import { rimraf } from "rimraf";
 import { ProductReview } from "../models/productReviewModel.js";
+import { Message } from "../models/messageModel.js";
+import { Room } from "../models/roomModel.js";
 
 const mkdir = util.promisify(fs.mkdir);
 const readdir = util.promisify(fs.readdir);
@@ -56,6 +58,8 @@ async function importDataFromFile() {
   await Account.deleteMany({});
   await Product.deleteMany({});
   await ProductReview.deleteMany({});
+  await Message.deleteMany({});
+  await Room.deleteMany({});
 
   // Delete folders
   deleteFolder("./public/uploads");
@@ -79,6 +83,24 @@ async function importDataFromFile() {
   for (const productData of data.Products) {
     const product = new Product(productData);
     await product.save();
+  }
+
+    //Import product reviews
+    for (const productReviewData of data.ProductReviews) {
+      const productReview = new ProductReview(productReviewData);
+      await productReview.save();
+    }
+
+  // Import messages
+  for (const messageData of data.Messages) {
+    const message = new Message(messageData);
+    await message.save();
+  }
+
+  // Import rooms
+  for (const roomData of data.Rooms) {
+    const room = new Room(roomData);
+    await room.save();
   }
 }
 

@@ -1,8 +1,9 @@
 import React from 'react';
-import { useSubmit } from 'react-router-dom';
+import { useSubmit, useNavigate } from 'react-router-dom';
 import './SellingLayout.css';
 
 const SellingLayout = ({ sellingAssets }) => {
+  const navigate = useNavigate();
   const submit = useSubmit();
   const downloadFile = async (productId, productname) => {
     try {
@@ -83,7 +84,7 @@ const SellingLayout = ({ sellingAssets }) => {
                   <img src={"http://localhost:3000/uploads/" + asset.coverImage} alt={asset.name} />
                 </div>
                 <div className="asset-name-category">
-                  <h3>{asset.name}</h3>
+                  <h6>{asset.name}</h6>
                   <p>Category: {asset.category}</p>
                 </div>
                 <div className="asset-price-sold">

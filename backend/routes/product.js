@@ -209,13 +209,17 @@ productRouter.get("/products/:id", isLoggedIn, async (req, res) => {
   const isValid = mongoose.isValidObjectId(id);
   console.log(isValid);
   if (!isValid) {
-    return res.sendStatus(StatusCodes.BAD_REQUEST);
+    return res.status(StatusCodes.BAD_REQUEST).send("Invalid Product ID");
   }
 
   try {
     const product = await getProductById(id);
 
     console.log(product);
+
+    if (!product) {
+      return res.status(StatusCodes.NOT_FOUND).send("Product Not Found");
+    }
 
     return res.status(StatusCodes.OK).json(product);
   } catch (error) {
@@ -231,8 +235,12 @@ productRouter.delete("/products/:productId", isLoggedIn, async (req, res) => {
 
     const deletedProduct = await deleteProduct(productId);
 
+    if (!deletedProduct) {
+      return res.status(StatusCodes.NOT_FOUND).send("Product Not Found");
+    }
+
     // delete all reviews for product
-    ProductReview.deleteMany({ product: productId });
+    await ProductReview.deleteMany({ product: productId });
 
     // delete product from account's purchased products
     try {
@@ -266,8 +274,6 @@ productRouter.delete("/products/:productId", isLoggedIn, async (req, res) => {
       return res
         .status(StatusCodes.OK)
         .json({ message: "Product deleted successfully" });
-    } else {
-      return res.status(StatusCodes.NOT_FOUND).send("Product not found");
     }
   } catch (error) {
     console.log(error);
