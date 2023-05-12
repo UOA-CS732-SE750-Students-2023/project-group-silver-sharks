@@ -33,4 +33,4 @@ const addDownloadFiles = async (files, productId) => {
   return { message: "Successsfully saved download files" };
 };
 
-export { addCoverImage, addImages, addDownloadFiles };
+export { addCoverImage, addDownloadFiles };
