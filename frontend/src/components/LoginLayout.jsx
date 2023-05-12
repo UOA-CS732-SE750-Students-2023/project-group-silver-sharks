@@ -3,15 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import AuthForm from "./AuthForm";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-/* const LoginLayout = () => { 
-    return (
-        <div> 
-           <h1>This is the login page</h1>
-           <AuthForm operation='LOGIN'/>
-           <p><Link to="/signup">Sign up</Link> for an account. </p>
-        </div>
-    );
-} */
+
 const LoginLayout = () => {
   
   const navigate = useNavigate();

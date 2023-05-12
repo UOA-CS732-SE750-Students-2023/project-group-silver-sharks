@@ -19,17 +19,8 @@ const ProductPage = () => {
     const author = data[1];
     const loggedInUser = data[3];
 
-    console.log(loggedInUser, 22)
-
-    console.log(author, 24)
-
-    console.log(reviews, 26)
-
-    console.log(productId, 27);
-
     // get reviews by filter selected in the layout 
     const getReviewsByFilter = async (filter) => {
-        console.log(filter, 31);
 
         const response = await fetch("http://localhost:3000/products/pid/" + productId + "/reviews?sortBy=" + filter);
 
@@ -42,7 +33,6 @@ const ProductPage = () => {
 
         const filteredReviews = await response.json();
 
-        console.log(filteredReviews, 46);
         setReviews(filteredReviews);
     }
 
@@ -69,17 +59,11 @@ const ProductPage = () => {
     // check whether the product has already been bought by the user
     let alreadyPurchased = false; 
 
-    console.log(loggedInUser.productsPurchased);
-
     loggedInUser.productsPurchased.forEach((purchased) => {
         if (purchased._id === product._id){
             alreadyPurchased = true;
         }
     });
-
-    console.log("already purchased: " + alreadyPurchased, 52);
-
-    console.log("user type: " + userType)
 
     return (
         <>
@@ -94,8 +78,6 @@ export const loader = async ({request,params}) => {
     let returnData = [];
     
     const id = params.productid;
-
-    console.log("line 24 " + id)
 
     const response = await fetch("http://localhost:3000/products/" + id);
 
@@ -126,8 +108,6 @@ export const loader = async ({request,params}) => {
 
         }
 
-        console.log("line 80", 80)
-
         // fetching the reviews for the product
 
         const reviewsData = await fetch("http://localhost:3000/products/pid/" + id + "/reviews");
@@ -140,16 +120,8 @@ export const loader = async ({request,params}) => {
 
             const reviews = await reviewsData.json();
 
-            console.log("----------------------------------------------------");
-            console.log("reviews inside loader", 103)
-            console.log(reviews);
-            console.log("----------------------------------------------------");
-
             returnData.push(reviews);
         }
-
-        console.log("line 101", 101)
-
 
         // fetching the current logged in users details
 
@@ -164,8 +136,6 @@ export const loader = async ({request,params}) => {
             const user = await userData.json();
             returnData.push(user);
         }
-
-        console.log("line 101", 101)
     }
 
     return returnData;
@@ -179,9 +149,6 @@ export const action = async ({request,params}) => {
     // getting the http method from the request argument
     const method = request.method;
 
-    // check whether the request is a delete or a post
-    console.log("inside the delete part of the action", 110)
-
     const response = await fetch("http://localhost:3000/products/" + productId, {
         method: method,
     });
@@ -189,8 +156,6 @@ export const action = async ({request,params}) => {
     if (!response.ok){ 
         throw json({ message: 'Could not delete product.'}, { status: 500 });
     }
-
-    console.log("product deleted action", 118)
 
     // redirect to the product search page
     return redirect('/store/product-search');

@@ -23,12 +23,10 @@ const PaginationBar = ({
   }, [currentPage]);
 
   useEffect(() => {
-    console.log('INSIDE THE SECOND USE EFFECT !!!!');
 
     setCurrentPage(1);
   }, [changeState]);
 
-  console.log(length);
   const totalPages = Math.ceil(itemsLength / itemsPerPage);
 
   const handlePageChange = (page) => {

@@ -48,9 +48,6 @@ const StoreDisplayLayout = (props) => {
     fetchAuthors();
   }, [props.items]);
 
-  console.log("Author Response:");
-  console.log(authors);
-
   return (
     <div style={cardcon}>
       {!props.notFound && (
@@ -93,7 +90,6 @@ const StoreDisplayLayout = (props) => {
                         </p>
                       </div>
                     </div>
-                    {/* <p>author: <Link id="authorLink" to={`/store/author/${item.aid}`}>{item.author}</Link></p> */}
                     <div className="d-flex justify-content-between">
                       <div>
                         <Link

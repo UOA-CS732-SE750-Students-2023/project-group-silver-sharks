@@ -70,13 +70,6 @@ const ProductSearchPage = () => {
     const currentFilter = specifiedFilter || filter; 
     const currentCategory = specifiedCategory || category;
     const searchTerm = enteredSearchTerm || '';
-
-    console.log("handleItemsChange")
-    console.log("page number " + currentPageNumber)
-    console.log("sortBy " + currentFilter)
-    console.log("category " + currentCategory)
-    console.log("search " + searchTerm)
-    console.log("is search" + isSearch)
   
     if (!isSearch){
       const response = await navigateHandler(currentPageNumber, currentCategory, currentFilter)
@@ -113,7 +106,6 @@ const ProductSearchPage = () => {
     }
 
     const data = await response.json();
-    console.log(data);
     
     const products = data[0];
     const count = data[1];
@@ -123,12 +115,6 @@ const ProductSearchPage = () => {
   }
 
   const navigateHandler = async (currentPageNumber, currentCategory, currentFilter) => {
-
-    console.log("------------------------------------")
-    console.log("currentPageNumber: " + currentPageNumber)
-    console.log("category: " + currentCategory)
-    console.log("currentFilter: " + currentFilter)
-    console.log("------------------------------------")
 
     // using the items per page constant and the current page number make request to backend for the products
     const response = await fetch(
@@ -147,8 +133,6 @@ const ProductSearchPage = () => {
 
     const data = await response.json();
 
-    console.log(data);
-
     // 0th index includes -> products
     // 1st index has the count
 
@@ -157,12 +141,6 @@ const ProductSearchPage = () => {
 
     setDisplayedProducts(products);
     setDisplayCount(count);
-    /*
-    if (searchFieldEmpty){
-      console.log("search field is empty");
-      setChangeState((prev) => !prev);
-    }
-    */
   }
 
   return (
@@ -216,9 +194,6 @@ const ProductSearchPage = () => {
 // by default: the images category will be loaded
 export const loader = async () => {
 
-  console.log("loader")
-
-
   const response = await fetch(
     "http://localhost:3000/products/filter?" +
       new URLSearchParams(
@@ -237,15 +212,11 @@ export const loader = async () => {
   } else {
     const data = await response.json();
 
-    console.log(data);
-
     // 0th index includes -> products
     // 1st index has the count
 
     const products = data[0];
     const count = data[1];
-
-    console.log(products)
 
     return {
       products,

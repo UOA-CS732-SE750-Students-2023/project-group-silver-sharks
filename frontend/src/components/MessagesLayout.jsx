@@ -68,8 +68,6 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
 
   const refreshChatHandler = () => {
     fetchAllRoomsMessages();
-
-    console.log("completed", 45);
   }
 
   const openChatWindow = async (index, roomId) => {
@@ -188,11 +186,6 @@ const MessagesLayout = ({ rooms, ownUsername, otherUsername }) => {
                 style={{ color: "black" }}
                 onClick={() => openChatWindow(index, room._id)}
               >
-                {/* {otherUsername[index].otherUsername}
-                <br />
-                <span style={{ color: "#616161", fontSize: "14px" }}>
-                  {getLastMessage(room._id)}
-                </span> */}
                 <div style={{ display: "flex", justifyContent: "space-between" }}>
                   <div>
                     {otherUsername[index].otherUsername}

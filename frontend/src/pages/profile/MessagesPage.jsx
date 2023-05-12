@@ -6,8 +6,6 @@ import { Container } from "react-bootstrap";
 const MessagesPage = () => {
   const data = useLoaderData();
 
-  console.log(data, 9)
-
   // 0 - rooms objects array
   // 1 - is the other username for each room
   // 2 is my own username
@@ -36,7 +34,6 @@ export const loader = async ({ request, params }) => {
 
   if (!userResponse.ok) {
     if (userResponse.status === 401) {
-      console.log("Not Authorized.");
       return redirect("/");
     }
 
@@ -115,8 +112,6 @@ export const loader = async ({ request, params }) => {
     loggedInUsername: loggedInUsername,
     loggedInId: loggedInId,
   });
-
-  console.log(responseData, 89);
 
   return responseData;
 };

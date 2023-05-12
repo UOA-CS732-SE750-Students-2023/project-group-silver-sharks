@@ -19,12 +19,7 @@ export const action = async ({params, request}) => {
 
     const data = await request.formData();
 
-    console.log("form data: " + data.get('username'));
-    console.log("form data: " + data.get('password'));
-
     // submit to backend...
-
-
     return redirect('/store/product-search');
 
 };

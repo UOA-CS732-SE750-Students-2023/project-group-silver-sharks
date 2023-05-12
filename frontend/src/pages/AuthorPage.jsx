@@ -12,31 +12,12 @@ const AuthorPage = () => {
     const userId = data[0]._id;
     const authorPageId = params.aid;
 
-    console.log("author id from the url: ", params.aid, 13); 
-
     let isOwnAccount = false; 
 
     // if it is the authors own page then dont render the message 
     if (userId === authorPageId){
         isOwnAccount = true;
     }
-
-    /*
-    const whovisit=()=>{
-        if(current_aid===authorpage_aid){
-            setRole('admin')
-        }
-        else{
-            setRole('user')
-        }
-
-    }
-    */
-
-    /*
-        {role === 'admin' && <AuthorLayout author={authorData}/>}
-        {role === 'user' && <AuthorLayoutUserview author={authorData}/>}
-    */
     
     return (
         <div>
@@ -77,11 +58,6 @@ export const loader = async ({request,params}) => {
         // react router will extract data from promise
     const author = await response.json();
 
-    console.log("################################################")
-    console.log("from inside the author page loader: ")
-    console.log(author)
-    console.log("################################################")
-
     accountsData.push(author);
 
     return accountsData;
@@ -101,8 +77,6 @@ export const action = async ({ params, request }) => {
     if (!response.ok){
         throw json({ message: 'Could not delete this account.'}, { status: 500 });
     }
-
-    console.log("account successfully deleted", 100);
 
     return redirect('/');
 }
