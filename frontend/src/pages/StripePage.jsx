@@ -10,7 +10,7 @@ const stripePromise = loadStripe(STRIPE_PUBLIC_KEY);
 function StripePage () {
   const cartData = useLoaderData(); 
 
-  console.log(cartData, 12);
+  console.log(cartData, 13);
   
 
   // Must wrap all UI involved with Stripe with Elements tag
@@ -35,6 +35,8 @@ export const loader = async ({request,params}) => {
   const data = await cartResponse.json();
 
   const cartContents = data.cartContents;
+
+  console.log("cartContent: ", data, 39);
 
 
   return cartContents;
