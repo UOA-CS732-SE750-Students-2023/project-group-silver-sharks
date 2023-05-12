@@ -48,7 +48,6 @@ const Cart = (props) => {
         const proceed = window.confirm('Are you sure?');
 
         if (proceed){
-            const id = 1;
             // trigger action programmatically using the useSubmit hook
             // params for function are data and other details like method
             submit({ id: productId }, { method: 'delete' });
