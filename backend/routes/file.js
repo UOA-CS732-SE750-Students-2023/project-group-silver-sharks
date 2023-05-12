@@ -4,11 +4,12 @@ import path from "path";
 import fs from "fs";
 import archiver from "archiver";
 import { StatusCodes } from "http-status-codes";
-import { addCoverImage, addImages, addDownloadFiles } from "../dao/file-dao.js";
+import { addCoverImage, addDownloadFiles } from "../dao/file-dao.js";
 import { Product } from "../models/productModel.js";
 
 const fileRouter = new express.Router();
 
+// multer to save cover images
 const coverImageStorage = multer.diskStorage({
   destination: function (req, file, callback) {
     callback(null, "./public/uploads");
@@ -23,25 +24,8 @@ const coverImageStorage = multer.diskStorage({
 
 const coverImageUpload = multer({ storage: coverImageStorage });
 
-// const imageStorage = multer.diskStorage({
-//   destination: function (req, file, callback) {
-//     callback(null, "./public/uploads");
-//   },
-//   filename: (function () {
-//     let fileCount = 1;
-
-//     return function (req, file, callback) {
-//       const productId = req.params.productId;
-//       const extension = path.extname(file.originalname);
-//       const newFilename = `${productId}-${fileCount}${extension}`;
-//       fileCount++;
-//       callback(null, newFilename);
-//     };
-//   })(),
-// });
-
-// const imageUpload = multer({ storage: imageStorage });
-
+// file counter function to ensure download files are saved with
+// a correct filename
 async function prepareFileCounter(req, res, next) {
   const productId = req.params.productId;
 
@@ -58,6 +42,7 @@ async function prepareFileCounter(req, res, next) {
   next();
 }
 
+// multer to save product download files
 const downloadFileStorage = multer.diskStorage({
   destination: function (req, file, callback) {
     callback(null, "./public/downloadFiles");
@@ -75,16 +60,16 @@ const downloadFileStorage = multer.diskStorage({
 
 const downloadFileUpload = multer({ storage: downloadFileStorage });
 
-// Endpoint 1: POST - Cover Image
+/**
+ * 1. POST - Save Product Cover Image
+ */
 fileRouter.post(
   "/upload-coverimage/:productId",
   coverImageUpload.array("files"),
   async (req, res) => {
-    console.log(req.params.productId);
-    console.log(req.files);
     const productId = req.params.productId;
     const fileType = path.extname(Object.values(req.files)[0].originalname);
-
+    // Only save valid file types
     if (
       fileType === ".jpeg" ||
       fileType === ".jpg" ||
@@ -92,7 +77,6 @@ fileRouter.post(
       fileType === ".gif" ||
       fileType === ".svg"
     ) {
-      console.log("correct file type");
       await addCoverImage(Object.values(req.files)[0], req.params.productId);
     } else {
       await fs.promises.unlink(
@@ -109,15 +93,14 @@ fileRouter.post(
   }
 );
 
-// Endpoint 2: POST - Upload files for Videos, Music, or Images
+/**
+ * 2: POST - Upload Product Download files for Videos, Music or Images
+ */
 fileRouter.post(
   "/upload-downloadfiles/:productId",
   prepareFileCounter,
   downloadFileUpload.array("files"),
   async (req, res) => {
-    console.log(req.params.productId);
-    console.log(req.files);
-
     const productId = req.params.productId;
     const product = await Product.findById(productId);
     const productCategory = product.category;
@@ -127,10 +110,9 @@ fileRouter.post(
       fileTypes.push(path.extname(file.originalname));
     }
 
-    console.log(fileTypes);
-
     if (productCategory === "Images") {
       for (const fileType of fileTypes) {
+        // Ensure file types are valid
         if (
           fileType != ".jpeg" &&
           fileType != ".jpg" &&
@@ -159,9 +141,9 @@ fileRouter.post(
       }
 
       await addDownloadFiles(req.files, req.params.productId);
-      console.log("correct file type");
     } else if (productCategory === "Music") {
       for (const fileType of fileTypes) {
+        // Ensure file types are valid
         if (fileType != ".mp3" && fileType != ".mp4" && fileType != ".wav") {
           let counter = 1;
           for (const file of req.files) {
@@ -184,9 +166,9 @@ fileRouter.post(
       }
 
       await addDownloadFiles(req.files, req.params.productId);
-      console.log("correct file type");
     } else if (productCategory === "Videos") {
       for (const fileType of fileTypes) {
+        // Ensure file types are valid
         if (fileType != ".mp4" && fileType != ".m4v") {
           let counter = 1;
           for (const file of req.files) {
@@ -209,7 +191,6 @@ fileRouter.post(
       }
 
       await addDownloadFiles(req.files, req.params.productId);
-      console.log("correct file type");
     }
 
     return res
@@ -218,9 +199,11 @@ fileRouter.post(
   }
 );
 
+/**
+ * 3: GET - Send Product Files to Client
+ */
 // Endpoint 3: GET - Download product files on client side
 fileRouter.get("/download/:productId", async (req, res) => {
-  console.log(req.params.productId);
   const productId = req.params.productId;
   const directoryPath = "./public/downloadFiles";
 
