@@ -179,6 +179,7 @@
       "amountSold": 3,
       "averageRating": 4,
       "priority": 1,
+      "reviews": ["645dd94581a77addf772d038"],
       "coverImage": "644caf3d41e8d663a938864e-coverimage.png",
       "files": [
         "644caf3d41e8d663a938864e-1-downloadFile.jpg",
@@ -196,6 +197,7 @@
       "averageRating": 1,
       "priority": 1,
       "coverImage": "644caf6741e8d663a9388655-coverimage.png",
+      "reviews": ["645dd6176b13f3be00365da6"],
       "files": [
         "644caf6741e8d663a9388655-1-downloadFile.jpg",
         "644caf6741e8d663a9388655-2-downloadFile.jpg",
@@ -274,6 +276,11 @@
       "amountSold": 19,
       "averageRating": 4.6666667,
       "priority": 2,
+      "reviews": [
+        "645dd6da7abe439f15b34077",
+        "645dd85b17a3ad1201ab90a7",
+        "645dd93381a77addf772cfe5"
+      ],
       "coverImage": "644ea78fe3c6082891a73f71-coverimage.jpg",
       "files": [
         "644ea78fe3c6082891a73f71-1-downloadFile.jpg",
@@ -305,6 +312,7 @@
       "amountSold": 33,
       "averageRating": 5,
       "priority": 1,
+      "reviews": ["645ddaef39d885158327b0b1"],
       "coverImage": "6459b5945af5d604f7458bca-coverimage.jpg",
       "files": [
         "6459b5945af5d604f7458bca-1-downloadFile.jpg",
@@ -351,6 +359,7 @@
       "amountSold": 66,
       "averageRating": 5,
       "priority": 1,
+      "reviews": ["645dd6656b13f3be00365efe"],
       "coverImage": "6459bc495af5d604f7458fa5-coverimage.jpg",
       "files": [
         "6459bc495af5d604f7458fa5-1-downloadFile.jpg",
@@ -381,6 +390,10 @@
       "amountSold": 6,
       "averageRating": 1.5,
       "priority": 2,
+      "reviews": [
+        "645dd6fc7abe439f15b34123",
+        "645dd793746b34b2dfbeec84"
+      ],
       "coverImage": "6459f4f8fd65a43d4087fb35-coverimage.jpg",
       "files": [
         "6459f4f8fd65a43d4087fb35-1-downloadFile.jpg",
@@ -397,6 +410,11 @@
       "amountSold": 11,
       "averageRating": 3.33333333,
       "priority": 3,
+      "reviews": [
+        "645dd6e77abe439f15b340cd",
+        "645dd784746b34b2dfbeec2a",
+        "645dd84617a3ad1201ab904c"
+      ],
       "coverImage": "6459f5bffd65a43d4087fba3-coverimage.gif",
       "files": [
         "6459f5bffd65a43d4087fba3-1-downloadFile.gif",
@@ -413,6 +431,7 @@
       "amountSold": 14,
       "averageRating": 3,
       "priority": 1,
+      "reviews": ["645dd6496b13f3be00365ea8"],
       "coverImage": "6459f71efd65a43d4087fc33-coverimage.gif",
       "files": [
         "6459f71efd65a43d4087fc33-1-downloadFile.gif",
@@ -458,10 +477,9 @@
       "amountSold": 12,
       "averageRating": 3,
       "priority": 2,
+      "reviews": ["645dd95881a77addf772d08b"],
       "coverImage": "645a3741d20c8c276b87ccd5-coverimage.jpg",
-      "files": [
-        "645a3741d20c8c276b87ccd5-1-downloadFile.mp4"
-      ]
+      "files": ["645a3741d20c8c276b87ccd5-1-downloadFile.mp4"]
     },
     {
       "_id": "645a3783b0850c23d901d7d1",
@@ -473,10 +491,12 @@
       "amountSold": 104,
       "averageRating": 4.5,
       "priority": 2,
+      "reviews": [
+        "645dd88517a3ad1201ab9159",
+        "645ddac639d885158327b05d"
+      ],
       "coverImage": "645a3783b0850c23d901d7d1-coverimage.jpg",
-      "files": [
-        "645a3783b0850c23d901d7d1-1-downloadFile.mp4"
-      ]
+      "files": ["645a3783b0850c23d901d7d1-1-downloadFile.mp4"]
     },
     {
       "_id": "645a382a560310e7e8e05a62",
@@ -488,10 +508,9 @@
       "amountSold": 2,
       "averageRating": 4,
       "priority": 1,
+      "reviews": ["645dd97081a77addf772d0de"],
       "coverImage": "645a382a560310e7e8e05a62-coverimage.jpg",
-      "files": [
-        "645a382a560310e7e8e05a62-1-downloadFile.mp4"
-      ]
+      "files": ["645a382a560310e7e8e05a62-1-downloadFile.mp4"]
     },
     {
       "_id": "645a3857db7cea723b0629a4",
@@ -503,6 +522,7 @@
       "amountSold": 2,
       "averageRating": 5,
       "priority": 1,
+      "reviews": ["645ddada39d885158327b087"],
       "coverImage": "645a3857db7cea723b0629a4-coverimage.jpg",
       "files": [
         "645a3857db7cea723b0629a4-1-downloadFile.mp4",
@@ -519,10 +539,9 @@
       "amountSold": 2,
       "averageRating": 5,
       "priority": 1,
+      "reviews": ["645dd62a6b13f3be00365dfc"],
       "coverImage": "645a38e1560310e7e8e05b1c-coverimage.jpg",
-      "files": [
-        "645a38e1560310e7e8e05b1c-1-downloadFile.mp4"
-      ]
+      "files": ["645a38e1560310e7e8e05b1c-1-downloadFile.mp4"]
     },
     {
       "_id": "645a417c560310e7e8e0669c",
@@ -534,9 +553,7 @@
       "price": 35,
       "priority": 1,
       "coverImage": "645a417c560310e7e8e0669c-coverimage.jpg",
-      "files": [
-        "645a417c560310e7e8e0669c-1-downloadFile.mp4"
-      ]
+      "files": ["645a417c560310e7e8e0669c-1-downloadFile.mp4"]
     },
     {
       "_id": "645a4207db7cea723b062a27",
@@ -548,10 +565,9 @@
       "averageRating": 4,
       "price": 14,
       "priority": 1,
+      "reviews": ["645dd7a8746b34b2dfbeed0f"],
       "coverImage": "645a4207db7cea723b062a27-coverimage.jpg",
-      "files": [
-        "645a4207db7cea723b062a27-1-downloadFile.mp4"
-      ]
+      "files": ["645a4207db7cea723b062a27-1-downloadFile.mp4"]
     },
     {
       "_id": "645a4208560310e7e8e06725",
@@ -563,10 +579,12 @@
       "amountSold": 30,
       "averageRating": 4,
       "priority": 1,
+      "reviews": [
+        "645dd7c4746b34b2dfbeed9b",
+        "645dd87217a3ad1201ab9102"
+      ],
       "coverImage": "645a4208560310e7e8e06725-coverimage.jpg",
-      "files": [
-        "645a4208560310e7e8e06725-1-downloadFile.mp3"
-      ]
+      "files": ["645a4208560310e7e8e06725-1-downloadFile.mp3"]
     },
     {
       "_id": "645a42b183a0116e16cbd65b",
@@ -578,10 +596,9 @@
       "amountSold": 10,
       "averageRating": 5,
       "priority": 3,
+      "reviews": ["645dd70a7abe439f15b3417a"],
       "coverImage": "645a42b183a0116e16cbd65b-coverimage.jpg",
-      "files": [
-        "645a42b183a0116e16cbd65b-1-downloadFile.mp3"
-      ]
+      "files": ["645a42b183a0116e16cbd65b-1-downloadFile.mp3"]
     },
     {
       "_id": "645a42d7560310e7e8e0680b",
@@ -593,10 +610,9 @@
       "amountSold": 1,
       "averageRating": 1,
       "priority": 3,
+      "reviews": ["645ddab739d885158327b02f"],
       "coverImage": "645a42d7560310e7e8e0680b-coverimage.jpg",
-      "files": [
-        "645a42d7560310e7e8e0680b-1-downloadFile.mp3"
-      ]
+      "files": ["645a42d7560310e7e8e0680b-1-downloadFile.mp3"]
     },
     {
       "_id": "645a43a950f323a88021c65e",
@@ -608,10 +624,9 @@
       "amountSold": 2,
       "averageRating": 5,
       "priority": 1,
+      "reviews": ["645dd6376b13f3be00365e52"],
       "coverImage": "645a43a950f323a88021c65e-coverimage.jpg",
-      "files": [
-        "645a43a950f323a88021c65e-1-downloadFile.mp3"
-      ]
+      "files": ["645a43a950f323a88021c65e-1-downloadFile.mp3"]
     },
     {
       "_id": "645a44cc3fd52091fea557cf",
@@ -623,6 +638,7 @@
       "amountSold": 22,
       "averageRating": 5,
       "priority": 3,
+      "reviews": ["645ddaa439d885158327b005"],
       "coverImage": "645a44cc3fd52091fea557cf-coverimage.jpg"
     },
     {
@@ -635,6 +651,7 @@
       "averageRating": 4,
       "price": 750,
       "priority": 2,
+      "reviews": ["645dd98781a77addf772d131"],
       "coverImage": "645a44ee5aa53872e55d290e-coverimage.png"
     },
     {
@@ -647,6 +664,7 @@
       "amountSold": 2,
       "averageRating": 4,
       "priority": 1,
+      "reviews": ["645dd89a17a3ad1201ab91b0"],
       "coverImage": "645a450b3fd52091fea55838-coverimage.jpg"
     },
     {
@@ -732,6 +750,10 @@
       "amountSold": 9,
       "averageRating": 2.5,
       "priority": 3,
+      "reviews": [
+        "645dd7197abe439f15b341d0",
+        "645dd7d3746b34b2dfbeedf5"
+      ],
       "coverImage": "645b762e402c2fa1d2147582-coverimage.jpg"
     }
   ],
@@ -813,9 +835,7 @@
       "_id": "645ceecf69efe970431140cd",
       "account1": "101628246745447861849",
       "account2": "100953959910033868204",
-      "messages": [
-        "645ceee369efe970431140f3"
-      ],
+      "messages": ["645ceee369efe970431140f3"],
       "createdAt": "2023-05-11T13:34:07.030+00:00",
       "updatedAt": "2023-05-11T13:34:28.042+00:00"
     }
