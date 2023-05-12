@@ -56,7 +56,7 @@ const SellingLayout = ({ sellingAssets }) => {
                   <img src={"http://localhost:3000/uploads/" + asset.coverImage} alt={asset.name} />
                 </div>
                 <div className="asset-details">
-                  {/* <h3>{asset.name}</h3> */}
+                  
                   <button onClick={() => navigate(`/store/product/${asset._id}`)}>{asset.name}</button>
                   <p>Price: ${asset.price.toFixed(2)}</p>
                   <p>Category: {asset.category}</p>
