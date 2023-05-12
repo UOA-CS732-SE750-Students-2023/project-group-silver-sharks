@@ -133,25 +133,6 @@ const averageRating2 = (averageRatingTemp / author.sellingProducts.length).toFix
               Showing {totalItems}&nbsp;{itemText} for sale
             </h2>
           </div>
-          <div>
-            <InputGroup>
-              <DropdownButton
-                variant="outline-secondary"
-                title={a_title}
-                id="sort-dropdown"
-                align="end"
-                onSelect={handleSelect}
-                className="a_dropdownbutton"
-              >
-                <Dropdown.Item href="#/price-asc" eventKey="plth">
-                  Price: Low to High
-                </Dropdown.Item>
-                <Dropdown.Item href="#/price-desc" eventKey="phtl">
-                  Price: High to Low
-                </Dropdown.Item>
-              </DropdownButton>
-            </InputGroup>
-          </div>
         </div>
         <div className="a_cardpart2">
           <ul className="row list-unstyled">
