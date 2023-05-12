@@ -319,7 +319,7 @@ const SellAssetLayout = ({ userId, userStripeId }) => {
                 onChange={priceChangeHandler}
                 required
                 style={{ width: "8%", borderRadius: '10px' }}
-                min="0"
+                min="1"
               />
               <span className="required-star-price">*</span>
             </div>
