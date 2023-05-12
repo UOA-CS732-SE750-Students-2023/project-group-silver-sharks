@@ -13,6 +13,7 @@ const LandingLayout = () => {
   const [opacity, setOpacity] = useState(0);
 
   useEffect(() => {
+    // Define useEffect hook to update state variables on scroll
     const onScroll = () => {
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
       const newOpacity = Math.min(scrollTop / 750, 1);

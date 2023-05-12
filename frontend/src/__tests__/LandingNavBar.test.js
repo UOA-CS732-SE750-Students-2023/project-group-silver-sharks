@@ -5,7 +5,7 @@ import '@testing-library/jest-dom'
 import {BrowserRouter} from "react-router-dom";
 describe('Test Ladning Nav Bar', () => {
   it('Check Text', () => {
-
+    // Render the LandingNavBar component and retrieve the getByText function
     const { getByText } = render(
       <LandingNavBar />
     );

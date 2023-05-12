@@ -167,6 +167,7 @@ const ProductLayout = ({
 
     const responseData = await response.json();
 
+  
 
     return responseData.inCart;
   };

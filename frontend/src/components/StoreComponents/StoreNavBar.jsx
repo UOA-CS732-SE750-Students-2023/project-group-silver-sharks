@@ -6,27 +6,29 @@ import './StoreNavBar.css';
 
 const StoreNavBar = (props) => { 
 
-    console.log("numItemsInCart: " + props.numItemsCart, 9)
-
+    
+    // Use the useRouteLoaderData hook to retrieve data for the current user
     const data = useRouteLoaderData('username-loader');
 
     const user = data[0]; 
 
-    console.log(user,15);
+    
 
     const navigate = useNavigate();
-
+    // Define a function to handle clicking the profile navigation icon
     const profileNavigationHandler = () => { 
         props.showProfileNavBar();
     };
 
     const sellAssetNavigationHandler = () => {
+        // Use the navigate function to navigate to the sell asset page
         navigate('/store/sell-asset');
     }
-
+    // Define a function to handle showing the cart
     const showCartHandler = () => {
         props.showCart();
     }
+    // Extract the number of items in the cart from props
     const itemsincart = props.numItemsCart;
 
     return (

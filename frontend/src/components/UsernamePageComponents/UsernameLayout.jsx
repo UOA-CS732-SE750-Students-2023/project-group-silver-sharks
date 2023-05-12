@@ -52,7 +52,6 @@ function UsernameLayout() {
       } 
     
     } else {
-      console.log(response);
       return navigate("/store/product-search");
     }
   };

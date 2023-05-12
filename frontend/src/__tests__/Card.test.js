@@ -20,7 +20,7 @@ describe('Test Card component', () => {
 
   it('passes priority prop correctly', () => {
     const testPriority = 'High';
-
+    // Render the Card component with the TestComponent nested inside and the test priority passed as a prop
     render(
       <Card priority={testPriority}>
         <TestComponent />

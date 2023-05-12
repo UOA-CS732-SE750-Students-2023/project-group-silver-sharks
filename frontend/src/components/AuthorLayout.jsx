@@ -28,9 +28,11 @@ const AuthorLayout = ({
 
 const averageRating2 = (averageRatingTemp / author.sellingProducts.length).toFixed(1);
 
+  // Calculating the total number of sellingProducts and assigning the appropriate text for the number of items
   const totalItems = author.sellingProducts.length;
   const itemText = totalItems > 1 ? "assets" : "asset";
 
+  // Defining a function to handle the selection of the sorting option
   const [a_title, setTitle] = useState("Sort by: Price: Low to High");
   const handleSelect = (eventKey) => {
     if (eventKey === "plth") {
@@ -39,7 +41,8 @@ const averageRating2 = (averageRatingTemp / author.sellingProducts.length).toFix
       setTitle("Sort by: Price: High to Low");
     }
   };
-
+  
+  // Defining a function to handle the deletion of an account
   const deleteAccountHandler = () => {
     const proceed = window.confirm("Are you sure?");
 

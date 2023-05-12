@@ -3,7 +3,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import './LandingNavBar.css';
 
 function LandingNavBar() {
-
+  // This is an event handler function that redirects the user to the sign-in page
   function signInHandler() {
     window.location.href = "http://localhost:3000/account/sign-in";
   }
